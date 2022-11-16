@@ -1,2 +1,14 @@
-<p>Hallo, ich bin user <%= @user.id %></p>
-<p>Mein Name ist <%= @user.to_json %></p>
+<div class="card">
+  <div class="card-body">
+    <h2 class="card-title"><%= @user.full_name %></h2>
+    <a class="card-subtitle mb-2 text-muted" href="mailto:<%= @user.email %>"><%= @user.email %></a>
+    
+    
+    <% if @user.description.present? %>
+        <hr>
+        <p class="card-text">
+        <%= @user.description %>
+        </p>
+    <% end %>
+  </div>
+</div>
