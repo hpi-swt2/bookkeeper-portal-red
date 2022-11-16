@@ -29,4 +29,17 @@ describe "User Edit Page", type: :feature do
     page.find('input[type=submit]').click
     expect(user.reload.email).to eq(new_mail)
   end
+
+  it "should allow editing the description" do
+    sign_in user
+    visit edit_user_registration_path
+    expect(page).to have_field('user[description]', with: user.description)
+
+    new_description = "#{user.description}_new"
+    fill_in 'user[description]', with: new_description
+    # Need to enter current password to make changes to user
+    fill_in 'user[current_password]', with: password
+    page.find('input[type=submit]').click
+    expect(user.reload.description).to eq(new_description)
+  end
 end

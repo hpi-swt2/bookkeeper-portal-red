@@ -9,5 +9,5 @@ Rails.application.routes.draw do
 
   # Profile routes
   get "/profiles/me", to: "profiles#show_me"
-  get "/profiles/:id", to: "profiles#show"
+  get "/profiles/:id", to: "profiles#show", as: "profile"
 end
