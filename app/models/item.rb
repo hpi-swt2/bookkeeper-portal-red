@@ -1,5 +1,7 @@
 # Model of the current item/asset
 class Item < ApplicationRecord
+  include ExportPdf
+
   validates :name, presence: true
 
   enum :status, inactive: 0, active: 1

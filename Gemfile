@@ -117,3 +117,9 @@ end
 group :production do
   gem "pg" # production database runs on PostgreSQL
 end
+
+# For QR-Code generation
+gem "rqrcode"
+# For pdf export
+gem "prawn"
+gem "prawn-qrcode"
