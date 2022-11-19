@@ -29,5 +29,6 @@ describe "User Profile Page", type: :feature do
   it "should show profiles of other users" do
     sign_in user
     visit profile_path(user2.id)
+    expect(page).to have_text(user2.full_name)
   end
 end
