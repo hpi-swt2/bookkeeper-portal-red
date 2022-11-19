@@ -18,7 +18,7 @@ class ItemsController < ApplicationController
 
   def download
     @item = Item.find(params[:id])
-    send_data @item.to_pdf(), filename: "item.pdf"
+    send_data @item.to_pdf, filename: "item.pdf"
   end
 
   # GET /items/new
