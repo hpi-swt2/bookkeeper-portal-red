@@ -46,7 +46,8 @@
   </table>
   <%# Main Button %>
   <%= link_to I18n.t("items.buttons.edit"), edit_item_path(@item) %> |
-  <%= link_to I18n.t("items.buttons.back"), items_path %>
+  <%= link_to I18n.t("items.buttons.back"), items_path %> |
+  <%= link_to "Download" , download_path(@item) %>
   <%# <%= button_to "Destroy this item", @item, method: :delete %>
   <div class="button-blocker">
   </div>

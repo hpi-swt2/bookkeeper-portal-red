@@ -1,5 +1,7 @@
 # Model of the current item/asset
 class Item < ApplicationRecord
+  include ExportPdf
+
   validates :name, presence: true
   validates :max_borrowing_days, numericality: { greater_than_or_equal_to: 0 }
 

@@ -16,6 +16,11 @@ class ItemsController < ApplicationController
     redirect_to new_user_session_path
   end
 
+  def download
+    @item = Item.find(params[:id])
+    send_data @item.to_pdf(), filename: "item.pdf"
+  end
+
   # GET /items/new
   def new
     @item = Item.new(item_type: params[:item_type])
