@@ -96,7 +96,7 @@ RSpec.describe "/items", type: :request do
         item = Item.create! valid_attributes
         patch item_url(item), params: { item: new_attributes }
         item.reload
-        skip("Add assertions for updated state")
+        expect(item.name).to eq(new_attributes[:name])
       end
 
       it "redirects to the item" do

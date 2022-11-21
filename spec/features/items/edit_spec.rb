@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "new item page", type: :feature do
+describe "edit item page", type: :feature do
     let(:item) do
         Item.create!(
             name: "Harry Potter",
