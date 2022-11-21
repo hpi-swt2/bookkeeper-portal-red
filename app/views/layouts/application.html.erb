@@ -1,22 +1,62 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Bookkeeper Red</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Bookkeeper Red</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %> <%# load Sprockets/Rails asset pipeline %>
-    <%= javascript_importmap_tags %> <%# load JS from importmaps %>
-  </head>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %> <%# load Sprockets/Rails asset pipeline %>
+  <%= javascript_importmap_tags %> <%# load JS from importmaps %>
+</head>
 
-  <body>
-    <%# https://getbootstrap.com/docs/5.0/layout/containers/ %>
-    <%# https://getbootstrap.com/docs/5.0/utilities/spacing/ %>
-    <div class="container mt-2"> <%# mt-2 == margin-top: 2*spacer %>
-      <% if notice %><p class="alert alert-success"><%= notice %></p><% end %>
-      <% if alert %><p class="alert alert-danger"><%= alert %></p><% end %>
-      <%= yield %>
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-primary">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand text-white" href="#">BookKeeper Team Red</a>
+    <div class="collapse navbar-collapse bg-primary" id="navbarToggle">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Meine Assets</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Meine Gruppen</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Kategorien</a>
+        </li>
+      </ul>
+
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-light" type="submit">Search</button>
+      </form>
     </div>
-  </body>
+  </div>
+</nav>
+
+
+<body>
+<div class="container mt-2"> <%# mt-2 == margin-top: 2*spacer %>
+  <% if notice %><p class="alert alert-success"><%= notice %></p>
+  <% end %>
+  <% if alert %><p class="alert alert-danger"><%= alert %></p>
+  <% end %>
+  <%= yield %>
+</div>
+</body>
+
+<footer class="text-center text-lg-start text-muted mt-5 bg-primary mb-0 pb-0">
+  <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+    <div class="text-center p-4">
+      <%= image_tag "logo-hpi.png", height: 100 %>
+    </div>
+  </section>
+</footer>
+
 </html>
