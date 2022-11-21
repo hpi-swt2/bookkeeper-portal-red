@@ -33,6 +33,8 @@ $warning: $yellow;
 $danger: $red;
 $light: #FFFFFF;
 
+$enable-cssgrid: true;
+
 @import 'bootstrap';
 // Bootstrap icons: https://icons.getbootstrap.com/
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
