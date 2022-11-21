@@ -22,7 +22,7 @@ RSpec.describe "/items", type: :request do
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    { name: "", description: "Item 1 description" }
   }
 
   describe "GET /index" do
@@ -89,14 +89,14 @@ RSpec.describe "/items", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        { name: "Item 2", description: "Item 2 description" }
       }
 
       it "updates the requested item" do
         item = Item.create! valid_attributes
         patch item_url(item), params: { item: new_attributes }
         item.reload
-        skip("Add assertions for updated state")
+        expect(item.name).to eq(new_attributes[:name])
       end
 
       it "redirects to the item" do
