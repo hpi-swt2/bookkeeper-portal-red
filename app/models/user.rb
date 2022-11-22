@@ -6,4 +6,9 @@ class User < ApplicationRecord
 
   attribute :full_name, :string, default: ""
   attribute :description, :string, default: ""
+  
+  has_many :memberships
+  has_many :groups, through: :memberships
+  has_many :lendings
+  has_many :reservations
 end
