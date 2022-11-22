@@ -9,24 +9,42 @@
 A web application for keeping track of items and loaning them out, written in [Ruby on Rails](https://rubyonrails.org/).
 Created in the [Scalable Software Engineering course](https://hpi.de/plattner/teaching/winter-term-2022-23/scalable-software-engineering.html) at the HPI in Potsdam.
 
-## Development Setup
-Ensure you have access to a Unix-like environment through:
+## Development Guide
 
-* Your local Linux / MacOS installation
-* Using the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install) (WSL)
-* Using a VM, e.g. [Virtualbox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/)
-* Using a [docker](https://docs.microsoft.com/en-us/windows/wsl/install) container
+### Commit Guideline
 
-### Application Setup
-* `ruby --version` Ensure Ruby v2.7.4 using [rbenv](https://github.com/rbenv/rbenv) or [RVM](http://rvm.io/)
-* `sqlite3 --version` Ensure [SQLite3 database installation](https://guides.rubyonrails.org/getting_started.html#installing-sqlite3)
-* `bundle --version` Ensure [Bundler](https://rubygems.org/gems/bundler) installation (`gem install bundler`)
-* `bundle config set without 'production' && bundle install` Install gem dependencies from `Gemfile`
-* `rails db:migrate` Setup the database, run migrations
-* `rails assets:precompile && rails s` Compile assets & start dev server (default port _3000_)
-* `bundle exec rspec --format documentation` Run the tests (using [RSpec](http://rspec.info/) framework)
+We use the [Conventional Commits Specification v1.0.0](https://www.conventionalcommits.org/en/v1.0.0/) for writing commit messages. Please refer to the website for specific instructions.
 
-## Developer Guide
+Since we don't have many different modules / services, we do not specify a commit scope (write `fix: ...` instead of `fix(module): ...`).
+
+We use the recommended commit types from the specification, namely:
+
+* `feat:` A code change that introduces a **new feature** to the codebase (this correlates with MINOR in Semantic Versioning)
+* `fix:` A code change that **patches a bug** in your codebase (this correlates with PATCH in Semantic Versioning)
+* `refactor:` A code change that **neither fixes a bug nor adds a feature**
+* `build:` Changes that **affect the build system** or external dependencies (example scopes: pip, npm)
+* `ci:` Changes to **CI configuration** files and scripts (examples: GitHub Actions)
+* `docs:` **Documentation only** changes
+* `perf:` A code change that **improves performance**
+* `test:` Adding missing **tests** or correcting existing tests
+
+### Git Workflow
+
+We practice [Scaled Trunk-Based Development](https://trunkbaseddevelopment.com/#scaled-trunk-based-development) with a `dev` branch as trunk. Hence our feature branches are short-lived and merged back into `dev` as soon as possible. After consultation with POs, `dev` can be merged into `main` at any time to create a production release.
+
+Our branches are named `{team-initals}/{feature-name}`, eg. `gdm/print-qrcode`. This allows folder grouping by team and easy identification of the feature being worked on.
+
+Each PR requires at least one approved review before it can be merged into `dev`. Each PR branch must be rebased on `dev` before merging (or have `dev` merged into the PR branch before).
+
+### Code & Style Guide
+
+We follow the [Ruby Style Guide](https://rubystyle.guide/), which is enforced by RuboCop. Please use an editor extension to ensure that Rubocop offenses are highlighted directly. 
+
+Rubocop also allows to automatically fix offenses:
+
+```shell
+bundle exec rubocop --auto-correct
+```
 
 ### Employed Frameworks
 * [Stimulus JS](https://stimulus.hotwired.dev) as the default JavaScript framework, augmenting HTML
@@ -53,11 +71,6 @@ Ensure you have access to a Unix-like environment through:
 * `bundle exec rspec --profile` Examine run time of tests
 * Code coverage reports are written to `coverage/index.html` after test runs (by [simplecov](https://github.com/simplecov-ruby/simplecov))
 
-### Linting
-* `bundle exec rubocop` Use the static code analyzer [RuboCop](https://github.com/rubocop-hq) to find possible issues (based on the community [Ruby style guide](https://github.com/rubocop-hq/ruby-style-guide)).
-  * `--auto-correct` to fix what can be fixed automatically.
-  * RuboCop's behavior can be [controlled](https://docs.rubocop.org/en/latest/configuration) using `.rubocop.yml`
-
 ### Debugging
 * `debug` anywhere in the code to access an interactive console
 * `save_and_open_page` within a feature test to inspect the state of a webpage in a browser
@@ -69,3 +82,20 @@ Ensure you have access to a Unix-like environment through:
 ### Generating
 * `rails g migration DoSomething` Create migration _db/migrate/*_DoSomething.rb_
 * `rails generate` takes a `--pretend` / `-p` option that shows what will be generated without changing anything
+
+## Local Development Setup
+Ensure you have access to a Unix-like environment through:
+
+* Your local Linux / MacOS installation
+* Using the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install) (WSL)
+* Using a VM, e.g. [Virtualbox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/)
+* Using a [docker](https://docs.microsoft.com/en-us/windows/wsl/install) container
+
+### Application Setup
+* `ruby --version` Ensure Ruby v2.7.4 using [rbenv](https://github.com/rbenv/rbenv) or [RVM](http://rvm.io/)
+* `sqlite3 --version` Ensure [SQLite3 database installation](https://guides.rubyonrails.org/getting_started.html#installing-sqlite3)
+* `bundle --version` Ensure [Bundler](https://rubygems.org/gems/bundler) installation (`gem install bundler`)
+* `bundle config set without 'production' && bundle install` Install gem dependencies from `Gemfile`
+* `rails db:migrate` Setup the database, run migrations
+* `rails assets:precompile && rails s` Compile assets & start dev server (default port _3000_)
+* `bundle exec rspec --format documentation` Run the tests (using [RSpec](http://rspec.info/) framework)
