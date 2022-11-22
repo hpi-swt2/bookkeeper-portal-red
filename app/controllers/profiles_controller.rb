@@ -4,7 +4,6 @@ class ProfilesController < ApplicationController
   end
 
   def show_me
-    @user = User.find(current_user.id)
-    render :show
+    redirect_to profile_path(current_user)
   end
 end
