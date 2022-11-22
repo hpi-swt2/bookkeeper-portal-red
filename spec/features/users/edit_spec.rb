@@ -30,7 +30,7 @@ describe "User Edit Page", type: :feature do
     expect(user.reload.email).to eq(new_mail)
   end
 
-  it "should allow editing the description" do
+  it "allows editing the description" do
     sign_in user
     visit edit_user_registration_path
     expect(page).to have_field('user[description]', with: user.description)
