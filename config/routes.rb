@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
     # Profile routes
     get "/profiles/me", to: "profiles#show_me"
-    get "/profiles/:id", to: "profiles#show", as: "profile"
+    get "/profiles/:id", to: "profiles#show", as: :profile
 
     # Defines the root path route ("/")
     root "landing_page#index"
