@@ -15,6 +15,7 @@
               <h5 class="card-title text-truncate"><%= item.name %></h5>
               <p class="card-text text-truncate"><%= item.description %></p>
               <%= link_to "Show item", item, class: "card-link" %>
+              <%= link_to "Edit item", edit_item_path(item), class: "card-link" %>
             </div>
           </div>
           </div>
