@@ -427,11 +427,8 @@ DEPENDENCIES
   prawn-qrcode
   puma (~> 5.0)
   rails (~> 7.0.4)
-<<<<<<< HEAD
   rails-i18n
-=======
   rqrcode
->>>>>>> 91b4fd8 (feat: add functionality to print a QR-Code for an asset)
   rspec-github
   rspec-rails (~> 6.0.0)
   rubocop (~> 1.38)
