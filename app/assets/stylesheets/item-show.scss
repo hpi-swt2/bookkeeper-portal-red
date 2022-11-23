@@ -3,20 +3,18 @@ $primary: #e2681e;
 // Bootstrap icons: https://icons.getbootstrap.com/
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
 
-.imagecard-attributes {
+.large-screen {
   display: none;
 }
-@include media-breakpoint-up(xl) {
-  .imagecard-attributes {
-    display: block;
-  }
-}
 
-.descriptioncard-attributes {
+.small-screen {
   display: block;
 }
 @include media-breakpoint-up(xl) {
-  .descriptioncard-attributes {
+  .small-screen {
     display: none;
+  }
+  .large-screen {
+    display: block;
   }
 }
