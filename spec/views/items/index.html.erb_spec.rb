@@ -14,5 +14,5 @@ RSpec.describe "items/index", type: :view do
     ])
   end
 
-  pending "test generated html"
+  pending "test rendered html"
 end
