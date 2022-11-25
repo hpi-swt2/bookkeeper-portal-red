@@ -4,16 +4,18 @@ class ApplicationController < ActionController::Base
 
     private
 
-    def default_url_options
-        if I18n.locale != I18n.default_locale
-            { locale: I18n.locale }
-        else
-            {}
-        end
-    end
+    # def default_url_options()
+    #     { :locale => ((I18n.locale == I18n.default_locale) ? nil : I18n.locale) }
+    # end
 
     def set_locale
-        I18n.locale = extract_locale || I18n.default_locale
+        if cookies[:my_locale] && I18n.available_locales.include?(cookies[:my_locale].to_sym)
+          l = cookies[:my_locale].to_sym
+        else
+          l = I18n.default_locale
+          cookies.permanent[:my_locale] = l
+        end
+        I18n.locale = l
     end
 
     def extract_locale
