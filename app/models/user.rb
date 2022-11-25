@@ -8,4 +8,9 @@ class User < ApplicationRecord
   has_many :groups, through: :memberships
   has_many :lendings
   has_many :reservations
+
+  def is_admin_in?(group)
+    own_groups = groups.where(memberships: { role: :admin })
+    own_groups.include? group
+  end
 end

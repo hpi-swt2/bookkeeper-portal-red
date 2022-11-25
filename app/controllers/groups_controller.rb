@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: %i[ show edit update destroy ]
+  before_action :assure_admin, only: %i[ edit update destroy ]
 
   # GET /groups or /groups.json
   def index
@@ -58,6 +59,19 @@ class GroupsController < ApplicationController
   end
 
   private
+    def assure_admin
+      if !user_signed_in?
+        redirect_to new_user_session_path, notice: "You need to log in first."
+        return false
+      else
+        if !current_user.is_admin_in? @group
+          redirect_to group_url(@group), notice: "Only admins are allowed to modify this group."
+          return false
+        end
+      end
+      return true
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_group
       @group = Group.find(params[:id])
