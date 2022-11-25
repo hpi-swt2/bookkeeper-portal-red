@@ -59,26 +59,25 @@ class GroupsController < ApplicationController
   end
 
   private
-    def assure_admin
-      if !user_signed_in?
-        redirect_to new_user_session_path, notice: "You need to log in first."
-        return false
-      else
-        if !current_user.is_admin_in? @group
-          redirect_to group_url(@group), notice: "Only admins are allowed to modify this group."
-          return false
-        end
-      end
-      return true
-    end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_group
-      @group = Group.find(params[:id])
+  def assure_admin
+    if !user_signed_in?
+      redirect_to new_user_session_path, notice: "You need to log in first."
+      return false
+    elsif !current_user.is_admin_in? @group
+      redirect_to group_url(@group), notice: "Only admins are allowed to modify this group."
+      return false
     end
+    true
+  end
 
-    # Only allow a list of trusted parameters through.
-    def group_params
-      params.require(:group).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_group
+    @group = Group.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def group_params
+    params.require(:group).permit(:name)
+  end
 end

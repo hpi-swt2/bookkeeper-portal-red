@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "groups/new", type: :view do
-  before(:each) do
+  before do
     assign(:group, Group.new(
-      name: "MyString"
-    ))
+                     name: "MyString"
+                   ))
   end
 
   it "renders new group form" do

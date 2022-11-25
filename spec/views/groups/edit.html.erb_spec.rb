@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe "groups/edit", type: :view do
-  let(:group) {
+  let(:group) do
     Group.create!(
       name: "MyString"
     )
-  }
+  end
 
-  before(:each) do
+  before do
     assign(:group, group)
   end
 
