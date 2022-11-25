@@ -2,7 +2,7 @@ class Item < ApplicationRecord
   validates :name, presence: true
   enum :status, inactive: 0, active: 1
 
-  has_many :lendings, dependent: nil
+  has_many :lendings, dependent: :destroy
   has_many :reservations, dependent: :destroy
   has_many :permissions, dependent: :destroy
   has_many(
