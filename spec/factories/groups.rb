@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :group do
-    membership { nil }
-    name { "MyString" }
+    name { "Group Name" }
   end
 end

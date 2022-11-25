@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :item do
-    name { "MyString" }
-    description { "MyString" }
-    group { nil}
+    name { "Item Name" }
+    description { "Item Description" }
   end
 end
