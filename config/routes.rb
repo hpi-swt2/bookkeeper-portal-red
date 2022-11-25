@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # Defines the root path route ("/")
+  match 'lang/:locale', to: 'index#change_locale', as: :change_locale, via: [:get]
   
   root "landing_page#index"
-  match 'lang/:locale', to: 'index#change_locale', as: :change_locale, via: [:get]
   resources :items
   devise_for :users
   
