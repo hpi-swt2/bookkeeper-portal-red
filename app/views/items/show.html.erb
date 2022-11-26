@@ -3,9 +3,9 @@
 <%= render @item %>
 
 <div>
-  <%if @item.is_available then 
+  <%if @item.is_lendable or @item.is_reserved_by(user) then 
       text = "Ausleihen"
-    elsif @item.is_borrowed_by_me then
+    elsif @item.is_borrowed_by(user) then
       text = "Zurückgeben"
     else 
       text = "Nicht verfügbar"

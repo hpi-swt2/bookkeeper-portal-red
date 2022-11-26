@@ -30,4 +30,11 @@ RSpec.describe Item, type: :model do
     lending = FactoryBot.create(:lending, item_id: item.id, user_id: user.id)
     expect(item.is_borrowed_by(user)).to be true
   end
+
+  it "should be lendable when no lending exists with without a completed_date" do
+    lending = FactoryBot.create(:lending, item_id: item.id, user_id: user.id, completed_at: nil)
+    expect(item.is_lendable).to be false
+    lending.completed_at = DateTime.now
+    expect(item.is_lendable).to be true
+  end
 end
