@@ -23,4 +23,13 @@ class Item < ApplicationRecord
     through: :permissions,
     source: :group
   )
+
+  def is_borrowed_by(user)
+    return Lending.where(user_id: user.id, item_id: id).exists?
+  end
+
+
+  def is_available
+    return true
+  end
 end

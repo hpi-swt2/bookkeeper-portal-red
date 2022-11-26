@@ -3,6 +3,17 @@
 <%= render @item %>
 
 <div>
+  <%if @item.is_available then 
+      text = "Ausleihen"
+    elsif @item.is_borrowed_by_me then
+      text = "Zurückgeben"
+    else 
+      text = "Nicht verfügbar"
+    end 
+  %>
+  <%= button_to text, @item, notice: "Placholder method" %>
+
+
   <%= link_to "Edit this item", edit_item_path(@item) %> |
   <%= link_to "Back to items", items_path %>
 

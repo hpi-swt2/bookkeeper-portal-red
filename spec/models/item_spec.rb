@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Item, type: :model do
   let(:item) { FactoryBot.create(:item) }
+  let(:user) { FactoryBot.create(:user) }
+
 
   it "can have multiple groups with different permissions" do
     group1 = FactoryBot.create(:group)
@@ -22,5 +24,10 @@ RSpec.describe Item, type: :model do
 
     expect(item.lender_groups.count).to eq(1)
     expect(item.lender_groups.first).to eq(group3)
+  end
+
+  it "should be able to determine if it is borrowed by the current user" do
+    lending = FactoryBot.create(:lending, item_id: item.id, user_id: user.id)
+    expect(item.is_borrowed_by(user)).to be true
   end
 end
