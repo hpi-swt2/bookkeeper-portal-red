@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41f47b5b-2bcb-4a72-8211-8e0720a788ae" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/views/items/_item_largescreen.html.erb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/views/items/_item_smallscreen.html.erb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spec/features/items/show_spec.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/assets/stylesheets/application.scss" beforeDir="false" afterPath="$PROJECT_DIR$/app/assets/stylesheets/application.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/assets/stylesheets/item-show.scss" beforeDir="false" afterPath="$PROJECT_DIR$/app/assets/stylesheets/item-show.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/items/_item.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/items/_item.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/items/_itemcopy.html.erb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/items/show.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/items/show.html.erb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,16 +28,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/konra/Nextcloud/Documents/Studium/Semester5/SSE/bookkeeper-portal-red/app/views/items",
-    "nodejs_package_manager_path": "npm",
-    "ruby.rails.projectView.checked": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/konra/Nextcloud/Documents/Studium/Semester5/SSE/bookkeeper-portal-red/app/views/items&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ruby.rails.projectView.checked&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\konra\Nextcloud\Documents\Studium\Semester5\SSE\bookkeeper-portal-red\app\views\items" />
@@ -145,7 +151,10 @@
       <workItem from="1668801730427" duration="28000" />
       <workItem from="1669202099255" duration="118000" />
       <workItem from="1669202284242" duration="77000" />
-      <workItem from="1669202363754" duration="8871000" />
+      <workItem from="1669202363754" duration="9194000" />
+      <workItem from="1669301882010" duration="7000" />
+      <workItem from="1669464131093" duration="173000" />
+      <workItem from="1669464359262" duration="9903000" />
     </task>
     <servers />
   </component>

@@ -1,7 +1,4 @@
-$primary: #e2681e;
-@import "bootstrap";
-// Bootstrap icons: https://icons.getbootstrap.com/
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
+@import "application.scss";
 
 .large-screen {
   display: none;
@@ -17,4 +14,19 @@ $primary: #e2681e;
   .large-screen {
     display: block;
   }
+}
+
+.item-action-button
+{
+  position: fixed;
+  margin-top: auto;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  border-radius: 0px;
+  height: 4rem;
+}
+.button-blocker{
+  height: 4rem;
 }
