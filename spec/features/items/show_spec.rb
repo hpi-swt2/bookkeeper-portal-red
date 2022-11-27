@@ -7,10 +7,11 @@ describe "show item page", type: :feature do
       description: "Author: J.K.Rowling"
     )
   end
-  [[400,600], [1000,2000]].each do |screen_size|
-    context 'with multiple screensizes' do
+  context 'with multiple screensizes', driver: :selenium_chrome, :ui => true do
+    [[400,600], [1000,2000]].each do |screen_size|
       before(:each) do
-        Capybara.current_session.driver.browser.manage.window.resize_to(screen_size[0], screen_size[1]) if Capybara.current_session.driver.browser.respond_to? 'manage'
+        Capybara.current_session.current_window.resize_to(screen_size[0], screen_size[1])
+        #driven_by :selenium, using: :firefox, screen_size: screen_size
         item = :item
       end
       it "should render succesfully and show item details" do
@@ -19,5 +20,10 @@ describe "show item page", type: :feature do
         expect(page).to have_text(:visible,item.description)
       end
     end
+  end
+  it "should render succesfully and show item details" do
+    visit item_path(item)
+    expect(page).to have_text(:visible,item.name)
+    expect(page).to have_text(:visible,item.description)
   end
 end
