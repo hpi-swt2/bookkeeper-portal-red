@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41f47b5b-2bcb-4a72-8211-8e0720a788ae" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/ci_cd.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci_cd.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spec/features/items/show_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/features/items/show_spec.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +150,7 @@
       <workItem from="1669464359262" duration="10186000" />
       <workItem from="1669547720546" duration="2741000" />
       <workItem from="1669550675107" duration="463000" />
-      <workItem from="1669582064333" duration="1216000" />
+      <workItem from="1669582064333" duration="1709000" />
     </task>
     <servers />
   </component>
