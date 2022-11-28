@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "items/new", type: :view do
-  before(:each) do
+  before do
     assign(:item, Item.new(
-      name: "MyString",
-      description: "MyString"
-    ))
+                    name: "MyString",
+                    description: "MyString"
+                  ))
   end
 
   it "renders new item form" do

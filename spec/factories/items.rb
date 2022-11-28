@@ -2,6 +2,6 @@ FactoryBot.define do
   factory :item do
     name { "MyString" }
     description { "MyString" }
-    group { nil}
+    group { nil }
   end
 end

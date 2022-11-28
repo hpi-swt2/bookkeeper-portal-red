@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41f47b5b-2bcb-4a72-8211-8e0720a788ae" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/ci_cd.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci_cd.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
