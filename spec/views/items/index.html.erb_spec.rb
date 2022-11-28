@@ -1,17 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe "items/index", type: :view do
-  before(:each) do
+  before do
     assign(:items, [
-      Item.create!(
-        name: "Name",
-        description: "Description"
-      ),
-      Item.create!(
-        name: "Name",
-        description: "Description"
-      )
-    ])
+             Item.create!(
+               name: "Name",
+               description: "Description"
+             ),
+             Item.create!(
+               name: "Name",
+               description: "Description"
+             )
+           ])
   end
 
   it "renders a list of items" do

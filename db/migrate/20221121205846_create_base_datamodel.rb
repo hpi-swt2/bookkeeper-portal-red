@@ -34,6 +34,6 @@ class CreateBaseDatamodel < ActiveRecord::Migration[7.0]
     end
 
     add_column :items, :status, :integer, null: false, default: 0 # enum, see Item model (default: inactive)
-    add_reference :items, :group, foreign_key: true 
+    add_reference :items, :group, foreign_key: true
   end
 end

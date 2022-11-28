@@ -17,13 +17,13 @@ RSpec.describe "/items", type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Item. As you add validations to Item, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
+  let(:valid_attributes) do
     { name: "Item 1", description: "Item 1 description" }
-  }
+  end
 
-  let(:invalid_attributes) {
+  let(:invalid_attributes) do
     { name: "", description: "Item 1 description" }
-  }
+  end
 
   describe "GET /index" do
     it "renders a successful response" do
@@ -59,9 +59,9 @@ RSpec.describe "/items", type: :request do
   describe "POST /create" do
     context "with valid parameters" do
       it "creates a new Item" do
-        expect {
+        expect do
           post items_url, params: { item: valid_attributes }
-        }.to change(Item, :count).by(1)
+        end.to change(Item, :count).by(1)
       end
 
       it "redirects to the created item" do
@@ -72,11 +72,10 @@ RSpec.describe "/items", type: :request do
 
     context "with invalid parameters" do
       it "does not create a new Item" do
-        expect {
+        expect do
           post items_url, params: { item: invalid_attributes }
-        }.to change(Item, :count).by(0)
+        end.not_to change(Item, :count)
       end
-
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
         post items_url, params: { item: invalid_attributes }
@@ -88,9 +87,9 @@ RSpec.describe "/items", type: :request do
 
   describe "PATCH /update" do
     context "with valid parameters" do
-      let(:new_attributes) {
+      let(:new_attributes) do
         { name: "Item 2", description: "Item 2 description" }
-      }
+      end
 
       it "updates the requested item" do
         item = Item.create! valid_attributes
@@ -121,9 +120,9 @@ RSpec.describe "/items", type: :request do
   describe "DELETE /destroy" do
     it "destroys the requested item" do
       item = Item.create! valid_attributes
-      expect {
+      expect do
         delete item_url(item)
-      }.to change(Item, :count).by(-1)
+      end.to change(Item, :count).by(-1)
     end
 
     it "redirects to the items list" do
