@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :assure_signed_in
+  before_action :assure_signed_in, except: %i[ show index ]
   before_action :set_group, only: %i[ show edit update destroy ]
   before_action :assure_admin, only: %i[ edit update destroy ]
 
@@ -53,6 +53,9 @@ class GroupsController < ApplicationController
 
   # DELETE /groups/1 or /groups/1.json
   def destroy
+    @group.memberships.each do |membership|
+      membership.destroy
+    end
     @group.destroy
 
     respond_to do |format|
