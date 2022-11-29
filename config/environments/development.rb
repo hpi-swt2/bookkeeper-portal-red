@@ -73,7 +73,8 @@ Rails.application.configure do
     authentication:       'plain',
     enable_starttls_auto: true,
     open_timeout:         5,
-    read_timeout:         5 }
+    read_timeout:         5
+  }
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
