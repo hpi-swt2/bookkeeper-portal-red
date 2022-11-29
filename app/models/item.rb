@@ -41,13 +41,13 @@ class Item < ApplicationRecord
   end
 
   def get_button_text(user)
-    if (is_lendable) then
-      # TODO add: or @item.is_reserved_by(@user)
-        return "Ausleihen"
-      elsif is_borrowed_by(user) then
-        return "Zurückgeben"
-      else
-        return "Nicht verfügbar"
-    end
+    return "Ausleihen" if (is_lendable)
+        # TODO: add: or @item.is_reserved_by(@user)
+      
+     is_borrowed_by(user)
+        "Zurückgeben"
+    else
+        "Nicht verfügbar"
+    
   end
 end
