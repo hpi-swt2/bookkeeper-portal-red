@@ -25,20 +25,17 @@ class Item < ApplicationRecord
   )
 
   def is_lendable
-    return !Lending.where(item_id: id, completed_at: nil).exists?
+    !Lending.exists?(item_id: id, completed_at: nil)
   end
-
 
   def is_reserved_by(user)
     user_reservations = Reservation.where(user_id: user.id, item_id: id)
-    if user_reservations.is_empty then
-      return false
-    end
-    return user_reservations.where("DATE(start_at) < now AND now <= DATE(ends_at)", now: Date.today).exists?
-    
+    return false if user_reservations.is_empty
+
+    user_reservations.exists?(["DATE(start_at) < now AND now <= DATE(ends_at)", { now: Date.today }])
   end
 
   def is_borrowed_by(user)
-    return Lending.where(user_id: user.id, item_id: id).exists?
+    Lending.exists?(user_id: user.id, item_id: id)
   end
 end

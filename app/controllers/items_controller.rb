@@ -8,9 +8,9 @@ class ItemsController < ApplicationController
 
   # GET /items/1 or /items/1.json
   def show
-    if current_user.nil?  then
-      redirect_to new_user_session_path
-    end
+    return unless current_user.nil?
+
+    redirect_to new_user_session_path
   end
 
   # GET /items/new
@@ -38,24 +38,23 @@ class ItemsController < ApplicationController
   end
 
   def update_lending
-
     @item2 = Item.find(params[:item_id])
 
     @user = current_user
 
     @lending = Lending.where(item_id: @item2.id, completed_at: nil)[0]
     if @lending.nil?
-      @lending = Lending.new()
+      @lending = Lending.new
       @lending.started_at = DateTime.now
       @lending.due_at = @lending.started_at + @item2.max_borrowing_period
       @lending.user = @user
       @lending.item = @item2
       @lending.completed_at = nil
       msg = "Item was successfully borrowed"
-    else 
+    else
       @lending.completed_at = DateTime.now
       msg = "Item was successfully returned"
-    end 
+    end
 
     respond_to do |format|
       if @lending.save
@@ -92,13 +91,14 @@ class ItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_item
-      @item = Item.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def item_params
-      params.require(:item).permit(:name, :description, :max_borrowing_period)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def item_params
+    params.require(:item).permit(:name, :description, :max_borrowing_period)
+  end
 end

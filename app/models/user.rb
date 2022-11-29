@@ -10,15 +10,11 @@ class User < ApplicationRecord
   has_many :reservations, dependent: :destroy
 
   def has_lending_rights(item)
-    
     item_groups = item.lender_groups
-    
-    groups.each do |user_group|
-      if item_groups.include? user_group then
-        return true
-      end
-    end
-    return false
- end
 
+    groups.each do |user_group|
+      return true if item_groups.include? user_group
+    end
+    false
+  end
 end
