@@ -42,8 +42,12 @@
                 <%# name%>
                 <h1 class="col-sm-7"><%= @item.name %></h1>
                 <%# available badge%>
-                <div class="col-sm-2 ms-auto">
-                  <span class="badge bg-secondary bg-success ">Available</span>
+                <div class="col-sm-3 ms-auto">
+                  <% if @item.is_lendable%>
+                    <span class="badge bg-success ">Available</span>
+                  <% else %>
+                    <span class="badge bg-primary ">Not Available</span>
+                  <% end %>
                 </div>
               </div>
               <div class="row">
@@ -59,8 +63,13 @@
 
           </div>
           <%# Button %>
+          <%= link_to "Edit this item", edit_item_path(@item) %> |
+          <%= link_to "Back to items", items_path %>
+          <%# <%= button_to "Destroy this item", @item, method: :delete %>
           <div class="d-flex justify-content-center w-100 mb-5">
-            <button class="mx-auto btn btn-primary "> Reservieren</button>
+            <%= if current_user.has_lending_rights(@item)
+              button_to @item.get_button_text(current_user), item_update_lending_path(@item), method: :patch, class: "mx-auto btn btn-primary"
+            end %>
           </div>
         </div>
       </div>

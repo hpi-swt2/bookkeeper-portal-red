@@ -39,4 +39,15 @@ class Item < ApplicationRecord
   def is_borrowed_by(user)
     Lending.exists?(user_id: user.id, item_id: id)
   end
+
+  def get_button_text(user)
+    if (is_lendable) then
+      # TODO add: or @item.is_reserved_by(@user)
+        return "Ausleihen"
+      elsif is_borrowed_by(user) then
+        return "Zurückgeben"
+      else
+        return "Nicht verfügbar"
+    end
+  end
 end

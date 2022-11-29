@@ -6,24 +6,3 @@
   <%= render "item_smallscreen" %>
 </div>
 
-<div>
-  <%if (@item.is_lendable) then
-  # TODO add: or @item.is_reserved_by(@user)
-    text = "Ausleihen"
-  elsif @item.is_borrowed_by(current_user) then
-    text = "Zurückgeben"
-  end 
-  %>
-  <%= if current_user.has_lending_rights(@item)
-     button_to text, item_update_lending_path(@item), method: :patch, class: "btn-primary btn"
-  end %>
-  
-
-  <%= link_to "Edit this item", edit_item_path(@item) %> |
-  <%= link_to "Back to items", items_path %>
-
-<div>
-  <%# <%= link_to "Edit this item", edit_item_path(@item) %>
-  <%#<%= link_to "Back to items", items_path %>
-  <%# <%= button_to "Destroy this item", @item, method: :delete %>
-</div>
