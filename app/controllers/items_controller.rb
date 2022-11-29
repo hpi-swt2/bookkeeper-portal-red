@@ -47,8 +47,7 @@ class ItemsController < ApplicationController
     if @lending.nil?
       @lending = Lending.new()
       @lending.started_at = DateTime.now
-      # + @item2.max_borrowing_period
-      @lending.due_at = @lending.started_at.next_month
+      @lending.due_at = @lending.started_at + @item2.max_borrowing_period
       @lending.user = @user
       @lending.item = @item2
       @lending.completed_at = nil
@@ -100,6 +99,6 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:name, :description)
+      params.require(:item).permit(:name, :description, :max_borrowing_period)
     end
 end
