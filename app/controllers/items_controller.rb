@@ -8,6 +8,9 @@ class ItemsController < ApplicationController
 
   # GET /items/1 or /items/1.json
   def show
+    if current_user.nil?  then
+      redirect_to new_user_session_path
+    end
   end
 
   # GET /items/new
@@ -30,6 +33,38 @@ class ItemsController < ApplicationController
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @item.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update_lending
+
+    @item2 = Item.find(params[:item_id])
+
+    @user = current_user
+
+    @lending = Lending.where(item_id: @item2.id, completed_at: nil)[0]
+    if @lending.nil?
+      @lending = Lending.new()
+      @lending.started_at = DateTime.now
+      # + @item2.max_borrowing_period
+      @lending.due_at = @lending.started_at.next_month
+      @lending.user = @user
+      @lending.item = @item2
+      @lending.completed_at = nil
+      msg = "Item was successfully borrowed"
+    else 
+      @lending.completed_at = DateTime.now
+      msg = "Item was successfully returned"
+    end 
+
+    respond_to do |format|
+      if @lending.save
+        format.html { redirect_to items_path, notice: msg }
+        format.json { render :index, status: :ok, location: items_path }
+      else
+        format.html { render :show, status: :unprocessable_entity }
+        format.json { render json: @lending.errors, status: :unprocessable_entity }
       end
     end
   end
