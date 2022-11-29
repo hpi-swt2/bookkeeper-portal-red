@@ -17,6 +17,8 @@
                             <i class="bi bi-door-open-fill"></i> Log out
                         <% end %>
                     </div>
+
+                    <%= link_to "Profile", profiles_me_path %>
                 </div>
             <% else %>
                 <%= link_to new_user_session_path, {class: "btn btn-primary btn-lg px-4"} do %>

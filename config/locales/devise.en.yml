@@ -1,6 +1,10 @@
 # Additional translations at https://github.com/heartcombo/devise/wiki/I18n
 
 en:
+  items:
+    successfully_created: "Item was successfully created."
+    successfully_updated: "Item was successfully updated."
+    successfully_destroyed: "Item was successfully destroyed."
   devise:
     confirmations:
       confirmed: "Your email address has been successfully confirmed."

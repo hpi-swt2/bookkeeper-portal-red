@@ -1,0 +1,32 @@
+@import "application.scss";
+
+.large-screen {
+  display: none;
+}
+
+.small-screen {
+  display: block;
+}
+@include media-breakpoint-up(xl) {
+  .small-screen {
+    display: none;
+  }
+  .large-screen {
+    display: block;
+  }
+}
+
+.item-action-button
+{
+  position: fixed;
+  margin-top: auto;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  border-radius: 0px;
+  height: 4rem;
+}
+.button-blocker{
+  height: 4rem;
+}
