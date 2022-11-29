@@ -7,8 +7,8 @@ class User < ApplicationRecord
   attribute :full_name, :string, default: ""
   attribute :description, :string, default: ""
   
-  has_many :memberships
+  has_many :memberships, dependent: :destroy
   has_many :groups, through: :memberships
-  has_many :lendings
-  has_many :reservations
+  has_many :lendings, dependent: :destroy
+  has_many :reservations, dependent: :destroy
 end
