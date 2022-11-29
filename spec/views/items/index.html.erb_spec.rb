@@ -19,7 +19,7 @@ RSpec.describe "items/index", type: :view do
   # check, if the html renders without errors
 
   it "renders the html without errors" do
-    render
+    expect(render).not_to be_empty
   end
 
   # check, if the html renders the name of the items
