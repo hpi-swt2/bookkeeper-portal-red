@@ -1,0 +1,51 @@
+<%# The main show page for small screens %>
+<div class="small-screen">
+  <%# Image slider%>
+  <%= image_tag "dummy_image.png", class: "card-img-top"%>
+  <hr class="border border-primary border-2 opacity-75"/>
+
+  <div class="container">
+    <div class="row">
+      <%# name%>
+      <h1 class="col-sm-7"><%= @item.name %></h1>
+      <%# available badge%>
+      <div class="col-sm-2 ms-auto">
+        <span class="badge bg-secondary bg-success ">Available</span>
+      </div>
+    </div>
+    <div class="row">
+      <%# owner%>
+      <p class="card-text">
+        von:
+        <span class="text-warning">Ownername</span>
+      </p>
+    </div>
+  </div>
+
+
+  <hr class="border border-primary border-2 opacity-75"/>
+  <%# Description%>
+  <p class="card-text"><%= @item.description %></p>
+
+  <%# Attributes %>
+  <table class="table">
+    <tbody>
+    <tr>
+      <td>Spieler: 5</td>
+    </tr>
+    <tr>
+      <td>Alter: 12+</td>
+    </tr>
+    <tr>
+      <td>Typ: Brettspiel+</td>
+    </tr>
+    <tr>
+      <td>Jahr: 2014+</td>
+    </tr>
+    </tbody>
+  </table>
+  <%# Main Button %>
+  <div class="button-blocker">
+  </div>
+  <button class="btn btn-primary item-action-button"> Reservieren</button>
+</div>
