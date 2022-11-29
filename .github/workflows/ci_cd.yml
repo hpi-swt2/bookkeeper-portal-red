@@ -9,6 +9,9 @@ jobs:
   # Name of the job
   rspec-test:
     runs-on: ubuntu-latest
+    env:
+      MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+      MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
 
     # https://docs.github.com/en/actions/using-containerized-services/creating-postgresql-service-containers
     # Service containers to run with job `test`
