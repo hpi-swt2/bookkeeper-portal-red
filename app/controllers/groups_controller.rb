@@ -1,4 +1,5 @@
 class GroupsController < ApplicationController
+  before_action :assure_signed_in
   before_action :set_group, only: %i[ show edit update destroy ]
   before_action :assure_admin, only: %i[ edit update destroy ]
 
@@ -26,6 +27,8 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.save
+        membership = Membership.create(:user => current_user, :group => @group, :role => :admin)
+        membership.save()
         format.html { redirect_to group_url(@group), notice: "Group was successfully created." }
         format.json { render :show, status: :created, location: @group }
       else
@@ -60,11 +63,17 @@ class GroupsController < ApplicationController
 
   private
 
-  def assure_admin
-    if !user_signed_in?
+  def assure_signed_in
+    if(!user_signed_in?)
       redirect_to new_user_session_path, notice: "You need to log in first."
       return false
-    elsif !current_user.is_admin_in? @group
+    end
+    return true
+  end
+
+  def assure_admin
+    assure_signed_in
+    if !current_user.is_admin_in? @group
       redirect_to group_url(@group), notice: "Only admins are allowed to modify this group."
       return false
     end
