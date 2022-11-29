@@ -1,6 +1,10 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @item %>
+<%= stylesheet_link_tag "item-show.css" %>
+<div id="<%= dom_id @item %>">
+  <%= render "item_largescreen" %>
+  <%= render "item_smallscreen" %>
+</div>
 
 <div>
   <%if (@item.is_lendable) then
@@ -18,5 +22,8 @@
   <%= link_to "Edit this item", edit_item_path(@item) %> |
   <%= link_to "Back to items", items_path %>
 
-  <%= button_to "Destroy this item", @item, method: :delete %>
+<div>
+  <%# <%= link_to "Edit this item", edit_item_path(@item) %>
+  <%#<%= link_to "Back to items", items_path %>
+  <%# <%= button_to "Destroy this item", @item, method: :delete %>
 </div>

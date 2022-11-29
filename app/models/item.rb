@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   validates :name, presence: true
+
   enum :status, inactive: 0, active: 1
 
   has_many :lendings, dependent: :destroy
