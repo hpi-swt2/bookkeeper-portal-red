@@ -13,7 +13,9 @@ describe "show item page", type: :feature do
       before do
         Capybara.current_session.current_window.resize_to(screen_size[0], screen_size[1])
         # driven_by :selenium, using: :firefox, screen_size: screen_size
+        # rubocop:todo Lint/UselessAssignment
         item = :item
+        # rubocop:enable Lint/UselessAssignment
       end
 
       it "renders succesfully and show item details" do

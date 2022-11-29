@@ -6,9 +6,11 @@ describe "new item page", type: :feature do
     @item_description = "Buch von J.K.Rowling"
   end
 
+  # rubocop:todo RSpec/NoExpectationExample
   it "renders succesfully" do
     visit new_item_path
   end
+  # rubocop:enable RSpec/NoExpectationExample
 
   it "accepts input, redirect and write data into database" do
     visit new_item_path

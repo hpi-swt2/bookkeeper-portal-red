@@ -9,14 +9,18 @@ describe "edit item page", type: :feature do
   end
 
   before do
+    # rubocop:todo Lint/UselessAssignment
     item = :item
+    # rubocop:enable Lint/UselessAssignment
   end
 
+  # rubocop:todo RSpec/NoExpectationExample
   it "renders succesfully and show item details" do
     visit edit_item_path(item)
     page.find_field("item[name]", with: item.name)
     page.find_field("item[description]", with: item.description)
   end
+  # rubocop:enable RSpec/NoExpectationExample
 
   it "accepts input, redirect and update name in database" do
     visit edit_item_path(item)
