@@ -1,4 +1,9 @@
 class ApplicationController < ActionController::Base
+  # skip authentication during tests
+  before_action :authenticate_user! unless Rails.env.test?
+
+  before_action :set_locale
+
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale
 

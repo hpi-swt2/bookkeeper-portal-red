@@ -3,8 +3,13 @@ Rails.application.routes.draw do
 
   resources :items
 
-  # https://github.com/heartcombo/devise/blob/main/README.md
-  devise_for :users
+  # Add controllers for omniauth (openid connect)
+  devise_for :users,
+             controllers: {
+               omniauth_callbacks: "users/omniauth_callbacks",
+               sessions: "users/sessions"
+             }
+
   # Defines the root path route ("/")
   root "landing_page#index"
 
@@ -12,8 +17,7 @@ Rails.application.routes.draw do
   get "/profiles/me", to: "profiles#show_me"
   get "/profiles/:id", to: "profiles#show", as: :profile
 
-  # rubocop:todo Lint/EmptyBlock
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+    # https://github.com/heartcombo/devise/blob/main/README.md
   end
-  # rubocop:enable Lint/EmptyBlock
 end

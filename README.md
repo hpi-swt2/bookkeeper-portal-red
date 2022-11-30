@@ -108,3 +108,16 @@ Ensure you have access to a Unix-like environment through:
 - `rails db:migrate` Setup the database, run migrations
 - `rails assets:precompile && rails s` Compile assets & start dev server (default port _3000_)
 - `bundle exec rspec --format documentation` Run the tests (using [RSpec](http://rspec.info/) framework)
+
+### OIDC Setup
+
+> Note: This is only required in a production environment. There are hard-coded
+> OIDC client credentials in this project which are configured to work in a
+> local environment.
+
+- [register](https://oidc.hpi.de) a new application with the redirect URI
+  `http://{BASE_URL}/users/auth/openid_connect/callback` (adapt the base URL
+  accordingly).
+- set the following variables in your rails environment:
+    - `OPENID_CONNECT_CLIENT_ID`
+    - `OPENID_CONNECT_CLIENT_SECRET`
