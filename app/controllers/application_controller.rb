@@ -1,4 +1,9 @@
 class ApplicationController < ActionController::Base
+  # skip authentication during tests
+  before_action :authenticate_user! unless Rails.env.test?
+
+  before_action :set_locale
+
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale
 
@@ -11,11 +16,7 @@ class ApplicationController < ActionController::Base
   private
 
   def default_url_options
-    if I18n.locale == I18n.default_locale
-      {}
-    else
-      { locale: I18n.locale }
-    end
+    { locale: I18n.locale == I18n.default_locale ? nil : I18n.locale }
   end
 
   def set_locale
