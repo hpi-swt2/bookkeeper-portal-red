@@ -9,7 +9,10 @@ class User < ApplicationRecord
          :omniauthable,
          omniauth_providers: [:openid_connect]
 
-  has_many :memberships
+  attribute :full_name, :string, default: ""
+  attribute :description, :string, default: ""
+
+  has_many :memberships, dependent: :destroy
   has_many :groups, through: :memberships
   has_many :lendings
   has_many :reservations
