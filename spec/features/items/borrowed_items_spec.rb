@@ -24,7 +24,7 @@ RSpec.describe "borrowed items", type: :feature do
       started_at: DateTime.parse('January 1st 2022 00:00:00 AM'),
       due_at: DateTime.parse('February 1st 2022 00:00:00 AM'),
       created_at: DateTime.parse('January 1st 2022 00:00:00 AM'),
-      updated_at: DateTime.parse('January 1st 2022 00:00:00 AM'),
+      updated_at: DateTime.parse('January 1st 2022 00:00:00 AM')
     )
 
     Lending.create!(
@@ -34,7 +34,7 @@ RSpec.describe "borrowed items", type: :feature do
       completed_at: DateTime.parse('January 2nd 2022 00:00:00 AM'),
       due_at: DateTime.parse('February 1st 2022 00:00:00 AM'),
       created_at: DateTime.parse('January 1st 2022 00:00:00 AM'),
-      updated_at: DateTime.parse('January 1st 2022 00:00:00 AM'),
+      updated_at: DateTime.parse('January 1st 2022 00:00:00 AM')
     )
   end
 
