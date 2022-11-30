@@ -283,16 +283,24 @@ Devise.setup do |config|
                     port: 443,
                     scheme: "https",
                     host: "oidc.hpi.de",
-                    # Instead of env vars, could also use Rails credentials store
-                    # env vars are set on deployed Heroku instance, default to HPI OpenID client setup for local dev
-                    # Requires server to be running on port 3000, as that is also set on the remote OIDC config (and is checked)
-                    identifier: ENV.fetch(
-                      "OPENID_CONNECT_CLIENT_ID"
-                    ),
-                    secret: ENV.fetch(
-                      "OPENID_CONNECT_CLIENT_SECRET"
-                    ),
-                    redirect_uri: "http://localhost:3000/users/auth/openid_connect/callback",
+                    # Client ID and secret default to a non-critical client
+                    # that only allows redirect URIS to localhost:3000. This
+                    # allows for running the service locally without having to
+                    # setup a OIDC client yourself.
+                    #
+                    # This can and should be overwritten in a production
+                    # environment by setting the appropriate environment
+                    # variables below. Using the default values will not work
+                    # in production due to misconfigured redirect URIS.
+                    identifier: ENV["OPENID_CONNECT_CLIENT_ID"] || "c0576909-fd73-4f55-95ba-3e53df248497",
+                    secret: ENV["OPENID_CONNECT_CLIENT_SECRET"] || "636e90b7e17ae422693b51267cb748b24af25f1f663aee8606545f6796e164ad7c7a6b16f2bcfc0b30f5fc10c6a458b4aa0a943c501c947b92053df7d2aedcb3",
+                    # Assume production is running in Heroku. Adapt URL
+                    # construction accordingly if using different service.
+                    redirect_uri: if ENV["HEROKU_APP_NAME"]
+                                    "https://" + ENV["HEROKU_APP_NAME"] + ".herokuapp.com/users/auth/openid_connect/callback"
+                                  else
+                                    "http://localhost:3000/users/auth/openid_connect/callback"
+                                  end,
                     authorization_endpoint: "/auth"
                   },
                   client_auth_method: :other,
