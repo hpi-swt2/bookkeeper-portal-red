@@ -29,7 +29,7 @@ class GroupsController < ApplicationController
       if @group.save
         membership = Membership.create(:user => current_user, :group => @group, :role => :admin)
         membership.save()
-        format.html { redirect_to group_url(@group), notice: "Group was successfully created." }
+        format.html { redirect_to group_url(@group), notice: t(:group_new) }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,7 +42,7 @@ class GroupsController < ApplicationController
   def update
     respond_to do |format|
       if @group.update(group_params)
-        format.html { redirect_to group_url(@group), notice: "Group was successfully updated." }
+        format.html { redirect_to group_url(@group), notice: t(:group_update) }
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -59,7 +59,7 @@ class GroupsController < ApplicationController
     @group.destroy
 
     respond_to do |format|
-      format.html { redirect_to groups_url, notice: "Group was successfully destroyed." }
+      format.html { redirect_to groups_url, notice: t(:group_destroy) }
       format.json { head :no_content }
     end
   end
@@ -68,7 +68,7 @@ class GroupsController < ApplicationController
 
   def assure_signed_in
     if(!user_signed_in?)
-      redirect_to new_user_session_path, notice: "You need to log in first."
+      redirect_to new_user_session_path, notice: t(:login_first)
       return false
     end
     return true
@@ -77,7 +77,7 @@ class GroupsController < ApplicationController
   def assure_admin
     assure_signed_in
     if !current_user.is_admin_in? @group
-      redirect_to group_url(@group), notice: "Only admins are allowed to modify this group."
+      redirect_to group_url(@group), notice: t(:only_admins)
       return false
     end
     true

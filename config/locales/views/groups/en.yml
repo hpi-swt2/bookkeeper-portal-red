@@ -1,0 +1,7 @@
+en:
+  login_first: "You have to log in first"
+  only_admins: "Only admins are allowed to edit this group"
+
+  group_new: "Group has been created successfully"
+  group_update: "Group has been updated successfully"
+  group_destroy: "Group has been deleted successfully"
