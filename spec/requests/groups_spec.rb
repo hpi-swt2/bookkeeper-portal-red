@@ -102,10 +102,11 @@ RSpec.describe "/groups", type: :request do
 
       it "updates the requested group" do
         group = Group.create! valid_attributes
+        name = group.name
         membership = Membership.create!(:user => user, :group => group, :role => :admin)
         patch group_url(group), params: { group: new_attributes }
         group.reload
-        skip("Add assertions for updated state")
+        expect(group.name).not_to eq(name)
       end
 
       it "redirects to the group" do
