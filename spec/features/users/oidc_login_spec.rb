@@ -35,7 +35,7 @@ describe "OpenId Connect Login", type: :feature do
       find_by_id('openid_connect-signin').click
     end
 
-    after(:all) do
+    after do
       # Restore the original logger
       OmniAuth.config.logger = @omniauth_logger
     end

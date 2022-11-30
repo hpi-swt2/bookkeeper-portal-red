@@ -1,3 +1,4 @@
+# User models the current user
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -14,8 +15,8 @@ class User < ApplicationRecord
 
   has_many :memberships, dependent: :destroy
   has_many :groups, through: :memberships
-  has_many :lendings
-  has_many :reservations
+  has_many :lendings, dependent: :destroy
+  has_many :reservations, dependent: :destroy
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|

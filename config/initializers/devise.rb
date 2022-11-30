@@ -297,7 +297,7 @@ Devise.setup do |config|
                     # Assume production is running in Heroku. Adapt URL
                     # construction accordingly if using different service.
                     redirect_uri: if ENV["HEROKU_APP_NAME"]
-                                    "https://" + ENV["HEROKU_APP_NAME"] + ".herokuapp.com/users/auth/openid_connect/callback"
+                                    "https://#{ENV['HEROKU_APP_NAME']}.herokuapp.com/users/auth/openid_connect/callback"
                                   else
                                     "http://localhost:3000/users/auth/openid_connect/callback"
                                   end,
