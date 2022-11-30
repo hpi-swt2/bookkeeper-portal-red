@@ -3,6 +3,10 @@ Rails.application.routes.draw do
 
   resources :items do
     patch :update_lending
+    collection do
+      get "/my", to: "items#my_items"
+      get "/borrowed", to: "items#borrowed_items"
+    end
   end
 
   # Add controllers for omniauth (openid connect)

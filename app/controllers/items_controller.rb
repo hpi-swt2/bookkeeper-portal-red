@@ -23,6 +23,18 @@ class ItemsController < ApplicationController
   def edit
   end
 
+  # GET /items/borrowed
+  def borrowed_items
+    @items = current_user.lendings.where(completed_at: nil).map(&:item)
+    render :borrowed_items
+  end
+
+  # GET /items/my
+  def my_items
+    @items = Item.all # TODO: how can we find out which items are owned by the current user?
+    render :my_items
+  end
+
   # POST /items or /items.json
   def create
     @item = Item.new(item_params)
