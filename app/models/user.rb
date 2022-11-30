@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :lendings, dependent: :destroy
   has_many :reservations, dependent: :destroy
 
-  def has_lending_rights(item)
+  def lending_rights?(item)
     item_groups = item.lender_groups
 
     groups.each do |user_group|

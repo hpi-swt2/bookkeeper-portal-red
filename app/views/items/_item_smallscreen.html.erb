@@ -10,11 +10,7 @@
       <h1 class="col-sm-7"><%= @item.name %></h1>
       <%# available badge%>
       <div class="col-sm-2 ms-auto">
-        <% if @item.is_lendable%>
-          <span class="badge bg-success ">Available</span>
-        <% else %>
-          <span class="badge bg-primary ">Not Available</span>
-        <% end %>
+        <%= render(ItemAvailabilityBadgeComponent.new(item: @item, user: current_user)) %>
       </div>
     </div>
     <div class="row">
@@ -54,7 +50,7 @@
   <%# <%= button_to "Destroy this item", @item, method: :delete %>
   <div class="button-blocker">
   </div>
-  <%= if current_user.has_lending_rights(@item)
-    button_to @item.get_button_text(current_user), item_update_lending_path(@item), method: :patch, class: "btn btn-primary item-action-button"
- end %>
+  <%= if current_user.lending_rights?(@item)
+    button_to @item.button_text(current_user), item_update_lending_path(@item), method: :patch, class: "btn btn-primary item-action-button"
+  end %>
 </div>

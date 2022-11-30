@@ -26,7 +26,6 @@ RSpec.describe Item, type: :model do
   end
 
   it "is able to determine if it is borrowed by the current user" do
-    lending = FactoryBot.create(:lending, item_id: item.id, user_id: user.id)
-    expect(item.is_borrowed_by(user)).to be true
+    expect(item.borrowed_by?(user)).to be true
   end
 end

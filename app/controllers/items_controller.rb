@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show edit update destroy ]
+  before_action :set_item_from_item_id, only: %i[ update_lending ]
 
   # GET /items or /items.json
   def index
@@ -38,18 +39,11 @@ class ItemsController < ApplicationController
   end
 
   def update_lending
-    @item2 = Item.find(params[:item_id])
-
     @user = current_user
 
-    @lending = Lending.where(item_id: @item2.id, completed_at: nil)[0]
+    @lending = Lending.where(item_id: @item.id, completed_at: nil)[0]
     if @lending.nil?
-      @lending = Lending.new
-      @lending.started_at = DateTime.now
-      @lending.due_at = @lending.started_at + @item2.max_borrowing_period
-      @lending.user = @user
-      @lending.item = @item2
-      @lending.completed_at = nil
+      create_lending
       msg = "Item was successfully borrowed"
     else
       @lending.completed_at = DateTime.now
@@ -97,8 +91,21 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def set_item_from_item_id
+    @item = Item.find(params[:item_id])
+  end
+
   # Only allow a list of trusted parameters through.
   def item_params
     params.require(:item).permit(:name, :description, :max_borrowing_period)
+  end
+
+  def create_lending
+    @lending = Lending.new
+    @lending.started_at = DateTime.now
+    @lending.due_at = @lending.started_at + @item.max_borrowing_period
+    @lending.user = @user
+    @lending.item = @item
+    @lending.completed_at = nil
   end
 end
