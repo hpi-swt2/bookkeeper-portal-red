@@ -111,5 +111,13 @@ Ensure you have access to a Unix-like environment through:
 
 ### OIDC Setup
 
-- [register](https://oidc.hpi.de) a new application with the redirect uri `http://localhost:3000/users/auth/openid_connect/callback`
-- set the following environment vairables: `OPENID_CONNECT_CLIENT_ID`, `OPENID_CONNECT_CLIENT_SECRET`
+> Note: This is only required in a production environment. There are hard-coded
+> OIDC client credentials in this project which are configured to work in a
+> local environment.
+
+- [register](https://oidc.hpi.de) a new application with the redirect URI
+  `http://{BASE_URL}/users/auth/openid_connect/callback` (adapt the base URL
+  accordingly).
+- set the following variables in your rails environment:
+    - `OPENID_CONNECT_CLIENT_ID`
+    - `OPENID_CONNECT_CLIENT_SECRET`
