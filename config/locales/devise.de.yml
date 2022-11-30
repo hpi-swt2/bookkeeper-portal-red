@@ -112,10 +112,12 @@ de:
       update_needs_confirmation: Ihre Daten wurden aktualisiert, aber Sie müssen Ihre neue E-Mail-Adresse bestätigen. Sie erhalten in wenigen Minuten eine E-Mail, mit der Sie die Änderung Ihrer E-Mail-Adresse abschließen können.
       updated: Ihre Daten wurden aktualisiert.
       updated_but_not_signed_in: Ihre Daten wurden aktualisiert, aber da sich Ihr Passwort geändert hat, müssen Sie sich erneut anmelden
+      confirmation_not_received_prompt: Keine Bestätigungs-E-Mail erhalten?
     sessions:
       already_signed_out: Erfolgreich abgemeldet.
       new:
         sign_in: Anmelden
+        sign_in_with: Mit %{provider} anmelden
       signed_in: Erfolgreich angemeldet.
       signed_out: Erfolgreich abgemeldet.
     shared:
@@ -136,6 +138,7 @@ de:
       send_instructions: Sie erhalten in wenigen Minuten eine E-Mail mit der Anleitung, wie Sie Ihr Konto entsperren können.
       send_paranoid_instructions: Falls Ihre E-Mail-Adresse in unserer Datenbank existiert, erhalten Sie in wenigen Minuten eine E-Mail, mit der Anleitung, wie Sie Ihr Konto entsperren können.
       unlocked: Ihr Konto wurde entsperrt. Bitte melden Sie sich an, um fortzufahren.
+      unlock_not_received_prompt: Keine E-Mail zum Entsperren erhalten?
   errors:
     messages:
       already_confirmed: wurde bereits bestätigt; bitte versuchen Sie, sich anzumelden
