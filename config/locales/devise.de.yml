@@ -25,6 +25,7 @@ de:
         unconfirmed_email: Unbestätigte E-Mail-Adresse
         unlock_token: Entsperrungs-Token
         updated_at: Aktualisiert am
+        description: Profilbeschreibung
     models:
       user:
         one: Benutzer
