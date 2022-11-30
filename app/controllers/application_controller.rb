@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  # disable necessity to sign in when running tests
+  # skip authentication during tests
   before_action :authenticate_user! unless Rails.env.test?
 
   before_action :set_locale

@@ -111,5 +111,5 @@ Ensure you have access to a Unix-like environment through:
 
 ### OIDC Setup
 
-- [register](https://oidc.hpi.de) a new application with the callback url `http://localhost:3000/users/auth/openid_connect/callback`
+- [register](https://oidc.hpi.de) a new application with the redirect uri `http://localhost:3000/users/auth/openid_connect/callback`
 - set the following environment vairables: `OPENID_CONNECT_CLIENT_ID`, `OPENID_CONNECT_CLIENT_SECRET`
