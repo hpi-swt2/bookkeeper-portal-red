@@ -21,6 +21,8 @@ class User < ApplicationRecord
   # Handles user creation based on data returned from OIDC login process. If
   # the user already exists, returns the user.
   def self.from_omniauth(auth)
+    # the field `uid` refers to the external uuid of the HPI user's account
+    # rather than the the ID of the locally persisted user.
     where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
       # All information returned by OpenID Connect is passed in `auth` param
       user.email = auth.info.email
