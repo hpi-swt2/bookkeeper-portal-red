@@ -18,6 +18,8 @@ class User < ApplicationRecord
   has_many :lendings, dependent: :destroy
   has_many :reservations, dependent: :destroy
 
+  # Handles user creation based on data returned from OIDC login process. If
+  # the user already exists, returns the user.
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
       # All information returned by OpenID Connect is passed in `auth` param

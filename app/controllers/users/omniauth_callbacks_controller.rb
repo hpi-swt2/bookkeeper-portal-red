@@ -5,8 +5,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in_and_redirect @user
       set_flash_message(:notice, :success, kind: "OpenID Connect") if is_navigational_format?
     else
-      set_flash_message(:alert, :failure, kind: OmniAuth::Utils.camelize(failed_strategy.name), reason: failure_message)
-      redirect_to root_path
+      failure
     end
   end
 
