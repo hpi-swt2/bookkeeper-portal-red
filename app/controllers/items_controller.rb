@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show edit update destroy ]
+  before_action :set_item_from_item_id, only: %i[ update_lending ]
 
   # GET /items or /items.json
   def index
@@ -8,6 +9,9 @@ class ItemsController < ApplicationController
 
   # GET /items/1 or /items/1.json
   def show
+    return unless current_user.nil?
+
+    redirect_to new_user_session_path
   end
 
   # GET /items/new
@@ -33,6 +37,31 @@ class ItemsController < ApplicationController
       end
     end
   end
+
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  def update_lending
+    @user = current_user
+
+    @lending = Lending.where(item_id: @item.id, completed_at: nil)[0]
+    if @lending.nil?
+      create_lending
+      msg = "Item was successfully borrowed"
+    else
+      @lending.completed_at = DateTime.now
+      msg = "Item was successfully returned"
+    end
+
+    respond_to do |format|
+      if @lending.save
+        format.html { redirect_to items_path, notice: msg }
+        format.json { render :index, status: :ok, location: items_path }
+      else
+        format.html { render :show, status: :unprocessable_entity }
+        format.json { render json: @lending.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PATCH/PUT /items/1 or /items/1.json
   def update
@@ -64,8 +93,21 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def set_item_from_item_id
+    @item = Item.find(params[:item_id])
+  end
+
   # Only allow a list of trusted parameters through.
   def item_params
-    params.require(:item).permit(:name, :description)
+    params.require(:item).permit(:name, :description, :max_borrowing_period)
+  end
+
+  def create_lending
+    @lending = Lending.new
+    @lending.started_at = DateTime.now
+    @lending.due_at = @lending.started_at + @item.max_borrowing_period
+    @lending.user = @user
+    @lending.item = @item
+    @lending.completed_at = nil
   end
 end

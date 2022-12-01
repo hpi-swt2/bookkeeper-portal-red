@@ -42,6 +42,9 @@ gem "bootsnap", require: false
 # Bootstrap CSS [https://github.com/twbs/bootstrap-rubygem]
 gem "bootstrap", "~> 5.2.2"
 
+# View Components to add modular ui components [https://viewcomponent.org/guide/]
+gem "view_component"
+
 # Use Sass to process CSS
 gem "sassc-rails"
 

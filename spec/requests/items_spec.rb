@@ -36,6 +36,8 @@ RSpec.describe "/items", type: :request do
   describe "GET /show" do
     it "renders a successful response" do
       item = Item.create! valid_attributes
+      user = FactoryBot.create(:user, password: "password")
+      sign_in user
       get item_url(item)
       expect(response).to be_successful
     end

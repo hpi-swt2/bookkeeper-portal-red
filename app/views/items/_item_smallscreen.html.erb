@@ -3,14 +3,14 @@
   <%# Image slider%>
   <%= image_tag "dummy_image.png", class: "card-img-top"%>
   <hr class="border border-primary border-2 opacity-75"/>
-
+ 
   <div class="container">
     <div class="row">
       <%# name%>
       <h1 class="col-sm-7"><%= @item.name %></h1>
       <%# available badge%>
       <div class="col-sm-2 ms-auto">
-        <span class="badge bg-secondary bg-success ">Available</span>
+        <%= render(ItemAvailabilityBadgeComponent.new(item: @item, user: current_user)) %>
       </div>
     </div>
     <div class="row">
@@ -45,7 +45,12 @@
     </tbody>
   </table>
   <%# Main Button %>
+  <%= link_to "Edit this item", edit_item_path(@item) %> |
+  <%= link_to "Back to items", items_path %>
+  <%# <%= button_to "Destroy this item", @item, method: :delete %>
   <div class="button-blocker">
   </div>
-  <button class="btn btn-primary item-action-button"> Reservieren</button>
+  <%= if current_user.lending_rights?(@item)
+    button_to @item.button_text(current_user), item_update_lending_path(@item), method: :patch, class: "btn btn-primary item-action-button"
+  end %>
 </div>

@@ -18,6 +18,15 @@ class User < ApplicationRecord
   has_many :lendings, dependent: :destroy
   has_many :reservations, dependent: :destroy
 
+  def lending_rights?(item)
+    item_groups = item.lender_groups
+
+    groups.each do |user_group|
+      return true if item_groups.include? user_group
+    end
+    false
+  end
+
   # Handles user creation based on data returned from OIDC login process. If
   # the user already exists, returns the user.
   def self.from_omniauth(auth)
