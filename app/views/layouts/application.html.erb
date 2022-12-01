@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html>
-  
-    <%= render "layouts/navbar" %>
-
   <head>
     <title>Bookkeeper Red</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -16,6 +13,7 @@
   <body>
     <%# https://getbootstrap.com/docs/5.0/layout/containers/ %>
     <%# https://getbootstrap.com/docs/5.0/utilities/spacing/ %>
+    <%= render "layouts/navbar" %>
     <div class="container mt-2"> <%# mt-2 == margin-top: 2*spacer %>
       <% if notice %><p class="alert alert-success"><%= notice %></p><% end %>
       <% if alert %><p class="alert alert-danger"><%= alert %></p><% end %>
