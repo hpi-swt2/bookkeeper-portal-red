@@ -1,8 +1,9 @@
+<h2><%= t('my_profile')%></h2>
 <div class="card">
   <div class="card-body">
     <h2 class="card-title"><%= @user.full_name %></h2>
     <%= mail_to @user.email, class: "card-subtitle mb-2 text-muted" %>
-    
+
     <% if @user.description.present? %>
         <hr>
         <p class="card-text">
