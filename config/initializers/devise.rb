@@ -24,7 +24,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -36,7 +36,7 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require 'devise/orm/active_record'
+  require "devise/orm/active_record"
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -264,7 +264,7 @@ Devise.setup do |config|
   #
   # The "*/*" below is required to match Internet Explorer requests.
   # https://github.com/heartcombo/devise/issues/5439
-  config.navigational_formats = ['*/*', :html, :turbo_stream]
+  config.navigational_formats = ["*/*", :html, :turbo_stream]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
@@ -273,6 +273,38 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+
+  # HPI OpenID Connect configuration
+  config.omniauth :openid_connect,
+                  name: :openid_connect,
+                  scope: %i[openid email profile],
+                  response_type: :code,
+                  client_options: {
+                    port: 443,
+                    scheme: "https",
+                    host: "oidc.hpi.de",
+                    # Client ID and secret default to a non-critical client
+                    # that only allows redirect URIS to localhost:3000. This
+                    # allows for running the service locally without having to
+                    # setup a OIDC client yourself.
+                    #
+                    # This can and should be overwritten in a production
+                    # environment by setting the appropriate environment
+                    # variables below. Using the default values will not work
+                    # in production due to misconfigured redirect URIS.
+                    identifier: ENV["OPENID_CONNECT_CLIENT_ID"] || "c0576909-fd73-4f55-95ba-3e53df248497",
+                    secret: ENV["OPENID_CONNECT_CLIENT_SECRET"] || "636e90b7e17ae422693b51267cb748b24af25f1f663aee8606545f6796e164ad7c7a6b16f2bcfc0b30f5fc10c6a458b4aa0a943c501c947b92053df7d2aedcb3",
+                    # Assume production is running in Heroku. Adapt URL
+                    # construction accordingly if using different service.
+                    redirect_uri: if ENV["HEROKU_APP_NAME"]
+                                    "https://#{ENV['HEROKU_APP_NAME']}.herokuapp.com/users/auth/openid_connect/callback"
+                                  else
+                                    "http://localhost:3000/users/auth/openid_connect/callback"
+                                  end,
+                    authorization_endpoint: "/auth"
+                  },
+                  client_auth_method: :other,
+                  discovery: true
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

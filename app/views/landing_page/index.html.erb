@@ -1,14 +1,24 @@
-<div class="wrapper container">
-  <div class="row py-5 my-5 text-center">
-    <h3 class="fw-bold">Neu inseriert</h3>
-    <div class="mx-auto">
-      <div class="grid text-center">
-        <% [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].each do |val| %>
-          <div class="g-col-12 g-col-md-6 g-col-lg-4 g-col-xl-3">
-            <div class="card" style="height: 150px">
-              <div class="card-img-top bg-primary">
-                <div class="card-body">
-                  <p class="card-text text-white">Asset Component (for Item number #<%= val %>)</p>
+<div class="row py-5 my-5 text-center">
+    <%# Bootstrap icons: https://icons.getbootstrap.com/ %>
+    <i class="bi bi-journal-bookmark-fill" style="font-size: 5rem; color: red;"></i>
+    <h1 class="display-5 fw-bold">Bookkeeper Red</h1>
+    <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4"><%= t('hello')%> Some text about this application's many features, the use cases as part of the sharing economy that it enables and the business value that users of the application can expect. Could also include a call to action to log in or could contain a rhetorical question. Wouldn't that be nice? </p>
+        <div class="gap-3 d-sm-flex justify-content-sm-center">
+            <%# https://github.com/heartcombo/devise#controller-filters-and-helpers %>
+            <% if user_signed_in? %>
+                <div class="row py-2">
+                    <div class="col">
+                        currently logged in user: <%= current_user.email %> |
+                        <%= link_to edit_user_registration_path, class: "link-primary" do %>
+                            <i class="bi bi-pencil-square"></i> Edit user profile
+                        <% end %> | 
+                        <%= link_to destroy_user_session_path, data: {"turbo-method": :delete}, class: "link-secondary" do %>
+                            <i class="bi bi-door-open-fill"></i> Log out
+                        <% end %>
+                    </div>
+
+                    <%= link_to "Profile", profiles_me_path %>
                 </div>
               </div>
             </div>
@@ -16,5 +26,4 @@
         <% end %>
       </div>
     </div>
-  </div>
 </div>
