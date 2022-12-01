@@ -1,3 +1,4 @@
+# Model of the current item/asset
 class Item < ApplicationRecord
   validates :name, presence: true
 

@@ -38,6 +38,7 @@ class ItemsController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def update_lending
     @user = current_user
 
@@ -60,6 +61,7 @@ class ItemsController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PATCH/PUT /items/1 or /items/1.json
   def update
