@@ -2,11 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "groups/edit", type: :view do
   let(:group) do
-    Group.create!(
-      name: "MyString"
-    )
+    FactoryBot.create(:group)
   end
 
+  # This will assign the group object to the template instance variable
   before do
     assign(:group, group)
   end
