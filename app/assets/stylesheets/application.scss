@@ -19,10 +19,76 @@
 
 // https://github.com/twbs/bootstrap-rubygem#a-ruby-on-rails
 // Custom bootstrap variables must be set or imported *before* bootstrap.
-//the HPI Corporate colors
-$primary: #b1063a;
-$secondary: #dd6109;
-$warning: #f6a800;
-@import "bootstrap";
+$yellow: rgb(246, 168, 0);
+$orange: rgb(221, 97, 8);
+$red: rgb(177, 5, 58);
+$grey: rgb(90, 96, 101);
+$blue: rgb(0, 122, 158);
+
+$primary: $red;
+$secondary: $orange;
+$success: $blue;
+$info: $blue;
+$warning: $yellow;
+$danger: $red;
+$light: #FFFFFF;
+
+$enable-cssgrid: true;
+
+@import 'bootstrap';
 // Bootstrap icons: https://icons.getbootstrap.com/
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
+
+$mobileDeviceCutoff: 992px;
+
+@media (max-width: $mobileDeviceCutoff) {
+  .navbar-collapse {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    width: 75%;
+    height: 100%;
+    background-color: $secondary;
+  }
+
+  .navbar-collapse.collapsing {
+    left: -75%;
+    transition: height 0s ease;
+  }
+
+  .navbar-collapse.show {
+    left: 0;
+    transition: left 300ms ease-in-out;
+  }
+
+  .navbar-toggler.collapsed ~ .navbar-collapse {
+    transition: left 500ms ease-in-out;
+  }
+}
+
+@media (min-width: $mobileDeviceCutoff) {
+  .mobile-only {
+    display: none;
+  }
+}
+
+@media (max-width: $mobileDeviceCutoff) {
+  .desktop-only {
+    display: none !important;
+  }
+}
+
+footer {
+  border-bottom: $primary;
+}
+
+.navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.navbar-nav .active {
+  color: white !important;
+}
