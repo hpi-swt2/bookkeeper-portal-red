@@ -18,24 +18,29 @@ RSpec.describe "/groups", type: :request do
   # Group. As you add validations to Group, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    { name: "Group 1" }
+    { name: "Valid Groupname" }
   end
 
   let(:invalid_attributes) do
     { name: "" }
   end
 
-  let(:user) do
-    FactoryBot.create(:user, email: 'test@example.org', password: 'password')
+  
+  let(:membership) do
+    FactoryBot.create :membership, :admin
   end
+  
 
+  let(:group) do
+    membership.group
+  end
+  
   before(:each) do
-    sign_in user
+    sign_in membership.user
   end
 
   describe "GET /index" do
     it "renders a successful response" do
-      Group.create! valid_attributes
       get groups_url
       expect(response).to be_successful
     end
@@ -43,7 +48,6 @@ RSpec.describe "/groups", type: :request do
 
   describe "GET /show" do
     it "renders a successful response" do
-      group = Group.create! valid_attributes
       get group_url(group)
       expect(response).to be_successful
     end
@@ -58,8 +62,6 @@ RSpec.describe "/groups", type: :request do
 
   describe "GET /edit" do
     it "renders a successful response" do
-      group = Group.create! valid_attributes
-      membership = Membership.create!(:user => user, :group => group, :role => :admin)
       get edit_group_url(group)
       expect(response).to be_successful
     end
@@ -101,17 +103,13 @@ RSpec.describe "/groups", type: :request do
       end
 
       it "updates the requested group" do
-        group = Group.create! valid_attributes
-        name = group.name
-        membership = Membership.create!(:user => user, :group => group, :role => :admin)
-        patch group_url(group), params: { group: new_attributes }
-        group.reload
-        expect(group.name).not_to eq(name)
+        expect do
+          patch group_url(group), params: { group: new_attributes }
+          group.reload
+        end.to change(group, :name)
       end
 
       it "redirects to the group" do
-        group = Group.create! valid_attributes
-        membership = Membership.create!(:user => user, :group => group, :role => :admin)
         patch group_url(group), params: { group: new_attributes }
         group.reload
         expect(response).to redirect_to(group_url(group))
@@ -120,8 +118,6 @@ RSpec.describe "/groups", type: :request do
 
     context "with invalid parameters" do
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        group = Group.create! valid_attributes
-        membership = Membership.create!(:user => user, :group => group, :role => :admin)
         patch group_url(group), params: { group: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
@@ -131,16 +127,12 @@ RSpec.describe "/groups", type: :request do
 
   describe "DELETE /destroy" do
     it "destroys the requested group" do
-      group = Group.create! valid_attributes
-      membership = Membership.create!(:user => user, :group => group, :role => :admin)
       expect do
         delete group_url(group)
       end.to change(Group, :count).by(-1)
     end
 
     it "redirects to the groups list" do
-      group = Group.create! valid_attributes
-      membership = Membership.create!(:user => user, :group => group, :role => :admin)
       delete group_url(group)
       expect(response).to redirect_to(groups_url)
     end

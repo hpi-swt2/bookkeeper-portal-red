@@ -1,7 +1,11 @@
 FactoryBot.define do
   factory :membership do
-    user { nil }
-    group { nil }
-    status { 1 }
+    user { FactoryBot.create(:user) }
+    group { FactoryBot.create(:group) }
+    role { :member }
+    
+    trait :admin do 
+      role { :admin }
+    end
   end
 end
