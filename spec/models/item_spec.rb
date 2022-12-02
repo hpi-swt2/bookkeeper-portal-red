@@ -28,4 +28,29 @@ RSpec.describe Item, type: :model do
   # it "is able to determine if it is borrowed by the current user" do
   #   expect(item.borrowed_by?(user)).to be false
   # end
+
+  it "can be of different types" do
+
+    @book = FactoryBot.create(:book)
+    #@book = Item.create( name: "Buch")
+    
+    #expect(Item.find_by name: @book.name).to eq(@book)
+    expect((Item.find_by name: @book.name).item_type).to eq("book")
+
+    expect((Item.find_by name: @book.name).name).to eq("The communist manifesto")
+
+    #@movie = FactoryBot.create(:movie)
+    #expect(Item.find_by name: @movie.name).to eq(@movie)
+    #expect((Item.find_by name: @movie.name).type).to eq(@book.type)
+    
+    #@game = FactoryBot.create(:game)
+    #expect(Item.find_by name: @book.name).to eq(@book)
+    #expect((Item.find_by name: @book.name).type).to eq(@book.type)
+
+    #@other = FactoryBot.create(:other)
+    #expect(Item.find_by name: @book.name).to eq(@book)
+    #expect((Item.find_by name: @book.name).type).to eq(@book.type)
+
+  end
+
 end
