@@ -32,24 +32,24 @@ RSpec.describe Item, type: :model do
   it "can be of different types" do
 
     @book = FactoryBot.create(:book)
-    #@book = Item.create( name: "Buch")
-    
-    #expect(Item.find_by name: @book.name).to eq(@book)
-    expect((Item.find_by name: @book.name).item_type).to eq("book")
+    # @book = Item.create( name: "Buch")
 
-    expect((Item.find_by name: @book.name).name).to eq("The communist manifesto")
+    # expect(Item.find_by name: @book.name).to eq(@book)
+    expect((described_class.find_by name: @book.name).item_type).to eq("book")
 
-    #@movie = FactoryBot.create(:movie)
-    #expect(Item.find_by name: @movie.name).to eq(@movie)
-    #expect((Item.find_by name: @movie.name).type).to eq(@book.type)
-    
-    #@game = FactoryBot.create(:game)
-    #expect(Item.find_by name: @book.name).to eq(@book)
-    #expect((Item.find_by name: @book.name).type).to eq(@book.type)
+    expect((described_class.find_by name: @book.name).name).to eq("The communist manifesto")
 
-    #@other = FactoryBot.create(:other)
-    #expect(Item.find_by name: @book.name).to eq(@book)
-    #expect((Item.find_by name: @book.name).type).to eq(@book.type)
+    # @movie = FactoryBot.create(:movie)
+    # expect(Item.find_by name: @movie.name).to eq(@movie)
+    # expect((Item.find_by name: @movie.name).type).to eq(@book.type)
+
+    # @game = FactoryBot.create(:game)
+    # expect(Item.find_by name: @book.name).to eq(@book)
+    # expect((Item.find_by name: @book.name).type).to eq(@book.type)
+
+    # @other = FactoryBot.create(:other)
+    # expect(Item.find_by name: @book.name).to eq(@book)
+    # expect((Item.find_by name: @book.name).type).to eq(@book.type)
 
   end
 
