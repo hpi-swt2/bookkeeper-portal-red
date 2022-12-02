@@ -4,7 +4,7 @@ class AddItemTypes < ActiveRecord::Migration[7.0]
 
     # columns are null if item is of different type
     # book
-    add_column :items, :isbn, :integer
+    add_column :items, :isbn, :bigint
     add_column :items, :author, :string             # also for game
     add_column :items, :release_date, :date         # also for movie
     add_column :items, :genre, :string              # also for movie
