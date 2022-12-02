@@ -6,12 +6,12 @@ FactoryBot.define do
 
   end
 
-  factory :book, class: Item do
+  factory :book, class: 'Item' do
     item_type { "book" }
     name { "The communist manifesto" }
     description { "A book to rule them all" }
-    
-    isbn { 1234567890123 }
+
+    isbn { 1_234_567_890_123 }
     author { "Karl Marx, Friedrich Engels" }
     release_date { "1848-02-21" }
     genre { "politics" }

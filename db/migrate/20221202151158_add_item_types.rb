@@ -1,7 +1,7 @@
 class AddItemTypes < ActiveRecord::Migration[7.0]
   def change
     add_column :items, :item_type, :integer # enum: {book, movie, game, other}
-    
+
     # columns are null if item is of different type
     # book
     add_column :items, :isbn, :integer
@@ -12,10 +12,10 @@ class AddItemTypes < ActiveRecord::Migration[7.0]
     add_column :items, :number_of_pages, :integer
     add_column :items, :publisher, :string          # also for game
     add_column :items, :edition, :integer
-    
+
     # movie
     add_column :items, :director, :string
-    add_column :items, :format, :string   # {DVD, Blueray, mp4}
+    add_column :items, :format, :string # {DVD, Blueray, mp4}
     add_column :items, :fsk, :integer
 
     # game
