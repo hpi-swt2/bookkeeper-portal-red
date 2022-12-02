@@ -3,6 +3,7 @@ class Item < ApplicationRecord
   validates :name, presence: true
 
   enum :status, inactive: 0, active: 1
+  enum :item_type, other: 0, book: 1, movie: 2, game: 3
 
   has_many :lendings, dependent: :destroy
   has_many :reservations, dependent: :destroy
