@@ -25,17 +25,15 @@ RSpec.describe "/groups", type: :request do
     { name: "" }
   end
 
-  
   let(:membership) do
-    FactoryBot.create :membership, :admin
+    FactoryBot.create(:membership, :admin)
   end
-  
 
   let(:group) do
     membership.group
   end
-  
-  before(:each) do
+
+  before do
     sign_in membership.user
   end
 

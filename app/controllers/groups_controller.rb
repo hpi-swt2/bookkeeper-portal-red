@@ -24,16 +24,13 @@ class GroupsController < ApplicationController
   # POST /groups or /groups.json
   def create
     @group = Group.new(group_params)
-
     respond_to do |format|
       if @group.save
-        membership = Membership.create(:user => current_user, :group => @group, :role => :admin)
-        membership.save()
+        Membership.create(user: current_user, group: @group, role: :admin)
         format.html { redirect_to group_url(@group), notice: t(:group_new) }
         format.json { render :show, status: :created, location: @group }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
+        unprocessable_response(path: :new, entity: @group)
       end
     end
   end
@@ -45,17 +42,14 @@ class GroupsController < ApplicationController
         format.html { redirect_to group_url(@group), notice: t(:group_update) }
         format.json { render :show, status: :ok, location: @group }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
+        unprocessable_response(path: :edit, entity: @group)
       end
     end
   end
 
   # DELETE /groups/1 or /groups/1.json
   def destroy
-    @group.memberships.each do |membership|
-      membership.destroy
-    end
+    @group.memberships.each(&:destroy)
     @group.destroy
 
     respond_to do |format|
@@ -67,16 +61,16 @@ class GroupsController < ApplicationController
   private
 
   def assure_signed_in
-    if(!user_signed_in?)
+    unless user_signed_in?
       redirect_to new_user_session_path, notice: t(:login_first)
       return false
     end
-    return true
+    true
   end
 
   def assure_admin
     assure_signed_in
-    if !current_user.is_admin_in? @group
+    unless current_user.admin_in? @group
       redirect_to group_url(@group), notice: t(:only_admins)
       return false
     end
@@ -86,6 +80,11 @@ class GroupsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_group
     @group = Group.find(params[:id])
+  end
+
+  def unprocessable_response(path, entity)
+    format.html { render path, status: :unprocessable_entity }
+    format.json { render json: entity.errors, status: :unprocessable_entity }
   end
 
   # Only allow a list of trusted parameters through.

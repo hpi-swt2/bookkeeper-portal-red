@@ -39,7 +39,7 @@ class User < ApplicationRecord
     end
   end
 
-  def is_admin_in?(group)
+  def admin_in?(group)
     own_groups = groups.where(memberships: { role: :admin })
     own_groups.include? group
   end
