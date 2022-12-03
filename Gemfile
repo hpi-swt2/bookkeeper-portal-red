@@ -42,6 +42,9 @@ gem "bootsnap", require: false
 # Bootstrap CSS [https://github.com/twbs/bootstrap-rubygem]
 gem "bootstrap", "~> 5.2.2"
 
+# View Components to add modular ui components [https://viewcomponent.org/guide/]
+gem "view_component"
+
 # Use Sass to process CSS
 gem "sassc-rails"
 
@@ -50,13 +53,18 @@ gem "rails-i18n"
 # Adding this removes some warnings caused by double-loading of the net-protocol library
 # (see https://github.com/ruby/net-imap/issues/16)
 # we should be able to remove this after upgrading to Ruby 3
-gem 'net-http'
+gem "net-http"
 
 # Use devise as an authentication solution [https://github.com/plataformatec/devise]
 gem "devise", github: "heartcombo/devise", ref: "f8d1ea90bc3" # https://steve-condylios.medium.com/how-to-set-up-devise-for-rails-7-466619f6d627
 gem "devise-i18n" # https://github.com/tigrish/devise-i18n
 gem "devise-bootstrap-views" # https://github.com/hisea/devise-bootstrap-views
 gem "devise-i18n-bootstrap" # https://github.com/maximalink/devise-i18n-bootstrap
+
+# Add support for openid connect authentication
+gem "jquery-rails"
+gem "omniauth-rails_csrf_protection"
+gem "omniauth_openid_connect"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -67,19 +75,19 @@ group :development, :test do
   # Use sqlite3 as the database during development and test
   gem "sqlite3", "~> 1.4"
   # RSpec testing framework as a drop-in alternative to Rails' default testing framework, Minitest
-  gem 'rspec-rails', '~> 6.0.0' # https://github.com/rspec/rspec-rails
+  gem "rspec-rails", "~> 6.0.0" # https://github.com/rspec/rspec-rails
   # Factories instead of test fixtures
-  gem 'factory_bot_rails' # https://github.com/thoughtbot/factory_bot_rails
+  gem "factory_bot_rails" # https://github.com/thoughtbot/factory_bot_rails
   # Ruby static code analyzer (aka linter)
-  gem 'rubocop', '~> 1.38', require: false # https://github.com/rubocop-hq/rubocop
+  gem "rubocop", "~> 1.38", require: false # https://github.com/rubocop-hq/rubocop
   # Rails Extension for Rubocop
-  gem 'rubocop-rails', require: false # https://github.com/rubocop-hq/rubocop-rails
+  gem "rubocop-rails", require: false # https://github.com/rubocop-hq/rubocop-rails
   # rspec Extension for Rubocop
-  gem 'rubocop-rspec', require: false # https://github.com/rubocop-hq/rubocop-rspec
+  gem "rubocop-rspec", require: false # https://github.com/rubocop-hq/rubocop-rspec
   # Performance optimization analysis for your projects
-  gem 'rubocop-performance', require: false # https://github.com/rubocop-hq/rubocop-performance
+  gem "rubocop-performance", require: false # https://github.com/rubocop-hq/rubocop-performance
   # RSpec formatter compatible with GitHub Action's annotations
-  gem 'rspec-github', require: false # https://github.com/Drieam/rspec-github
+  gem "rspec-github", require: false # https://github.com/Drieam/rspec-github
 end
 
 group :development do
@@ -99,11 +107,11 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
   # one-liners to test common Rails functionality
-  gem 'shoulda-matchers', '~> 5.0' # https://github.com/thoughtbot/shoulda-matchers
+  gem "shoulda-matchers", "~> 5.0" # https://github.com/thoughtbot/shoulda-matchers
   # Code coverage analysis tool for Ruby
-  gem 'simplecov', require: false # https://github.com/simplecov-ruby/simplecov
+  gem "simplecov", require: false # https://github.com/simplecov-ruby/simplecov
 end
 
 group :production do
-  gem 'pg' # production database runs on PostgreSQL
+  gem "pg" # production database runs on PostgreSQL
 end

@@ -17,7 +17,7 @@ Depends on:
 
 - 
 
-### Definition of Done
+### Acceptance Criteria
 
 - [ ]  <Criteria 1>
 - [ ]  <Criteria 2>

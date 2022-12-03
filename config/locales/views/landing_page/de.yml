@@ -1,2 +1,4 @@
 de:
   hello: "Hallo Welt 2"
+  login_with_oidc: "Mit OIDC einloggen"
+  my_profile: "Mein Profil"
