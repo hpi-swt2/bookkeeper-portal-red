@@ -30,7 +30,7 @@ class GroupsController < ApplicationController
         format.html { redirect_to group_url(@group), notice: t(:group_new) }
         format.json { render :show, status: :created, location: @group }
       else
-        unprocessable_response(path: :new, entity: @group)
+        unprocessable_response(format, redirect: :new, entity: @group)
       end
     end
   end
@@ -42,7 +42,7 @@ class GroupsController < ApplicationController
         format.html { redirect_to group_url(@group), notice: t(:group_update) }
         format.json { render :show, status: :ok, location: @group }
       else
-        unprocessable_response(path: :edit, entity: @group)
+        unprocessable_response(format, redirect: :edit, entity: @group)
       end
     end
   end
@@ -82,8 +82,8 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
   end
 
-  def unprocessable_response(path, entity)
-    format.html { render path, status: :unprocessable_entity }
+  def unprocessable_response(format, redirect:, entity:)
+    format.html { render redirect, status: :unprocessable_entity }
     format.json { render json: entity.errors, status: :unprocessable_entity }
   end
 
