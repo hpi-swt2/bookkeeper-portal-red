@@ -1,4 +1,9 @@
 en:
+  my_groups: "My Groups"
+  create_group: "Create group"
+  delete_group: "Delte group"
+  leave_group: "Leave group"
+
   login_first: "You have to log in first"
   only_admins: "Only admins are allowed to edit this group"
 
