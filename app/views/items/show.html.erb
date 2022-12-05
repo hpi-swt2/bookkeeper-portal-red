@@ -1,3 +1,12 @@
+<% content_for :head_addition do %>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+    crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+    crossorigin=""></script>
+<% end %>
+
 <p style="color: green"><%= notice %></p>
 
 <%= stylesheet_link_tag "item-show.css" %>
@@ -6,3 +15,20 @@
   <%= render "item_smallscreen" %>
 </div>
 
+<script>
+  function renderMap(div_id) {
+    var item = <%= @item.to_json.html_safe %>;
+    var itemCoordinates = [52.393807, 13.132134]; // TODO: replace with `item.coordinates` when available
+  
+    var map = L.map(div_id).setView(itemCoordinates, 18);
+  
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+  
+    var marker = L.marker(itemCoordinates).addTo(map);
+  }
+  renderMap('item-location-small');
+  renderMap('item-location-large');
+</script>
