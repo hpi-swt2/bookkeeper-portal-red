@@ -1,25 +1,6 @@
 # Additional translations at https://github.com/heartcombo/devise/wiki/I18n
 
 en:
-  items:
-    messages:
-      successfully_created: "Item was successfully created."
-      successfully_updated: "Item was successfully updated."
-      successfully_destroyed: "Item was successfully destroyed."
-      successfully_borrowed: "Item was successfully borrowed"
-      successfully_returned: "Item was successfully returned"
-    buttons:
-      show: "Show item"
-      edit: "Edit item"
-      back: "Back to items"
-      borrow: "Borrow"
-      return: "Return"
-    status_badge:
-      available: "Available"
-      borrowed_by_me: "Borrowed by me"
-      not_available: "Not available" 
-    card_text:
-      owner: from
   devise:
     confirmations:
       confirmed: "Your email address has been successfully confirmed."
