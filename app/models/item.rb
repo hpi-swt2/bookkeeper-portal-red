@@ -34,9 +34,16 @@ class Item < ApplicationRecord
     user_reservations = Reservation.where(user_id: user.id, item_id: id)
     return false if user_reservations.is_empty
 
-    user_reservations.exists?(["DATE(start_at) < now AND now <= DATE(ends_at)", { now: Time.zone.today }])
+    user_reservations.exists?(["DATE(starts_at) < :now AND :now <= DATE(ends_at)", { now: Time.zone.now }])
   end
 
+  def reservable_by?(user)
+    return false unless lendable?
+    reservations = Reservation.where(item_id: id)
+    return false if reservations.exists?(["DATE(starts_at) < :now AND :now <= DATE(ends_at)", { now: Time.zone.now }])
+    return false unless user.lending_rights?(self)
+    true
+  end
   def borrowed_by?(user)
     Lending.exists?(user_id: user.id, item_id: id, completed_at: nil)
   end
@@ -49,9 +56,15 @@ class Item < ApplicationRecord
   end
 
   def button_text(user)
+    return I18n.t("items.buttons.reserve") if reservable_by?(user)
     return I18n.t("items.buttons.borrow") if lendable?
     return I18n.t("items.buttons.return") if borrowed_by?(user)
 
     I18n.t("items.status_badge.not_available")
+  end
+
+  def button_path(user)
+    return item_reserve_path(@item) if reservable_by?(user)
+    item_update_lending_path(@item) if lendable?
   end
 end

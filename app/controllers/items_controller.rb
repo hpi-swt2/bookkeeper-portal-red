@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show edit update destroy ]
-  before_action :set_item_from_item_id, only: %i[ update_lending ]
+  before_action :set_item_from_item_id, only: %i[ update_lending reserve ]
 
   # GET /items or /items.json
   def index
@@ -61,6 +61,27 @@ class ItemsController < ApplicationController
       end
     end
   end
+
+  def reserve
+    @user = current_user
+    item_reservable_by_user = @item.reservable_by?(@user)
+    if item_reservable_by_user
+      create_reservation
+      msg = I18n.t("items.messages.successfully_reserved")
+    else
+      msg = I18n.t("items.messages.unsuccessfully_reserved")
+    end
+
+    respond_to do |format|
+      if !item_reservable_by_user or @reservation.save
+        format.html { redirect_to items_path, notice: msg }
+        format.json { render :index, status: :ok, location: items_path }
+      else
+        format.html { render :show, status: :unprocessable_entity }
+        format.json { render json: @reservation.errors, status: :unprocessable_entity }
+      end
+    end
+  end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PATCH/PUT /items/1 or /items/1.json
@@ -109,5 +130,9 @@ class ItemsController < ApplicationController
     @lending.user = @user
     @lending.item = @item
     @lending.completed_at = nil
+  end
+
+  def create_reservation
+    @reservation = Reservation.new(item_id: @item.id, user_id: @user.id,starts_at: Time.zone.now, ends_at: Time.zone.now + 2.day )
   end
 end
