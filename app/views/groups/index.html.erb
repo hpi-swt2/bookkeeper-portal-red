@@ -1,7 +1,33 @@
 <div class="container">
   <div class="my-5">
     <div class="d-flex flex-row-reverse">
-      <%= link_to t(:create_group), new_group_path, class: "btn btn-secondary" %>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createGroupModal">
+        <%= t(:create_group) %>
+      </button>
+    </div>
+  </div>
+</div>
+<!-- new group modal -->
+<div class="modal fade" id="createGroupModal" tabindex="-1" aria-labelledby="createGroupModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="createGroupModalLabel"><%= t(:create_group) %></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= t(:cancel) %>"></button>
+      </div>
+      <div class="modal-body">
+        <%= form_with(model: Group.new) do |form| %>
+          <div>
+            <%= form.label :name, t(:group_name_prompt), class: "form-label" %>
+            <%= form.text_field :name, placeholder: t(:group_name), class: "form-control" %>
+          </div>
+      </div>
+
+      <div class="modal-footer border-0 justify-content-evenly">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t(:cancel) %></button>
+        <%= form.submit t(:create_group), :class => "btn btn-primary" %>
+      </div>
+        <% end %>
     </div>
   </div>
 </div>
@@ -13,7 +39,7 @@
     <h3>
       <%= group.name %>
       <% if @user.admin_in?(group)%>
-        <%= link_to " ", edit_group_path(group), class: "badge bg-primary bi bi-pencil-fill" %>
+        <%= link_to " ", edit_group_path(group), class: "badge bg-secondary bi bi-pencil-fill" %>
       <% else %>
         <%= link_to t(:leave_group), group_leave_path(group), data: {turbo_method: :post, turbo_confirm: "Are you sure?"}, class: "btn btn-primary" %>
       <% end %>

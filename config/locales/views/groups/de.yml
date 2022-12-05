@@ -1,8 +1,14 @@
 de:
+  cancel: "Abbrechen"
+
   my_groups: "Meine Gruppen"
   create_group: "Gruppe erstellen"
   delete_group: "Gruppe löschen"
   leave_group: "Gruppe verlassen"
+  update_group: "Gruppe bearbeiten"
+
+  group_name : "Gruppenname"
+  group_name_prompt: "Bitte gebe deiner Gruppe einen Namen"
 
   login_first: "Du musst Dich erst anmelden"
   only_admins: "Nur Administratoren dürfen diese Gruppe bearbeiten"
