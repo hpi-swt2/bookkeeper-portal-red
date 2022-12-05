@@ -56,7 +56,7 @@
             </div>
             <%# Description%>
             <p class="card-text"><%= @item.description %></p>
-
+            <div id="item-location-large" style="height: 240px;"></div>
           </div>
           <%# Button %>
           <%= link_to I18n.t("items.buttons.edit"), edit_item_path(@item) %> |

@@ -1,3 +1,12 @@
+<% content_for :head_addition do %>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+    crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+    crossorigin=""></script>
+<% end %>
+
 <p style="color: green"><%= notice %></p>
 
 <%= stylesheet_link_tag "item-show.css" %>
@@ -23,3 +32,31 @@ function saveUserPositionInHiddenForm(position) {
 </div>
   
 
+<script>
+  function renderMap(div_id) {
+    // default values if item has no coordinates
+    var itemCoordinates = [32.71199, -94.12118];
+    var setMarker = false;
+    var zoomLevel = 16;
+
+    var item = <%= @item.to_json.html_safe %>;
+    if (item.lat !== undefined && item.long !== undefined) {
+      itemCoordinates = [item.lat, item.long];
+      setMarker = true;
+      zoomLevel = 18;
+    }
+  
+    var map = L.map(div_id).setView(itemCoordinates, zoomLevel);
+  
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    if (setMarker) {
+      var marker = L.marker(itemCoordinates).addTo(map);
+    }
+  }
+  renderMap('item-location-small');
+  renderMap('item-location-large');
+</script>
