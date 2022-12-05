@@ -45,7 +45,7 @@ class Item < ApplicationRecord
     return I18n.t("items.status_badge.available") if lendable?
     return I18n.t("items.status_badge.borrowed_by_me") if borrowed_by?(user)
 
-    I18n.t("items.status_badge._not_available")
+    I18n.t("items.status_badge.not_available")
   end
 
   def button_text(user)
