@@ -1,20 +1,18 @@
-<div class="wrapper container">
-  <div class="row py-5 my-5 text-center">
-    <h3 class="fw-bold">Neu inseriert</h3>
-    <div class="mx-auto">
-      <div class="grid text-center">
-        <% [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].each do |val| %>
-          <div class="g-col-12 g-col-md-6 g-col-lg-4 g-col-xl-3">
-            <div class="card" style="height: 150px">
-              <div class="card-img-top bg-primary">
-                <div class="card-body">
-                  <p class="card-text text-white">Asset Component (for Item number #<%= val %>)</p>
-                </div>
+<div class="row text-center">
+  <h3 class="fw-bold">Neu inseriert</h3>
+  <div class="mx-auto">
+    <div class="grid text-center">
+      <% [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].each do |val| %>
+        <div class="g-col-12 g-col-md-6 g-col-lg-4 g-col-xl-3">
+          <div class="card" style="height: 150px">
+            <div class="card-img-top bg-primary">
+              <div class="card-body">
+                <p class="card-text text-white">Asset Component (for Item number #<%= val %>)</p>
               </div>
             </div>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
