@@ -1,0 +1,7 @@
+de:
+  login_first: "Du musst Dich erst anmelden"
+  only_admins: "Nur Administratoren dürfen diese Gruppe bearbeiten"
+
+  group_new: "Die Gruppe wurde erfolgreich erstellt"
+  group_update: "Die Gruppe wurde erfolgreich aktualisiert"
+  group_destroy: "Die Gruppe wurde wurde erfolgreich gelöscht"

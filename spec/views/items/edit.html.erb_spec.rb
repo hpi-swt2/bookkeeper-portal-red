@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "items/edit", type: :view do
-  let(:item) {
+  let(:item) do
     Item.create!(
       name: "MyString",
       description: "MyString"
     )
-  }
+  end
 
-  before(:each) do
+  before do
     assign(:item, item)
   end
 

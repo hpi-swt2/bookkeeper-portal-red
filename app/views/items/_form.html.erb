@@ -22,6 +22,11 @@
   </div>
 
   <div>
+    <%= form.label :max_borrowing_period, style: "display: block" %>
+    <%= form.datetime_field :max_borrowing_period %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

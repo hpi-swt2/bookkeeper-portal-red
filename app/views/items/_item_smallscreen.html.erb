@@ -1,0 +1,56 @@
+<%# The main show page for small screens %>
+<div class="small-screen">
+  <%# Image slider%>
+  <%= image_tag "dummy_image.png", class: "card-img-top"%>
+  <hr class="border border-primary border-2 opacity-75"/>
+ 
+  <div class="container">
+    <div class="row">
+      <%# name%>
+      <h1 class="col-sm-7"><%= @item.name %></h1>
+      <%# available badge%>
+      <div class="col-sm-2 ms-auto">
+        <%= render(ItemAvailabilityBadgeComponent.new(item: @item, user: current_user)) %>
+      </div>
+    </div>
+    <div class="row">
+      <%# owner%>
+      <p class="card-text">
+        <%= I18n.t("items.card_text.owner") %>
+        <span class="text-warning">Ownername</span>
+      </p>
+    </div>
+  </div>
+
+
+  <hr class="border border-primary border-2 opacity-75"/>
+  <%# Description%>
+  <p class="card-text"><%= @item.description %></p>
+
+  <%# Attributes %>
+  <table class="table">
+    <tbody>
+    <tr>
+      <td>Spieler: 5</td>
+    </tr>
+    <tr>
+      <td>Alter: 12+</td>
+    </tr>
+    <tr>
+      <td>Typ: Brettspiel+</td>
+    </tr>
+    <tr>
+      <td>Jahr: 2014+</td>
+    </tr>
+    </tbody>
+  </table>
+  <%# Main Button %>
+  <%= link_to I18n.t("items.buttons.edit"), edit_item_path(@item) %> |
+  <%= link_to I18n.t("items.buttons.back"), items_path %>
+  <%# <%= button_to "Destroy this item", @item, method: :delete %>
+  <div class="button-blocker">
+  </div>
+  <%= if current_user.lending_rights?(@item)
+    button_to @item.button_text(current_user), item_update_lending_path(@item), method: :patch, class: "btn btn-primary item-action-button"
+  end %>
+</div>
