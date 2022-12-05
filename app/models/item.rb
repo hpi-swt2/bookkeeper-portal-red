@@ -20,8 +20,8 @@ class Item < ApplicationRecord
     source: :group
   )
   has_many(
-    :lender_groups,
-    -> { where(permissions: { permission_type: :can_lend }) },
+    :borrower_groups,
+    -> { where(permissions: { permission_type: :can_borrow }) },
     through: :permissions,
     source: :group
   )
