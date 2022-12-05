@@ -41,10 +41,17 @@ class Item < ApplicationRecord
     Lending.exists?(user_id: user.id, item_id: id, completed_at: nil)
   end
 
-  def button_text(user)
-    return "Ausleihen" if lendable?
-    return "Zurückgeben" if borrowed_by?(user)
+  def status_text(user)
+    return I18n.t("items.status_badge.available") if lendable?
+    return I18n.t("items.status_badge.borrowed_by_me") if borrowed_by?(user)
 
-    "Nicht verfügbar"
+    I18n.t("items.status_badge.not_available")
+  end
+
+  def button_text(user)
+    return I18n.t("items.buttons.borrow") if lendable?
+    return I18n.t("items.buttons.return") if borrowed_by?(user)
+
+    I18n.t("items.status_badge.not_available")
   end
 end

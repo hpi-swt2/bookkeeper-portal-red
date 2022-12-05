@@ -16,7 +16,7 @@
     <div class="row">
       <%# owner%>
       <p class="card-text">
-        von:
+        <%= I18n.t("items.card_text.owner") %>
         <span class="text-warning">Ownername</span>
       </p>
     </div>
@@ -45,8 +45,8 @@
     </tbody>
   </table>
   <%# Main Button %>
-  <%= link_to "Edit this item", edit_item_path(@item) %> |
-  <%= link_to "Back to items", items_path %>
+  <%= link_to I18n.t("items.buttons.edit"), edit_item_path(@item) %> |
+  <%= link_to I18n.t("items.buttons.back"), items_path %>
   <%# <%= button_to "Destroy this item", @item, method: :delete %>
   <div class="button-blocker">
   </div>
