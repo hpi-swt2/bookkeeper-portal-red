@@ -17,6 +17,7 @@ class User < ApplicationRecord
   has_many :groups, through: :memberships
   has_many :lendings, dependent: :destroy
   has_many :reservations, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   def lending_rights?(item)
     item_groups = item.lender_groups
