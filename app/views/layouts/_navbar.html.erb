@@ -12,7 +12,10 @@
     <div class="collapse navbar-collapse bg-primary" id="navbarToggle">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="#">
+            <i class="bi bi-house-fill mobile-only"></i>
+            Home
+          </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">
@@ -26,8 +29,10 @@
             Meine Gruppen
           </a>
           <ul class="dropdown-menu bg-primary">
-            <li><a class="dropdown-item text-white" href="#">SWA-Lehrstuhl <i class="bi bi-patch-check-fill text-warning"></i></a></li>
-            <li><a class="dropdown-item text-white" href="#">Fachschaftsrat <i class="bi bi-patch-check-fill text-warning"></i></a></li>
+            <li><a class="dropdown-item text-white" href="#">SWA-Lehrstuhl
+              <i class="bi bi-patch-check-fill text-warning"></i></a></li>
+            <li><a class="dropdown-item text-white" href="#">Fachschaftsrat
+              <i class="bi bi-patch-check-fill text-warning"></i></a></li>
             <li><a class="dropdown-item text-white" href="#">Filmklub</a></li>
             <li><a class="dropdown-item text-white" href="#">Spieleklub</a></li>
           </ul>
@@ -38,19 +43,28 @@
             Kategorien
           </a>
         </li>
+
+        <li class="mobile-only nav-item">
+          <a href="#" class="nav-link"><i class="bi bi-bell-fill"></i> Notifications</a>
+        </li>
+        <li class="mobile-only nav-item">
+          <a href="<%= profiles_me_path %>" class="nav-link"><i class="bi bi-person-fill"></i> My Profile</a>
+        </li>
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Select Language
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
-                <%=link_to "English", { :locale=>'en' }, class:"dropdown-item" %>
+              <%= link_to "English", { :locale => 'en' }, class: "dropdown-item" %>
             </li>
             <li>
-                <%=link_to "Deutsch", { :locale=>'de' }, class:"dropdown-item" %>
+              <%= link_to "Deutsch", { :locale => 'de' }, class: "dropdown-item" %>
             </li>
           </ul>
         </li>
+
       </ul>
 
       <form class="d-flex desktop-only mx-3">
@@ -60,8 +74,8 @@
         </button>
       </form>
       <span>
-        <a href="#" class="text-white"><i class="bi bi-bell-fill fs-3"></i></a>
-        <a href="<%= profiles_me_path %>" class="text-white"><i class="bi bi-person-fill fs-3"></i></a>
+        <a href="#" class="desktop-only text-white"><i class="bi bi-bell-fill fs-3"></i></a>
+        <a href="<%= profiles_me_path %>" class="desktop-only text-white"><i class="bi bi-person-fill fs-3"></i></a>
       </span>
     </div>
   </div>
