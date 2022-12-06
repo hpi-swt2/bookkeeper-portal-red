@@ -26,8 +26,10 @@
             Meine Gruppen
           </a>
           <ul class="dropdown-menu bg-primary">
-            <li><a class="dropdown-item text-white" href="#">SWA-Lehrstuhl <i class="bi bi-patch-check-fill text-warning"></i></a></li>
-            <li><a class="dropdown-item text-white" href="#">Fachschaftsrat <i class="bi bi-patch-check-fill text-warning"></i></a></li>
+            <li><a class="dropdown-item text-white" href="#">SWA-Lehrstuhl
+              <i class="bi bi-patch-check-fill text-warning"></i></a></li>
+            <li><a class="dropdown-item text-white" href="#">Fachschaftsrat
+              <i class="bi bi-patch-check-fill text-warning"></i></a></li>
             <li><a class="dropdown-item text-white" href="#">Filmklub</a></li>
             <li><a class="dropdown-item text-white" href="#">Spieleklub</a></li>
           </ul>
@@ -44,10 +46,10 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
-                <%=link_to "English", { :locale=>'en' }, class:"dropdown-item" %>
+              <%= link_to "English", { :locale => 'en' }, class: "dropdown-item" %>
             </li>
             <li>
-                <%=link_to "Deutsch", { :locale=>'de' }, class:"dropdown-item" %>
+              <%= link_to "Deutsch", { :locale => 'de' }, class: "dropdown-item" %>
             </li>
           </ul>
         </li>
@@ -60,9 +62,20 @@
         </button>
       </form>
       <span>
-        <a href="#" class="text-white"><i class="bi bi-bell-fill fs-3"></i></a>
+          <a href="#" type="button" data-bs-toggle="offcanvas" data-bs-target="#notification-inbox-container"
+             aria-controls="notification-inbox-container" class="text-white"><i class="bi bi-bell-fill fs-3"></i></a>
         <a href="<%= profiles_me_path %>" class="text-white"><i class="bi bi-person-fill fs-3"></i></a>
       </span>
     </div>
   </div>
 </nav>
+
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="notification-inbox-container" aria-labelledby="notification-inbox-containerLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="notification-inbox-containerLabel">Notifications</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <%= render(NotificationInboxComponent.new) %>
+  </div>
+</div>

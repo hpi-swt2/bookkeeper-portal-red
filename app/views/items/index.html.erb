@@ -2,9 +2,9 @@
 
 <div id="items">
   <div class="container">
-      <div class="row ">
-        <% @items.each do |item| %>
-          <div class="col-sm-3 mb-4">
+    <div class="row ">
+      <% @items.each do |item| %>
+        <div class="col-sm-3 mb-4">
           <div class="card">
             <img class="card-img-top" src="https://via.placeholder.com/400x300" alt="Card image cap">
             <div class="card-body text-center">
@@ -15,10 +15,10 @@
               <%= link_to "Edit item", edit_item_path(item), class: "card-link" %>
             </div>
           </div>
-          </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
+  </div>
 </div>
 
 <%= link_to "New item", new_item_path %>

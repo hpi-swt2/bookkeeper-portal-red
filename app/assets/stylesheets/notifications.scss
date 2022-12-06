@@ -1,0 +1,18 @@
+@import "application";
+
+#notification-inbox-container {
+  background-color: #d3d3d3;
+
+  @media (max-width: $mobileDeviceCutoff) {
+    width: 100%;
+  }
+
+  @media (min-width: $mobileDeviceCutoff) {
+    width: 400px;
+  }
+}
+
+.notification-message {
+  min-height: 50px;
+  margin-bottom: 5px;
+}
