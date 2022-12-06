@@ -12,7 +12,10 @@
     <div class="collapse navbar-collapse bg-primary" id="navbarToggle">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="#">
+            <i class="bi bi-house-fill mobile-only"></i>
+            Home
+          </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">
@@ -40,6 +43,13 @@
             Kategorien
           </a>
         </li>
+        <li class="mobile-only nav-item">
+          <a href="#" data-bs-toggle="offcanvas" data-bs-target="#notification-inbox-container"
+             aria-controls="notification-inbox-container" class="nav-link"><i class="bi bi-bell-fill"></i> Notifications</a>
+        </li>
+        <li class="mobile-only nav-item">
+          <a href="<%= profiles_me_path %>" class="nav-link"><i class="bi bi-person-fill"></i> My Profile</a>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Select Language
@@ -62,9 +72,9 @@
         </button>
       </form>
       <span>
-          <a href="#" type="button" data-bs-toggle="offcanvas" data-bs-target="#notification-inbox-container"
-             aria-controls="notification-inbox-container" class="text-white"><i class="bi bi-bell-fill fs-3"></i></a>
-        <a href="<%= profiles_me_path %>" class="text-white"><i class="bi bi-person-fill fs-3"></i></a>
+        <a href="#" class="desktop-only text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#notification-inbox-container"
+           aria-controls="notification-inbox-container"><i class="bi bi-bell-fill fs-3"></i></a>
+        <a href="<%= profiles_me_path %>" class="desktop-only text-white"><i class="bi bi-person-fill fs-3"></i></a>
       </span>
     </div>
   </div>
