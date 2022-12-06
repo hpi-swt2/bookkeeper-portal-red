@@ -1,1 +1,1 @@
-<%= render(StatusBadgeComponent.new(text: status_text, bootstrap_classes: status_classes)) %>
+<%= render(StatusBadgeComponent.new(text: @item.status_text(@user), bootstrap_classes: status_classes)) %>

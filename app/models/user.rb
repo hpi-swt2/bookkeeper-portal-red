@@ -20,7 +20,7 @@ class User < ApplicationRecord
   has_many :notifications, dependent: :destroy
 
   def lending_rights?(item)
-    item_groups = item.lender_groups
+    item_groups = item.borrower_groups
 
     groups.each do |user_group|
       return true if item_groups.include? user_group
