@@ -30,27 +30,42 @@ RSpec.describe Item, type: :model do
   # end
 
   it "can be of different types" do
+    book = FactoryBot.create(:book)
+    expect((described_class.find_by name: book.name).item_type).to eq("book")
 
-    @book = FactoryBot.create(:book)
-    # @book = Item.create( name: "Buch")
+    movie = FactoryBot.create(:movie)
+    expect((described_class.find_by name: movie.name).item_type).to eq("movie")
 
-    # expect(Item.find_by name: @book.name).to eq(@book)
-    expect((described_class.find_by name: @book.name).item_type).to eq("book")
+    game = FactoryBot.create(:game)
+    expect((described_class.find_by name: game.name).item_type).to eq("game")
 
-    expect((described_class.find_by name: @book.name).name).to eq("The communist manifesto")
-
-    # @movie = FactoryBot.create(:movie)
-    # expect(Item.find_by name: @movie.name).to eq(@movie)
-    # expect((Item.find_by name: @movie.name).type).to eq(@book.type)
-
-    # @game = FactoryBot.create(:game)
-    # expect(Item.find_by name: @book.name).to eq(@book)
-    # expect((Item.find_by name: @book.name).type).to eq(@book.type)
-
-    # @other = FactoryBot.create(:other)
-    # expect(Item.find_by name: @book.name).to eq(@book)
-    # expect((Item.find_by name: @book.name).type).to eq(@book.type)
-
+    other = FactoryBot.create(:other)
+    expect((described_class.find_by name: other.name).item_type).to eq("other")
   end
 
+  it "has attributes depending on it's type" do
+    book = FactoryBot.create(:book)
+    expect(book.attribute?("author")).to be true
+    expect(book.attribute?("number_of_pages")).to be true
+    expect(book.attribute?("fsk")).to be false
+    expect(book.attribute?("format")).to be false
+
+    movie = FactoryBot.create(:movie)
+    expect(movie.attribute?("director")).to be true
+    expect(movie.attribute?("genre")).to be true
+    expect(movie.attribute?("publisher")).to be false
+    expect(movie.attribute?("edition")).to be false
+
+    game = FactoryBot.create(:game)
+    expect(game.attribute?("illustrator")).to be true
+    expect(game.attribute?("number_of_players")).to be true
+    expect(game.attribute?("category")).to be false
+    expect(game.attribute?("number_of_pages")).to be false
+
+    other = FactoryBot.create(:other)
+    expect(other.attribute?("name")).to be true
+    expect(other.attribute?("category")).to be true
+    expect(other.attribute?("release_date")).to be false
+    expect(other.attribute?("isbn")).to be false
+  end
 end
