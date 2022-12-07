@@ -45,8 +45,8 @@ class ItemsController < ApplicationController
     @user = current_user
 
     @lending = Lending.where(item_id: @item.id, completed_at: nil)[0]
-    @item.lat = 12.5
-    @item.lng = 13.5
+    @item.lat = params[:lat]
+    @item.lng = params[:lng]
     @item.save
 
     if @lending.nil?

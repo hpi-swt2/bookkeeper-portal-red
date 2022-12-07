@@ -63,43 +63,15 @@
           <%= link_to I18n.t("items.buttons.back"), items_path %>
           <%# <%= button_to "Destroy this item", @item, method: :delete %>
           <div class="d-flex justify-content-center w-100 mb-5">
-         <%
-  if current_user.lending_rights?(@item)
-    # Get the user's GPS location using JavaScript
-    user_location = %Q{
-      <script>
-        function get_current_user_location() {
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-              return {
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude
-              };
-            });
-          } else {
-            // Geolocation is not supported by this browser
-            return null;
-          }
-        }
-      </script>
-    }
-    
-    # Include the location in the update method
-    button_to @item.button_text(current_user), item_update_lending_path(@item, location: user_location), method: :patch, class: "btn btn-primary item-action-button"
-  end
-%>
 
  <% if current_user.lending_rights?(@item)  %>
   <%= form_tag item_update_lending_path(@item), method: :patch do %>
     <%= hidden_field_tag 'lat'  %>
     <%= hidden_field_tag 'lng'  %>
     <%= button_tag @item.button_text(current_user), class: "btn btn-secondary item-action-button" %>
-    <% end %>
-<% end %>
+  <% end %>
 
-
-<script>
-
+  <script>
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(saveUserPositionInHiddenForm, (error) => {
@@ -111,13 +83,16 @@ function getLocation() {
 }
 
 function saveUserPositionInHiddenForm(position) {
-  console.log(position);
   document.getElementById('lat').value = position.coords.latitude;
   document.getElementById('lng').value = position.coords.longitude;
 }
 
 getLocation();
 </script>
+<% end %>
+
+
+
 
 
           </div>

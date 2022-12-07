@@ -50,7 +50,32 @@
   <%# <%= button_to "Destroy this item", @item, method: :delete %>
   <div class="button-blocker">
   </div>
-  <%= if current_user.lending_rights?(@item) and @src_is_qrcode
-    button_to @item.button_text(current_user), item_update_lending_path(@item), method: :patch, class: "btn btn-primary item-action-button"
-  end %>
+  
+   <% if current_user.lending_rights?(@item)  %>
+  <%= form_tag item_update_lending_path(@item), method: :patch do %>
+    <%= hidden_field_tag 'lat'  %>
+    <%= hidden_field_tag 'lng'  %>
+    <%= button_tag @item.button_text(current_user), class: "btn btn-secondary item-action-button" %>
+  <% end %>
+
+  <script>
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(saveUserPositionInHiddenForm, (error) => {
+      console.log(error);
+    });   
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function saveUserPositionInHiddenForm(position) {
+  document.getElementById('lat').value = position.coords.latitude;
+  document.getElementById('lng').value = position.coords.longitude;
+}
+
+getLocation();
+</script>
+<% end %>
+
 </div>
