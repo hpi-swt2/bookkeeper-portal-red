@@ -1,4 +1,5 @@
 class Group < ApplicationRecord
+  validates :name, presence: true
   has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships
   has_many :permissions, dependent: :destroy
@@ -15,8 +16,8 @@ class Group < ApplicationRecord
     source: :item
   )
   has_many(
-    :lendable_items,
-    -> { where(permissions: { permission_type: :can_lend }) },
+    :borrowable_items,
+    -> { where(permissions: { permission_type: :can_borrow }) },
     through: :permissions,
     source: :item
   )

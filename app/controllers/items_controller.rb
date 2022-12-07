@@ -29,7 +29,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
-        format.html { redirect_to item_url(@item), notice: I18n.t("items.successfully_created") }
+        format.html { redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_created") }
         format.json { render :show, status: :created, location: @item }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -45,10 +45,10 @@ class ItemsController < ApplicationController
     @lending = Lending.where(item_id: @item.id, completed_at: nil)[0]
     if @lending.nil?
       create_lending
-      msg = "Item was successfully borrowed"
+      msg = I18n.t("items.messages.successfully_borrowed")
     else
       @lending.completed_at = DateTime.now
-      msg = "Item was successfully returned"
+      msg = I18n.t("items.messages.successfully_returned")
     end
 
     respond_to do |format|
@@ -67,7 +67,7 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update(item_params)
-        format.html { redirect_to item_url(@item), notice: I18n.t("items.successfully_updated") }
+        format.html { redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_updated") }
         format.json { render :show, status: :ok, location: @item }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -81,7 +81,7 @@ class ItemsController < ApplicationController
     @item.destroy
 
     respond_to do |format|
-      format.html { redirect_to items_url, notice: I18n.t("items.successfully_destroyed") }
+      format.html { redirect_to items_url, notice: I18n.t("items.messages.successfully_destroyed") }
       format.json { head :no_content }
     end
   end

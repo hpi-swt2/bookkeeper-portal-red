@@ -64,5 +64,8 @@ yarn-debug.log*
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
 
+# RubyMine workspace
+.idea
+
 # Used by RuboCop. Remote config files pulled in from inherit_from directive.
 .rubocop-https?--*

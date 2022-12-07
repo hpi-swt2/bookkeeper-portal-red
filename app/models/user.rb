@@ -19,7 +19,7 @@ class User < ApplicationRecord
   has_many :reservations, dependent: :destroy
 
   def lending_rights?(item)
-    item_groups = item.lender_groups
+    item_groups = item.borrower_groups
 
     groups.each do |user_group|
       return true if item_groups.include? user_group
@@ -37,5 +37,10 @@ class User < ApplicationRecord
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
     end
+  end
+
+  def admin_in?(group)
+    own_groups = groups.where(memberships: { role: :admin })
+    own_groups.include? group
   end
 end
