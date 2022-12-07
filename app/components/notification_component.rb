@@ -2,10 +2,10 @@
 
 class NotificationComponent < ViewComponent::Base
   def initialize(type:, date:, time:, message:)
+    super type: type, date: date, time: time, message: message
     @type = type
     @date = date
     @time = time
     @message = message
   end
-
 end
