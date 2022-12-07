@@ -8,4 +8,10 @@ class NotificationMailerPreview < ActionMailer::Preview
   def return_reminder
     NotificationMailer.return_reminder(nil)
   end
+
+  def send_notification
+    user = FactoryBot.build(:user)
+    user.id = 1
+    NotificationMailer.send_notification("Hier könnte deine Nachricht stehen.", user, :info)
+  end
 end

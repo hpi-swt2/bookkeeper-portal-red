@@ -18,4 +18,24 @@ class NotificationMailer < ApplicationMailer
     @item = item
     mail(to: '@item.lending.user.email', name: '@item.lending.user.name', subject: "{item.name} is overdue!") # rubocop:disable Rails/I18nLocaleTexts
   end
+
+  def send_notification(message, user, notification_type, as_mail: true)
+    @message = message
+    @user = user
+    create_notification(message, user, notification_type)
+    mail(to: @user.email, subject: "Bookeeper Red Notification") if as_mail # rubocop:disable Rails/I18nLocaleTexts
+  end
+
+  private
+
+  def create_notification(message, user, notification_type)
+    notification = Notification.new
+    notification.message = message
+    notification.user_id = user.id
+    notification.sent = DateTime.now
+    notification.display = true
+    notification.notification_type = notification_type
+
+    notification.save
+  end
 end
