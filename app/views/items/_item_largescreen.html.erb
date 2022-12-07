@@ -64,8 +64,9 @@
           <%# <%= button_to "Destroy this item", @item, method: :delete %>
           <div class="d-flex justify-content-center w-100 mb-5">
             <%= if current_user.lending_rights?(@item) or @item.reservable_by?(current_user)
-              button_to @item.button_text(current_user), @item.button_path(current_user), method: :patch, class: "mx-auto btn btn-primary"
+              button_to button_text(), button_path(), method: :patch, class: "mx-auto btn btn-primary"
             end %>
+            <%= puts("Has lending rights?: " + current_user.lending_rights?(@item).to_s)%>
           </div>
         </div>
       </div>

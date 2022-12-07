@@ -54,17 +54,4 @@ class Item < ApplicationRecord
 
     I18n.t("items.status_badge.not_available")
   end
-
-  def button_text(user)
-    return I18n.t("items.buttons.reserve") if reservable_by?(user)
-    return I18n.t("items.buttons.borrow") if lendable?
-    return I18n.t("items.buttons.return") if borrowed_by?(user)
-
-    I18n.t("items.status_badge.not_available")
-  end
-
-  def button_path(user)
-    return item_reserve_path(@item) if reservable_by?(user)
-    item_update_lending_path(@item) if lendable?
-  end
 end
