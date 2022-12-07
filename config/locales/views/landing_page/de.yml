@@ -10,6 +10,8 @@ de:
       successfully_borrowed: "Item wurde erfolgreich ausgeliehen"
       successfully_returned: "Item wurde erfolgreich zurückgegeben"
     buttons:
+      new: "Item erstellen"
+      update: "Item aktualisieren"
       show: "Item anzeigen"
       edit: "Item bearbeiten"
       back: "Zurück zur Items Übersicht"
