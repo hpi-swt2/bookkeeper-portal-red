@@ -8,6 +8,8 @@ en:
       successfully_borrowed: "Item was successfully borrowed"
       successfully_returned: "Item was successfully returned"
     buttons:
+      new: "Create item"
+      update: "Update item"
       show: "Show item"
       edit: "Edit item"
       back: "Back to items"
