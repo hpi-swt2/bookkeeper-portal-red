@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_08_160456) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_07_125838) do
   create_table "groups", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -39,7 +39,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_160456) do
     t.integer "number_of_players"
     t.integer "playing_time"
     t.string "category"
-    t.integer "max_borrowing_days"
+    t.float "lat"
+    t.float "lng"
   end
 
   create_table "lendings", force: :cascade do |t|
