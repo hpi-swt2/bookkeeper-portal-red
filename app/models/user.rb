@@ -27,6 +27,11 @@ class User < ApplicationRecord
     false
   end
 
+  def items
+    # get all items where the user is a manager of any group
+    Item.joins(:manager_groups).where(groups: { id: groups })
+  end
+
   # Handles user creation based on data returned from OIDC login process. If
   # the user already exists, returns the user.
   def self.from_omniauth(auth)

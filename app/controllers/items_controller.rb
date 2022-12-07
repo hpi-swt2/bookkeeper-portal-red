@@ -24,14 +24,24 @@ class ItemsController < ApplicationController
   end
 
   # GET /items/borrowed
+  # lists all items borrowed by the current user
   def borrowed_items
     @items = current_user.lendings.where(completed_at: nil).map(&:item)
     render :borrowed_items
   end
 
+  # GET /items/my/borrowed
+  # lists all items of the current user which are currently borrowed
+  def my_borrowed_items
+    # return items which are currently not lendable
+    @items = current_user.items.reject(&:lendable?)
+    render :borrowed_items
+  end
+
   # GET /items/my
+  # lists all items of the current user
   def my_items
-    @items = Item.all # TODO: how can we find out which items are owned by the current user?
+    @items = current_user.items
     render :my_items
   end
 

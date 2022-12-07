@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     patch :update_lending
     collection do
       get "/my", to: "items#my_items"
+      get "/my/borrowed", to: "items#my_borrowed_items"
       get "/borrowed", to: "items#borrowed_items"
     end
   end
