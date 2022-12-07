@@ -8,9 +8,9 @@ de:
   update_group: "Gruppe bearbeiten"
 
   group_name : "Gruppenname"
-  group_name_prompt: "Bitte gebe deiner Gruppe einen Namen"
+  group_name_prompt: "Bitte gib deiner Gruppe einen Namen"
 
-  login_first: "Du musst Dich erst anmelden"
+  login_first: "Du musst dich erst anmelden"
   only_admins: "Nur Administratoren dürfen diese Gruppe bearbeiten"
 
   group_new: "Die Gruppe wurde erfolgreich erstellt"
