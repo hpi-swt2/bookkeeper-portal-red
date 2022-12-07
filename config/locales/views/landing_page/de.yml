@@ -1,23 +1,26 @@
 de:
-  hello: "Hallo Welt 2"
-  login_with_oidc: "Mit OIDC einloggen"
-  my_profile: "Mein Profil"
-  items:
-    messages:
-      successfully_created: "Item wurde erfolgreich erstellt."
-      successfully_updated: "Item wurde erfolgreich geupdatet."
-      successfully_destroyed: "Item wurde erfolgreich zerstört."
-      successfully_borrowed: "Item wurde erfolgreich ausgeliehen"
-      successfully_returned: "Item wurde erfolgreich zurückgegeben"
-    buttons:
-      show: "Item anzeigen"
-      edit: "Item bearbeiten"
-      back: "Zurück zur Items Übersicht"
-      borrow: "Ausleihen"
-      return: "Zurückgeben"
-    status_badge:
-      available: "Verfügbar"
-      borrowed_by_me: "Von mir ausgeliehen"
-      not_available: "Nicht verfügbar"
-    card_text:
-      owner: von
+    hello: "Hallo Welt 2"
+    login_with_oidc: "Mit OIDC einloggen"
+    my_profile: "Mein Profil"
+    items:
+        messages:
+            successfully_created: "Item wurde erfolgreich erstellt."
+            successfully_updated: "Item wurde erfolgreich geupdatet."
+            successfully_destroyed: "Item wurde erfolgreich zerstört."
+            successfully_borrowed: "Item wurde erfolgreich ausgeliehen"
+            successfully_returned: "Item wurde erfolgreich zurückgegeben"
+            successfully_reserved: "Item wurde erfolgreich reserviert"
+            unsuccessfully_reserved: "Item Reservierung fehlgeschlagen"
+        buttons:
+            show: "Item anzeigen"
+            edit: "Item bearbeiten"
+            back: "Zurück zur Items Übersicht"
+            borrow: "Ausleihen"
+            return: "Zurückgeben"
+            reserve: "Reservieren"
+        status_badge:
+            available: "Verfügbar"
+            borrowed_by_me: "Von mir ausgeliehen"
+            not_available: "Nicht verfügbar"
+        card_text:
+            owner: von

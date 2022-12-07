@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :groups
   resources :items do
     patch :update_lending
+    patch :reserve
   end
 
   # Add controllers for omniauth (openid connect)

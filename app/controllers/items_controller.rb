@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show edit update destroy ]
-  before_action :set_item_from_item_id, only: %i[ update_lending ]
+  before_action :set_item_from_item_id, only: %i[ update_lending reserve ]
+  helper_method :button_text, :button_path
 
   # GET /items or /items.json
   def index
@@ -26,6 +27,21 @@ class ItemsController < ApplicationController
   # POST /items or /items.json
   def create
     @item = Item.new(item_params)
+
+    unless Group.exists?(name: "Default Group") 
+      @testGroup = Group.new(name: "Default Group")
+      @testGroup.save
+
+      user_memberships = current_user.memberships
+      user_memberships.push(@testMembership)
+      current_user.save
+    end
+
+    @testGroup = Group.where(name: "Default Group").first
+    @testMembership = Membership.new(role: 1, user_id: current_user.id, group: @testGroup)
+    @testMembership.save
+    item_groups = @item.borrower_groups
+    item_groups.push(@testGroup)
 
     respond_to do |format|
       if @item.save
@@ -61,6 +77,27 @@ class ItemsController < ApplicationController
       end
     end
   end
+
+  def reserve
+    @user = current_user
+    item_reservable_by_user = @item.reservable_by?(@user)
+    if item_reservable_by_user
+      create_reservation
+      msg = I18n.t("items.messages.successfully_reserved")
+    else
+      msg = I18n.t("items.messages.unsuccessfully_reserved")
+    end
+
+    respond_to do |format|
+      if !item_reservable_by_user or @reservation.save
+        format.html { redirect_to @item, notice: msg }
+        format.json { render @item, status: :ok, location: @item }
+      else
+        format.html { render :show, status: :unprocessable_entity }
+        format.json { render json: @reservation.errors, status: :unprocessable_entity }
+      end
+    end
+  end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PATCH/PUT /items/1 or /items/1.json
@@ -86,6 +123,22 @@ class ItemsController < ApplicationController
     end
   end
 
+  def button_path()
+    user = current_user
+    return item_reserve_path(@item) if @item.reservable_by?(user)
+    item_update_lending_path(@item) if @item.lendable?
+  end
+
+  def button_text()
+    user = current_user
+    return I18n.t("items.buttons.reserve") if @item.reservable_by?(user)
+    return I18n.t("items.buttons.borrow") if @item.lendable?
+    return I18n.t("items.buttons.return") if @item.borrowed_by?(user)
+
+    I18n.t("items.status_badge.not_available")
+  end
+
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -109,5 +162,9 @@ class ItemsController < ApplicationController
     @lending.user = @user
     @lending.item = @item
     @lending.completed_at = nil
+  end
+
+  def create_reservation
+    @reservation = Reservation.new(item_id: @item.id, user_id: @user.id,starts_at: Time.zone.now, ends_at: Time.zone.now + 2.day )
   end
 end

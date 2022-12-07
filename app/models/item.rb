@@ -55,7 +55,15 @@ class Item < ApplicationRecord
     user_reservations = Reservation.where(user_id: user.id, item_id: id)
     return false if user_reservations.is_empty
 
-    user_reservations.exists?(["DATE(start_at) < now AND now <= DATE(ends_at)", { now: Time.zone.today }])
+    user_reservations.exists?(["DATE(starts_at) < :now AND :now <= DATE(ends_at)", { now: Time.zone.now }])
+  end
+
+  def reservable_by?(user)
+    return false unless lendable?
+    reservations = Reservation.where(item_id: id)
+    return false if reservations.exists?(["DATE(starts_at) < :now AND :now <= DATE(ends_at)", { now: Time.zone.now }])
+    return false unless user.lending_rights?(self)
+    true
   end
 
   def borrowed_by?(user)
