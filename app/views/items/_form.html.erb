@@ -27,6 +27,6 @@
   </div>
 
   <div>
-    <%= form.submit I18n.t("items.buttons.new") : I18n.t("items.buttons.update")), class: "mx-auto btn btn-primary" %>
+    <%= form.submit (form.object.new_record? ? I18n.t("items.buttons.new") : I18n.t("items.buttons.update")), class: "mx-auto btn btn-primary" %>
   </div>
 <% end %>
