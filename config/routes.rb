@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get "items/:id/download", to: 'items#download', as: :download
-  
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :groups
   resources :items do
@@ -20,4 +20,7 @@ Rails.application.routes.draw do
   # Profile routes
   get "/profiles/me", to: "profiles#show_me"
   get "/profiles/:id", to: "profiles#show", as: :profile
+
+  # QR-Code Scan site
+  get '/scan', to: 'qr_reader#scan'
 end
