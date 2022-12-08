@@ -50,6 +50,8 @@ gem "sassc-rails"
 
 gem "rails-i18n"
 
+gem 'flag-icons-rails'
+
 # Adding this removes some warnings caused by double-loading of the net-protocol library
 # (see https://github.com/ruby/net-imap/issues/16)
 # we should be able to remove this after upgrading to Ruby 3

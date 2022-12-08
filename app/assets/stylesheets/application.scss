@@ -41,6 +41,8 @@ $enable-cssgrid: true;
 
 $mobileDeviceCutoff: 992px;
 
+@import "flag-icon";
+
 @media (max-width: $mobileDeviceCutoff) {
   .navbar-collapse {
     position: fixed;
