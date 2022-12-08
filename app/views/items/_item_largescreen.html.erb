@@ -63,43 +63,19 @@
           <%= link_to I18n.t("items.buttons.back"), items_path %>
           <%# <%= button_to "Destroy this item", @item, method: :delete %>
           <div class="d-flex justify-content-center w-100 mb-5">
-
- <% if current_user.lending_rights?(@item)  %>
-  <%= form_tag item_update_lending_path(@item), method: :patch do %>
-    <%= hidden_field_tag 'lat'  %>
-    <%= hidden_field_tag 'lng'  %>
-    <%= button_tag @item.button_text(current_user), class: "btn btn-secondary item-action-button" %>
-  <% end %>
-
-  <script>
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(saveUserPositionInHiddenForm, (error) => {
-      console.log(error);
-    });   
-  } else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
-
-function saveUserPositionInHiddenForm(position) {
-  document.getElementById('lat').value = position.coords.latitude;
-  document.getElementById('lng').value = position.coords.longitude;
-}
-
-getLocation();
-</script>
-<% end %>
-
-
-
-
-
+            <% if current_user.lending_rights?(@item)  %>
+              <%= form_tag item_update_lending_path(@item), method: :patch do %>
+                <%= hidden_field_tag 'lat'  %>
+                <%= hidden_field_tag 'lng'  %>
+                <%= button_tag @item.button_text(current_user), class: "mx-auto btn btn-primary" %>
+              <% end %>
+              <script>
+                getLocation();
+              </script>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
-
-
   </div>
 </div>
