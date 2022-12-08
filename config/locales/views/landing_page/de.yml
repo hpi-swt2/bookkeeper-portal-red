@@ -11,6 +11,7 @@ de:
             successfully_returned: "Item wurde erfolgreich zurückgegeben"
             successfully_reserved: "Item wurde erfolgreich reserviert"
             unsuccessfully_reserved: "Item Reservierung fehlgeschlagen"
+            lending_error: "Ausleihsystem Fehler"
         buttons:
             show: "Item anzeigen"
             edit: "Item bearbeiten"
@@ -22,5 +23,6 @@ de:
             available: "Verfügbar"
             borrowed_by_me: "Von mir ausgeliehen"
             not_available: "Nicht verfügbar"
+            reserved_by_me: "Von mir reserviert"
         card_text:
             owner: von

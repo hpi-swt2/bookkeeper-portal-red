@@ -9,6 +9,7 @@ en:
             successfully_returned: "Item was successfully returned"
             successfully_reserved: "Item was successfully reserved"
             unsuccessfully_reserved: "Item reservation failed"
+            lending_error: "Lending error"
         buttons:
             show: "Show item"
             edit: "Edit item"
@@ -20,5 +21,6 @@ en:
             available: "Available"
             borrowed_by_me: "Borrowed by me"
             not_available: "Not available"
+            reserved_by_me: "Reserved by me"
         card_text:
             owner: from

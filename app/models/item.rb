@@ -51,11 +51,23 @@ class Item < ApplicationRecord
     !Lending.exists?(item_id: id, completed_at: nil)
   end
 
+  def reserved?
+    !Reservation.exists?(item_id: id, completed_at: nil)
+  end
+
   def reserved_by?(user)
     user_reservations = Reservation.where(user_id: user.id, item_id: id)
-    return false if user_reservations.is_empty
+    return false if user_reservations.empty?
 
     user_reservations.exists?(["DATE(starts_at) < :now AND :now <= DATE(ends_at)", { now: Time.zone.now }])
+  end
+
+  def current_reservation
+    reservations = Reservation.where(item_id: id).where(["DATE(starts_at) < :now AND :now <= DATE(ends_at)", { now: Time.zone.now }])
+    if reservations.size > 1
+      raise Exception.new(self.to_s + " has multiple simultaneous reservations")
+    end
+    reservations.first
   end
 
   def reservable_by?(user)
@@ -66,11 +78,15 @@ class Item < ApplicationRecord
     true
   end
 
+  def borrowable_by?(user)
+    user.lending_rights?(self) and lendable?
+  end
   def borrowed_by?(user)
     Lending.exists?(user_id: user.id, item_id: id, completed_at: nil)
   end
 
   def status_text(user)
+    return I18n.t("items.status_badge.reserved_by_me") if reserved_by?(user)
     return I18n.t("items.status_badge.available") if lendable?
     return I18n.t("items.status_badge.borrowed_by_me") if borrowed_by?(user)
 

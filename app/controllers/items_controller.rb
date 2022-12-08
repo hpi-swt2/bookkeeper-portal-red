@@ -31,15 +31,14 @@ class ItemsController < ApplicationController
     unless Group.exists?(name: "Default Group") 
       @testGroup = Group.new(name: "Default Group")
       @testGroup.save
-
-      user_memberships = current_user.memberships
-      user_memberships.push(@testMembership)
-      current_user.save
     end
 
     @testGroup = Group.where(name: "Default Group").first
     @testMembership = Membership.new(role: 1, user_id: current_user.id, group: @testGroup)
     @testMembership.save
+    user_memberships = current_user.memberships
+    user_memberships.push(@testMembership)
+    current_user.save
     item_groups = @item.borrower_groups
     item_groups.push(@testGroup)
 
@@ -58,13 +57,21 @@ class ItemsController < ApplicationController
   def update_lending
     @user = current_user
 
-    @lending = Lending.where(item_id: @item.id, completed_at: nil)[0]
-    if @lending.nil?
+    if @item.lendable? and @user.lending_rights?(@item)
       create_lending
       msg = I18n.t("items.messages.successfully_borrowed")
-    else
-      @lending.completed_at = DateTime.now
+    elsif @item.borrowed_by?(@user)
+      @lending = Lending.where(item_id: @item.id,user_id: @user.id, completed_at: nil).first
+      @lending.completed_at = Time.zone.now
       msg = I18n.t("items.messages.successfully_returned")
+    else
+      msg = I18n.t("items.messages.lending_error")
+    end
+
+    if @item.reserved_by?(@user)
+      @reservation = @item.current_reservation
+      @reservation.ends_at = Time.zone.now
+      @reservation.save
     end
 
     respond_to do |format|
@@ -126,7 +133,7 @@ class ItemsController < ApplicationController
   def button_path()
     user = current_user
     return item_reserve_path(@item) if @item.reservable_by?(user)
-    item_update_lending_path(@item) if @item.lendable?
+    item_update_lending_path(@item) if @item.lendable? or @item.borrowed_by?(user)
   end
 
   def button_text()
