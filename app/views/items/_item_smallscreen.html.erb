@@ -50,7 +50,7 @@
   <%# <%= button_to "Destroy this item", @item, method: :delete %>
   <div class="button-blocker">
   </div>
-  <%= if current_user.lending_rights?(@item)
+  <%= if current_user.lending_rights?(@item) && @src_is_qrcode
     button_to @item.button_text(current_user), item_update_lending_path(@item), method: :patch, class: "btn btn-primary item-action-button"
   end %>
 </div>
