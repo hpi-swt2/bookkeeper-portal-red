@@ -423,7 +423,6 @@ DEPENDENCIES
   omniauth-rails_csrf_protection
   omniauth_openid_connect
   pg
-  prawn
   prawn-qrcode
   puma (~> 5.0)
   rails (~> 7.0.4)
