@@ -50,7 +50,7 @@
   <%# <%= button_to "Destroy this item", @item, method: :delete %>
   <div class="button-blocker">
   </div>
-  <%= if current_user.lending_rights?(@item) or @item.reservable_by?(current_user)
+  <%= if @item.reservable_by?(current_user) or @item.borrowable_by?(current_user) or @item.borrowed_by?(current_user)
     button_to button_text(), button_path(), method: :patch, class: "mx-auto btn btn-primary"
   end %>
 </div>

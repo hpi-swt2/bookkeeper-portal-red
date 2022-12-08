@@ -4,6 +4,92 @@ RSpec.describe Item, type: :model do
   let(:item) { FactoryBot.create(:item) }
   let(:user) { FactoryBot.create(:user) }
 
+  describe "borrowing and reservation methods" do
+    context "user has lending rights" do
+      before(:each) do
+        group = FactoryBot.create(:group)
+        FactoryBot.create(:membership, user: user, group: group)
+        FactoryBot.create(:permission, item: item, group: group, permission_type: :can_borrow)
+      end
+      it "should not find reservations if none exist" do
+        expect(item.current_reservation).to be_nil
+        expect(item.reserved?).to be false
+        expect(item.not_reserved?).to be true
+        expect(item.borrowed?).to be false
+        expect(item.not_borrowed?).to be true
+        expect(item.reserved_by?(user)).to be false
+        expect(item.borrowed_by?(user)).to be false
+
+        expect(item.borrowable_by?(user)).to be true
+        expect(item.reservable_by?(user)).to be true
+      end
+
+      it "can get the current reservation" do
+        reservation = FactoryBot.create(:reservation,item_id: item.id, user_id: user.id,starts_at: Time.zone.now, ends_at: Time.zone.now + 2.day)
+        expect(item.current_reservation).to eq(reservation)
+        expect(item.reserved?).to be true
+        expect(item.not_reserved?).to be false
+        expect(item.borrowed?).to be false
+        expect(item.not_borrowed?).to be true
+        expect(item.reserved_by?(user)).to be true
+        expect(item.borrowed_by?(user)).to be false
+
+        expect(item.borrowable_by?(user)).to be true
+        expect(item.reservable_by?(user)).to be false
+      end
+
+      it "should ignore old reservations" do
+        FactoryBot.create(:reservation,item_id: item.id, user_id: user.id,starts_at: Time.zone.now - 4.day, ends_at: Time.zone.now - 2.day)
+        expect(item.current_reservation).to be_nil
+
+        expect(item.reserved?).to be false
+        expect(item.not_reserved?).to be true
+        expect(item.borrowed?).to be false
+        expect(item.not_borrowed?).to be true
+        expect(item.reserved_by?(user)).to be false
+        expect(item.borrowed_by?(user)).to be false
+
+        expect(item.borrowable_by?(user)).to be true
+        expect(item.reservable_by?(user)).to be true
+      end
+
+      it "can get the current lending" do
+        FactoryBot.create(:lending,item_id: item.id, user_id: user.id,started_at: Time.zone.now, completed_at: nil, due_at: Time.zone.now + 2.day)
+        expect(item.current_reservation).to be_nil
+        expect(item.reserved?).to be false
+        expect(item.not_reserved?).to be true
+        expect(item.borrowed?).to be true
+        expect(item.not_borrowed?).to be false
+        expect(item.reserved_by?(user)).to be false
+        expect(item.borrowed_by?(user)).to be true
+
+        expect(item.borrowable_by?(user)).to be false
+        expect(item.reservable_by?(user)).to be false
+      end
+
+      it "should ignore old lendings" do
+        FactoryBot.create(:lending,item_id: item.id, user_id: user.id,started_at: Time.zone.now - 2.day, completed_at: Time.zone.now - 1.day, due_at: Time.zone.now)
+        expect(item.current_reservation).to be_nil
+        expect(item.reserved?).to be false
+        expect(item.not_reserved?).to be true
+        expect(item.borrowed?).to be false
+        expect(item.not_borrowed?).to be true
+        expect(item.reserved_by?(user)).to be false
+        expect(item.borrowed_by?(user)).to be false
+
+        expect(item.borrowable_by?(user)).to be true
+        expect(item.reservable_by?(user)).to be true
+      end
+    end
+
+    context "user doesn't have lending rights" do
+      it "should not allow reservation or borrowing" do
+        expect(item.borrowable_by?(user)).to be false
+        expect(item.reservable_by?(user)).to be false
+      end
+    end
+  end
+
   it "can have multiple groups with different permissions" do
     group1 = FactoryBot.create(:group)
     group2 = FactoryBot.create(:group)
@@ -24,10 +110,6 @@ RSpec.describe Item, type: :model do
     expect(item.borrower_groups.count).to eq(1)
     expect(item.borrower_groups.first).to eq(group3)
   end
-
-  # it "is able to determine if it is borrowed by the current user" do
-  #   expect(item.borrowed_by?(user)).to be false
-  # end
 
   it "can be of different types" do
     book = FactoryBot.create(:book)
@@ -68,4 +150,5 @@ RSpec.describe Item, type: :model do
     expect(other.attribute?("release_date")).to be false
     expect(other.attribute?("isbn")).to be false
   end
+
 end

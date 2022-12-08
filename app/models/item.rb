@@ -47,19 +47,20 @@ class Item < ApplicationRecord
     attributes.include?(attribute)
   end
 
-  def lendable?
-    !Lending.exists?(item_id: id, completed_at: nil)
-  end
-
   def reserved?
-    !Reservation.exists?(item_id: id, completed_at: nil)
+    !current_reservation.nil?
   end
 
-  def reserved_by?(user)
-    user_reservations = Reservation.where(user_id: user.id, item_id: id)
-    return false if user_reservations.empty?
+  def not_reserved?
+    !reserved?
+  end
 
-    user_reservations.exists?(["DATE(starts_at) < :now AND :now <= DATE(ends_at)", { now: Time.zone.now }])
+  def borrowed?
+    Lending.exists?(item_id: id, completed_at: nil)
+  end
+
+  def not_borrowed?
+    !borrowed?
   end
 
   def current_reservation
@@ -71,31 +72,28 @@ class Item < ApplicationRecord
   end
 
   def reservable_by?(user)
-    return false unless lendable?
-    reservations = Reservation.where(item_id: id)
-    return false if reservations.exists?(["DATE(starts_at) < :now AND :now <= DATE(ends_at)", { now: Time.zone.now }])
-    return false unless user.lending_rights?(self)
-    true
+    not_borrowed? and not_reserved? and user.lending_rights?(self)
+  end
+
+  def reserved_by?(user)
+    return false if current_reservation.nil?
+    current_reservation.user_id == user.id
   end
 
   def borrowable_by?(user)
-    user.lending_rights?(self) and lendable?
+    not_reserved_by_others = (reserved_by?(user) or not_reserved?)
+    not_borrowed? and not_reserved_by_others and user.lending_rights?(self)
   end
+
   def borrowed_by?(user)
     Lending.exists?(user_id: user.id, item_id: id, completed_at: nil)
   end
 
+
   def status_text(user)
     return I18n.t("items.status_badge.reserved_by_me") if reserved_by?(user)
-    return I18n.t("items.status_badge.available") if lendable?
+    return I18n.t("items.status_badge.available") if borrowable_by?(user)
     return I18n.t("items.status_badge.borrowed_by_me") if borrowed_by?(user)
-
-    I18n.t("items.status_badge.not_available")
-  end
-
-  def button_text(user)
-    return I18n.t("items.buttons.borrow") if lendable?
-    return I18n.t("items.buttons.return") if borrowed_by?(user)
 
     I18n.t("items.status_badge.not_available")
   end

@@ -1,7 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "items/index", type: :view do
-  before do
+
+  before(:each) do
+    user = FactoryBot.create(:user, password: "password")
+    sign_in user
     assign(:items, [
              Item.create!(
                name: "Communist Manifesto",

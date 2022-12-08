@@ -28,19 +28,19 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
 
-    unless Group.exists?(name: "Default Group") 
-      @testGroup = Group.new(name: "Default Group")
-      @testGroup.save
-    end
+    #unless Group.exists?(name: "Default Group")
+    #@testGroup = Group.new(name: "Default Group")
+    #@testGroup.save
+    #end
 
-    @testGroup = Group.where(name: "Default Group").first
-    @testMembership = Membership.new(role: 1, user_id: current_user.id, group: @testGroup)
-    @testMembership.save
-    user_memberships = current_user.memberships
-    user_memberships.push(@testMembership)
-    current_user.save
-    item_groups = @item.borrower_groups
-    item_groups.push(@testGroup)
+    #@testGroup = Group.where(name: "Default Group").first
+    #@testMembership = Membership.new(role: 1, user_id: current_user.id, group: @testGroup)
+    #@testMembership.save
+    #user_memberships = current_user.memberships
+    #user_memberships.push(@testMembership)
+    #current_user.save
+    #item_groups = @item.borrower_groups
+    #item_groups.push(@testGroup)
 
     respond_to do |format|
       if @item.save
@@ -57,7 +57,7 @@ class ItemsController < ApplicationController
   def update_lending
     @user = current_user
 
-    if @item.lendable? and @user.lending_rights?(@item)
+    if @item.borrowable_by?(@user)
       create_lending
       msg = I18n.t("items.messages.successfully_borrowed")
     elsif @item.borrowed_by?(@user)
@@ -130,17 +130,15 @@ class ItemsController < ApplicationController
     end
   end
 
-  def button_path()
-    user = current_user
-    return item_reserve_path(@item) if @item.reservable_by?(user)
-    item_update_lending_path(@item) if @item.lendable? or @item.borrowed_by?(user)
+  def button_path
+    return item_reserve_path(@item) if @item.reservable_by?(current_user)
+    item_update_lending_path(@item) if @item.borrowable_by?(current_user) or @item.borrowed_by?(current_user)
   end
 
-  def button_text()
-    user = current_user
-    return I18n.t("items.buttons.reserve") if @item.reservable_by?(user)
-    return I18n.t("items.buttons.borrow") if @item.lendable?
-    return I18n.t("items.buttons.return") if @item.borrowed_by?(user)
+  def button_text
+    return I18n.t("items.buttons.reserve") if @item.reservable_by?(current_user)
+    return I18n.t("items.buttons.borrow") if @item.borrowable_by?(current_user)
+    return I18n.t("items.buttons.return") if @item.borrowed_by?(current_user)
 
     I18n.t("items.status_badge.not_available")
   end
