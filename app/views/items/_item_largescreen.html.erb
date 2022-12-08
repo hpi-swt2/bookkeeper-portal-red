@@ -59,11 +59,17 @@
             <div id="item-location-large" style="height: 240px;"></div>
           </div>
           <%# Button %>
-          <%= link_to I18n.t("items.buttons.edit"), edit_item_path(@item) %> |
-          <%= link_to I18n.t("items.buttons.back"), items_path %>
+          <div class="d-flex justify-content-left mb-5">
+            <div style="margin-left: 10px;">
+              <%= button_to I18n.t("items.buttons.edit"), edit_item_path(@item), method: :get, class: "mx-auto btn btn-primary" %>
+            </div>
+            <div style="margin-left: 10px;">
+              <%= button_to I18n.t("items.buttons.back"), items_path, method: :get, class: "mx-auto btn btn-primary" %>
+            </div>
+          </div>
           <%# <%= button_to "Destroy this item", @item, method: :delete %>
-          <div class="d-flex justify-content-center w-100 mb-5">
-            <%= if current_user.lending_rights?(@item)
+          <div class="d-flex justify-content-center mb-5">
+            <%= if !current_user.lending_rights?(@item)
               button_to @item.button_text(current_user), item_update_lending_path(@item), method: :patch, class: "mx-auto btn btn-primary"
             end %>
           </div>
