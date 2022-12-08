@@ -15,9 +15,11 @@ de:
       back: "Zurück zur Items Übersicht"
       borrow: "Ausleihen"
       return: "Zurückgeben"
+      download_qrcode: "QR-Code herunterladen"
     status_badge:
       available: "Verfügbar"
       borrowed_by_me: "Von mir ausgeliehen"
       not_available: "Nicht verfügbar"
     card_text:
       owner: von
+  scan_qrcode: "QR-Code einscannen"

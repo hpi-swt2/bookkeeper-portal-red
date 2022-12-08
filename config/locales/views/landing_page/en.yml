@@ -13,9 +13,11 @@ en:
       back: "Back to items"
       borrow: "Borrow"
       return: "Return"
+      download_qrcode: "Download QR-Code"
     status_badge:
       available: "Available"
       borrowed_by_me: "Borrowed by me"
       not_available: "Not available" 
     card_text:
       owner: from
+  scan_qrcode: "Scan a QR-Code"
