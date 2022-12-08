@@ -15,7 +15,7 @@ en:
       back: "Back to items"
       borrow: "Borrow"
       return: "Return"
-      new: "New item"
+      download_qrcode: "Download QR-Code"
     status_badge:
       available: "Available"
       borrowed_by_me: "Borrowed by me"

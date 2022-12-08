@@ -17,7 +17,7 @@ de:
       back: "Zurück zur Items Übersicht"
       borrow: "Ausleihen"
       return: "Zurückgeben"
-      new: "Neues Item"
+      download_qrcode: "QR-Code herunterladen"
     status_badge:
       available: "Verfügbar"
       borrowed_by_me: "Von mir ausgeliehen"
