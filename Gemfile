@@ -121,5 +121,4 @@ end
 # For QR-Code generation
 gem "rqrcode"
 # For pdf export
-gem "prawn"
 gem "prawn-qrcode"
