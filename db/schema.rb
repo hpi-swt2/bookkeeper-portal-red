@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_02_151158) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_08_160456) do
   create_table "groups", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -23,7 +23,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_151158) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0, null: false
-    t.datetime "max_borrowing_period"
     t.integer "item_type"
     t.bigint "isbn"
     t.string "author"
@@ -40,6 +39,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_151158) do
     t.integer "number_of_players"
     t.integer "playing_time"
     t.string "category"
+    t.integer "max_borrowing_days"
   end
 
   create_table "lendings", force: :cascade do |t|
