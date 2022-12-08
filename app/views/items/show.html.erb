@@ -2,7 +2,24 @@
 
 <%= stylesheet_link_tag "item-show.css" %>
 <div id="<%= dom_id @item %>">
+<script>
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(saveUserPositionInHiddenForm, (error) => {
+      console.log(error);
+    });   
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function saveUserPositionInHiddenForm(position) {
+  document.getElementById('lat').value = position.coords.latitude;
+  document.getElementById('lng').value = position.coords.longitude;
+}
+</script>
   <%= render "item_largescreen" %>
   <%= render "item_smallscreen" %>
 </div>
+  
 

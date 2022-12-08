@@ -55,27 +55,11 @@
   <%= form_tag item_update_lending_path(@item), method: :patch do %>
     <%= hidden_field_tag 'lat'  %>
     <%= hidden_field_tag 'lng'  %>
-    <%= button_tag @item.button_text(current_user), class: "btn btn-secondary item-action-button" %>
+    <%= button_tag @item.button_text(current_user), class: "btn btn-primary item-action-button" %>
   <% end %>
-
   <script>
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(saveUserPositionInHiddenForm, (error) => {
-      console.log(error);
-    });   
-  } else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
-
-function saveUserPositionInHiddenForm(position) {
-  document.getElementById('lat').value = position.coords.latitude;
-  document.getElementById('lng').value = position.coords.longitude;
-}
-
-getLocation();
-</script>
+    getLocation();
+  </script>
 <% end %>
 
 </div>
