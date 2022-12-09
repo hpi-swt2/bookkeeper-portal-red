@@ -24,15 +24,24 @@ class ItemsController < ApplicationController
   # GET /items/new
   def new
     @item = Item.new
+    @all_groups = Group.all
+    @item_borrow_group = @item.permissions.build
   end
 
   # GET /items/1/edit
   def edit
+    @all_groups = Group.all
+    @item_borrow_group = @item.permissions.build
   end
 
   # POST /items or /items.json
   def create
     @item = Item.new(item_params)
+    params[:borrower_groups][:id].each do |group|
+      if !group.empty?
+        @item.permissions.build(:group_id => group, :permission_type => 'can_borrow')
+      end
+    end
 
     respond_to do |format|
       if @item.save
@@ -72,6 +81,12 @@ class ItemsController < ApplicationController
 
   # PATCH/PUT /items/1 or /items/1.json
   def update
+    @item.permissions.clear
+    params[:borrower_groups][:id].each do |group|
+      if !group.empty?
+        @item.permissions.build(:group_id => group, :permission_type => 'can_borrow')
+      end
+    end
     respond_to do |format|
       if @item.update(item_params)
         format.html { redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_updated") }
@@ -106,7 +121,7 @@ class ItemsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def item_params
-    params.require(:item).permit(:name, :description, :max_borrowing_period)
+    params.require(:item).permit(:name, :description, :max_borrowing_period, :borrower_groups)
   end
 
   def create_lending

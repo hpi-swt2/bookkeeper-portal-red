@@ -25,7 +25,14 @@
     <%= form.label :max_borrowing_period, style: "display: block" %>
     <%= form.datetime_field :max_borrowing_period %>
   </div>
-
+    <%# <%= form.collection_select :borrower_groups, Group.all, :id, :name, {prompt: '-Select-', :multiple => true} %> %>
+  <%= fields_for(@permission) do |ab| %>
+  <div>
+      <%= ab.label "All Groups" %> <br />
+      <%= collection_select(:borrower_groups, :id, @all_groups, :id, :name, {:selected => Permission.borrowers_of_item(@id).split(';')}, {}, {:multiple => true}) %>
+      <%# <%= collection_select(:borrower_groups, :id, @all_groups, :id, :id, {}, {:multiple => true}) %> %>
+  </div>
+<% end %>
   <div>
     <%= form.submit %>
   </div>
