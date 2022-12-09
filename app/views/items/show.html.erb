@@ -40,7 +40,7 @@ function saveUserPositionInHiddenForm(position) {
     var zoomLevel = 16;
 
     var item = <%= @item.to_json.html_safe %>;
-    if (typeof item.lat !== undefined && typeof item.lng !== undefined) {
+    if (item.lat !== null && item.lng !== null) {
       itemCoordinates = [item.lat, item.lng];
       console.log
       setMarker = true;
