@@ -5,7 +5,8 @@ describe "show item page", type: :feature do
   before do
     @item = Item.create!(
       name: "Harry Potter",
-      description: "Author: J.K.Rowling"
+      description: "Author: J.K.Rowling",
+      max_borrowing_days: 7
     )
     @user = FactoryBot.create(:user, email: 'example@mail.com')
     group = FactoryBot.create(:group)
