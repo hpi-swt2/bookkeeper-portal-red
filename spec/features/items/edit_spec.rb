@@ -4,7 +4,8 @@ describe "edit item page", type: :feature do
   let(:item) do
     Item.create!(
       name: "Harry Potter",
-      description: "Author: J.K.Rowling"
+      description: "Author: J.K.Rowling",
+      max_borrowing_days: 7
     )
   end
 
