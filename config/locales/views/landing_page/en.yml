@@ -22,6 +22,14 @@ en:
       not_available: "Not available" 
     card_text:
       owner: from
+  navbar:
+    home: "Home"
+    assets: "My Assets"
+    groups: "My Groups"
+    categories: "Categories"
+    notifications: "Notifications"
+    profile: "My Profile"
+    search: "Search"
   scan_qrcode: "Scan a QR-Code"
     type:
       book: "Book"
