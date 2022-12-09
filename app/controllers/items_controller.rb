@@ -9,9 +9,16 @@ class ItemsController < ApplicationController
 
   # GET /items/1 or /items/1.json
   def show
+    @src_is_qrcode = params[:src] == "qrcode"
+
     return unless current_user.nil?
 
     redirect_to new_user_session_path
+  end
+
+  def download
+    @item = Item.find(params[:id])
+    send_data @item.to_pdf, filename: "item.pdf"
   end
 
   # GET /items/new

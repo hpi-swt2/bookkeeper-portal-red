@@ -6,7 +6,7 @@
     <a class="navbar-brand text-white desktop-only py-0" href="/">
       <%= image_tag "logo-hpi-small.png", width: 40 %>
     </a>
-    <a class="navbar-brand text-white mobile-only" href="#">
+    <a class="navbar-brand text-white mobile-only" href="/scan">
       <i class="bi bi-qr-code-scan fs-3"></i>
     </a>
     <div class="collapse navbar-collapse bg-primary" id="navbarToggle">
@@ -14,19 +14,19 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">
             <i class="bi bi-house-fill mobile-only"></i>
-            Home
+            <%=t("navbar.home")%>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">
             <i class="bi bi-book-fill mobile-only"></i>
-            Meine Assets
+            <%=t("navbar.assets")%>
           </a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-collection-fill mobile-only"></i>
-            Meine Gruppen
+            <%=t("navbar.groups")%>
           </a>
           <ul class="dropdown-menu bg-primary">
             <li><a class="dropdown-item text-white" href="#">SWA-Lehrstuhl
@@ -40,20 +40,20 @@
         <li class="nav-item">
           <a class="nav-link" href="#">
             <i class="bi bi-tag-fill mobile-only"></i>
-            Kategorien
+            <%=t("navbar.categories")%>
           </a>
         </li>
 
         <li class="mobile-only nav-item">
-          <a href="#" class="nav-link"><i class="bi bi-bell-fill"></i> Notifications</a>
+          <a href="#" class="nav-link"><i class="bi bi-bell-fill"></i> <%=t("navbar.notifications")%></a>
         </li>
         <li class="mobile-only nav-item">
-          <a href="<%= profiles_me_path %>" class="nav-link"><i class="bi bi-person-fill"></i> My Profile</a>
+          <a href="<%= profiles_me_path %>" class="nav-link"><i class="bi bi-person-fill"></i> <%=t("navbar.profile")%></a>
         </li>
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Select Language
+            <%= language_flag(I18n.locale)%>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
@@ -68,7 +68,7 @@
       </ul>
 
       <form class="d-flex desktop-only mx-3">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control me-2" type="search" placeholder=<%=t("navbar.search")%> aria-label="Search">
         <button class="btn btn-outline-light" type="submit">
           <i class="bi bi-search"></i>
         </button>

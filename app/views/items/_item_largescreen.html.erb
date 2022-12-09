@@ -60,10 +60,11 @@
           </div>
           <%# Button %>
           <%= link_to I18n.t("items.buttons.edit"), edit_item_path(@item) %> |
-          <%= link_to I18n.t("items.buttons.back"), items_path %>
+          <%= link_to I18n.t("items.buttons.back"), items_path %> |
+          <%= link_to I18n.t("items.buttons.download_qrcode") , download_path(@item) %>
           <%# <%= button_to "Destroy this item", @item, method: :delete %>
           <div class="d-flex justify-content-center w-100 mb-5">
-            <% if current_user.lending_rights?(@item)  %>
+            <% if current_user.lending_rights?(@item) and @src_is_qrcode  %>
               <%= form_tag item_update_lending_path(@item), method: :patch do %>
                 <%= hidden_field_tag 'lat'  %>
                 <%= hidden_field_tag 'lng'  %>

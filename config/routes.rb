@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "items/:id/download", to: 'items#download', as: :download
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :groups
   resources :items do
@@ -19,7 +21,6 @@ Rails.application.routes.draw do
   get "/profiles/me", to: "profiles#show_me"
   get "/profiles/:id", to: "profiles#show", as: :profile
 
-  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
-    # https://github.com/heartcombo/devise/blob/main/README.md
-  end
+  # QR-Code Scan site
+  get '/scan', to: 'qr_reader#scan'
 end
