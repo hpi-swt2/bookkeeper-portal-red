@@ -18,7 +18,7 @@ describe "new item page", type: :feature do
     page.fill_in "item[name]", with: @item_title
     page.fill_in "item[description]", with: @item_description
     page.fill_in "item[max_borrowing_days]", with: @item_max_borrowing_days
-    page.find("input[type='submit']").click
+    page.find("input[type='submit'][value='Create Item']").click
     expect(page).to have_text("Item was successfully created.")
     expect((Item.find_by name: @item_title).description).to eq(@item_description)
   end

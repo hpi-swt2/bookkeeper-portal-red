@@ -122,3 +122,5 @@ end
 gem "rqrcode"
 # For pdf export
 gem "prawn-qrcode"
+
+gem "ransack", "~> 3.2"
