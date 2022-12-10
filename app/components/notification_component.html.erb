@@ -1,9 +1,9 @@
-<div class="card notification-message">
+<div class="card notification-message" id="notification-<%= @id %>">
   <div class="card-body">
     <p class="card-title">
       <strong><%= @type %></strong> - <%= @date %>, <%= @time %>
       <div class="pr-4">
-        <button class="text-right position-absolute top-0 end-0 text-primary fs-4 btn btn-icon">
+        <button onclick="deleteNotification('<%= @id %>')" class="text-right position-absolute top-0 end-0 text-primary fs-4 btn btn-icon">
           <i class="bi bi-x"></i>
         </button>
       </div>

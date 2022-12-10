@@ -22,4 +22,7 @@ Rails.application.routes.draw do
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     # https://github.com/heartcombo/devise/blob/main/README.md
   end
+
+  delete "/notifications/:id", to: "notifications#destroy"
+
 end

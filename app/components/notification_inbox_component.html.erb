@@ -1,7 +1,22 @@
 <div class="row notification-inbox">
   <div class="mx-auto">
-    <% [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].each do |val| %>
-      <%= render(NotificationComponent.new(date: "21.03.", message: "Lorem ipsum", time: "12:27", type: "Reminder")) %>
+    <% @notifications.each do |notification| %>
+      <%= render(NotificationComponent.new(notification)) %>
     <% end %>
   </div>
 </div>
+
+<script lang="js">
+    function deleteNotification(notificationId) {
+        fetch(`/notifications/${notificationId}`, {method: 'DELETE', redirect: 'follow'})
+            .then(result => {
+                if (result.status >= 200 && result.status < 300) {
+                    let msgContainer = document.getElementById(`notification-${notificationId}`);
+                    msgContainer.style.display = "none";
+                } else {
+                    alert("Failed to delete notification.")
+                }
+            })
+            .catch(error => console.log('error', error));
+    }
+</script>
