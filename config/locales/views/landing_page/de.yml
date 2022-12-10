@@ -23,7 +23,6 @@ de:
     card_text:
       owner: von
   navbar:
-    home: "Startseite"
     assets: "Meine Assets"
     groups: "Meine Gruppen"
     categories: "Kategorien"

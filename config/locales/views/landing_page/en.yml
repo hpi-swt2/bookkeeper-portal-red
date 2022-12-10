@@ -21,7 +21,6 @@ en:
     card_text:
       owner: from
   navbar:
-    home: "Home"
     assets: "My Assets"
     groups: "My Groups"
     categories: "Categories"
