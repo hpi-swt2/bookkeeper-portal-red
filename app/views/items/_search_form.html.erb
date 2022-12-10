@@ -1,8 +1,8 @@
-<%= search_form_for @q do |f| %>
+<%= search_form_for @q, html: { :class => 'd-flex mx-3' } do |f| %>
 
-    <%= f.label :name_or_description_cont %>
-    <%= f.search_field :name_or_description_cont %>
-
-    <%= f.submit "search" %>
+    <%= f.search_field :name_or_description_cont, class: 'form-control me-2', placeholder: t("navbar.search") %>
+    <%= button_tag( :class => "btn btn-outline-light", :value => "search" ) do %>
+        <i class="bi bi-search"></i>
+    <% end %>
 
 <% end %>
