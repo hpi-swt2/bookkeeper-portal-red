@@ -1,5 +1,4 @@
 class NotificationsController < ActionController::API
-
   def destroy
     @notification = Notification.find(params["id"])
 
@@ -7,7 +6,5 @@ class NotificationsController < ActionController::API
 
     @notification.display = false
     @notification.save
-
   end
-
 end
