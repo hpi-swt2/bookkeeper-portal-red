@@ -168,5 +168,13 @@ class ItemsController < ApplicationController
     @lending.item = @item
     @lending.completed_at = nil
   end
+
+  def create_permission
+    params[:borrower_groups][:id].each do |group|
+      if !group.empty?
+        @item.permissions.build(:group_id => group, :permission_type => 'can_borrow')
+      end
+    end
+  end
 end
 # rubocop:enable Metrics/ClassLength
