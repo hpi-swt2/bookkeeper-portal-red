@@ -52,4 +52,19 @@ describe "show item page", type: :feature do
     expect(page).to have_text(:visible, @item.name)
     expect(page).to have_text(:visible, @item.description)
   end
+
+  it "has working search field inside navbar" do
+    item2 = FactoryBot.create(:movie)
+
+    visit edit_item_path(@item)
+
+    search = find(:css, "input[type='search'][placeholder='Search']")
+    search.fill_in with: item2.name
+
+    submit = find(:css, "button[type='submit'][value='search']")
+    submit.click
+
+    expect(page).to have_text(item2.name)
+  end
+
 end
