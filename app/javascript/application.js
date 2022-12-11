@@ -5,6 +5,10 @@
  */
 import "@hotwired/turbo-rails"
 import "controllers"
+
+import "jquery"
+import "jquery_ujs"
+
 // You must include popper.min.js before bootstrap.js
 // https://getbootstrap.com/docs/5.2/components/tooltips/
 import "popper"
