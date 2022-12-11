@@ -10,6 +10,7 @@ import "controllers"
 import "popper"
 import "bootstrap"
 
+
 /*
  * Enable Bootstrap tooltips
  * https://getbootstrap.com/docs/5.2/components/tooltips/#enable-tooltips

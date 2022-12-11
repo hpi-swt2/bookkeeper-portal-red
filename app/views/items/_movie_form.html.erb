@@ -1,0 +1,62 @@
+<%= form_with(model: item) do |form| %>
+  <% if item.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+      <ul>
+        <% item.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+   <div>
+    <%= form.label :director, style: "display: block" %>
+    <%= form.text_field :director %>
+   </div>
+
+   <div>
+    <%= form.label :release_date, style: "display: block" %>
+    <%= form.datetime_field :release_date %>
+   </div>
+
+   <div>
+    <%= form.label :format, style: "display: block" %>
+    <%= form.text_field :format %>
+   </div>
+
+   <div>
+    <%= form.label :genre, style: "display: block" %>
+    <%= form.text_field :genre %>
+   </div>
+
+   <div>
+    <%= form.label :language, style: "display: block" %>
+    <%= form.text_field :language %>
+   </div>
+
+   <div>
+    <%= form.label :fsk, style: "display: block" %>
+    <%= form.number_field :lfsk %>
+   </div>
+ 
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_field :description %>
+  </div>
+
+  <div>
+    <%= form.label :max_borrowing_period, style: "display: block" %>
+    <%= form.datetime_field :max_borrowing_period %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
