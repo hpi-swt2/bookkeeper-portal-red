@@ -1,6 +1,14 @@
 <h1>Editing item</h1>
 
-<%= render "form", item: @item %>
+<% if @item.book? %>
+ <%= render "book_form", item: @item %>
+<% elsif @item.movie? %>
+ <%= render "movie_form", item: @item %>
+<% elsif @item.game? %>
+ <%= render "game_form", item: @item %>
+<% else @item.other? %>
+ <%= render "other_form", item: @item %>
+<% end %>
 
 <br>
 
