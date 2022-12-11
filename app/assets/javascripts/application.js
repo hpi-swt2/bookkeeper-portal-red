@@ -1,4 +1,5 @@
    // Hover Bootstrap 5 Navbar Dropdowns
+   // pasted from https://wpforthewin.com/how-to-get-hover-dropdowns-in-bootstrap-5-navbars/
     
    $('.dropdown').mouseover(function () {
     if($('.navbar-toggler').is(':hidden')) {
