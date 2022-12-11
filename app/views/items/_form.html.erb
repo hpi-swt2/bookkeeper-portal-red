@@ -29,7 +29,7 @@
   <%= fields_for(@permission) do |ab| %>
   <div>
       <%= ab.label "All Groups" %> <br />
-      <%= collection_select(:borrower_groups, :id, @all_groups, :id, :id, {:selected => Permission.borrowers_of_item(item.id)}, {:multiple => true}) %>
+      <%= collection_select(:borrower_groups, :id, @all_groups, :id, :name, {:selected => Permission.borrowers_of_item(item.id)}, {:multiple => true}) %>
   </div>
 <% end %>
   <div>
