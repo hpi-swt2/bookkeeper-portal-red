@@ -2,60 +2,52 @@ require 'rails_helper'
 
 RSpec.describe "borrowed items", type: :feature do
   let(:password) { 'password' }
-  let(:user) { FactoryBot.create(:user, password: password) }
+  let(:user1) { FactoryBot.create(:user, password: password) }
+  let(:user2) { FactoryBot.create(:user, password: password) }
 
   before do
-    communist_manifest = Item.create!(
-      name: "Communist Manifesto",
-      description: "A book about communism, brought to you by Karl Marx, Friedrich Engels and Team Red"
-    )
-    hitchhikers_guide = Item.create!(
-      name: "The Hitchhikers Guide to the Galaxy",
-      description: "A science fiction comedy adventure"
-    )
-    Item.create!(
-      name: "QualityLand",
-      description: "A book about a fictional country"
-    )
+    # create some items
+    item1 = FactoryBot.create(:item, name: 'Item 1')
+    item2 = FactoryBot.create(:item, name: 'Item 2')
+    item3 = FactoryBot.create(:item, name: 'Item 3')
 
-    Lending.create!(
-      item: communist_manifest,
-      user: user,
-      started_at: DateTime.parse('January 1st 2022 00:00:00 AM'),
-      due_at: DateTime.parse('February 1st 2022 00:00:00 AM'),
-      created_at: DateTime.parse('January 1st 2022 00:00:00 AM'),
-      updated_at: DateTime.parse('January 1st 2022 00:00:00 AM')
-    )
+    # create two groups
+    group1 = FactoryBot.create(:group)
+    group2 = FactoryBot.create(:group)
 
-    Lending.create!(
-      item: hitchhikers_guide,
-      user: user,
-      started_at: DateTime.parse('January 1st 2022 00:00:00 AM'),
-      completed_at: DateTime.parse('January 2nd 2022 00:00:00 AM'),
-      due_at: DateTime.parse('February 1st 2022 00:00:00 AM'),
-      created_at: DateTime.parse('January 1st 2022 00:00:00 AM'),
-      updated_at: DateTime.parse('January 1st 2022 00:00:00 AM')
-    )
+    # assign user1 to group1 and user2 to group2
+    Membership.create(user: user1, group: group1, role: 1)
+    Membership.create(user: user2, group: group2, role: 1)
+
+    # item1 and item2 are managed by group1 (user1)
+    item1.manager_groups << group1
+    item2.manager_groups << group1
+
+    # item3 is managed by group2 (user2)
+    item3.manager_groups << group2
+
+    # item2 is borrowed by user2
+    # item3 is borrowed by user1
+    now = Time.now
+    Lending.create(item: item2, user: user2, started_at: now, due_at: now + 10.days, created_at: now)
+    Lending.create(item: item3, user: user1, started_at: now, due_at: now + 10.days, created_at: now)
   end
 
-  it "shows borrowed items" do
-    sign_in user
-    visit borrowed_items_path
+  it "shows my items that are borrowed" do
+    sign_in user1
+    visit my_borrowed_items_path
 
-    expect(page).to have_text "Communist Manifesto"
+    expect(page).not_to have_text "Item 1"
+    expect(page).to have_text "Item 2"
+    expect(page).not_to have_text "Item 3"
   end
 
-  it "doesn't show items that were already returned" do
-    sign_in user
+  it "shows items that i've borrowed" do
+    sign_in user1
     visit borrowed_items_path
 
-    expect(page).not_to have_text "The Hitchhikers Guide to the Galaxy"
-  end
-
-  it "doesn't show unborrowed items" do
-    sign_in user
-    visit borrowed_items_path
-
-    expect(page).not_to have_text "QualityLand"
+    expect(page).not_to have_text "Item 1"
+    expect(page).not_to have_text "Item 2"
+    expect(page).to have_text "Item 3"
   end
 end
