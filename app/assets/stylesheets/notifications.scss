@@ -1,7 +1,7 @@
 @import "application";
 
 #notification-inbox-container {
-  background-color: #d3d3d3;
+  background-color: $lightGrey;
 
   @media (max-width: $mobileDeviceCutoff) {
     width: 100%;

@@ -12,6 +12,6 @@ class NotificationMailerPreview < ActionMailer::Preview
   def send_notification
     user = FactoryBot.build(:user)
     user.id = 1
-    NotificationMailer.send_notification("Hier könnte deine Nachricht stehen.", user, :info)
+    NotificationMailer.send_notification("This could be your test message!", user, :info)
   end
 end

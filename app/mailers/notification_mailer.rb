@@ -21,7 +21,7 @@ class NotificationMailer < ApplicationMailer
 
   def send_notification(message, user, notification_type, as_mail: true)
     create_notification(message, user, notification_type)
-    mail(to: user.email, subject: "Bookeeper Red Notification") if as_mail # rubocop:disable Rails/I18nLocaleTexts
+    mail(to: user.email, subject: "Bookkeeper Red Notification") if as_mail # rubocop:disable Rails/I18nLocaleTexts
   end
 
   private
