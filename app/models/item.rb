@@ -3,6 +3,7 @@ class Item < ApplicationRecord
   include ExportPdf
 
   validates :name, presence: true
+  validates :max_borrowing_days, numericality: { greater_than_or_equal_to: 0 }
 
   enum :status, inactive: 0, active: 1
   enum :item_type, other: 0, book: 1, movie: 2, game: 3

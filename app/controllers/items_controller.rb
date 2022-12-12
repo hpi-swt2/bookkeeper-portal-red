@@ -111,13 +111,13 @@ class ItemsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def item_params
-    params.require(:item).permit(:name, :description, :max_borrowing_period)
+    params.require(:item).permit(:name, :description, :max_borrowing_days)
   end
 
   def create_lending
     @lending = Lending.new
     @lending.started_at = DateTime.now
-    @lending.due_at = @lending.started_at + @item.max_borrowing_period
+    @lending.due_at = @lending.started_at.next_day(@max_borrowing_days)
     @lending.user = @user
     @lending.item = @item
     @lending.completed_at = nil

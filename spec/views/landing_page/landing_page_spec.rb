@@ -5,11 +5,13 @@ RSpec.describe "landing_page/index", type: :view do
     assign(:items, [
              Item.create!(
                name: "Telepathie für Anfänger",
-               description: "Ein hoch wissenschaftliches Buch über die Magie des Telefonierens"
+               description: "Ein hoch wissenschaftliches Buch über die Magie des Telefonierens",
+               max_borrowing_days: 7
              ),
              Item.create!(
                name: "Schneewittchen",
-               description: "Ein wunderschönes Märchen"
+               description: "Ein wunderschönes Märchen",
+               max_borrowing_days: 7
              )
            ])
   end
