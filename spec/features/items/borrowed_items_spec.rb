@@ -28,7 +28,7 @@ RSpec.describe "borrowed items", type: :feature do
 
     # item2 is borrowed by user2
     # item3 is borrowed by user1
-    now = Time.now
+    now = Time.zone.now
     Lending.create(item: item2, user: user2, started_at: now, due_at: now + 10.days, created_at: now)
     Lending.create(item: item3, user: user1, started_at: now, due_at: now + 10.days, created_at: now)
   end
