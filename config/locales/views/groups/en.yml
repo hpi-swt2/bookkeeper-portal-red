@@ -1,7 +1,8 @@
 en:
   cancel: "Cancel"
 
-  my_groups: "My Groups"
+  my_groups: "My groups"
+  all_groups: "All groups"
   create_group: "Create group"
   delete_group: "Delte group"
   leave_group: "Leave group"

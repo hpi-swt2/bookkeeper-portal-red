@@ -2,6 +2,7 @@ de:
   cancel: "Abbrechen"
 
   my_groups: "Meine Gruppen"
+  all_groups: "Alle Gruppen"
   create_group: "Gruppe erstellen"
   delete_group: "Gruppe löschen"
   leave_group: "Gruppe verlassen"
