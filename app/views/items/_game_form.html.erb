@@ -12,47 +12,47 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label I18n.t("items.form.item.name"), style: "display: block" %>
     <%= form.text_field :name %>
   </div>
 
    <div>
-    <%= form.label :author, style: "display: block" %>
+    <%= form.label I18n.t("items.form.game.author"), style: "display: block" %>
     <%= form.text_field :author %>
    </div>
 
    <div>
-    <%= form.label :illustrator, style: "display: block" %>
+    <%= form.label I18n.t("items.form.game.illustrator"), style: "display: block" %>
     <%= form.text_field :illustrator %>
    </div>
 
    <div>
-    <%= form.label :publisher, style: "display: block" %>
+    <%= form.label I18n.t("items.form.game.publisher"), style: "display: block" %>
     <%= form.text_field :publisher %>
    </div>
 
    <div>
-    <%= form.label :number_of_players, style: "display: block" %>
+    <%= form.label I18n.t("items.form.game.number_of_players"), style: "display: block" %>
     <%= form.number_field :number_of_players %>
    </div>
 
    <div>
-    <%= form.label :playing_time, style: "display: block" %>
+    <%= form.label I18n.t("items.form.game.playing_time"), style: "display: block" %>
     <%= form.number_field :playing_time %>
    </div>
 
    <div>
-    <%= form.label :language, style: "display: block" %>
+    <%= form.label I18n.t("items.form.game.language"), style: "display: block" %>
     <%= form.text_field :language %>
    </div>
 
   <div>
-    <%= form.label :description, style: "display: block" %>
+    <%= form.label I18n.t("items.form.item.description"), style: "display: block" %>
     <%= form.text_field :description %>
   </div>
 
   <div>
-    <%= form.label :max_borrowing_period, style: "display: block" %>
+    <%= form.label I18n.t("items.form.item.max_borrowing_period"), style: "display: block" %>
     <%= form.datetime_field :max_borrowing_period %>
   </div>
 

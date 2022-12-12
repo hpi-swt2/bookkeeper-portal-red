@@ -27,4 +27,36 @@ de:
       movie: "Film"
       game: "Spiel"
       other: "Sonstige"
+      new_book: "Neues Buch"
+      new_movie: "Neuer Film"
+      new_game: "Neues Spiel"
+    form:
+      item:
+        name: "Name"
+        category: "Kategorie"
+        description: "Beschreibung"
+        max_borrowing_period: "Ausleihzeit"
+      book:
+        isbn: "ISBN"
+        author: "Autor"
+        release_date: "Erscheinungsdatum"
+        genre: "Genre"
+        language: "Sprache"
+        number_of_pages: "Seitenzahl"
+        publisher: "Verleger"
+        edition: "Edition"
+      movie:
+        director: "Regisseur"
+        release_date: "Erscheinungsdatum"
+        format: "Format"
+        genre: "Genre"
+        language: "Sprache"
+        fsk: "Jugendfreigabe"
+      game:
+        author: "Autor"
+        illustrator: "Illustrator"
+        publisher: "Verleger"
+        number_of_players: "Spielerzahl"
+        playing_time: "Spieldauer"
+        language: "Sprache"
 
