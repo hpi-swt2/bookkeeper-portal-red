@@ -12,17 +12,17 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label I18n.t("items.form.item.name"), style: "display: block" %>
     <%= form.text_field :name %>
   </div>
 
   <div>
-    <%= form.label :description, style: "display: block" %>
+    <%= form.label I18n.t("items.form.item.description"), style: "display: block" %>
     <%= form.text_field :description %>
   </div>
 
   <div>
-    <%= form.label :max_borrowing_period, style: "display: block" %>
+    <%= form.label I18n.t("items.form.item.max_borrowing_period"), style: "display: block" %>
     <%= form.datetime_field :max_borrowing_period %>
   </div>
 

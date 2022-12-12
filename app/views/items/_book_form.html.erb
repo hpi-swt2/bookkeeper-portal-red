@@ -12,57 +12,57 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label I18n.t("items.form.item.name"), style: "display: block" %>
     <%= form.text_field :name %>
   </div>
 
    <div>
-    <%= form.label :isbn, style: "display: block" %>
+    <%= form.label I18n.t("items.form.book.isbn"), style: "display: block" %>
     <%= form.number_field :isbn %>
    </div>
 
    <div>
-    <%= form.label :author, style: "display: block" %>
+    <%= form.label I18n.t("items.form.book.author"), style: "display: block" %>
     <%= form.text_field :author %>
    </div>
 
    <div>
-    <%= form.label :release_date, style: "display: block" %>
+    <%= form.label I18n.t("items.form.book.release_date"), style: "display: block" %>
     <%= form.datetime_field :release_date %>
    </div>
 
    <div>
-    <%= form.label :genre, style: "display: block" %>
+    <%= form.label I18n.t("items.form.book.genre"), style: "display: block" %>
     <%= form.text_field :genre %>
    </div>
 
    <div>
-    <%= form.label :language, style: "display: block" %>
+    <%= form.label I18n.t("items.form.book.language"), style: "display: block" %>
     <%= form.text_field :language %>
    </div>
 
    <div>
-    <%= form.label :number_of_pages, style: "display: block" %>
+    <%= form.label I18n.t("items.form.book.number_of_pages"), style: "display: block" %>
     <%= form.number_field :number_of_pages %>
    </div>
 
    <div>
-    <%= form.label :publisher, style: "display: block" %>
+    <%= form.label I18n.t("items.form.book.publisher"), style: "display: block" %>
     <%= form.text_field :publisher %>
    </div>
 
    <div>
-    <%= form.label :edition, style: "display: block" %>
+    <%= form.label I18n.t("items.form.book.edition"), style: "display: block" %>
     <%= form.text_field :edition %>
    </div>
 
   <div>
-    <%= form.label :description, style: "display: block" %>
+    <%= form.label I18n.t("items.form.item.description"), style: "display: block" %>
     <%= form.text_field :description %>
   </div>
 
   <div>
-    <%= form.label :max_borrowing_period, style: "display: block" %>
+    <%= form.label I18n.t("items.form.item.max_borrowing_period"), style: "display: block" %>
     <%= form.datetime_field :max_borrowing_period %>
   </div>
 

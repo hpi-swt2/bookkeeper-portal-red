@@ -12,47 +12,47 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label I18n.t("items.form.item.name"), style: "display: block" %>
     <%= form.text_field :name %>
   </div>
 
    <div>
-    <%= form.label :director, style: "display: block" %>
+    <%= form.label I18n.t("items.form.movie.director"), style: "display: block" %>
     <%= form.text_field :director %>
    </div>
 
    <div>
-    <%= form.label :release_date, style: "display: block" %>
+    <%= form.label I18n.t("items.form.movie.release_date"), style: "display: block" %>
     <%= form.datetime_field :release_date %>
    </div>
 
    <div>
-    <%= form.label :format, style: "display: block" %>
+    <%= form.label I18n.t("items.form.movie.format"), style: "display: block" %>
     <%= form.text_field :format %>
    </div>
 
    <div>
-    <%= form.label :genre, style: "display: block" %>
+    <%= form.label I18n.t("items.form.movie.genre"), style: "display: block" %>
     <%= form.text_field :genre %>
    </div>
 
    <div>
-    <%= form.label :language, style: "display: block" %>
+    <%= form.label I18n.t("items.form.movie.language"), style: "display: block" %>
     <%= form.text_field :language %>
    </div>
 
    <div>
-    <%= form.label :fsk, style: "display: block" %>
+    <%= form.label I18n.t("items.form.movie.fsk"), style: "display: block" %>
     <%= form.number_field :lfsk %>
    </div>
  
   <div>
-    <%= form.label :description, style: "display: block" %>
+    <%= form.label I18n.t("items.form.item.description"), style: "display: block" %>
     <%= form.text_field :description %>
   </div>
 
   <div>
-    <%= form.label :max_borrowing_period, style: "display: block" %>
+    <%= form.label I18n.t("items.form.item.max_borrowing_period"), style: "display: block" %>
     <%= form.datetime_field :max_borrowing_period %>
   </div>
 
