@@ -26,7 +26,7 @@ describe "User Edit Page", type: :feature do
     fill_in 'user[email]', with: new_mail
     # Need to enter current password to make changes to user
     fill_in 'user[current_password]', with: password
-    page.find('input[type=submit]').click
+    page.find("input[type='submit'][value='Update']").click
     expect(user.reload.email).to eq(new_mail)
   end
 
@@ -39,7 +39,7 @@ describe "User Edit Page", type: :feature do
     fill_in 'user[description]', with: new_description
     # Need to enter current password to make changes to user
     fill_in 'user[current_password]', with: password
-    page.find('input[type=submit]').click
+    page.find("input[type='submit'][value='Update']").click
     expect(user.reload.description).to eq(new_description)
   end
 end

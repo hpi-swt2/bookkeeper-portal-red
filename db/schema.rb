@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_160456) do
     t.datetime "updated_at", null: false
     t.integer "status", default: 0, null: false
     t.integer "item_type"
-    t.bigint "isbn"
+    t.integer "isbn"
     t.string "author"
     t.date "release_date"
     t.string "genre"
@@ -40,6 +40,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_160456) do
     t.integer "playing_time"
     t.string "category"
     t.integer "max_borrowing_days"
+    t.float "lat"
+    t.float "lng"
   end
 
   create_table "lendings", force: :cascade do |t|
