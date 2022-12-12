@@ -7,6 +7,7 @@ en:
   delete_group: "Delete group"
   leave_group: "Leave group"
   update_group: "Update group"
+  group_add_member: "Add user"
 
   group_name : "Groupname"
   group_name_prompt: "Please provide a name for your group"
