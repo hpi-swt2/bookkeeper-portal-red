@@ -11,6 +11,14 @@ de:
   group_name : "Gruppenname"
   group_name_prompt: "Bitte gib deiner Gruppe einen Namen"
 
+  group_member:
+    zero: "Mitglieder"
+    one: "Mitglied"
+    other: "Mitglieder"
+
+  member_name: "Name"
+  member_email: "E-Mail"
+
   login_first: "Du musst dich erst anmelden"
   only_admins: "Nur Administratoren dürfen diese Gruppe bearbeiten"
 

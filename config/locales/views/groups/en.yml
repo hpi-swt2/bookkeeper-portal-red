@@ -11,6 +11,14 @@ en:
   group_name : "Groupname"
   group_name_prompt: "Please provide a name for your group"
 
+  group_member:
+    zero: "members"
+    one: "member"
+    other: "members"
+
+  member_name: "Name"
+  member_email: "E-mail"
+
   login_first: "You have to log in first"
   only_admins: "Only admins are allowed to edit this group"
 
