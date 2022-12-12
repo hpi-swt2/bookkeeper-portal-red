@@ -15,9 +15,16 @@ de:
       back: "Zurück zur Items Übersicht"
       borrow: "Ausleihen"
       return: "Zurückgeben"
+      new: "Neues Item"
     status_badge:
       available: "Verfügbar"
       borrowed_by_me: "Von mir ausgeliehen"
       not_available: "Nicht verfügbar"
     card_text:
       owner: von
+    type:
+      book: "Buch"
+      movie: "Film"
+      game: "Spiel"
+      other: "Sonstige"
+

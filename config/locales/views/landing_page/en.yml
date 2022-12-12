@@ -13,9 +13,15 @@ en:
       back: "Back to items"
       borrow: "Borrow"
       return: "Return"
+      new: "New item"
     status_badge:
       available: "Available"
       borrowed_by_me: "Borrowed by me"
       not_available: "Not available" 
     card_text:
       owner: from
+    type:
+      book: "Book"
+      movie: "Movie"
+      game: "Game"
+      other: "Other"
