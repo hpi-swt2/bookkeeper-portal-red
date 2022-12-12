@@ -4,8 +4,11 @@
 
   <h1>
     <%= @group.name %>
-        <%= link_to " ", edit_group_path(@group), class: "btn btn-sm btn-secondary text-light bi bi-pencil-fill" %>
+    <button type="button" class="btn btn-sm btn-secondary text-light bi bi-pencil-fill" data-bs-toggle="modal" data-bs-target="#editGroupModal">
+    </button>
   </h1>
+
+  <%= render "modal-edit", group: @group %>
 
   <p>
   <strong><%= @group.users.count %></strong>

@@ -1,12 +1,13 @@
 en:
   cancel: "Cancel"
+  save: "Save"
 
   my_groups: "My groups"
   all_groups: "All groups"
   create_group: "Create group"
   delete_group: "Delete group"
   leave_group: "Leave group"
-  update_group: "Update group"
+  edit_group: "Edit group"
   group_add_member: "Add user"
 
   group_name : "Groupname"
