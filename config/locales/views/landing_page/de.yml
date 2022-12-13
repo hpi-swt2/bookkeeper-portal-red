@@ -10,26 +10,14 @@ de:
       successfully_borrowed: "Item wurde erfolgreich ausgeliehen"
       successfully_returned: "Item wurde erfolgreich zurückgegeben"
     buttons:
-      new: "Item erstellen"
-      update: "Item aktualisieren"
       show: "Item anzeigen"
       edit: "Item bearbeiten"
       back: "Zurück zur Items Übersicht"
       borrow: "Ausleihen"
       return: "Zurückgeben"
-      download_qrcode: "QR-Code herunterladen"
     status_badge:
       available: "Verfügbar"
       borrowed_by_me: "Von mir ausgeliehen"
       not_available: "Nicht verfügbar"
     card_text:
       owner: von
-  navbar:
-    home: "Startseite"
-    assets: "Meine Assets"
-    groups: "Meine Gruppen"
-    categories: "Kategorien"
-    notifications: "Benachrichtigungen"
-    profile: "Mein Profil"
-    search: "Suchen"
-  scan_qrcode: "QR-Code einscannen"

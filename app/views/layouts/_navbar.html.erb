@@ -6,7 +6,7 @@
     <a class="navbar-brand text-white desktop-only py-0" href="/">
       <%= image_tag "logo-hpi-small.png", width: 40 %>
     </a>
-    <a class="navbar-brand text-white mobile-only" href="/scan">
+    <a class="navbar-brand text-white mobile-only" href="#">
       <i class="bi bi-qr-code-scan fs-3"></i>
     </a>
     <div class="collapse navbar-collapse bg-primary" id="navbarToggle">
@@ -14,19 +14,19 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">
             <i class="bi bi-house-fill mobile-only"></i>
-            <%=t("navbar.home")%>
+            Home
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">
             <i class="bi bi-book-fill mobile-only"></i>
-            <%=t("navbar.assets")%>
+            Meine Assets
           </a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-collection-fill mobile-only"></i>
-            <%=t("navbar.groups")%>
+            Meine Gruppen
           </a>
           <ul class="dropdown-menu bg-primary">
             <li><a class="dropdown-item text-white" href="#">SWA-Lehrstuhl
@@ -40,20 +40,19 @@
         <li class="nav-item">
           <a class="nav-link" href="#">
             <i class="bi bi-tag-fill mobile-only"></i>
-            <%=t("navbar.categories")%>
+            Kategorien
           </a>
         </li>
         <li class="mobile-only nav-item">
           <a href="#" data-bs-toggle="offcanvas" data-bs-target="#notification-inbox-container"
-             aria-controls="notification-inbox-container" class="nav-link"><i class="bi bi-bell-fill"></i> <%=t("navbar.notifications")%></a>
-          <a href="#" class="nav-link"><i class="bi bi-bell-fill"></i> <%=t("navbar.notifications")%></a>
+             aria-controls="notification-inbox-container" class="nav-link"><i class="bi bi-bell-fill"></i> Notifications</a>
         </li>
         <li class="mobile-only nav-item">
-          <a href="<%= profiles_me_path %>" class="nav-link"><i class="bi bi-person-fill"></i> <%=t("navbar.profile")%></a>
+          <a href="<%= profiles_me_path %>" class="nav-link"><i class="bi bi-person-fill"></i> My Profile</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <%= language_flag(I18n.locale)%>
+            Select Language
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
@@ -66,7 +65,12 @@
         </li>
       </ul>
 
-      <%= render "items/search_form" %>
+      <form class="d-flex desktop-only mx-3">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-light" type="submit">
+          <i class="bi bi-search"></i>
+        </button>
+      </form>
       <span>
         <a href="#" class="desktop-only text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#notification-inbox-container"
            aria-controls="notification-inbox-container" id="notification_inbox_button"><i class="bi bi-bell-fill fs-3"></i></a>
@@ -75,7 +79,6 @@
     </div>
   </div>
 </nav>
-
 
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="notification-inbox-container" aria-labelledby="notification-inbox-containerLabel">
   <div class="offcanvas-header">

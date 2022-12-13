@@ -7,8 +7,6 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale
 
-  before_action :set_search
-
   protected
 
   def configure_permitted_parameters
@@ -28,9 +26,5 @@ class ApplicationController < ActionController::Base
   def extract_locale
     parsed_locale = params[:locale]
     I18n.available_locales.map(&:to_s).include?(parsed_locale) ? parsed_locale.to_sym : nil
-  end
-
-  def set_search
-    @q = Item.ransack(params[:q])
   end
 end

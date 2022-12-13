@@ -50,8 +50,6 @@ gem "sassc-rails"
 
 gem "rails-i18n"
 
-gem 'flag-icons-rails'
-
 # Adding this removes some warnings caused by double-loading of the net-protocol library
 # (see https://github.com/ruby/net-imap/issues/16)
 # we should be able to remove this after upgrading to Ruby 3
@@ -117,10 +115,3 @@ end
 group :production do
   gem "pg" # production database runs on PostgreSQL
 end
-
-# For QR-Code generation
-gem "rqrcode"
-# For pdf export
-gem "prawn-qrcode"
-
-gem "ransack", "~> 3.2"
