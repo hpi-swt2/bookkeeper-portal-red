@@ -22,3 +22,15 @@
 </div>
 
 <%= link_to "New item", new_item_path %>
+
+<div class="btn-group dropdown">
+  <a class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <%=I18n.t("items.buttons.new")%>
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <%= link_to I18n.t("items.type.book"), new_item_path(item_type: :book), :class => "dropdown-item" %>
+    <%= link_to I18n.t("items.type.movie"), new_item_path(item_type: :movie), :class => "dropdown-item" %>
+    <%= link_to I18n.t("items.type.game"), new_item_path(item_type: :game), :class => "dropdown-item" %>
+    <%= link_to I18n.t("items.type.other"), new_item_path(item_type: :other), :class => "dropdown-item" %>
+  </div>
+</div>
