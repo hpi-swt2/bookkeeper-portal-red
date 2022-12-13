@@ -4,14 +4,22 @@ class ItemsController < ApplicationController
 
   # GET /items or /items.json
   def index
-    @items = Item.all
+    @q = Item.ransack(params[:q])
+    @items = @q.result(distinct: true)
   end
 
   # GET /items/1 or /items/1.json
   def show
+    @src_is_qrcode = params[:src] == "qrcode"
+
     return unless current_user.nil?
 
     redirect_to new_user_session_path
+  end
+
+  def download
+    @item = Item.find(params[:id])
+    send_data @item.to_pdf, filename: "item.pdf"
   end
 
   # GET /items/new
@@ -43,6 +51,10 @@ class ItemsController < ApplicationController
     @user = current_user
 
     @lending = Lending.where(item_id: @item.id, completed_at: nil)[0]
+    @item.lat = params[:lat]
+    @item.lng = params[:lng]
+    @item.save
+
     if @lending.nil?
       create_lending
       msg = I18n.t("items.messages.successfully_borrowed")
@@ -99,13 +111,13 @@ class ItemsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def item_params
-    params.require(:item).permit(:name, :description, :max_borrowing_period)
+    params.require(:item).permit(:name, :description, :max_borrowing_days)
   end
 
   def create_lending
     @lending = Lending.new
     @lending.started_at = DateTime.now
-    @lending.due_at = @lending.started_at + @item.max_borrowing_period
+    @lending.due_at = @lending.started_at.next_day(@max_borrowing_days)
     @lending.user = @user
     @lending.item = @item
     @lending.completed_at = nil

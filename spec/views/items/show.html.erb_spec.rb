@@ -8,7 +8,8 @@ RSpec.describe "items/show", type: :view do
   before do
     assign(:item, Item.create!(
                     name: "Name",
-                    description: "Description"
+                    description: "Description",
+                    max_borrowing_days: 7
                   ))
   end
 

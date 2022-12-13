@@ -8,6 +8,10 @@
 
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %> <%# load Sprockets/Rails asset pipeline %>
   <%= javascript_importmap_tags %> <%# load JS from importmaps %>
+  
+  <% if content_for? :head_addition %>
+    <%= yield :head_addition %>
+  <% end %>
 </head>
 
 <%= render "layouts/navbar" %>

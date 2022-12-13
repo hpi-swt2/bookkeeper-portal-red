@@ -10,12 +10,15 @@ de:
       successfully_borrowed: "Item wurde erfolgreich ausgeliehen"
       successfully_returned: "Item wurde erfolgreich zurückgegeben"
     buttons:
+      new: "Item erstellen"
+      update: "Item aktualisieren"
       show: "Item anzeigen"
       edit: "Item bearbeiten"
       back: "Zurück zur Items Übersicht"
       borrow: "Ausleihen"
       return: "Zurückgeben"
       new: "Neues Item"
+      download_qrcode: "QR-Code herunterladen"
     status_badge:
       available: "Verfügbar"
       borrowed_by_me: "Von mir ausgeliehen"
@@ -35,7 +38,7 @@ de:
         name: "Name"
         category: "Kategorie"
         description: "Beschreibung"
-        max_borrowing_period: "Ausleihzeit"
+        max_borrowing_days: "Ausleihzeit"
       book:
         isbn: "ISBN"
         author: "Autor"
@@ -59,4 +62,12 @@ de:
         number_of_players: "Spielerzahl"
         playing_time: "Spieldauer"
         language: "Sprache"
-
+    navbar:
+      home: "Startseite"
+      assets: "Meine Assets"
+      groups: "Meine Gruppen"
+      categories: "Kategorien"
+      notifications: "Benachrichtigungen"
+      profile: "Mein Profil"
+      search: "Suchen"
+      scan_qrcode: "QR-Code einscannen"
