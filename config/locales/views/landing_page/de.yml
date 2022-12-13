@@ -17,6 +17,7 @@ de:
       back: "Zurück zur Items Übersicht"
       borrow: "Ausleihen"
       return: "Zurückgeben"
+      new: "Neues Item"
       download_qrcode: "QR-Code herunterladen"
     status_badge:
       available: "Verfügbar"
@@ -24,14 +25,6 @@ de:
       not_available: "Nicht verfügbar"
     card_text:
       owner: von
-  navbar:
-    home: "Startseite"
-    assets: "Meine Assets"
-    groups: "Meine Gruppen"
-    categories: "Kategorien"
-    notifications: "Benachrichtigungen"
-    profile: "Mein Profil"
-    search: "Suchen"
     type:
       book: "Buch"
       movie: "Film"
@@ -69,4 +62,12 @@ de:
         number_of_players: "Spielerzahl"
         playing_time: "Spieldauer"
         language: "Sprache"
-
+    navbar:
+      home: "Startseite"
+      assets: "Meine Assets"
+      groups: "Meine Gruppen"
+      categories: "Kategorien"
+      notifications: "Benachrichtigungen"
+      profile: "Mein Profil"
+      search: "Suchen"
+      scan_qrcode: "QR-Code einscannen"
