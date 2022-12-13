@@ -33,7 +33,8 @@ class ItemsController < ApplicationController
 
   # POST /items or /items.json
   def create
-    @item = Item.new(item_params)
+    @item = Item.new(item_params(params[:item_type]))
+    @item.item_type = params[:item_type]
 
     respond_to do |format|
       if @item.save
@@ -78,7 +79,7 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1 or /items/1.json
   def update
     respond_to do |format|
-      if @item.update(item_params)
+      if @item.update(item_params(params[:item_type]))
         format.html { redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_updated") }
         format.json { render :show, status: :ok, location: @item }
       else
@@ -110,8 +111,16 @@ class ItemsController < ApplicationController
   end
 
   # Only allow a list of trusted parameters through.
-  def item_params
-    params.require(:item).permit(:name, :description, :max_borrowing_days)
+  def item_params(item_type)
+    if item_type == "book"
+      params.require(:item).permit(:item_type, :name, :isbn, :author, :release_date, :genre, :language, :number_of_pages, :publisher, :edition, :description, :max_borrowing_days)
+    elsif item_type == "movie"
+      params.require(:item).permit(:item_type,  :name, :director, :release_date, :format, :genre, :language, :fsk, :description, :max_borrowing_days)
+    elsif item_type == "game"
+      params.require(:item).permit(:item_type,  :name, :author, :illustrator, :publisher, :number_of_players, :playing_time, :language, :description, :max_borrowing_days)
+    else item_type == "other"
+      params.require(:item).permit(:item_type,  :name, :category, :description, :max_borrowing_days)
+    end
   end
 
   def create_lending
