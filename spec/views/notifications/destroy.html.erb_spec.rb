@@ -9,6 +9,7 @@ describe "Notification inbox", type: :feature do
     page.find_by_id("notification_inbox_button").click
     expect(page.find_by_id('notification-inbox-container')).to have_text("Notifications")
     expect(page.find_by_id('notification-inbox-container')).not_to have_selector('.notification-message')
+    expect(page.find_by_id('notification-inbox-container')).to have_text("You don't have any notifications yet. 🕵️")
   end
 
   it "shows a notification when one is present" do
