@@ -22,8 +22,8 @@
   </div>
 
   <div>
-    <%= form.label I18n.t("items.form.item.:max_borrowing_period"), style: "display: block" %>
-    <%= form.datetime_field ::max_borrowing_period %>
+    <%= form.label I18n.t("items.form.item.:max_borrowing_days"), style: "display: block" %>
+    <%= form.number_field :max_borrowing_days %>
   </div>
 
   <div>

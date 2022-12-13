@@ -59,7 +59,7 @@ describe "show item page", type: :feature do
 
     visit edit_item_path(@item)
 
-    search = find(:css, "input[type='search'][placeholder='Search']")
+    search = find(:css, "input[type='search'][placeholder='t(\"navbar.search\")']")
     search.fill_in with: item2.name
 
     submit = find(:css, "button[type='submit'][value='search']")
