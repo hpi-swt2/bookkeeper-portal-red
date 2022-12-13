@@ -36,7 +36,7 @@ en:
         name: "Name"
         category: "Category"
         description: "Description"
-        max_borrowing_days: "Maximum Borrowing Period"
+        max_borrowing_period: "Maximum Borrowing Period"
       book:
         isbn: "ISBN"
         author: "Author"
