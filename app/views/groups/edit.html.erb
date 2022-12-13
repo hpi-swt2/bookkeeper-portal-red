@@ -40,6 +40,9 @@
   <div class="d-flex justify-content-center">
     <%= link_to t(:group_add_member), "", class: "btn btn-secondary mx-1" %>
 
-    <%= button_to t(:delete_group), @group, method: :delete, class: "btn btn-primary mx-1" %>
+    <button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#deleteGroupModal">
+      <%= t(:delete_group) %>
+    </button>
+    <%= render "modal-delete", group: @group %>
   </div>
 </div>

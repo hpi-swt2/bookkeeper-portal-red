@@ -1,6 +1,7 @@
 en:
   cancel: "Cancel"
   save: "Save"
+  confirmation: "Are you sure?"
 
   my_groups: "My groups"
   all_groups: "All groups"

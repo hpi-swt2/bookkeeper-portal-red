@@ -1,6 +1,7 @@
 de:
   cancel: "Abbrechen"
   save: "Speichern"
+  confirmation: "Bist du dir sicher?"
 
   my_groups: "Meine Gruppen"
   all_groups: "Alle Gruppen"
