@@ -8,14 +8,26 @@ en:
       successfully_borrowed: "Item was successfully borrowed"
       successfully_returned: "Item was successfully returned"
     buttons:
+      new: "Create item"
+      update: "Update item"
       show: "Show item"
       edit: "Edit item"
       back: "Back to items"
       borrow: "Borrow"
       return: "Return"
+      download_qrcode: "Download QR-Code"
     status_badge:
       available: "Available"
       borrowed_by_me: "Borrowed by me"
       not_available: "Not available" 
     card_text:
       owner: from
+  navbar:
+    home: "Home"
+    assets: "My Assets"
+    groups: "My Groups"
+    categories: "Categories"
+    notifications: "Notifications"
+    profile: "My Profile"
+    search: "Search"
+  scan_qrcode: "Scan a QR-Code"
