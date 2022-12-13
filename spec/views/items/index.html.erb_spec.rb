@@ -44,5 +44,5 @@ RSpec.describe "items/index", type: :view do
     render
     expect(rendered).to have_css('#dropdownMenuButton')
   end
-  
+
 end

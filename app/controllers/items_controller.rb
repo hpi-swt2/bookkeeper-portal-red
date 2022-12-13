@@ -112,14 +112,19 @@ class ItemsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def item_params(item_type)
-    if item_type == "book"
-      params.require(:item).permit(:item_type, :name, :isbn, :author, :release_date, :genre, :language, :number_of_pages, :publisher, :edition, :description, :max_borrowing_days)
-    elsif item_type == "movie"
-      params.require(:item).permit(:item_type,  :name, :director, :release_date, :format, :genre, :language, :fsk, :description, :max_borrowing_days)
-    elsif item_type == "game"
-      params.require(:item).permit(:item_type,  :name, :author, :illustrator, :publisher, :number_of_players, :playing_time, :language, :description, :max_borrowing_days)
-    else item_type == "other"
-      params.require(:item).permit(:item_type,  :name, :category, :description, :max_borrowing_days)
+    case item_type
+    when "book"
+      params.require(:item).permit(:item_type, :name, :isbn, :author, :release_date, :genre, :language,
+                                   :number_of_pages, :publisher, :edition, :description, :max_borrowing_days)
+    when "movie"
+      params.require(:item).permit(:item_type,  :name, :director, :release_date, :format, :genre, :language, :fsk,
+                                   :description, :max_borrowing_days)
+    when "game"
+      params.require(:item).permit(:item_type,  :name, :author, :illustrator, :publisher, :number_of_players,
+                                   :playing_time, :language, :description, :max_borrowing_days)
+    else
+      item_type == "other"
+      params.require(:item).permit(:item_type, :name, :category, :description, :max_borrowing_days)
     end
   end
 
