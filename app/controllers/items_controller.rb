@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show edit update destroy ]
   before_action :set_item_from_item_id, only: %i[ update_lending ]
@@ -32,6 +33,7 @@ class ItemsController < ApplicationController
   end
 
   # POST /items or /items.json
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def create
     @item = Item.new(item_params(params[:item_type]))
     @item.item_type = params[:item_type]
@@ -46,6 +48,7 @@ class ItemsController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def update_lending
@@ -111,6 +114,7 @@ class ItemsController < ApplicationController
   end
 
   # Only allow a list of trusted parameters through.
+  # rubocop:disable Metrics/MethodLength
   def item_params(item_type)
     case item_type
     when "book"
@@ -123,10 +127,11 @@ class ItemsController < ApplicationController
       params.require(:item).permit(:item_type,  :name, :author, :illustrator, :publisher, :number_of_players,
                                    :playing_time, :language, :description, :max_borrowing_days)
     else
-      item_type == "other"
+      item_type.eql?("other")
       params.require(:item).permit(:item_type, :name, :category, :description, :max_borrowing_days)
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def create_lending
     @lending = Lending.new
@@ -137,3 +142,4 @@ class ItemsController < ApplicationController
     @lending.completed_at = nil
   end
 end
+# rubocop:enable Metrics/ClassLength
