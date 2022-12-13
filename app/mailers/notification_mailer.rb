@@ -13,13 +13,29 @@ class NotificationMailer < ApplicationMailer
     mail(to: "bookkeeper.red@gmail.com", subject: "Test Bookkeeper") # rubocop:disable Rails/I18nLocaleTexts
   end
 
-  def send_notification(message, user, notification_type, as_mail: true)
+  # Yes, the instance variables are necessary here and yes we are aware of the code duplications
+  def send_reminder(message, user, as_mail: true)
     @user = user
     @message = message
-    @notification_type = notification_type
-    create_notification(message, user, notification_type)
-    mail(to: @user.email, subject: "Bookkeeper Red Notification") if as_mail # rubocop:disable Rails/I18nLocaleTexts
+    create_notification(message, user, :reminder)
+    mail(to: @user.email, subject: "Bookkeeper Red Reminder") if as_mail # rubocop:disable Rails/I18nLocaleTexts
   end
+
+  def send_info(message, user, as_mail: true)
+    @user = user
+    @message = message
+    create_notification(message, user, :info)
+    mail(to: @user.email, subject: "Bookkeeper Red Info") if as_mail # rubocop:disable Rails/I18nLocaleTexts
+  end
+
+  def send_alert(message, user, as_mail: true)
+    @user = user
+    @message = message
+    create_notification(message, user, :alert)
+    mail(to: @user.email, subject: "Bookkeeper Red Alert") if as_mail # rubocop:disable Rails/I18nLocaleTexts
+  end
+
+  private
 
   def create_notification(message, user, notification_type)
     notification = Notification.new

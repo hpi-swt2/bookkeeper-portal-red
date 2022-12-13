@@ -5,13 +5,9 @@ class NotificationMailerPreview < ActionMailer::Preview
     NotificationMailer.test_notification
   end
 
-  def return_reminder
-    NotificationMailer.return_reminder(nil)
-  end
-
-  def send_notification
+  def send_reminder
     user = FactoryBot.build(:user)
     user.id = 1
-    NotificationMailer.send_notification("This could be your test message!", user, :info)
+    NotificationMailer.send_reminder("This could be your test message!", user)
   end
 end
