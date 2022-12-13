@@ -3,6 +3,12 @@
     <% @notifications.each do |notification| %>
       <%= render(NotificationComponent.new(notification)) %>
     <% end %>
+    <% if @notifications.empty? %>
+      <div class="notification-inbox__empty">
+        <p class="notification-inbox__empty-text">You don't have any notifications yet. 🕵️</p>
+      </div>
+    <% end %>
+
   </div>
 </div>
 

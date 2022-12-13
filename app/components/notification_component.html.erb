@@ -8,6 +8,7 @@
         </button>
       </div>
     </p>
-    <p><%= @message %></p>
+    <p class="collapse" id="collapseExample-<%@id %>"><%= @message %></p>
+    <a role="button" class="collapsed" data-bs-toggle="collapse" href="#collapseExample-<%@id %>" aria-expanded="false" aria-controls="collapseExample-<%@id %>"></a>
   </div>
 </div>
