@@ -13,18 +13,13 @@ class NotificationMailer < ApplicationMailer
     mail(to: "bookkeeper.red@gmail.com", subject: "Test Bookkeeper") # rubocop:disable Rails/I18nLocaleTexts
   end
 
-  def return_reminder(item)
-    # Example how it could work, once user model methods are implemented
-    @item = item
-    mail(to: '@item.lending.user.email', name: '@item.lending.user.name', subject: "{item.name} is overdue!") # rubocop:disable Rails/I18nLocaleTexts
-  end
-
   def send_notification(message, user, notification_type, as_mail: true)
+    @user = user
+    @message = message
+    @notification_type = notification_type
     create_notification(message, user, notification_type)
-    mail(to: user.email, subject: "Bookkeeper Red Notification") if as_mail # rubocop:disable Rails/I18nLocaleTexts
+    mail(to: @user.email, subject: "Bookkeeper Red Notification") if as_mail # rubocop:disable Rails/I18nLocaleTexts
   end
-
-  private
 
   def create_notification(message, user, notification_type)
     notification = Notification.new

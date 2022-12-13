@@ -4,8 +4,8 @@ class NotificationsController < ActionController::API
 
     return unless @notification.user_id == current_user.id
 
-    # Don't delete the notification, 
-    # to keep track of all notifications ever sent to a user. 
+    # Don't delete the notification,
+    # to keep track of all notifications ever sent to a user.
     # Just remove visibility for the notification.
     @notification.display = false
     @notification.save
