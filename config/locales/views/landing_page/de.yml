@@ -9,11 +9,13 @@ de:
       successfully_destroyed: "Item wurde erfolgreich zerstört."
       successfully_borrowed: "Item wurde erfolgreich ausgeliehen"
       successfully_returned: "Item wurde erfolgreich zurückgegeben"
+      deletion_confirmation: "Soll das Item wirklich gelöscht werden?"
     buttons:
       new: "Item erstellen"
       update: "Item aktualisieren"
       show: "Item anzeigen"
       edit: "Item bearbeiten"
+      delete: "Item löschen"
       back: "Zurück zur Items Übersicht"
       borrow: "Ausleihen"
       return: "Zurückgeben"
