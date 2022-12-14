@@ -27,6 +27,15 @@ class User < ApplicationRecord
     false
   end
 
+  def managing_rights?(item)
+    item_groups = item.manager_groups
+
+    groups.each do |user_group|
+      return true if item_groups.include? user_group
+    end
+    false
+  end
+
   # Handles user creation based on data returned from OIDC login process. If
   # the user already exists, returns the user.
   def self.from_omniauth(auth)
