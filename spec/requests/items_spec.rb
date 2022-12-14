@@ -18,14 +18,14 @@ RSpec.describe "/items", type: :request do
   # Item. As you add validations to Item, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    { name: "Item 1", description: "Item 1 description", max_borrowing_days: 7, max_reservation_days: 2  }
+    { name: "Item 1", description: "Item 1 description", max_borrowing_days: 7, max_reservation_days: 2 }
   end
 
   let(:invalid_attributes) do
-    { name: "", description: "Item 1 description", max_borrowing_days: -1, max_reservation_days: 2  }
+    { name: "", description: "Item 1 description", max_borrowing_days: -1, max_reservation_days: 2 }
   end
 
-  before(:each) do
+  before do
     user = FactoryBot.create(:user, password: "password")
     sign_in user
   end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "landing_page/index", type: :view do
-  before(:each) do
+  before do
     user = FactoryBot.create(:user, password: "password")
     sign_in user
     assign(:items, [

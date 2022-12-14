@@ -68,10 +68,10 @@ class Item < ApplicationRecord
   end
 
   def current_reservation
-    reservations = Reservation.where(item_id: id).where(["DATE(starts_at) < :now AND :now <= DATE(ends_at)", { now: Time.zone.now }])
-    if reservations.size > 1
-      raise Exception.new(self.to_s + " has multiple simultaneous reservations")
-    end
+    reservations = Reservation.where(item_id: id).where(["DATE(starts_at) < :now AND :now <= DATE(ends_at)",
+                                                         { now: Time.zone.now }])
+    raise StandardError, "#{self} has multiple simultaneous reservations" if reservations.size > 1
+
     reservations.first
   end
 
@@ -81,6 +81,7 @@ class Item < ApplicationRecord
 
   def reserved_by?(user)
     return false if current_reservation.nil?
+
     current_reservation.user_id == user.id
   end
 
@@ -92,7 +93,6 @@ class Item < ApplicationRecord
   def borrowed_by?(user)
     Lending.exists?(user_id: user.id, item_id: id, completed_at: nil)
   end
-
 
   def status_text(user)
     return I18n.t("items.status_badge.reserved_by_me") if reserved_by?(user)
