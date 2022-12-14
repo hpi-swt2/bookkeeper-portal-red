@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show edit update destroy ]
   before_action :set_item_from_item_id, only: %i[ update_lending ]
@@ -19,7 +20,14 @@ class ItemsController < ApplicationController
 
   def download
     @item = Item.find(params[:id])
-    send_data @item.to_pdf, filename: "item.pdf"
+    if current_user.managing_rights?(@item)
+      send_data @item.to_pdf, filename: "item.pdf"
+    else
+      respond_to do |format|
+        format.html { redirect_to @item, notice: I18n.t("items.messages.not_allowod_to_download") }
+        format.json { head :no_content }
+      end
+    end
   end
 
   # GET /items/new
@@ -29,6 +37,13 @@ class ItemsController < ApplicationController
 
   # GET /items/1/edit
   def edit
+    @item = Item.find(params[:id])
+    return if current_user.managing_rights?(@item)
+
+    respond_to do |format|
+      format.html { redirect_to @item, notice: I18n.t("items.messages.not_allowod_to_edit") }
+      format.json { head :no_content }
+    end
   end
 
   # POST /items or /items.json
@@ -89,14 +104,23 @@ class ItemsController < ApplicationController
   end
 
   # DELETE /items/1 or /items/1.json
+  # rubocop:disable Metrics/MethodLength
   def destroy
-    @item.destroy
+    if current_user.managing_rights?(@item)
+      @item.destroy
+      msg = I18n.t("items.messages.successfully_destroyed")
+      redirect_path = items_url
+    else
+      msg = I18n.t("items.messages.not_allowod_to_destroy")
+      redirect_path = @item
+    end
 
     respond_to do |format|
-      format.html { redirect_to items_url, notice: I18n.t("items.messages.successfully_destroyed") }
+      format.html { redirect_to redirect_path, notice: msg }
       format.json { head :no_content }
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   private
 
@@ -123,3 +147,4 @@ class ItemsController < ApplicationController
     @lending.completed_at = nil
   end
 end
+# rubocop:enable Metrics/ClassLength
