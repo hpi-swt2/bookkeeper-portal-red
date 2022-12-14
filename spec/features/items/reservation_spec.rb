@@ -25,7 +25,7 @@ describe "show item page", type: :feature do
       expect(item.reserved_by?(user)).to be true
       expect(item.borrowed_by?(user)).to be false
 
-      visit item_path(item)
+      visit "#{item_path(item)}?src=qrcode"
       expect(page).to have_button I18n.t('items.buttons.borrow')
       expect(page).to have_text I18n.t('items.status_badge.reserved_by_me')
     end
@@ -34,7 +34,7 @@ describe "show item page", type: :feature do
       sign_in user
       FactoryBot.create(:reservation, item_id: item.id, user_id: user.id, starts_at: Time.zone.now, ends_at: Time.zone.now + 2.day)
 
-      visit item_path(item)
+      visit "#{item_path(item)}?src=qrcode"
       expect(page).to have_button I18n.t('items.buttons.borrow')
       expect(page).to have_text I18n.t('items.status_badge.reserved_by_me')
 
@@ -42,7 +42,7 @@ describe "show item page", type: :feature do
       expect(item.reserved_by?(user)).to be false
       expect(item.borrowed_by?(user)).to be true
 
-      visit item_path(item)
+      visit "#{item_path(item)}?src=qrcode"
       expect(page).to have_button I18n.t('items.buttons.return')
       expect(page).to have_text I18n.t('items.status_badge.borrowed_by_me')
     end
@@ -51,7 +51,7 @@ describe "show item page", type: :feature do
       sign_in user
       FactoryBot.create(:lending,item_id: item.id, user_id: user.id,started_at: Time.zone.now, completed_at: nil, due_at: Time.zone.now + 2.day)
 
-      visit item_path(item)
+      visit "#{item_path(item)}?src=qrcode"
       expect(page).to have_button I18n.t('items.buttons.return')
       expect(page).to have_text I18n.t('items.status_badge.borrowed_by_me')
 

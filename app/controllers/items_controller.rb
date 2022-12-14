@@ -147,14 +147,14 @@ class ItemsController < ApplicationController
   end
 
   def button_path
-    return item_reserve_path(@item) if @item.reservable_by?(current_user)
-    item_update_lending_path(@item) if @item.borrowable_by?(current_user) or @item.borrowed_by?(current_user)
+    return item_update_lending_path(@item) if (@item.borrowable_by?(current_user) or @item.borrowed_by?(current_user)) and @src_is_qrcode
+    item_reserve_path(@item) if @item.reservable_by?(current_user) and !@src_is_qrcode
   end
 
   def button_text
-    return I18n.t("items.buttons.reserve") if @item.reservable_by?(current_user)
-    return I18n.t("items.buttons.borrow") if @item.borrowable_by?(current_user)
-    return I18n.t("items.buttons.return") if @item.borrowed_by?(current_user)
+    return I18n.t("items.buttons.reserve") if @item.reservable_by?(current_user) and !@src_is_qrcode
+    return I18n.t("items.buttons.borrow") if @item.borrowable_by?(current_user) and @src_is_qrcode
+    return I18n.t("items.buttons.return") if @item.borrowed_by?(current_user) and @src_is_qrcode
 
     I18n.t("items.status_badge.not_available")
   end

@@ -51,7 +51,8 @@ de:
                 name: "Name"
                 category: "Kategorie"
                 description: "Beschreibung"
-                max_borrowing_period: "Ausleihzeit"
+                max_borrowing_days: "Max. Ausleihzeit"
+                max_reservation_days: "Max. Reservierungszeit"
             book:
                 isbn: "ISBN"
                 author: "Autor"

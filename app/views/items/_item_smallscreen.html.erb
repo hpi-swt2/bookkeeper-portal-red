@@ -51,7 +51,7 @@
   <%# <%= button_to "Destroy this item", @item, method: :delete %>
   <div class="button-blocker">
   </div>
-  <% if @item.reservable_by?(current_user) or (@item.borrowable_by?(current_user) or @item.borrowed_by?(current_user)) and @src_is_qrcode  %>
+  <% if @item.reservable_by?(current_user) or ((@item.borrowable_by?(current_user) or @item.borrowed_by?(current_user)) and @src_is_qrcode)  %>
     <%= form_tag button_path(), method: :patch do %>
       <%= hidden_field_tag 'lat'  %>
       <%= hidden_field_tag 'lng'  %>

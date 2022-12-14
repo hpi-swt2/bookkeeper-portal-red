@@ -55,6 +55,7 @@ describe "show item page", type: :feature do
   end
 
   it "has working search field inside navbar" do
+    sign_in @user
     item2 = FactoryBot.create(:movie)
 
     visit edit_item_path(@item)

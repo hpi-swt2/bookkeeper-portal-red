@@ -57,6 +57,11 @@
   </div>
 
   <div>
-    <%= form.button :submit , name: "item_type", value: "movie" %>
+    <%= form.label I18n.t("items.form.item.max_reservation_days"), style: "display: block" %>
+    <%= form.number_field :max_reservation_days, min: 0, max: 365 %>
+  </div>
+
+  <div>
+    <%= form.button :submit , name: "item_type", value: "book", class: "mx-auto btn btn-primary" %>
   </div>
 <% end %>
