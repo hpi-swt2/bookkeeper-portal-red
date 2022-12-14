@@ -11,6 +11,7 @@ RSpec.describe Item, type: :model do
         FactoryBot.create(:membership, user: user, group: group)
         FactoryBot.create(:permission, item: item, group: group, permission_type: :can_borrow)
       end
+
       it "should not find reservations if none exist" do
         expect(item.current_reservation).to be_nil
         expect(item.reserved?).to be false
@@ -87,6 +88,33 @@ RSpec.describe Item, type: :model do
         expect(item.borrowable_by?(user)).to be false
         expect(item.reservable_by?(user)).to be false
       end
+    end
+
+    context "another user exists" do
+      let(:user2) { FactoryBot.create(:user) }
+
+      before(:each) do
+        group = FactoryBot.create(:group)
+        FactoryBot.create(:membership, user: user, group: group)
+        FactoryBot.create(:permission, item: item, group: group, permission_type: :can_borrow)
+
+        FactoryBot.create(:membership, user: user2, group: group)
+      end
+
+      it "should not allow reservation or borrowing by user2 if user has a lending" do
+        FactoryBot.create(:lending,item_id: item.id, user_id: user.id, started_at: Time.zone.now, completed_at: nil, due_at: Time.zone.now + 2.day)
+
+        expect(item.borrowable_by?(user2)).to be false
+        expect(item.reservable_by?(user2)).to be false
+      end
+
+      it "should not allow reservation or borrowing by user2 if user has a reservation" do
+        reservation = FactoryBot.create(:reservation,item_id: item.id, user_id: user.id,starts_at: Time.zone.now, ends_at: Time.zone.now + 2.day)
+
+        expect(item.borrowable_by?(user2)).to be false
+        expect(item.reservable_by?(user2)).to be false
+      end
+
     end
   end
 
