@@ -53,6 +53,12 @@ RSpec.describe "/items", type: :request do
   describe "GET /edit" do
     it "renders a successful response" do
       item = Item.create! valid_attributes
+      user = FactoryBot.create(:user, password: "password")
+      sign_in user
+      group = FactoryBot.create(:group)
+      membership = Membership.new(role: 1, user_id: user.id, group: group)
+      user.memberships.push(membership)
+      item.manager_groups.push(group)
       get edit_item_url(item)
       expect(response).to be_successful
     end
@@ -122,6 +128,12 @@ RSpec.describe "/items", type: :request do
   describe "DELETE /destroy" do
     it "destroys the requested item" do
       item = Item.create! valid_attributes
+      user = FactoryBot.create(:user, password: "password")
+      sign_in user
+      group = FactoryBot.create(:group)
+      membership = Membership.new(role: 1, user_id: user.id, group: group)
+      user.memberships.push(membership)
+      item.manager_groups.push(group)
       expect do
         delete item_url(item)
       end.to change(Item, :count).by(-1)
@@ -129,6 +141,12 @@ RSpec.describe "/items", type: :request do
 
     it "redirects to the items list" do
       item = Item.create! valid_attributes
+      user = FactoryBot.create(:user, password: "password")
+      sign_in user
+      group = FactoryBot.create(:group)
+      membership = Membership.new(role: 1, user_id: user.id, group: group)
+      user.memberships.push(membership)
+      item.manager_groups.push(group)
       delete item_url(item)
       expect(response).to redirect_to(items_url)
     end
