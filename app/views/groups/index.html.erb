@@ -15,8 +15,8 @@
         <h5 class="modal-title" id="createGroupModalLabel"><%= t(:create_group) %></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= t(:cancel) %>"></button>
       </div>
+      <%= form_with(model: Group.new) do |form| %>
       <div class="modal-body">
-        <%= form_with(model: Group.new) do |form| %>
           <div>
             <%= form.label :name, t(:group_name_prompt), class: "form-label" %>
             <%= form.text_field :name, placeholder: t(:group_name), class: "form-control" %>
