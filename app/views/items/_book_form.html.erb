@@ -1,0 +1,73 @@
+<%= form_with(model: item) do |form| %>
+  <% if item.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+      <ul>
+        <% item.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label I18n.t("items.form.item.name"), style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+   <div>
+    <%= form.label I18n.t("items.form.book.isbn"), style: "display: block" %>
+    <%= form.number_field :isbn %>
+   </div>
+
+   <div>
+    <%= form.label I18n.t("items.form.book.author"), style: "display: block" %>
+    <%= form.text_field :author %>
+   </div>
+
+   <div>
+    <%= form.label I18n.t("items.form.book.release_date"), style: "display: block" %>
+    <%= form.date_field :release_date %>
+   </div>
+
+   <div>
+    <%= form.label I18n.t("items.form.book.genre"), style: "display: block" %>
+    <%= form.text_field :genre %>
+   </div>
+
+   <div>
+    <%= form.label I18n.t("items.form.book.language"), style: "display: block" %>
+    <%= form.text_field :language %>
+   </div>
+
+   <div>
+    <%= form.label I18n.t("items.form.book.number_of_pages"), style: "display: block" %>
+    <%= form.number_field :number_of_pages %>
+   </div>
+
+   <div>
+    <%= form.label I18n.t("items.form.book.publisher"), style: "display: block" %>
+    <%= form.text_field :publisher %>
+   </div>
+
+   <div>
+    <%= form.label I18n.t("items.form.book.edition"), style: "display: block" %>
+    <%= form.text_field :edition %>
+   </div>
+
+  <div>
+    <%= form.label I18n.t("items.form.item.description"), style: "display: block" %>
+    <%= form.text_field :description %>
+  </div>
+
+  <div>
+    <%= form.label I18n.t("items.form.item.max_borrowing_days"), style: "display: block" %>
+    <%= form.number_field :max_borrowing_days %>
+  </div>
+
+  <div>
+    <%= form.button :submit , name: "item_type", value: "book" %>
+   
+  </div>
+<% end %>
