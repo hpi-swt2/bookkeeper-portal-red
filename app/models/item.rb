@@ -68,8 +68,8 @@ class Item < ApplicationRecord
   end
 
   def current_reservation
-    reservations = Reservation.where(item_id: id).where(["DATE(starts_at) < :now AND :now <= DATE(ends_at)",
-                                                         { now: Time.zone.now }])
+    reservations = Reservation.where(item_id: id).where(["starts_at < :now AND :now <= ends_at",
+                                                         { now: Time.current }])
     raise StandardError, "#{self} has multiple simultaneous reservations" if reservations.size > 1
 
     reservations.first
