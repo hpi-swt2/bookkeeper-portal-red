@@ -47,11 +47,12 @@
                 </div>
               </div>
               <div class="row">
-                <%# owner%>
+                <%# owner / can_manage%>
+                <% owner_groups = Group.owner_groups(@item.id) %>
                 <p class="card-text">
                   <%= I18n.t("items.card_text.owner") %>
-                  <span class="text-warning">Ownername</span>
-                </p>
+                  <span class="text-warning"><%=owner_groups.map{|owner| owner.name}.join(", ").html_safe%></span>
+               </p>
               </div>
             </div>
             <%# Description%>
