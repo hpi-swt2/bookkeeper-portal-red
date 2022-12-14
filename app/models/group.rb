@@ -1,3 +1,4 @@
+# model for a group of users
 class Group < ApplicationRecord
   validates :name, presence: true
   has_many :memberships, dependent: :destroy
@@ -22,14 +23,12 @@ class Group < ApplicationRecord
     source: :item
   )
 
-  
   def self.owner_groups(item_id)
     find_by_sql ["SELECT *
       FROM groups g
       INNER JOIN permissions p ON p.group_id = g.id
       WHERE p.item_id = :item_id AND p.permission_type = :permission_type
       GROUP BY g.id",
-     { item_id: item_id, permission_type: "2" }]
+                 { item_id: item_id, permission_type: "2" }]
   end
-
 end
