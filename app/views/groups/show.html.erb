@@ -1,36 +1,7 @@
 <%= render @group %>
 
-<div class="container">
-
-  <h1>Gruppenname
-        <%= link_to " ", edit_group_path(@group), class: "btn btn-sm btn-secondary text-light bi bi-pencil-fill" %>
-  </h1>
-
-  <p><strong>6</strong> Mitglieder:</p>
-
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th scope="col">Name</th>
-        <th scope="col">E-Mail</th>
-        <th scope="col" style="width: 6rem"></th>
-      </tr>
-    </thead>
-    <tbody class="table-group-divider">
-      <tr>
-        <td>Max Mustermann</td>
-        <td>max@example.org</td>
-        <td>
-          <a href="#" class="btn btn-sm btn-warning text-light"><i class="bi bi-chat-fill"></i></a>
-          <a href="#" class="btn btn-sm btn-primary"><i class="bi bi-person-dash-fill"></i></a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="d-flex justify-content-center">
-    <%= link_to "Edit this group", edit_group_path(@group), class: "btn btn-secondary mx-1" %>
-
-    <%= button_to "Destroy this group", @group, method: :delete, class: "btn btn-primary mx-1" %>
-  </div>
+<div>
+  <%= link_to "Edit this group", edit_group_path(@group) %> |
+  <%= link_to "Back to groups", groups_path %>
+  <%= button_to "Destroy this group", @group, method: :delete %>
 </div>
