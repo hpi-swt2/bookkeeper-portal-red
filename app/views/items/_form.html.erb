@@ -27,6 +27,11 @@
   </div>
 
   <div>
+    <%= form.label :max_reservation_days, style: "display: block" %>
+    <%= form.number_field :max_reservation_days, min: 0, max: 365 %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

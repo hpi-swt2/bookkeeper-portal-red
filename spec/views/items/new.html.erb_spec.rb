@@ -4,7 +4,8 @@ RSpec.describe "items/new", type: :view do
   before do
     assign(:item, Item.new(
                     name: "MyString",
-                    description: "MyString"
+                    description: "MyString",
+                    max_reservation_days: 2
                   ))
   end
 

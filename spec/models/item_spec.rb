@@ -26,7 +26,7 @@ RSpec.describe Item, type: :model do
       end
 
       it "can get the current reservation" do
-        reservation = FactoryBot.create(:reservation,item_id: item.id, user_id: user.id,starts_at: Time.zone.now, ends_at: Time.zone.now + 2.day)
+        reservation = FactoryBot.create(:reservation, item_id: item.id, user_id: user.id,starts_at: Time.zone.now, ends_at: Time.zone.now + 2.day)
         expect(item.current_reservation).to eq(reservation)
         expect(item.reserved?).to be true
         expect(item.not_reserved?).to be false

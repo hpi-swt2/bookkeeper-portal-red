@@ -18,11 +18,11 @@ RSpec.describe "/items", type: :request do
   # Item. As you add validations to Item, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    { name: "Item 1", description: "Item 1 description" }
+    { name: "Item 1", description: "Item 1 description", max_reservation_days: 2 }
   end
 
   let(:invalid_attributes) do
-    { name: "", description: "Item 1 description" }
+    { name: "", description: "Item 1 description", max_reservation_days: 2  }
   end
 
   before(:each) do

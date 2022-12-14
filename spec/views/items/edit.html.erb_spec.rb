@@ -4,7 +4,8 @@ RSpec.describe "items/edit", type: :view do
   let(:item) do
     Item.create!(
       name: "MyString",
-      description: "MyString"
+      description: "MyString",
+      max_reservation_days: 2
     )
   end
 

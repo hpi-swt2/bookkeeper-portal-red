@@ -157,7 +157,7 @@ class ItemsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def item_params
-    params.require(:item).permit(:name, :description, :max_borrowing_period)
+    params.require(:item).permit(:name, :description, :max_borrowing_period, :max_reservation_days)
   end
 
   def create_lending
@@ -170,6 +170,6 @@ class ItemsController < ApplicationController
   end
 
   def create_reservation
-    @reservation = Reservation.new(item_id: @item.id, user_id: @user.id,starts_at: Time.zone.now, ends_at: Time.zone.now + 2.day )
+    @reservation = Reservation.new(item_id: @item.id, user_id: @user.id, starts_at: Time.current, ends_at: Time.current + @item.max_reservation_days.days )
   end
 end
