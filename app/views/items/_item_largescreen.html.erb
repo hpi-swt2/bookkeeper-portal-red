@@ -49,28 +49,34 @@
               <div class="row">
                 <%# owner%>
                 <p class="card-text">
-                  von:
+                  <%= I18n.t("items.card_text.owner") %>
                   <span class="text-warning">Ownername</span>
                 </p>
               </div>
             </div>
             <%# Description%>
             <p class="card-text"><%= @item.description %></p>
-
+            <div id="item-location-large" style="height: 240px;"></div>
           </div>
           <%# Button %>
-          <%= link_to "Edit this item", edit_item_path(@item) %> |
-          <%= link_to "Back to items", items_path %>
+          <%= link_to I18n.t("items.buttons.edit"), edit_item_path(@item) %> |
+          <%= link_to I18n.t("items.buttons.back"), items_path %> |
+          <%= link_to I18n.t("items.buttons.download_qrcode") , download_path(@item) %>
           <%# <%= button_to "Destroy this item", @item, method: :delete %>
           <div class="d-flex justify-content-center w-100 mb-5">
-            <%= if current_user.lending_rights?(@item)
-              button_to @item.button_text(current_user), item_update_lending_path(@item), method: :patch, class: "mx-auto btn btn-primary"
-            end %>
+            <% if current_user.lending_rights?(@item) and @src_is_qrcode  %>
+              <%= form_tag item_update_lending_path(@item), method: :patch do %>
+                <%= hidden_field_tag 'lat'  %>
+                <%= hidden_field_tag 'lng'  %>
+                <%= button_tag @item.button_text(current_user), class: "mx-auto btn btn-primary" %>
+              <% end %>
+              <script>
+                getLocation();
+              </script>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
-
-
   </div>
 </div>
