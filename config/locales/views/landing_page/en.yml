@@ -1,5 +1,14 @@
 en:
     hello: "Hello world 2"
+    navbar:
+        home: "Home"
+        assets: "My Assets"
+        groups: "My Groups"
+        categories: "Categories"
+        notifications: "Notifications"
+        profile: "My Profile"
+        search: "Search"
+    scan_qrcode: "Scan a QR-Code"
     items:
         messages:
             successfully_created: "Item was successfully created."
@@ -11,12 +20,15 @@ en:
             unsuccessfully_reserved: "Item reservation failed"
             lending_error: "Lending error"
         buttons:
+            new: "Create item"
+            update: "Update item"
             show: "Show item"
             edit: "Edit item"
             back: "Back to items"
             borrow: "Borrow"
             return: "Return"
             reserve: "Reserve"
+            download_qrcode: "Download QR-Code"
         status_badge:
             available: "Available"
             borrowed_by_me: "Borrowed by me"
@@ -24,3 +36,40 @@ en:
             reserved_by_me: "Reserved by me"
         card_text:
             owner: from
+        type:
+            book: "Book"
+            movie: "Movie"
+            game: "Game"
+            other: "Other"
+            new_book: "New Book"
+            new_movie: "New Movie"
+            new_game: "New Game"
+        form:
+            item:
+                name: "Name"
+                category: "Category"
+                description: "Description"
+                max_borrowing_period: "Maximum Borrowing Period"
+            book:
+                isbn: "ISBN"
+                author: "Author"
+                release_date: "Release Date"
+                genre: "Genre"
+                language: "Language"
+                number_of_pages: "Number of Pages"
+                publisher: "Publisher"
+                edition: "Edition"
+            movie:
+                director: "Director"
+                release_date: "Release Date"
+                format: "Format"
+                genre: "Genre"
+                language: "Language"
+                fsk: "Age Rating"
+            game:
+                author: "Author"
+                illustrator: "Illustrator"
+                publisher: "Publisher"
+                number_of_players: "Number of Players"
+                playing_time: "Playing Time"
+                language: "Language"

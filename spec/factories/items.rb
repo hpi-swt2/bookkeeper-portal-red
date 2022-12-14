@@ -2,8 +2,8 @@ FactoryBot.define do
   factory :item do
     name { "Item Name" }
     description { "Item Description" }
-    max_borrowing_period { Time.current + 2.days }
     max_reservation_days { 2 }
+    max_borrowing_days { 7 }
   end
 
   factory :book, class: 'Item' do
@@ -11,6 +11,7 @@ FactoryBot.define do
     name { "The communist manifesto" }
     description { "A book to rule them all" }
     max_reservation_days { 2 }
+    max_borrowing_days { 7 }
 
     isbn { 1_234_567_890_123 }
     author { "Karl Marx, Friedrich Engels" }
@@ -27,6 +28,7 @@ FactoryBot.define do
     name { "Harry Potter" }
     description { "Dumbledore and friends" }
     max_reservation_days { 2 }
+    max_borrowing_days { 7 }
 
     director { "Chris Columbus" }
     release_date { "2001-02-21" }
@@ -41,6 +43,7 @@ FactoryBot.define do
     name { "Skat" }
     description { "Classic card game" }
     max_reservation_days { 2 }
+    max_borrowing_days { 7 }
 
     author { "A Legend" }
     illustrator { "A Myth" }
@@ -55,6 +58,7 @@ FactoryBot.define do
     name { "Mars" }
     description { "Elon Musk's dream" }
     max_reservation_days { 2 }
+    max_borrowing_days { 7 }
 
     category { "Planet" }
   end

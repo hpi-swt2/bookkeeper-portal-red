@@ -23,7 +23,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_14_130227) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0, null: false
-    t.datetime "max_borrowing_period"
     t.integer "item_type"
     t.integer "isbn"
     t.string "author"
@@ -40,7 +39,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_14_130227) do
     t.integer "number_of_players"
     t.integer "playing_time"
     t.string "category"
-    t.integer "max_reservation_days", null: false
+    t.float "lat"
+    t.float "lng"
+    t.integer "max_borrowing_days"
+    t.integer "max_reservation_days", default: 1, null: false
   end
 
   create_table "lendings", force: :cascade do |t|
