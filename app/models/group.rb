@@ -25,10 +25,8 @@ class Group < ApplicationRecord
 
   def self.owner_groups(item_id)
     find_by_sql ["SELECT *
-      FROM groups g
-      INNER JOIN permissions p ON p.group_id = g.id
-      WHERE p.item_id = :item_id AND p.permission_type = :permission_type
-      GROUP BY g.id",
+      FROM groups
+      WHERE id IN (SELECT group_id FROM permissions WHERE item_id = :item_id AND permission_type = :permission_type)",
                  { item_id: item_id, permission_type: "2" }]
   end
 end
