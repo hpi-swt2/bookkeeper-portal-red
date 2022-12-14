@@ -45,9 +45,14 @@
     </tbody>
   </table>
   <%# Main Button %>
-  <%= link_to I18n.t("items.buttons.edit"), edit_item_path(@item) %> |
-  <%= link_to I18n.t("items.buttons.back"), items_path %> |
-  <%= link_to I18n.t("items.buttons.download_qrcode"), download_path(@item) %>
+  <div>
+    <% if current_user.managing_rights?(@item) %>
+      <%= button_to I18n.t("items.buttons.edit"), edit_item_path(@item), method: :get, class: "mx-auto btn btn-primary"%> |
+      <%= button_to I18n.t("items.buttons.delete"), item_path(@item), method: :delete, data: { turbo_confirm: I18n.t("items.messages.deletion_confirmation")}, class: "mx-auto btn btn-primary"%> |
+      <%= button_to I18n.t("items.buttons.download_qrcode") , download_path(@item), method: :get, class: "mx-auto btn btn-primary"  %> |
+    <% end %>
+    <%= button_to I18n.t("items.buttons.back"), items_path, method: :get, class: "mx-auto btn btn-primary"%>
+  </div>
   <%# <%= button_to "Destroy this item", @item, method: :delete %>
   <div class="button-blocker">
   </div>
