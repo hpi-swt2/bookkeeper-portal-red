@@ -27,7 +27,7 @@ class User < ApplicationRecord
     false
   end
 
-  def managing_rights?(item)
+  def can_manage?(item)
     item_groups = item.manager_groups
 
     groups.each do |user_group|
