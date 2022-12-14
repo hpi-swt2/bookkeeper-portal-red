@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :item do
     name { "Item Name" }
     description { "Item Description" }
+    max_borrowing_period { Time.current + 2.days }
     max_reservation_days { 2 }
   end
 
