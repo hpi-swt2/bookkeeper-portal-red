@@ -15,9 +15,15 @@
     </div>
     <div class="row">
       <%# owner%>
+      <% group_names = Group.find_by_sql ["SELECT GROUP_CONCAT(g.name) AS group_names
+                                 FROM groups g
+                                 INNER JOIN permissions p ON p.group_id = g.id
+                                 WHERE p.item_id = :item_id AND p.permission_type = :permission_type
+                                 GROUP BY g.id",
+                                { item_id: @item.id, permission_type: "1" }] %>
       <p class="card-text">
         <%= I18n.t("items.card_text.owner") %>
-        <span class="text-warning">Ownername</span>
+        <span class="text-warning"><%=group_names.first.group_names%></span>
       </p>
     </div>
   </div>

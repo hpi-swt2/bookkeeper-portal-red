@@ -9,6 +9,7 @@ class ItemsController < ApplicationController
 
   # GET /items/1 or /items/1.json
   def show
+    @item = Item.find(params[:id])
     @src_is_qrcode = params[:src] == "qrcode"
 
     return unless current_user.nil?
