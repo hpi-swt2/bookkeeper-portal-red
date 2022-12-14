@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show edit update destroy ]
   before_action :set_item_from_item_id, only: %i[ update_lending ]
@@ -24,7 +25,7 @@ class ItemsController < ApplicationController
 
   # GET /items/new
   def new
-    @item = Item.new
+    @item = Item.new(item_type: params[:item_type])
   end
 
   # GET /items/1/edit
@@ -32,8 +33,10 @@ class ItemsController < ApplicationController
   end
 
   # POST /items or /items.json
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def create
-    @item = Item.new(item_params)
+    @item = Item.new(item_params(params[:item_type]))
+    @item.item_type = params[:item_type]
 
     respond_to do |format|
       if @item.save
@@ -45,6 +48,7 @@ class ItemsController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def update_lending
@@ -78,7 +82,7 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1 or /items/1.json
   def update
     respond_to do |format|
-      if @item.update(item_params)
+      if @item.update(item_params(params[:item_type]))
         format.html { redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_updated") }
         format.json { render :show, status: :ok, location: @item }
       else
@@ -110,9 +114,24 @@ class ItemsController < ApplicationController
   end
 
   # Only allow a list of trusted parameters through.
-  def item_params
-    params.require(:item).permit(:name, :description, :max_borrowing_days)
+  # rubocop:disable Metrics/MethodLength
+  def item_params(item_type)
+    case item_type
+    when "book"
+      params.require(:item).permit(:item_type, :name, :isbn, :author, :release_date, :genre, :language,
+                                   :number_of_pages, :publisher, :edition, :description, :max_borrowing_days)
+    when "movie"
+      params.require(:item).permit(:item_type,  :name, :director, :release_date, :format, :genre, :language, :fsk,
+                                   :description, :max_borrowing_days)
+    when "game"
+      params.require(:item).permit(:item_type,  :name, :author, :illustrator, :publisher, :number_of_players,
+                                   :playing_time, :language, :description, :max_borrowing_days)
+    else
+      item_type.eql?("other")
+      params.require(:item).permit(:item_type, :name, :category, :description, :max_borrowing_days)
+    end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def create_lending
     @lending = Lending.new
@@ -123,3 +142,4 @@ class ItemsController < ApplicationController
     @lending.completed_at = nil
   end
 end
+# rubocop:enable Metrics/ClassLength
