@@ -76,7 +76,7 @@ class Item < ApplicationRecord
   end
 
   def reservable_by?(user)
-    not_borrowed? and not_reserved? and user.lending_rights?(self)
+    not_borrowed? and not_reserved? and user.can_borrow?(self)
   end
 
   def reserved_by?(user)
@@ -87,7 +87,7 @@ class Item < ApplicationRecord
 
   def borrowable_by?(user)
     not_reserved_by_others = (reserved_by?(user) or not_reserved?)
-    not_borrowed? and not_reserved_by_others and user.lending_rights?(self)
+    not_borrowed? and not_reserved_by_others and user.can_borrow?(self)
   end
 
   def borrowed_by?(user)
