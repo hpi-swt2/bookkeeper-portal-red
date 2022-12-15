@@ -82,6 +82,7 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1 or /items/1.json
   def update
     respond_to do |format|
+      @item.item_type = params[:item_type]
       if @item.update(item_params(params[:item_type]))
         format.html { redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_updated") }
         format.json { render :show, status: :ok, location: @item }
