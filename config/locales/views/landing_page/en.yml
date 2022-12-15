@@ -97,3 +97,10 @@ en:
         description: "Description"
         max_borrowing_days: "Borrowing Period"
         max_reservation_days: "Reservation Period"
+    infobox:
+      borrow: 
+        heading: "How to borrow this item?"
+        body: "Use your mobile device to scan the QR-code of this item. You will find the item at the location below."
+      return: 
+        heading: "How to return this item?"
+        body: "Use your mobile device to scan the QR-code of this item. You will find the item at the location below."

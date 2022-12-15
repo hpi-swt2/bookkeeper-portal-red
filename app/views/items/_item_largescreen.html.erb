@@ -56,7 +56,9 @@
             
             <%# Description%>
             <p class="text-start text-wrap"><%= @item.description %></p>
-
+            <%# Infobox%>
+            <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.borrow.heading"), body: I18n.t("items.infobox.borrow.body"), bootstrap_classes: "border-secondary mx-5"))%>
+            <%# Map%>
             <div id="item-location-large" style="height: 240px;"></div>
           </div>
           <%= button_to I18n.t("items.buttons.back"), items_path, method: :get, class: "mx-auto btn btn-primary"%>
