@@ -18,7 +18,7 @@
             .then(result => {
                 if (result.status >= 200 && result.status < 300) {
                     let msgContainer = document.getElementById(`notification-${notificationId}`);
-                    msgContainer.style.display = "none";
+                    msgContainer.remove()
                 } else {
                     alert("Failed to delete notification.")
                 }

@@ -23,17 +23,4 @@ describe "Notification inbox", type: :feature do
     expect(page.find_by_id('notification-inbox-container')).to have_text("Test")
   end
 
-  # it "no longer shows a notification when it is dismissed" do
-  #   NotificationMailer.send_notification("Test", user, :info).deliver_now
-  #   visit root_path
-  #   page.find_by_id("notification_inbox_button").click
-  #   expect(page.find_by_id('notification-inbox-container')).to have_selector('.notification-message')
-  #   expect(page.find_by_id('notification-inbox-container')).to have_text("Test")
-  #   page.find_by_id('notification-inbox-container')
-  # .find(".notification-message").find('a', text: "notification-dismiss-button").click --> this doesn't work yet
-  #   # expect(page.find_by_id('notification-inbox-container')
-  # .find('.notification-message')).to have_css('display: none')
-  #   expect(Notification.last.display).to eq(false)
-  # end
-
 end
