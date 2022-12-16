@@ -94,6 +94,14 @@ class Item < ApplicationRecord
     Lending.exists?(user_id: user.id, item_id: id, completed_at: nil)
   end
 
+  def cancel_reservation_for(user)
+    return unless reserved_by?(user)
+
+    @reservation = current_reservation
+    @reservation.ends_at = Time.current
+    @reservation.save
+  end
+
   def status_text(user)
     return I18n.t("items.status_badge.reserved_by_me") if reserved_by?(user)
     return I18n.t("items.status_badge.available") if borrowable_by?(user)

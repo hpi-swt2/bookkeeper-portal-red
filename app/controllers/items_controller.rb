@@ -1,7 +1,7 @@
 # rubocop:disable Metrics/ClassLength
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show edit update destroy ]
-  before_action :set_item_from_item_id, only: %i[ update_lending reserve ]
+  before_action :set_item_from_item_id, only: %i[ borrow reserve give_back]
   helper_method :button_text, :button_path
 
   # GET /items or /items.json
@@ -49,44 +49,60 @@ class ItemsController < ApplicationController
       end
     end
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def update_lending
+  # PATCH
+  def borrow
     @user = current_user
-
     @item.lat = params[:lat]
     @item.lng = params[:lng]
     @item.save
-
     if @item.borrowable_by?(@user)
       create_lending
       msg = I18n.t("items.messages.successfully_borrowed")
-    elsif @item.borrowed_by?(@user)
-      @lending = Lending.where(item_id: @item.id, user_id: @user.id, completed_at: nil).first
-      @lending.completed_at = Time.zone.now
-      msg = I18n.t("items.messages.successfully_returned")
     else
       msg = I18n.t("items.messages.lending_error")
     end
 
-    if @item.reserved_by?(@user)
-      @reservation = @item.current_reservation
-      @reservation.ends_at = Time.zone.now
-      @reservation.save
-    end
+    @item.cancel_reservation_for(@user)
 
     respond_to do |format|
       if @lending.save
-        format.html { redirect_to items_path, notice: msg }
-        format.json { render :index, status: :ok, location: items_path }
+        format.html { redirect_to @item, notice: msg }
+        format.json { render :index, status: :ok, location: @item }
       else
-        format.html { render :show, status: :unprocessable_entity }
+        format.html { render :show, status: :unprocessable_entity, notice: msg }
         format.json { render json: @lending.errors, status: :unprocessable_entity }
       end
     end
   end
 
+  # PATCH
+  def give_back
+    @user = current_user
+    @item.lat = params[:lat]
+    @item.lng = params[:lng]
+    @item.save
+
+    if @item.borrowed_by?(@user)
+      @lending = Lending.where(item_id: @item.id, user_id: @user.id, completed_at: nil).first
+      @lending.completed_at = Time.current
+      msg = I18n.t("items.messages.successfully_returned")
+    else
+      msg = I18n.t("items.messages.lending_error")
+    end
+
+    respond_to do |format|
+      if @lending.save
+        format.html { redirect_to @item, notice: msg }
+        format.json { render :index, status: :ok, location: @item }
+      else
+        format.html { render :show, status: :unprocessable_entity, notice: msg }
+        format.json { render json: @lending.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH
   def reserve
     @user = current_user
     item_reservable_by_user = @item.reservable_by?(@user)
@@ -130,22 +146,6 @@ class ItemsController < ApplicationController
       format.html { redirect_to items_url, notice: I18n.t("items.messages.successfully_destroyed") }
       format.json { head :no_content }
     end
-  end
-
-  def button_path
-    if (@item.borrowable_by?(current_user) || @item.borrowed_by?(current_user)) && @src_is_qrcode
-      return item_update_lending_path(@item)
-    end
-
-    item_reserve_path(@item) if @item.reservable_by?(current_user) && !@src_is_qrcode
-  end
-
-  def button_text
-    return I18n.t("items.buttons.reserve") if @item.reservable_by?(current_user) && !@src_is_qrcode
-    return I18n.t("items.buttons.borrow") if @item.borrowable_by?(current_user) && @src_is_qrcode
-    return I18n.t("items.buttons.return") if @item.borrowed_by?(current_user) && @src_is_qrcode
-
-    I18n.t("items.status_badge.not_available")
   end
 
   private

@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :groups
   resources :items do
-    patch :update_lending
     patch :reserve
+    patch :borrow
+    patch :give_back
   end
 
   # Add controllers for omniauth (openid connect)
