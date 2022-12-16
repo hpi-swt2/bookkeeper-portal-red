@@ -26,11 +26,15 @@
     height: 3rem;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   a.collapsed::after {
-    content: '+ Show More';
+    content: '\23F5';
   }
 
   a:not(.collapsed)::after {
-    content: '- Show Less';
+    content: '\23F6';
   }
 }
