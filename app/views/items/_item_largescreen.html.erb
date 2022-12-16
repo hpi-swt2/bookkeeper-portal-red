@@ -1,0 +1,82 @@
+<%# The main show page for large screens %>
+<div class="large-screen">
+  <div class="container">
+    <div class="row">
+      <%# Image card, contains attributes if screen is big enough %>
+      <div class="col-xl-6 p-3">
+        <div class="card h-100">
+          <%# Image slider%>
+          <%= image_tag "dummy_image.png", class: "card-img-top"%>
+          <div class="card-body ">
+            <%# Attributes if small enough arranged as grid%>
+            <div class="imagecard-attributes">
+              <table class="table">
+                <tbody>
+                <tr>
+                  <td>Spieler: 5</td>
+                </tr>
+                <tr>
+                  <td>Alter: 12+</td>
+                </tr>
+                <tr>
+                  <td>Typ: Brettspiel+</td>
+                </tr>
+                <tr>
+                  <td>Jahr: 2014+</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <%# Description Card%>
+      <%# Name and Description card, contains attributes if screen is small enough %>
+      <div class="col-xl-6 p-3">
+        <div class="card h-100">
+          <%# Attributes if screen is small enough%>
+          <div class="card-body">
+            <div class="container">
+              <div class="row">
+                <%# name%>
+                <h1 class="col-sm-7"><%= @item.name %></h1>
+                <%# available badge%>
+                <div class="col-sm-3 ms-auto">
+                  <%= render(ItemAvailabilityBadgeComponent.new(item: @item, user: current_user)) %>
+                </div>
+              </div>
+              <div class="row">
+                <%# owner%>
+                <p class="card-text">
+                  <%= I18n.t("items.card_text.owner") %>
+                  <span class="text-warning">Ownername</span>
+                </p>
+              </div>
+            </div>
+            <%# Description%>
+            <p class="card-text"><%= @item.description %></p>
+            <div id="item-location-large" style="height: 240px;"></div>
+          </div>
+          <%# Button %>
+          <%= link_to I18n.t("items.buttons.edit"), edit_item_path(@item) %> |
+          <%= link_to I18n.t("items.buttons.back"), items_path %> |
+          <%= link_to I18n.t("items.buttons.download_qrcode") , download_path(@item) %>
+          <%# <%= button_to "Destroy this item", @item, method: :delete %>
+          <div class="d-flex justify-content-center w-100 mb-5">
+            <% if current_user.can_borrow?(@item) and @src_is_qrcode  %>
+              <%= form_tag item_update_lending_path(@item), method: :patch do %>
+                <%= hidden_field_tag 'lat'  %>
+                <%= hidden_field_tag 'lng'  %>
+                <%= button_tag @item.button_text(current_user), class: "mx-auto btn btn-primary" %>
+              <% end %>
+              <script>
+                getLocation();
+              </script>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<% if @item.book? %>
+<h1><%=I18n.t("items.type.new_book")%></h1>
+ <%= render "book_form", item: @item %>
+<% elsif @item.movie? %>
+<h1><%=I18n.t("items.type.new_movie")%></h1>
+ <%= render "movie_form", item: @item %>
+<% elsif @item.game? %>
+<h1><%=I18n.t("items.type.new_game")%></h1>
+ <%= render "game_form", item: @item %>
+<% else @item.other? %>
+<h1><%=I18n.t("items.buttons.new")%></h1>
+ <%= render "other_form", item: @item %>
+<% end %>
+
+<br>
+
+<div>
+  <%= link_to I18n.t("items.buttons.back"), items_path %>
+</div>

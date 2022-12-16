@@ -117,3 +117,6 @@ Style/EmptyMethod:
 
 RSpec/Rails/InferredSpecType:
   Enabled: false
+
+RSpec/FactoryBot/SyntaxMethods:
+  Enabled: false

@@ -19,7 +19,86 @@
 
 // https://github.com/twbs/bootstrap-rubygem#a-ruby-on-rails
 // Custom bootstrap variables must be set or imported *before* bootstrap.
-$primary: #e2681e;
-@import "bootstrap";
+
+$hpi-red: #B1063A;
+$hpi-orange: #DD6108;
+$hpi-yellow: #F6A800;
+$hpi-green: #90C418;
+
+$primary: $hpi-red;
+$secondary: $hpi-yellow;
+$success: $hpi-green;
+$info: #E7E6E6;
+$warning: $hpi-orange;
+$danger: $hpi-red;
+$light: #BDBDBD;
+$dark: black;
+
+$btn-border-radius: 5px;
+$btn-font-weight: 600; // semibold
+$alert-border-radius: 5px;
+$link-color: $secondary;
+$modal-content-border-radius: 8px;
+$headings-font-weight: 600; // semibold
+
+$enable-cssgrid: true;
+
+@import 'bootstrap';
 // Bootstrap icons: https://icons.getbootstrap.com/
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
+
+$mobileDeviceCutoff: 992px;
+
+@import "flag-icon";
+
+@media (max-width: $mobileDeviceCutoff) {
+  .navbar-collapse {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    width: 75%;
+    height: 100%;
+    background-color: $secondary;
+  }
+
+  .navbar-collapse.collapsing {
+    left: -75%;
+    transition: height 0s ease;
+  }
+
+  .navbar-collapse.show {
+    left: 0;
+    transition: left 300ms ease-in-out;
+  }
+
+  .navbar-toggler.collapsed ~ .navbar-collapse {
+    transition: left 500ms ease-in-out;
+  }
+}
+
+@media (min-width: $mobileDeviceCutoff) {
+  .mobile-only {
+    display: none;
+  }
+}
+
+@media (max-width: $mobileDeviceCutoff) {
+  .desktop-only {
+    display: none !important;
+  }
+}
+
+footer {
+  border-bottom: $primary;
+}
+
+.navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.navbar-nav .active {
+  color: white !important;
+}

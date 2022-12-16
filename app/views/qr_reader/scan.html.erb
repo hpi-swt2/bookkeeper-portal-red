@@ -1,0 +1,32 @@
+<div id="wrapper" style="text-align:center">
+    <h1><%=I18n.t("scan_qrcode")%></h1>
+    <br>
+    <div width="100%" height="auto">
+        <video id="video"></video>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
+<script type="text/javascript">
+function decodeOnce(codeReader, selectedDeviceId) {
+    codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
+        document.location.href = result.text;
+    })
+    .catch((err) => {
+        console.error(err)
+    })
+}
+
+window.addEventListener('load', function () {
+    let selectedDeviceId;
+    const codeReader = new ZXing.BrowserQRCodeReader()
+
+    codeReader.getVideoInputDevices().then((videoInputDevices) => {
+        selectedDeviceId = videoInputDevices[0].deviceId
+        decodeOnce(codeReader, selectedDeviceId);
+    })
+    .catch((err) => {
+        console.error(err)
+    })
+})
+</script>

@@ -1,0 +1,10 @@
+<h1>Editing item</h1>
+
+<%= render "form", item: @item %>
+
+<br>
+
+<div>
+  <%= link_to I18n.t("items.buttons.show"), @item %> |
+  <%= link_to I18n.t("items.buttons.back"), items_path %>
+</div>
