@@ -39,20 +39,6 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params(params[:item_type]))
     @item.item_type = params[:item_type]
 
-    # unless Group.exists?(name: "Default Group")
-    # @testGroup = Group.new(name: "Default Group")
-    # @testGroup.save
-    # end
-
-    # @testGroup = Group.where(name: "Default Group").first
-    # @testMembership = Membership.new(role: 1, user_id: current_user.id, group: @testGroup)
-    # @testMembership.save
-    # user_memberships = current_user.memberships
-    # user_memberships.push(@testMembership)
-    # current_user.save
-    # item_groups = @item.borrower_groups
-    # item_groups.push(@testGroup)
-
     respond_to do |format|
       if @item.save
         format.html { redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_created") }
