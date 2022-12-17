@@ -9,9 +9,9 @@ de:
       successfully_destroyed: "Item wurde erfolgreich zerstört."
       successfully_borrowed: "Item wurde erfolgreich ausgeliehen."
       successfully_returned: "Item wurde erfolgreich zurückgegeben."
-      not_allowod_to_destroy: "Dir ist nicht erlaubt das Item zu löschen."
-      not_allowod_to_download: "Dir ist nicht erlaubt den QR-Code des Items herunterzuladen."
-      not_allowod_to_edit: "Dir ist nicht erlaubtdas Item zu bearbeiten."
+      not_allowed_to_destroy: "Dir ist nicht erlaubt das Item zu löschen."
+      not_allowed_to_download: "Dir ist nicht erlaubt den QR-Code des Items herunterzuladen."
+      not_allowed_to_edit: "Dir ist nicht erlaubt das Item zu bearbeiten."
       deletion_confirmation: "Soll das Item wirklich gelöscht werden?"
     buttons:
       new: "Item erstellen"

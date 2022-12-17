@@ -24,7 +24,7 @@ class ItemsController < ApplicationController
       send_data @item.to_pdf, filename: "item.pdf"
     else
       respond_to do |format|
-        format.html { redirect_to @item, notice: I18n.t("items.messages.not_allowod_to_download") }
+        format.html { redirect_to @item, notice: I18n.t("items.messages.not_allowed_to_download") }
         format.json { head :no_content }
       end
     end
@@ -41,7 +41,7 @@ class ItemsController < ApplicationController
     return if current_user.can_manage?(@item)
 
     respond_to do |format|
-      format.html { redirect_to @item, notice: I18n.t("items.messages.not_allowod_to_edit") }
+      format.html { redirect_to @item, notice: I18n.t("items.messages.not_allowed_to_edit") }
       format.json { head :no_content }
     end
   end
@@ -109,9 +109,9 @@ class ItemsController < ApplicationController
     if current_user.can_manage?(@item)
       @item.destroy
       msg = I18n.t("items.messages.successfully_destroyed")
-      redirect_path = items_url
+      redirect_path = items_path
     else
-      msg = I18n.t("items.messages.not_allowod_to_destroy")
+      msg = I18n.t("items.messages.not_allowed_to_destroy")
       redirect_path = @item
     end
 
