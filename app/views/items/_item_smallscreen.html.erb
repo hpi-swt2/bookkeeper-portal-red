@@ -49,7 +49,7 @@
     <% if current_user.can_manage?(@item) %>
       <%= button_to I18n.t("items.buttons.edit"), edit_item_path(@item), method: :get, class: "mx-auto btn btn-primary"%> |
       <%= button_to I18n.t("items.buttons.delete"), item_path(@item), method: :delete, data: { turbo_confirm: I18n.t("items.messages.deletion_confirmation")}, class: "mx-auto btn btn-primary"%> |
-      <%= button_to I18n.t("items.buttons.download_qrcode") , download_path(@item), method: :get, class: "mx-auto btn btn-primary"  %> |
+      <%= link_to I18n.t("items.buttons.download_qrcode") , download_path(@item) %> |
     <% end %>
     <%= button_to I18n.t("items.buttons.back"), items_path, method: :get, class: "mx-auto btn btn-primary"%>
   </div>
