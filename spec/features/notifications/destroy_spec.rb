@@ -8,10 +8,14 @@ describe "Notification inbox", type: :feature do
   end
 
   context 'with JS', driver: :selenium_chrome, js: true, ui: true do
+    before do
+      Capybara.current_session.current_window.resize_to(1000, 900) # Window needs to be wide enough to show notification button
+    end
+
     it "no longer shows a notification when it is dismissed" do
       NotificationMailer.send_info("Test_2", user).deliver_now
       visit root_path
-      page.find_by_id("notification_inbox_button").click
+      page.find_by_id("notification-inbox-button").click
       expect(page.find_by_id('notification-inbox-container')).to have_selector('.notification-message')
       expect(page.find_by_id('notification-inbox-container')).to have_text("Test_2")
       a = page.find_by_id('notification-inbox-container')
