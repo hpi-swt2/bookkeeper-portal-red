@@ -2,6 +2,15 @@ de:
   hello: "Hallo Welt 2"
   login_with_oidc: "Mit OIDC einloggen"
   my_profile: "Mein Profil"
+  navbar:
+    home: "Startseite"
+    assets: "Meine Assets"
+    groups: "Meine Gruppen"
+    categories: "Kategorien"
+    notifications: "Benachrichtigungen"
+    profile: "Mein Profil"
+    search: "Suchen"
+  scan_qrcode: "QR-Code einscannen"
   items:
     messages:
       successfully_created: "Item wurde erfolgreich erstellt."
@@ -10,14 +19,54 @@ de:
       successfully_borrowed: "Item wurde erfolgreich ausgeliehen"
       successfully_returned: "Item wurde erfolgreich zurückgegeben"
     buttons:
+      new: "Item erstellen"
+      update: "Item aktualisieren"
       show: "Item anzeigen"
       edit: "Item bearbeiten"
       back: "Zurück zur Items Übersicht"
       borrow: "Ausleihen"
       return: "Zurückgeben"
+      download_qrcode: "QR-Code herunterladen"
     status_badge:
       available: "Verfügbar"
       borrowed_by_me: "Von mir ausgeliehen"
       not_available: "Nicht verfügbar"
     card_text:
       owner: von
+    type:
+      book: "Buch"
+      movie: "Film"
+      game: "Spiel"
+      other: "Sonstige"
+      new_book: "Neues Buch"
+      new_movie: "Neuer Film"
+      new_game: "Neues Spiel"
+    form:
+      item:
+        name: "Name"
+        category: "Kategorie"
+        description: "Beschreibung"
+        max_borrowing_period: "Ausleihzeit"
+      book:
+        isbn: "ISBN"
+        author: "Autor"
+        release_date: "Erscheinungsdatum"
+        genre: "Genre"
+        language: "Sprache"
+        number_of_pages: "Seitenzahl"
+        publisher: "Verleger"
+        edition: "Edition"
+      movie:
+        director: "Regisseur"
+        release_date: "Erscheinungsdatum"
+        format: "Format"
+        genre: "Genre"
+        language: "Sprache"
+        fsk: "Jugendfreigabe"
+      game:
+        author: "Autor"
+        illustrator: "Illustrator"
+        publisher: "Verleger"
+        number_of_players: "Spielerzahl"
+        playing_time: "Spieldauer"
+        language: "Sprache"
