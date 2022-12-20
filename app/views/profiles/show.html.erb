@@ -1,4 +1,3 @@
-<h2><%= t('my_profile')%></h2>
 <div class="card">
   <div class="card-body">
     <h2 class="card-title"><%= @user.full_name %></h2>
@@ -6,7 +5,13 @@
 
       <hr>
     <p class="card-text">
-      <h2 class="card-title"><%= t("description_header") %></h2>
+      <h3 class="card-title" style="text-align: left">
+        <%= t("profile.description_header") %>
+        <%= link_to edit_profile_path do %>
+            <i class="bi-pencil-square" style="color: #F6A800; float: right"></i>
+        <% end %>
+        </a>
+      </h3>
       <%= @user.description %>
     </p>
   </div>

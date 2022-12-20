@@ -70,3 +70,5 @@ de:
         number_of_players: "Spielerzahl"
         playing_time: "Spieldauer"
         language: "Sprache"
+  profile:
+    description_header: "Beschreibung"
