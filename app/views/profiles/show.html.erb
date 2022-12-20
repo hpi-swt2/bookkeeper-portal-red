@@ -3,16 +3,18 @@
     <h2 class="card-title"><%= @user.full_name %></h2>
     <%= mail_to @user.email, class: "card-subtitle mb-2 text-muted" %>
 
-      <hr>
+    <hr>
     <p class="card-text">
-      <h3 class="card-title" style="text-align: left">
-        <%= t("profile.description_header") %>
+    <h3 class="card-title" style="text-align: left">
+      <%= t("profile.description_header") %>
+      <% if @user == current_user %>
         <%= link_to edit_profile_path do %>
-            <i class="bi-pencil-square" style="color: #F6A800; float: right"></i>
+          <i class="bi-pencil-square" style="color: #F6A800; float: right"></i>
         <% end %>
-        </a>
-      </h3>
-      <%= @user.description %>
+      <% end %>
+      </a>
+    </h3>
+    <%= @user.description %>
     </p>
   </div>
 </div>
