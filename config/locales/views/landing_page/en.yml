@@ -68,3 +68,5 @@ en:
         number_of_players: "Number of Players"
         playing_time: "Playing Time"
         language: "Language"
+  profile:
+    description_header: "Description"
