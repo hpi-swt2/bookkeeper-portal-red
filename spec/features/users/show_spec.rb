@@ -33,15 +33,15 @@ describe "User Profile Page", type: :feature do
   end
 
   it "includes a link to edit the description for the logged-in user" do
-      sign_in user
-      visit profiles_me_path
+    sign_in user
+    visit profiles_me_path
 
-      expect(page).to have_link(href: edit_profile_path)
+    expect(page).to have_link(href: edit_profile_path)
   end
 
-  it "should not allow editing other user's descriptions" do
-      sign_in user
-      visit profile_path(id: user2.id)
-      expect(page).not_to have_link(href: edit_profile_path)
+  it "does not allow editing other user's descriptions" do
+    sign_in user
+    visit profile_path(id: user2.id)
+    expect(page).not_to have_link(href: edit_profile_path)
   end
 end
