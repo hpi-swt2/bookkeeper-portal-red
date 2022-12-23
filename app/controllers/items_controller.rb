@@ -80,6 +80,7 @@ class ItemsController < ApplicationController
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PATCH/PUT /items/1 or /items/1.json
+  # rubocop:disable Metrics/AbcSize
   def update
     respond_to do |format|
       @item.item_type = params[:item_type]
@@ -92,6 +93,7 @@ class ItemsController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # DELETE /items/1 or /items/1.json
   def destroy
