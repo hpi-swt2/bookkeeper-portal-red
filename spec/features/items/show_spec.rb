@@ -3,11 +3,7 @@ require "rails_helper"
 describe "show item page", type: :feature do
 
   before do
-    @item = Item.create!(
-      name: "Harry Potter",
-      description: "Author: J.K.Rowling",
-      max_borrowing_days: 7
-    )
+    @item = FactoryBot.create(:book)
     @user = FactoryBot.create(:user, email: 'example@mail.com')
     group = FactoryBot.create(:group)
     FactoryBot.create(:membership, user: @user, group: group)

@@ -2,10 +2,10 @@ require "rails_helper"
 
 describe "edit item page", type: :feature do
   let(:item) do
-    Item.create!(
+    FactoryBot.create(
+      :book,
       name: "Harry Potter",
-      description: "Author: J.K.Rowling",
-      max_borrowing_days: 7
+      description: "Author: J.K.Rowling"
     )
   end
 

@@ -2,11 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "items/edit", type: :view do
   let(:item) do
-    Item.create!(
-      name: "MyString",
-      description: "MyString",
-      max_borrowing_days: 7
-    )
+    FactoryBot.create(:item)
   end
 
   before do

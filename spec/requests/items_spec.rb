@@ -18,7 +18,8 @@ RSpec.describe "/items", type: :request do
   # Item. As you add validations to Item, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    { name: "Item 1", description: "Item 1 description", max_borrowing_days: 7 }
+    # { item_type: "book", name: "Item 1", description: "Item 1 description", max_borrowing_days: 7 }
+    FactoryBot.attributes_for(:book)
   end
 
   let(:invalid_attributes) do
@@ -61,6 +62,8 @@ RSpec.describe "/items", type: :request do
   describe "POST /create" do
     context "with valid parameters" do
       it "creates a new Item" do
+        # puts "valid_attributes: #{valid_attributes}"
+        # puts "invalid_attributes: #{invalid_attributes}"
         expect do
           post items_url, params: { item: valid_attributes }
         end.to change(Item, :count).by(1)
