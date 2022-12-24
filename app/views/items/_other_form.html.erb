@@ -11,27 +11,27 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label I18n.t("items.form.item.name"), style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="mb-2">
+    <%= form.label :name, I18n.t("items.form.other.name"), class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label I18n.t("items.form.item.category"), style: "display: block" %>
-    <%= form.text_field :category %>
+  <div class="mb-2">
+    <%= form.label :category, I18n.t("items.form.other.category"), class: "form-label" %>
+    <%= form.text_field :category, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label I18n.t("items.form.item.description"), style: "display: block" %>
-    <%= form.text_field :description %>
+  <div class="mb-2">
+    <%= form.label :description, I18n.t("items.form.other.description"), class: "form-label" %>
+    <%= form.text_field :description, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label I18n.t("items.form.item.max_borrowing_days"), style: "display: block" %>
-    <%= form.number_field :max_borrowing_days %>
+  <div class="mb-2">
+    <%= form.label :max_borrowing_days, I18n.t("items.form.other.max_borrowing_days"), class: "form-label" %>
+    <%= form.number_field :max_borrowing_days, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.button :submit , name: "item_type", value: "other" %>
+  <div class="mt-3">
+    <%= form.button :submit , name: "item_type", value: "other", class: "btn btn-primary" %>
   </div>
 <% end %>

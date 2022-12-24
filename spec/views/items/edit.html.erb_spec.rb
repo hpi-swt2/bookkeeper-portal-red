@@ -22,8 +22,7 @@ RSpec.describe "items/edit", type: :view do
 
       render
       item.attributes.each do |key, _value|
-        # for some reason, the 'fsk' attribute gets renamed to 'lfsk' only in the game form and only in the view test
-        assert_select "input[name=?]", "item[#{key}]" unless key.eql?("fsk")
+        assert_select "input[name=?]", "item[#{key}]"
       end
     end
   end
