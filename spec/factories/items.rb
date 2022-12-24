@@ -1,7 +1,5 @@
 FactoryBot.define do
   factory :item do
-    item_type { "other" }
-
     name { "Item Name" }
     description { "Item Description" }
     max_borrowing_days { 7 }
@@ -52,6 +50,8 @@ FactoryBot.define do
   end
 
   factory :other, class: 'Item' do
+    item_type { "other" }
+
     name { "Mars" }
     description { "Elon Musk's dream" }
     max_borrowing_days { 7 }
