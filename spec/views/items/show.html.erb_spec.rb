@@ -7,7 +7,7 @@ end
 RSpec.describe "items/show", type: :view do
   before do
     assign(:item, FactoryBot.create(
-                    :item,
+                    :other,
                     name: "Name",
                     description: "Description",
                     max_borrowing_days: 7
