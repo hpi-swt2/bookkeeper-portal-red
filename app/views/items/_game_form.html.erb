@@ -32,6 +32,11 @@
    </div>
 
    <div>
+    <%= form.label I18n.t("items.form.game.fsk"), style: "display: block" %>
+    <%= form.number_field :fsk %>
+   </div>
+
+   <div>
     <%= form.label I18n.t("items.form.game.number_of_players"), style: "display: block" %>
     <%= form.number_field :number_of_players %>
    </div>

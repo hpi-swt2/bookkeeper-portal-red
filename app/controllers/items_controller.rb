@@ -128,7 +128,7 @@ class ItemsController < ApplicationController
       params.require(:item).permit(:item_type,  :name, :director, :release_date, :format, :genre, :language, :fsk,
                                    :description, :max_borrowing_days)
     when "game"
-      params.require(:item).permit(:item_type,  :name, :author, :illustrator, :publisher, :number_of_players,
+      params.require(:item).permit(:item_type,  :name, :author, :illustrator, :publisher, :fsk, :number_of_players,
                                    :playing_time, :language, :description, :max_borrowing_days)
     else
       item_type.eql?("other")

@@ -76,6 +76,7 @@ de:
         author: "Autor"
         illustrator: "Illustrator"
         publisher: "Verleger"
+        fsk: "Jugendfreigabe"
         number_of_players: "Spielerzahl"
         playing_time: "Spieldauer"
         language: "Sprache"

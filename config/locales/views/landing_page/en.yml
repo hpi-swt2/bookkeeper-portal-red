@@ -28,7 +28,7 @@ en:
     status_badge:
       available: "Available"
       borrowed_by_me: "Borrowed by me"
-      not_available: "Not available" 
+      not_available: "Not available"
     card_text:
       owner: from
     type:
@@ -74,6 +74,7 @@ en:
         author: "Author"
         illustrator: "Illustrator"
         publisher: "Publisher"
+        fsk: "Age Rating"
         number_of_players: "Number of Players"
         playing_time: "Playing Time"
         language: "Language"
