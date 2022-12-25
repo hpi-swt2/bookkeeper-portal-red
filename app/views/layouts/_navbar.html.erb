@@ -14,19 +14,19 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">
             <i class="bi bi-house-fill mobile-only"></i>
-            <%=t("navbar.home")%>
+            <%= t("navbar.home") %>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">
             <i class="bi bi-book-fill mobile-only"></i>
-            <%=t("navbar.assets")%>
+            <%= t("navbar.assets") %>
           </a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-collection-fill mobile-only"></i>
-            <%=t("navbar.groups")%>
+            <%= t("navbar.groups") %>
           </a>
           <ul class="dropdown-menu bg-primary">
             <li><a class="dropdown-item text-white" href="#">SWA-Lehrstuhl
@@ -40,20 +40,23 @@
         <li class="nav-item">
           <a class="nav-link" href="#">
             <i class="bi bi-tag-fill mobile-only"></i>
-            <%=t("navbar.categories")%>
+            <%= t("navbar.categories") %>
           </a>
         </li>
 
         <li class="mobile-only nav-item">
-          <a href="#" class="nav-link"><i class="bi bi-bell-fill"></i> <%=t("navbar.notifications")%></a>
+          <a href="#" class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#notification-inbox-container"><i class="bi bi-bell-fill"></i>
+             <%= t("navbar.notifications") %>
+          </a>
         </li>
         <li class="mobile-only nav-item">
-          <a href="<%= profiles_me_path %>" class="nav-link"><i class="bi bi-person-fill"></i> <%=t("navbar.profile")%></a>
+          <a href="<%= profiles_me_path %>" class="nav-link"><i class="bi bi-person-fill"></i> <%= t("navbar.profile") %>
+          </a>
         </li>
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <%= language_flag(I18n.locale)%>
+            <%= language_flag(I18n.locale) %>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
@@ -83,6 +86,6 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
-    <%= render(NotificationInboxComponent.new(current_user)) %>
+    <div id="notification-centre"></div>
   </div>
 </div>
