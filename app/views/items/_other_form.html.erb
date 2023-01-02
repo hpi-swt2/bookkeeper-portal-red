@@ -17,16 +17,21 @@
   </div>
 
   <div>
+    <%= form.label I18n.t("items.form.item.category"), style: "display: block" %>
+    <%= form.text_field :category %>
+  </div>
+
+  <div>
     <%= form.label I18n.t("items.form.item.description"), style: "display: block" %>
     <%= form.text_field :description %>
   </div>
 
   <div>
-    <%= form.label I18n.t("items.form.item.:max_borrowing_days"), style: "display: block" %>
+    <%= form.label I18n.t("items.form.item.max_borrowing_days"), style: "display: block" %>
     <%= form.number_field :max_borrowing_days %>
   </div>
 
   <div>
-    <%= form.submit (form.object.new_record? ? I18n.t("items.buttons.new") : I18n.t("items.buttons.update")), class: "mx-auto btn btn-primary" %>
+    <%= form.button :submit , name: "item_type", value: "other" %>
   </div>
 <% end %>

@@ -19,19 +19,28 @@
 
 // https://github.com/twbs/bootstrap-rubygem#a-ruby-on-rails
 // Custom bootstrap variables must be set or imported *before* bootstrap.
-$yellow: rgb(246, 168, 0);
-$orange: rgb(221, 97, 8);
-$red: rgb(177, 5, 58);
-$grey: rgb(90, 96, 101);
-$blue: rgb(0, 122, 158);
 
-$primary: $red;
-$secondary: $orange;
-$success: $blue;
-$info: $blue;
-$warning: $yellow;
-$danger: $red;
-$light: #FFFFFF;
+$hpi-red: #B1063A;
+$hpi-orange: #DD6108;
+$hpi-yellow: #F6A800;
+$hpi-green: #90C418;
+
+$primary: $hpi-red;
+$secondary: $hpi-yellow;
+$success: $hpi-green;
+$info: #E7E6E6;
+$warning: $hpi-orange;
+$danger: $hpi-red;
+$light: #BDBDBD;
+$dark: black;
+$lightGrey: rgb(211, 211, 211);
+
+$btn-border-radius: 5px;
+$btn-font-weight: 600; // semibold
+$alert-border-radius: 5px;
+$link-color: $secondary;
+$modal-content-border-radius: 8px;
+$headings-font-weight: 600; // semibold
 
 $enable-cssgrid: true;
 
