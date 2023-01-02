@@ -33,7 +33,7 @@
   <div class="bg-light">
   <div class="container text-center mt-5 py-3">
     <h3>
-      <%= group.display_name %>
+      <%= group.name %>
       <% if @user.admin_in?(group)%>
         <%= link_to " ", edit_group_path(group), class: "badge bg-primary bi bi-pencil-fill" %>
       <% else %>
