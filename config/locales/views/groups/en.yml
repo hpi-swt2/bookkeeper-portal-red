@@ -1,4 +1,16 @@
 en:
+  cancel: "Cancel"
+
+  my_groups: "My groups"
+  all_groups: "All groups"
+  create_group: "Create group"
+  delete_group: "Delte group"
+  leave_group: "Leave group"
+  update_group: "Update group"
+
+  group_name : "Groupname"
+  group_name_prompt: "Please provide a name for your group"
+
   login_first: "You have to log in first"
   only_admins: "Only admins are allowed to edit this group"
 

@@ -1,11 +1,12 @@
 class GroupsController < ApplicationController
-  before_action :assure_signed_in, except: %i[ show index ]
+  before_action :assure_signed_in
   before_action :set_group, only: %i[ show edit update destroy ]
   before_action :assure_admin, only: %i[ edit update destroy ]
 
   # GET /groups or /groups.json
   def index
-    @groups = Group.all
+    @user = current_user
+    @groups = current_user.groups
   end
 
   # GET /groups/1 or /groups/1.json
@@ -55,6 +56,18 @@ class GroupsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to groups_url, notice: t(:group_destroy) }
       format.json { head :no_content }
+    end
+  end
+
+  # POST /groups/1/leave or /groups/1/leave.json
+  def leave
+    respond_to do |format|
+      if current_user.memberships.destroy_by(group_id: params[:group_id])
+        format.html { redirect_to groups_url, notice: t(:group_update) }
+        format.json { head :no_content }
+      else
+        unprocessable_response(format, redirect: :edit, entity: @group)
+      end
     end
   end
 
