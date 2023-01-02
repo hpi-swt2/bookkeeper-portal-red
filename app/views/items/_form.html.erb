@@ -25,14 +25,31 @@
     <%= form.label :max_borrowing_period, style: "display: block" %>
     <%= form.datetime_field :max_borrowing_period %>
   </div>
-    <%# <%= form.collection_select :borrower_groups, Group.all, :id, :name, {prompt: '-Select-', :multiple => true} %>
-  <%= fields_for(@permission) do |ab| %>
+  
   <div>
-      <%= ab.label "All Groups" %> <br />
+      <br />
       <%= collection_select(:borrower_groups, :id, @all_groups, :id, :name, {:selected => Permission.borrowers_of_item(item.id)}, {:multiple => true}) %>
   </div>
-<% end %>
+
+  <div> <%= "Permissions" %> <br /> </div>
+  <%= select_tag 'permission_group', options_for_select(Group.all.pluck(:name), prompt: 'Select a Group'), class: 'form-control' %>  
+
+  <%#  <div class="dropdown">
+    <button class="btn dropdown-toggle bg-primary text-white" href="#" type="button" id="dropdownPermissionButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Dropdown
+    </button>
+
+    <ul class="dropdown-menu" aria-labelledby="dropdownPermissionButton">
+      <li> <a class="dropdown-item" href="#"> Action </a></li>
+      <li> <a class="dropdown-item" href="#">Another action</a></li>
+      <li><a class="dropdown-item" href="#">Something else here</a></li>
+    </ul>
+  </div> %>
+  <br />
+
   <div>
     <%= form.submit %>
   </div>
 <% end %>
+
+
