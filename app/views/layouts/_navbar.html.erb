@@ -37,8 +37,7 @@
             <% current_user.groups.each do |group| %>
               <li>
                 <%= link_to group_path(group), class: "dropdown-item text-white" do %>
-                  <%= group.name %>
-                  <i class="bi bi-patch-check-fill text-warning"></i>
+                  <%= group.display_name %>
                 <% end %>
               </li>
             <% end %>

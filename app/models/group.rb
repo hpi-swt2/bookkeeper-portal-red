@@ -21,4 +21,17 @@ class Group < ApplicationRecord
     through: :permissions,
     source: :item
   )
+  after_initialize :set_defaults, unless: :persisted?
+  # The set_defaults will only work if the object is new -- see https://stackoverflow.com/questions/29575259/default-values-for-models-in-rails
+
+  def set_defaults
+    self.verified = true if verified.nil?
+  end
+
+  def display_name
+    display = name.html_safe
+    html_verified_icon = "<i class='bi bi-patch-check-fill text-warning'></i>"
+    display << html_verified_icon.html_safe if verified
+    display
+  end
 end
