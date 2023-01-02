@@ -17,9 +17,10 @@ class User < ApplicationRecord
   has_many :groups, through: :memberships
   has_many :lendings, dependent: :destroy
   has_many :reservations, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
-  def lending_rights?(item)
-    item_groups = item.lender_groups
+  def can_borrow?(item)
+    item_groups = item.borrower_groups
 
     groups.each do |user_group|
       return true if item_groups.include? user_group
@@ -34,6 +35,7 @@ class User < ApplicationRecord
     # rather than the the ID of the locally persisted user.
     where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
       # All information returned by OpenID Connect is passed in `auth` param
+      user.full_name = auth.info.name
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
     end

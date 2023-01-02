@@ -1,0 +1,40 @@
+@import "application";
+
+#notification-inbox-container {
+  background-color: $lightGrey;
+
+  @media (max-width: $mobileDeviceCutoff) {
+    width: 100%;
+  }
+
+  @media (min-width: $mobileDeviceCutoff) {
+    width: 400px;
+  }
+}
+
+.notification-message {
+  min-height: 50px;
+  margin-bottom: 5px;
+
+  .collapse.collapse:not(.show) {
+    display: block;
+    height: 3rem;
+    overflow: hidden;
+  }
+
+  .collapse.collapsing {
+    height: 3rem;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  a.collapsed::after {
+    content: '\23F5';
+  }
+
+  a:not(.collapsed)::after {
+    content: '\23F6';
+  }
+}

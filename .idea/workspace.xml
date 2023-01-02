@@ -2,22 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41f47b5b-2bcb-4a72-8211-8e0720a788ae" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/models/permission.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/db/migrate/20221125173834_create_permissions.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/db/migrate/20221127115524_disallow_null_for_dates.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spec/factories/permissions.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spec/models/permission_spec.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/ISSUE_TEMPLATE/ticket-template.md" beforeDir="false" afterPath="$PROJECT_DIR$/.github/ISSUE_TEMPLATE/ticket-template.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/ci_cd.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci_cd.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/group.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/group.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models/item.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/item.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/user.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/user.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/schema.rb" beforeDir="false" afterPath="$PROJECT_DIR$/db/schema.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spec/factories/groups.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/factories/groups.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spec/factories/items.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/factories/items.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spec/models/group_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/models/group_spec.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spec/models/item_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/models/item_spec.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -16,8 +16,8 @@ class Group < ApplicationRecord
     source: :item
   )
   has_many(
-    :lendable_items,
-    -> { where(permissions: { permission_type: :can_lend }) },
+    :borrowable_items,
+    -> { where(permissions: { permission_type: :can_borrow }) },
     through: :permissions,
     source: :item
   )
