@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get "items/:id/download", to: 'items#download', as: :download
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  resources :groups do
+  resources :groups, except: [:show, :new] do
     post :leave
   end
   resources :items do
