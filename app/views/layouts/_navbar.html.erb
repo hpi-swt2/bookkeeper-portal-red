@@ -36,7 +36,8 @@
             <li><hr class="dropdown-divider"></li>
             <% current_user.groups.each do |group| %>
               <li>
-                <%= link_to group_path(group), class: "dropdown-item text-white" do %>
+                <!-- could link to a detail page of the group, which is not implemented -->
+                <%= link_to "#", class: "dropdown-item text-white" do %>
                   <%= group.name %>
                   <i class="bi bi-patch-check-fill text-warning"></i>
                 <% end %>
