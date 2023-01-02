@@ -17,8 +17,9 @@ class User < ApplicationRecord
   has_many :groups, through: :memberships
   has_many :lendings, dependent: :destroy
   has_many :reservations, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
-  def lending_rights?(item)
+  def can_borrow?(item)
     item_groups = item.borrower_groups
 
     groups.each do |user_group|

@@ -69,8 +69,8 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @lending.save
-        format.html { redirect_to items_path, notice: msg }
-        format.json { render :index, status: :ok, location: items_path }
+        format.html { redirect_to @item, notice: msg }
+        format.json { render :index, status: :ok, location: @item }
       else
         format.html { render :show, status: :unprocessable_entity }
         format.json { render json: @lending.errors, status: :unprocessable_entity }
