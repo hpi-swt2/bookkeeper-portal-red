@@ -1,48 +1,43 @@
-<%# Remove <br> (and maybe padding classes in container?) when we have global spacing under navbar %>
-<br>
-<div class="container pt-5 pb-5">
+<h1>
+  <%= @group.name %>
+  <button type="button" class="btn btn-sm btn-primary text-light bi bi-pencil-fill" data-bs-toggle="modal" data-bs-target="#editGroupModal">
+  </button>
+</h1>
 
-  <h1>
-    <%= @group.name %>
-    <button type="button" class="btn btn-sm btn-primary text-light bi bi-pencil-fill" data-bs-toggle="modal" data-bs-target="#editGroupModal">
-    </button>
-  </h1>
+<%= render "modal-edit", group: @group %>
 
-  <%= render "modal-edit", group: @group %>
+<p>
+<strong><%= @group.users.count %></strong>
+<%= t(:group_member, count: @group.users.count) %>:
+</p>
 
-  <p>
-  <strong><%= @group.users.count %></strong>
-  <%= t(:group_member, count: @group.users.count) %>:
-  </p>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col"><%= t(:member_name) %></th>
+      <th scope="col"><%= t(:member_email) %></th>
+      <th scope="col" style="width: 6rem"></th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+    <% @group.users.each do |user| %>
+    <tr>
+      <td><%= user.full_name %></td>
+      <td><%= user.email %></td>
+      <td>
+        <a href="#" class="btn btn-sm btn-warning text-light"><i class="bi bi-chat-fill"></i></a>
+        <a href="#" class="btn btn-sm btn-primary"><i class="bi bi-person-dash-fill"></i></a>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
 
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th scope="col"><%= t(:member_name) %></th>
-        <th scope="col"><%= t(:member_email) %></th>
-        <th scope="col" style="width: 6rem"></th>
-      </tr>
-    </thead>
-    <tbody class="table-group-divider">
-      <% @group.users.each do |user| %>
-      <tr>
-        <td><%= user.full_name %></td>
-        <td><%= user.email %></td>
-        <td>
-          <a href="#" class="btn btn-sm btn-warning text-light"><i class="bi bi-chat-fill"></i></a>
-          <a href="#" class="btn btn-sm btn-primary"><i class="bi bi-person-dash-fill"></i></a>
-        </td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+<div class="d-flex justify-content-center">
+  <%= link_to t(:group_add_member), "", class: "btn btn-secondary mx-1" %>
 
-  <div class="d-flex justify-content-center">
-    <%= link_to t(:group_add_member), "", class: "btn btn-secondary mx-1" %>
-
-    <button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#deleteGroupModal">
-      <%= t(:delete_group) %>
-    </button>
-    <%= render "modal-delete", group: @group %>
-  </div>
+  <button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#deleteGroupModal">
+    <%= t(:delete_group) %>
+  </button>
+  <%= render "modal-delete", group: @group %>
 </div>
