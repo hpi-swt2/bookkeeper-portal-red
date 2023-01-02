@@ -1,4 +1,3 @@
-# Model of the current group
 class Group < ApplicationRecord
   validates :name, presence: true
   has_many :memberships, dependent: :destroy
@@ -26,13 +25,13 @@ class Group < ApplicationRecord
   # The set_defaults will only work if the object is new -- see https://stackoverflow.com/questions/29575259/default-values-for-models-in-rails
 
   def set_defaults
-    self.verified = false if verified.nil? # true for testing
+    self.verified = true if verified.nil?
   end
 
-  def display_name 
-    display = name.html_safe # HERE
+  def display_name
+    display = name.html_safe
     html_verified_icon = "<i class='bi bi-patch-check-fill text-warning'></i>"
-    display << html_verified_icon.html_safe if verified # and HERE
+    display << html_verified_icon.html_safe if verified
     display
   end
 end
