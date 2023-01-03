@@ -18,6 +18,10 @@ RSpec.describe "landing_page/index", type: :view do
 
   pending "test generated html"
 
+  it "will never be merged into dev branch" do
+      raise "This branch is not meant to be merged into dev and will only serve as a short lived demo"
+  end
+
   # check, if the html renders without errors
 
   it "renders the landing page without errors" do
