@@ -51,10 +51,25 @@ RSpec.describe "/items", type: :request do
   end
 
   describe "GET /edit" do
-    it "renders a successful response" do
+    it "renders a successful response if management rights exist" do
       item = Item.create! valid_attributes
+      user = FactoryBot.create(:user, email: "user#{rand(100_000)}@example.com")
+      group = FactoryBot.create(:group)
+
+      FactoryBot.create(:permission, item_id: item.id, group_id: group.id, permission_type: 2)
+      FactoryBot.create(:membership, user_id: user.id, group_id: group.id)
+
+      sign_in user
+
       get edit_item_url(item)
       expect(response).to be_successful
+    end
+
+    it "does not render a successful response if management rights don't exist" do
+      item = Item.create! valid_attributes
+
+      get edit_item_url(item)
+      expect(response).not_to be_successful
     end
   end
 

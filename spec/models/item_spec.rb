@@ -30,16 +30,16 @@ RSpec.describe Item, type: :model do
   # end
 
   it "can be of different types" do
-    book = FactoryBot.create(:book)
+    book = FactoryBot.create(:book, name: "Faust")
     expect((described_class.find_by name: book.name).item_type).to eq("book")
 
-    movie = FactoryBot.create(:movie)
+    movie = FactoryBot.create(:movie, name: "Shrek")
     expect((described_class.find_by name: movie.name).item_type).to eq("movie")
 
-    game = FactoryBot.create(:game)
+    game = FactoryBot.create(:game, name: "Plants vs. Zombies")
     expect((described_class.find_by name: game.name).item_type).to eq("game")
 
-    other = FactoryBot.create(:other)
+    other = FactoryBot.create(:other, name: "something else")
     expect((described_class.find_by name: other.name).item_type).to eq("other")
   end
 

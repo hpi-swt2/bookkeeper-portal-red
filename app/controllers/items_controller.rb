@@ -2,6 +2,7 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show edit update destroy ]
   before_action :set_item_from_item_id, only: %i[ update_lending ]
+  before_action :assure_management_rights, only: %i[ edit ]
 
   # GET /items or /items.json
   def index
@@ -140,6 +141,14 @@ class ItemsController < ApplicationController
     @lending.user = @user
     @lending.item = @item
     @lending.completed_at = nil
+  end
+
+  def assure_management_rights
+    if current_user.nil? || @item.nil? || !current_user.can_manage?(@item)
+      redirect_to items_path, notice: I18n.t("items.buttons.no_management_rights")
+      return false
+    end
+    true
   end
 end
 # rubocop:enable Metrics/ClassLength

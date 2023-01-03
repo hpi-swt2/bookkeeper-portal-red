@@ -1,18 +1,19 @@
 require "rails_helper"
 
 describe "edit item page", type: :feature do
-  let(:item) do
-    Item.create!(
-      name: "Harry Potter",
-      description: "Author: J.K.Rowling",
-      max_borrowing_days: 7
-    )
-  end
+  item = Item.create!(
+    name: "Harry Potter",
+    description: "Author: J.K.Rowling",
+    max_borrowing_days: 7
+  )
+  user = FactoryBot.create(:user, email: "user#{rand(100_000)}@example.com")
+  group = FactoryBot.create(:group)
+
+  FactoryBot.create(:permission, item_id: item.id, group_id: group.id, permission_type: :can_manage)
+  FactoryBot.create(:membership, user_id: user.id, group_id: group.id)
 
   before do
-    # rubocop:todo Lint/UselessAssignment
-    item = :item
-    # rubocop:enable Lint/UselessAssignment
+    sign_in user
   end
 
   # rubocop:todo RSpec/NoExpectationExample

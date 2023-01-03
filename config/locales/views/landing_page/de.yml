@@ -27,6 +27,7 @@ de:
       borrow: "Ausleihen"
       return: "Zurückgeben"
       download_qrcode: "QR-Code herunterladen"
+      no_management_rights: "Fehlende Management-Rechte für dieses Item"
     status_badge:
       available: "Verfügbar"
       borrowed_by_me: "Von mir ausgeliehen"

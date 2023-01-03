@@ -25,6 +25,7 @@ en:
       borrow: "Borrow"
       return: "Return"
       download_qrcode: "Download QR-Code"
+      no_management_rights: "You don't have management rights for this item"
     status_badge:
       available: "Available"
       borrowed_by_me: "Borrowed by me"

@@ -21,12 +21,13 @@ RSpec.describe NotificationMailer, type: :mailer do
 
   it "creates a notification object" do
     user = FactoryBot.build(:user)
-    user.id = 1
+    user_id = rand(100_000)
+    user.id = user_id
     user.save
 
     expect { described_class.send_info("Test", user).deliver_now }.to change(Notification, :count).by(1)
     expect(Notification.last.message).to eq("Test")
-    expect(Notification.last.user_id).to eq(1)
+    expect(Notification.last.user_id).to eq(user_id)
     expect(Notification.last.notification_type).to eq("info")
     expect(Notification.last.display).to be(true)
     expect(Notification.last.sent).to be_within(5.seconds).of(Time.zone.now)
