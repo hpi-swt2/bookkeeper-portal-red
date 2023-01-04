@@ -4,7 +4,8 @@
     <%= render "layouts/item_grid" %>
 </div>
 
-<div class="btn-group dropdown desktop-only">
+
+<div class="btn-group dropdown desktop-only" id="dropdown-button-group">
   <a class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <%=I18n.t("items.buttons.new")%>
   </a>
@@ -16,12 +17,12 @@
   </div>
 </div>
 
-<div class="fixed-bottom d-flex justify-content-end">
+<div class="fixed-bottom d-flex justify-content-end" id="mobile-dropdown-button-group">
   <div class="btn-group dropdown mobile-only">
-    <a class="btn btn-secondary d-flex align-items-center justify-content-center m-3" style="width: 60px; height: 60px; border-radius: 30px; box-shadow: 2px 2px 3px #00000044;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <a class="btn btn-secondary d-flex align-items-center justify-content-center m-3" style="width: 60px; height: 60px; border-radius: 30px; box-shadow: 2px 2px 3px #00000044;" type="button" id="mobileDropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <i class="bi bi-plus text-white fs-2"></i>
     </a>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <div class="dropdown-menu" aria-labelledby="mobileDropdownMenuButton">
       <%= link_to I18n.t("items.type.book"), new_item_path(item_type: :book), :class => "dropdown-item" %>
       <%= link_to I18n.t("items.type.movie"), new_item_path(item_type: :movie), :class => "dropdown-item" %>
       <%= link_to I18n.t("items.type.game"), new_item_path(item_type: :game), :class => "dropdown-item" %>
