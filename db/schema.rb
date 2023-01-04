@@ -67,6 +67,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_093316) do
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "notification_type"
+    t.string "message"
+    t.datetime "sent", precision: nil
+    t.boolean "display"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "permissions", force: :cascade do |t|
     t.integer "item_id", null: false
     t.integer "group_id", null: false
@@ -108,6 +119,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_093316) do
   add_foreign_key "lendings", "users"
   add_foreign_key "memberships", "groups"
   add_foreign_key "memberships", "users"
+  add_foreign_key "notifications", "users"
   add_foreign_key "permissions", "groups"
   add_foreign_key "permissions", "items"
   add_foreign_key "reservations", "items"

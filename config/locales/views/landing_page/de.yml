@@ -33,8 +33,8 @@ de:
             download_qrcode: "QR-Code herunterladen"
         status_badge:
             available: "Verfügbar"
-            borrowed_by_me: "Von mir ausgeliehen"
             not_available: "Nicht verfügbar"
+            borrowed_by_me: "Von mir ausgeliehen"
             reserved_by_me: "Von mir reserviert"
         card_text:
             owner: von
@@ -47,13 +47,16 @@ de:
             new_movie: "Neuer Film"
             new_game: "Neues Spiel"
         form:
-            item:
+            edit: "Bearbeite:"
+            new: "Neues:"
+            other:
                 name: "Name"
                 category: "Kategorie"
                 description: "Beschreibung"
                 max_borrowing_days: "Max. Ausleihzeit"
                 max_reservation_days: "Max. Reservierungszeit"
             book:
+                name: "Name"
                 isbn: "ISBN"
                 author: "Autor"
                 release_date: "Erscheinungsdatum"
@@ -62,17 +65,29 @@ de:
                 number_of_pages: "Seitenzahl"
                 publisher: "Verleger"
                 edition: "Edition"
+                description: "Beschreibung"
+                max_borrowing_days: "Max. Ausleihzeit"
+                max_reservation_days: "Max. Reservierungszeit"
             movie:
+                name: "Name"
                 director: "Regisseur"
                 release_date: "Erscheinungsdatum"
                 format: "Format"
                 genre: "Genre"
                 language: "Sprache"
                 fsk: "Jugendfreigabe"
+                description: "Beschreibung"
+                max_borrowing_days: "Max. Ausleihzeit"
+                max_reservation_days: "Max. Reservierungszeit"
             game:
+                name: "Name"
                 author: "Autor"
                 illustrator: "Illustrator"
                 publisher: "Verleger"
+                fsk: "Jugendfreigabe"
                 number_of_players: "Spielerzahl"
                 playing_time: "Spieldauer"
                 language: "Sprache"
+                description: "Beschreibung"
+                max_borrowing_days: "Max. Ausleihzeit"
+                max_reservation_days: "Max. Reservierungszeit"

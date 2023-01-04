@@ -55,6 +55,7 @@ FactoryBot.define do
 
   factory :other, class: 'Item' do
     item_type { "other" }
+
     name { "Mars" }
     description { "Elon Musk's dream" }
     max_reservation_days { 2 }

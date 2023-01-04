@@ -6,13 +6,15 @@ RSpec.describe "items/index", type: :view do
     user = FactoryBot.create(:user, password: "password")
     sign_in user
     assign(:items, [
-             Item.create!(
+             FactoryBot.create(
+               :book,
                name: "Communist Manifesto",
                description: "A book about communism, brought to you by Karl Marx, Friedrich Engels and Team Red",
                max_reservation_days: 2,
                max_borrowing_days: 7
              ),
-             Item.create!(
+             FactoryBot.create(
+               :book,
                name: "The Hitchhikers Guide to the Galaxy",
                description: "A science fiction comedy adventure",
                max_reservation_days: 2,

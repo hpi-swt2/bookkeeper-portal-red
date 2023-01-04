@@ -31,8 +31,8 @@ en:
             download_qrcode: "Download QR-Code"
         status_badge:
             available: "Available"
-            borrowed_by_me: "Borrowed by me"
             not_available: "Not available"
+            borrowed_by_me: "Borrowed by me"
             reserved_by_me: "Reserved by me"
         card_text:
             owner: from
@@ -45,13 +45,16 @@ en:
             new_movie: "New Movie"
             new_game: "New Game"
         form:
-            item:
+            edit: "Edit:"
+            new: "New:"
+            other:
                 name: "Name"
                 category: "Category"
                 description: "Description"
                 max_borrowing_days: "Max. Borrowing Period"
                 max_reservation_days: "Max. Reservation Period"
             book:
+                name: "Name"
                 isbn: "ISBN"
                 author: "Author"
                 release_date: "Release Date"
@@ -60,17 +63,29 @@ en:
                 number_of_pages: "Number of Pages"
                 publisher: "Publisher"
                 edition: "Edition"
+                description: "Description"
+                max_borrowing_days: "Max. Borrowing Period"
+                max_reservation_days: "Max. Reservation Period"
             movie:
+                name: "Name"
                 director: "Director"
                 release_date: "Release Date"
                 format: "Format"
                 genre: "Genre"
                 language: "Language"
                 fsk: "Age Rating"
+                description: "Description"
+                max_borrowing_days: "Max. Borrowing Period"
+                max_reservation_days: "Max. Reservation Period"
             game:
+                name: "Name"
                 author: "Author"
                 illustrator: "Illustrator"
                 publisher: "Publisher"
+                fsk: "Age Rating"
                 number_of_players: "Number of Players"
                 playing_time: "Playing Time"
                 language: "Language"
+                description: "Description"
+                max_borrowing_days: "Max. Borrowing Period"
+                max_reservation_days: "Max. Reservation Period"
