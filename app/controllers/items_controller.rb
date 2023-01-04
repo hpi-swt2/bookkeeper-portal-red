@@ -39,6 +39,7 @@ class ItemsController < ApplicationController
   # GET /items/1/edit
   def edit
     @item = Item.find(params[:id])
+    return
     return if current_user.can_manage?(@item)
 
     respond_to do |format|
@@ -52,7 +53,7 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params(params[:item_type]))
     @item.item_type = params[:item_type]
-    create_permission(item_json)
+    # create_permission(item_json)
 
     respond_to do |format|
       if @item.save

@@ -66,7 +66,102 @@
   </div>
 
   <div class="mt-3">
-    <%= form.button :submit, name: "item_type", value: "book", class: "btn btn-primary" %>
+    <%= form.submit (form.object.new_record? ? I18n.t("items.buttons.new") : I18n.t("items.buttons.update")),
+                    :style => "display: none;", id: "item_from_submit", class: "mx-auto btn btn-primary" %>
+  </div>
+
+  <h3 class="mt-3"><%= "Permissions" %></h3>
+
+  <div id="permissions_edit">
+    <div class="container text-center mb-5">
+      <div class="alert alert-warning" role="alert" v-if="duplicateEntries">
+        A simple warning alert—check it out!
+      </div>
+      <div class="row mt-2" v-for="(permission, i) in permissions">
+        <div class="col">
+          <select class="form-select" required v-model="permission.groupId">
+            <option :value="group.id" v-for="group in groups">{{group.name}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <select class="form-select" required v-model="permission.permissionLevel">
+            <option :value="level.level" v-for="level in levels">{{level.title}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <button class="btn btn-primary" type="button" @click="remove(i)">Remove</button>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <button class="btn btn-outline-secondary btn-sm" type="button" @click="addPermission">Add</button>
+      </div>
+
+      <div class="row mt-5">
+        <button class="btn btn-primary" type="button" @click="save">Save</button>
+      </div>
+
+    </div>
   </div>
 
 <% end %>
+
+<script>
+    const {createApp} = Vue
+
+    createApp({
+        data() {
+            return {
+                permissions: [],
+                levels: [
+                    {title: "Can Manage", level: 0},
+                    {title: "Can Borrow", level: 1},
+                    {title: "Can View", level: 2},
+                ],
+                groups: []
+            }
+        },
+        created() {
+            this.fetchGroups()
+        },
+        methods: {
+            fetchGroups() {
+                fetch("/groups/all.json", {method: "GET"})
+                    .then(response => response.json())
+                    .then(data => {
+                        this.groups = data
+                    })
+            },
+            addPermission() {
+                this.permissions.push({
+                    groupId: "",
+                    permissionLevel: null,
+                })
+            },
+            remove(index) {
+                this.permissions = this.permissions
+                    .slice(0, index)
+                    .concat(this.permissions.slice(index + 1))
+            },
+            save() {
+                let itemId = <%= item.id %> // alternative: window.location.pathname.split("/")[2];
+
+                fetch(`/items/${itemId}/permissions`, {
+                    method: "POST", body: {
+                        // TODO
+                    }
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            document.getElementById("item_from_submit").click()
+                        }
+                    })
+            }
+        },
+        computed: {
+            duplicateEntries() {
+                return new Set(this.permissions.map(p => p.groupId)).size
+                    !== this.permissions.length;
+            }
+        }
+    }).mount('#permissions_edit')
+</script>
