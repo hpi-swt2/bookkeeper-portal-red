@@ -11,52 +11,57 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label I18n.t("items.form.item.name"), style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="mb-2">
+    <%= form.label :name, I18n.t("items.form.game.name"), class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
-   <div>
-    <%= form.label I18n.t("items.form.game.author"), style: "display: block" %>
-    <%= form.text_field :author %>
-   </div>
-
-   <div>
-    <%= form.label I18n.t("items.form.game.illustrator"), style: "display: block" %>
-    <%= form.text_field :illustrator %>
-   </div>
-
-   <div>
-    <%= form.label I18n.t("items.form.game.publisher"), style: "display: block" %>
-    <%= form.text_field :publisher %>
-   </div>
-
-   <div>
-    <%= form.label I18n.t("items.form.game.number_of_players"), style: "display: block" %>
-    <%= form.number_field :number_of_players %>
-   </div>
-
-   <div>
-    <%= form.label I18n.t("items.form.game.playing_time"), style: "display: block" %>
-    <%= form.number_field :playing_time %>
-   </div>
-
-   <div>
-    <%= form.label I18n.t("items.form.game.language"), style: "display: block" %>
-    <%= form.text_field :language %>
-   </div>
-
-  <div>
-    <%= form.label I18n.t("items.form.item.description"), style: "display: block" %>
-    <%= form.text_field :description %>
+  <div class="mb-2">
+    <%= form.label :author, I18n.t("items.form.game.author"), class: "form-label" %>
+    <%= form.text_field :author, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label I18n.t("items.form.item.max_borrowing_days"), style: "display: block" %>
-    <%= form.number_field :max_borrowing_days %>
+  <div class="mb-2">
+    <%= form.label :illustrator, I18n.t("items.form.game.illustrator"), class: "form-label" %>
+    <%= form.text_field :illustrator, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.button :submit , name: "item_type", value: "game" %>
+  <div class="mb-2">
+    <%= form.label I18n.t("items.form.game.publisher"), class: "form-label" %>
+    <%= form.text_field :publisher, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label I18n.t("items.form.game.fsk"), class: "form-label" %>
+    <%= form.number_field :fsk, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label I18n.t("items.form.game.number_of_players"), class: "form-label" %>
+    <%= form.number_field :number_of_players, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label I18n.t("items.form.game.playing_time"), class: "form-label" %>
+    <%= form.number_field :playing_time, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label I18n.t("items.form.game.language"), class: "form-label" %>
+    <%= form.text_field :language, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label I18n.t("items.form.game.description"), class: "form-label" %>
+    <%= form.text_field :description, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label I18n.t("items.form.game.max_borrowing_days"), class: "form-label" %>
+    <%= form.number_field :max_borrowing_days, class: "form-control" %>
+  </div>
+
+  <div class="mt-3">
+    <%= form.button :submit , name: "item_type", value: "game", class: "btn btn-primary" %>
   </div>
 <% end %>

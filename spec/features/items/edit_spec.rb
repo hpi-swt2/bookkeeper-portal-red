@@ -2,10 +2,10 @@ require "rails_helper"
 
 describe "edit item page", type: :feature do
   let(:item) do
-    Item.create!(
+    FactoryBot.create(
+      :book,
       name: "Harry Potter",
-      description: "Author: J.K.Rowling",
-      max_borrowing_days: 7
+      description: "Author: J.K.Rowling"
     )
   end
 
@@ -41,7 +41,7 @@ describe "edit item page", type: :feature do
     item.manager_groups.push(@group)
     visit edit_item_path(item)
     page.fill_in "item[name]", with: "Harry Potter und die Kammer des Schreckens"
-    page.find("input[type='submit'][value='Update item']").click
+    page.find("button[type='submit'][value='#{item.item_type}']").click
     expect(page).to have_text("Item was successfully updated.")
     expect((Item.find_by name: "Harry Potter und die Kammer des Schreckens").description).to eq(item.description)
   end

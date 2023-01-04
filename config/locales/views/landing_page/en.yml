@@ -33,7 +33,7 @@ en:
     status_badge:
       available: "Available"
       borrowed_by_me: "Borrowed by me"
-      not_available: "Not available" 
+      not_available: "Not available"
     card_text:
       owner: from
     type:
@@ -45,12 +45,15 @@ en:
       new_movie: "New Movie"
       new_game: "New Game"
     form:
-      item:
+      edit: "Edit:"
+      new: "New:"
+      other:
         name: "Name"
         category: "Category"
         description: "Description"
-        max_borrowing_period: "Maximum Borrowing Period"
+        max_borrowing_days: "Maximum Borrowing Period"
       book:
+        name: "Name"
         isbn: "ISBN"
         author: "Author"
         release_date: "Release Date"
@@ -59,17 +62,26 @@ en:
         number_of_pages: "Number of Pages"
         publisher: "Publisher"
         edition: "Edition"
+        description: "Description"
+        max_borrowing_days: "Maximum Borrowing Period"
       movie:
+        name: "Name"
         director: "Director"
         release_date: "Release Date"
         format: "Format"
         genre: "Genre"
         language: "Language"
         fsk: "Age Rating"
+        description: "Description"
+        max_borrowing_days: "Maximum Borrowing Period"
       game:
+        name: "Name"
         author: "Author"
         illustrator: "Illustrator"
         publisher: "Publisher"
+        fsk: "Age Rating"
         number_of_players: "Number of Players"
         playing_time: "Playing Time"
         language: "Language"
+        description: "Description"
+        max_borrowing_days: "Maximum Borrowing Period"
