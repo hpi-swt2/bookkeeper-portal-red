@@ -37,7 +37,6 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params(params[:item_type]))
     @item.item_type = params[:item_type]
-    logger.debug "item_params: #{@item.attributes}"
 
     respond_to do |format|
       if @item.save
