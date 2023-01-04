@@ -80,8 +80,10 @@ class ItemsController < ApplicationController
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PATCH/PUT /items/1 or /items/1.json
+  # rubocop:disable Metrics/AbcSize
   def update
     respond_to do |format|
+      @item.item_type = params[:item_type]
       if @item.update(item_params(params[:item_type]))
         format.html { redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_updated") }
         format.json { render :show, status: :ok, location: @item }
@@ -91,6 +93,7 @@ class ItemsController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # DELETE /items/1 or /items/1.json
   def destroy
@@ -124,7 +127,7 @@ class ItemsController < ApplicationController
       params.require(:item).permit(:item_type,  :name, :director, :release_date, :format, :genre, :language, :fsk,
                                    :description, :max_borrowing_days)
     when "game"
-      params.require(:item).permit(:item_type,  :name, :author, :illustrator, :publisher, :number_of_players,
+      params.require(:item).permit(:item_type,  :name, :author, :illustrator, :publisher, :fsk, :number_of_players,
                                    :playing_time, :language, :description, :max_borrowing_days)
     else
       item_type.eql?("other")
