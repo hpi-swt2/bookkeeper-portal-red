@@ -5,7 +5,7 @@ class Item < ApplicationRecord
   validates :name, presence: true
   validates :max_borrowing_days, numericality: { greater_than_or_equal_to: 0 }
 
-  validates :number_of_pages, numericality: { greater_than_or_equal_to: 0 }
+  validates :number_of_pages, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
   enum :status, inactive: 0, active: 1
   enum :item_type, other: 0, book: 1, movie: 2, game: 3
