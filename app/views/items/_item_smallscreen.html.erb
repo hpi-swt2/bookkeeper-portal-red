@@ -54,7 +54,7 @@
     <%= render(ItemBorrowButton.new(
       text: I18n.t("items.buttons.reserve"), 
       action: item_reserve_path(@item), 
-      bootstrap_classes: "btn btn-primary item-action-button")
+      bootstrap_classes: "btn btn-secondary item-action-button")
     )%>
   <% end %>
 
@@ -62,7 +62,7 @@
     <%= render(ItemBorrowButton.new(
       text: I18n.t("items.buttons.borrow"), 
       action: item_borrow_path(@item), 
-      bootstrap_classes: "btn btn-primary item-action-button")
+      bootstrap_classes: "btn btn-secondary item-action-button")
     )%>
   <% end %>
 
@@ -70,7 +70,7 @@
     <%= render(ItemBorrowButton.new(
       text: I18n.t("items.buttons.return"), 
       action: item_give_back_path(@item), 
-      bootstrap_classes: "btn btn-primary item-action-button")
+      bootstrap_classes: "btn btn-secondary item-action-button")
     )%>
   <% end %>
 </div>
