@@ -43,6 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_04_122128) do
     t.float "lat"
     t.float "lng"
     t.integer "max_borrowing_days"
+    t.integer "max_reservation_days", default: 1, null: false
   end
 
   create_table "lendings", force: :cascade do |t|
