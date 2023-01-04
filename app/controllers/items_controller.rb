@@ -52,6 +52,7 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params(params[:item_type]))
     @item.item_type = params[:item_type]
+    create_permission(item_json)
 
     respond_to do |format|
       if @item.save
@@ -168,12 +169,11 @@ class ItemsController < ApplicationController
     @lending.item = @item
     @lending.completed_at = nil
   end
-
-  def create_permission
-    params[:borrower_groups][:id].each do |group|
-      if !group.empty?
-        @item.permissions.build(:group_id => group, :permission_type => 'can_borrow')
-      end
+  
+  def create_permission(item_json)
+    item_json["permission_groups"].each do |group|
+      @item.permissions.clear
+      @item.permissions.build(:group_id => group["id"], :permission_type => group["permission_type"]) unless groop.empty?
     end
   end
 end
