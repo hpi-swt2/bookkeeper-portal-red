@@ -1,20 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe "groups/index", type: :view do
+  let(:membership) do
+    FactoryBot.create(:membership, :admin)
+  end
+
+  let(:group) do
+    membership.group
+  end
+
   before do
-    assign(:groups, [
-             Group.create!(
-               name: "Name"
-             ),
-             Group.create!(
-               name: "Name"
-             )
-           ])
+    assign(:user, membership.user)
+    assign(:groups, [membership.group])
   end
 
   it "renders a list of groups" do
     render
-    cell_selector = Rails::VERSION::STRING >= '7' ? 'div>p' : 'tr>td'
-    assert_select cell_selector, text: Regexp.new("Name".to_s), count: 2
+    expect(rendered).to have_text(group.name)
   end
 end

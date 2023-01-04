@@ -3,11 +3,13 @@ require 'rails_helper'
 RSpec.describe "landing_page/index", type: :view do
   before do
     assign(:items, [
-             Item.create!(
+             FactoryBot.create(
+               :book,
                name: "Telepathie für Anfänger",
                description: "Ein hoch wissenschaftliches Buch über die Magie des Telefonierens"
              ),
-             Item.create!(
+             FactoryBot.create(
+               :book,
                name: "Schneewittchen",
                description: "Ein wunderschönes Märchen"
              )

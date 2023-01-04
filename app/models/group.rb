@@ -1,4 +1,4 @@
-# model for a group of users
+# Model of the current group
 class Group < ApplicationRecord
   validates :name, presence: true
   has_many :memberships, dependent: :destroy

@@ -3,16 +3,20 @@ class Item < ApplicationRecord
   include ExportPdf
 
   validates :name, presence: true
+  validates :max_borrowing_days, numericality: { greater_than_or_equal_to: 0 }
+
+  validates :number_of_pages, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
   enum :status, inactive: 0, active: 1
   enum :item_type, other: 0, book: 1, movie: 2, game: 3
 
   # hardcoded which attributes belong to which item type
   BOOK_ATTRIBUTES = %w[name isbn author release_date genre language number_of_pages publisher edition
-                       description].freeze
-  MOVIE_ATTRIBUTES = %w[name director release_date format genre language fsk description].freeze
-  GAME_ATTRIBUTES = %w[name author illustrator publisher number_of_players playing_time language description].freeze
-  OTHER_ATTRIBUTES = %w[name category description].freeze
+                       description max_borrowing_days].freeze
+  MOVIE_ATTRIBUTES = %w[name director release_date format genre language fsk description max_borrowing_days].freeze
+  GAME_ATTRIBUTES = %w[name author illustrator publisher fsk number_of_players playing_time language description
+                       max_borrowing_days].freeze
+  OTHER_ATTRIBUTES = %w[name category description max_borrowing_days].freeze
 
   has_many :lendings, dependent: :destroy
   has_many :reservations, dependent: :destroy
