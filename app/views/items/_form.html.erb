@@ -25,7 +25,7 @@
     <%= form.label I18n.t("items.form.item.:max_borrowing_days"), style: "display: block" %>
     <%= form.number_field :max_borrowing_days %>
   </div>
-
+  <br>
   <div>
     <%= form.submit (form.object.new_record? ? I18n.t("items.buttons.new") : I18n.t("items.buttons.update")), class: "mx-auto btn btn-primary" %>
   </div>
