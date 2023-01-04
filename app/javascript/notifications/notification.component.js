@@ -68,16 +68,13 @@ export const Notification = {
             if (this.collapsed) {
                 return this.shortMessage + (this.expandable ? "..." : "");
             }
-            return this.longMessage;
+            return this.notification.message;
         },
         shortMessage() {
             return this.notification.message.slice(0, MSG_CUTOFF);
         },
-        longMessage() {
-            return this.notification.message;
-        },
         expandable() {
-            return this.shortMessage !== this.longMessage;
+            return this.shortMessage !== this.notification.message;
         },
         type() {
             return "Reminder";
