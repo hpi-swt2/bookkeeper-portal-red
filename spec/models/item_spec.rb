@@ -15,9 +15,7 @@ RSpec.describe Item, type: :model do
       it "does not find reservations if none exist" do
         expect(item.current_reservation).to be_nil
         expect(item.reserved?).to be false
-        expect(item.not_reserved?).to be true
         expect(item.borrowed?).to be false
-        expect(item.not_borrowed?).to be true
         expect(item.reserved_by?(user)).to be false
         expect(item.borrowed_by?(user)).to be false
 
@@ -30,9 +28,7 @@ RSpec.describe Item, type: :model do
                                                       ends_at: 2.days.from_now)
         expect(item.current_reservation).to eq(reservation)
         expect(item.reserved?).to be true
-        expect(item.not_reserved?).to be false
         expect(item.borrowed?).to be false
-        expect(item.not_borrowed?).to be true
         expect(item.reserved_by?(user)).to be true
         expect(item.borrowed_by?(user)).to be false
 
@@ -46,9 +42,7 @@ RSpec.describe Item, type: :model do
         expect(item.current_reservation).to be_nil
 
         expect(item.reserved?).to be false
-        expect(item.not_reserved?).to be true
         expect(item.borrowed?).to be false
-        expect(item.not_borrowed?).to be true
         expect(item.reserved_by?(user)).to be false
         expect(item.borrowed_by?(user)).to be false
 
@@ -61,9 +55,7 @@ RSpec.describe Item, type: :model do
                                     due_at: 2.days.from_now)
         expect(item.current_reservation).to be_nil
         expect(item.reserved?).to be false
-        expect(item.not_reserved?).to be true
         expect(item.borrowed?).to be true
-        expect(item.not_borrowed?).to be false
         expect(item.reserved_by?(user)).to be false
         expect(item.borrowed_by?(user)).to be true
 
@@ -76,9 +68,7 @@ RSpec.describe Item, type: :model do
                                     completed_at: 1.day.ago, due_at: Time.zone.now)
         expect(item.current_reservation).to be_nil
         expect(item.reserved?).to be false
-        expect(item.not_reserved?).to be true
         expect(item.borrowed?).to be false
-        expect(item.not_borrowed?).to be true
         expect(item.reserved_by?(user)).to be false
         expect(item.borrowed_by?(user)).to be false
 

@@ -55,16 +55,8 @@ class Item < ApplicationRecord
     !current_reservation.nil?
   end
 
-  def not_reserved?
-    !reserved?
-  end
-
   def borrowed?
     Lending.exists?(item_id: id, completed_at: nil)
-  end
-
-  def not_borrowed?
-    !borrowed?
   end
 
   def current_reservation
@@ -76,7 +68,7 @@ class Item < ApplicationRecord
   end
 
   def reservable_by?(user)
-    not_borrowed? and not_reserved? and user.can_borrow?(self)
+    !borrowed? and !reserved? and user.can_borrow?(self)
   end
 
   def reserved_by?(user)
@@ -86,8 +78,8 @@ class Item < ApplicationRecord
   end
 
   def borrowable_by?(user)
-    not_reserved_by_others = (reserved_by?(user) or not_reserved?)
-    not_borrowed? and not_reserved_by_others and user.can_borrow?(self)
+    not_reserved_by_others = (reserved_by?(user) or !reserved?)
+    !borrowed? and not_reserved_by_others and user.can_borrow?(self)
   end
 
   def borrowed_by?(user)
