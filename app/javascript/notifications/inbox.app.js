@@ -1,3 +1,5 @@
+// noinspection all
+
 import {Notification} from "./notification.component";
 
 const template = `

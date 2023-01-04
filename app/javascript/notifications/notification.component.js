@@ -1,3 +1,6 @@
+// noinspection all
+
+
 const template = `
 
 <div class="card notification-message">
@@ -13,7 +16,7 @@ const template = `
     <p>{{ message }}</p>
     <a class="card-link" @click="collapsed = !collapsed" v-if="expandable">
         {{ collapsed ? "Show more" : "Show less" }}
-    </p>
+    </a>
   </div>
 </div>
 
@@ -81,3 +84,4 @@ export const Notification = {
         }
     }
 }
+
