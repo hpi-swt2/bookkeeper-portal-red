@@ -13,13 +13,7 @@
         <%= render(ItemAvailabilityBadgeComponent.new(item: @item, user: current_user)) %>
       </div>
     </div>
-    <div class="row">
-      <%# owner%>
-      <p class="card-text">
-        <%= I18n.t("items.card_text.owner") %>
-        <span class="text-warning">Ownername</span>
-      </p>
-    </div>
+   <%= render 'owner_component', item: @item %>
   </div>
    <%# Button %>
   <% if current_user.can_manage?(@item) %>
