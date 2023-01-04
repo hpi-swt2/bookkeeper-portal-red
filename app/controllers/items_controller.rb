@@ -100,6 +100,7 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       @item.item_type = params[:item_type]
+      create_permission(item_json)
       if @item.update(item_params(params[:item_type]))
         format.html { redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_updated") }
         format.json { render :show, status: :ok, location: @item }
