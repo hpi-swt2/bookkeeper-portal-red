@@ -54,20 +54,23 @@
                 </p>
               </div>
             </div>
+            
+            <%# Button %>
+            <% if current_user.can_manage?(@item) %>
+              <br>
+              <span class="d-flex justify-content-around">
+                <%= button_to I18n.t("items.buttons.edit"), edit_item_path(@item), method: :get, class: "mx-auto btn btn-primary"%>
+                <%= button_to I18n.t("items.buttons.delete"), item_path(@item), method: :delete, data: { turbo_confirm: I18n.t("items.messages.deletion_confirmation")}, class: "mx-auto btn btn-primary"%>
+                <%= link_to "<text>#{I18n.t("items.buttons.download_qrcode")}</text>".html_safe, download_path(@item),class: "btn btn-primary" %>
+              </span>
+              <hr class="border border-primary border-2 opacity-75">
+            <% end %>
+            
             <%# Description%>
             <p class="card-text"><%= @item.description %></p>
             <div id="item-location-large" style="height: 240px;"></div>
           </div>
-          <%# Button %>
-          <div>
-            <% if current_user.can_manage?(@item) %>
-              <%= button_to I18n.t("items.buttons.edit"), edit_item_path(@item), method: :get, class: "mx-auto btn btn-primary"%> |
-              <%= button_to I18n.t("items.buttons.delete"), item_path(@item), method: :delete, data: { turbo_confirm: I18n.t("items.messages.deletion_confirmation")}, class: "mx-auto btn btn-primary"%> |
-              <%= link_to I18n.t("items.buttons.download_qrcode") , download_path(@item) %> |
-            <% end %>
-            <%= button_to I18n.t("items.buttons.back"), items_path, method: :get, class: "mx-auto btn btn-primary"%>
-          </div>
-          <%# <%= button_to "Destroy this item", @item, method: :delete %>
+          <%= button_to I18n.t("items.buttons.back"), items_path, method: :get, class: "mx-auto btn btn-primary"%>
           <div class="d-flex justify-content-center w-100 mb-5">
             <% if current_user.can_borrow?(@item) and @src_is_qrcode  %>
               <%= form_tag item_update_lending_path(@item), method: :patch do %>

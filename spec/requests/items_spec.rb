@@ -56,7 +56,7 @@ RSpec.describe "/items", type: :request do
       user = FactoryBot.create(:user, password: "password")
       sign_in user
       group = FactoryBot.create(:group)
-      membership = Membership.new(role: 1, user_id: user.id, group: group)
+      membership = Membership.new(role: :admin, user_id: user.id, group: group)
       user.memberships.push(membership)
       item.manager_groups.push(group)
       get edit_item_url(item)
