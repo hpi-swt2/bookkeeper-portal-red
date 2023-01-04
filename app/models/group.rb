@@ -1,5 +1,6 @@
 # Model of the current group
 class Group < ApplicationRecord
+  enum tag: [:verified, :user]
   validates :name, presence: true
   has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships
