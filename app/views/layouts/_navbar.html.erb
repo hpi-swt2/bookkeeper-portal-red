@@ -24,26 +24,11 @@
           </a>
         </li>
         <% if user_signed_in? %>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item">
+          <a class="nav-link" href="<%= groups_path %>">
             <i class="bi bi-collection-fill mobile-only"></i>
-            <%= t(:my_groups) %>
+            <%=t("all_groups")%>
           </a>
-          <ul class="dropdown-menu bg-primary">
-            <li>
-              <%= link_to t(:all_groups), groups_path, class: "dropdown-item text-white" %>
-            </li>
-            <li><hr class="dropdown-divider"></li>
-            <% current_user.groups.each do |group| %>
-              <li>
-                <!-- could link to a detail page of the group, which is not implemented -->
-                <%= link_to "#", class: "dropdown-item text-white" do %>
-                  <%= group.name %>
-                  <i class="bi bi-patch-check-fill text-warning"></i>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
         </li>
         <% end %>
         <li class="nav-item">
