@@ -25,23 +25,17 @@
 
   <hr class="border border-primary border-2 opacity-75"/>
   <%# Description%>
-  <p class="card-text"><%= @item.description %></p>
+  <p class="text-start text-break"><%= @item.description %></p>
   <div id="item-location-small" style="height: 240px;"></div>
   <%# Attributes %>
   <table class="table">
     <tbody>
-    <tr>
-      <td>Spieler: 5</td>
-    </tr>
-    <tr>
-      <td>Alter: 12+</td>
-    </tr>
-    <tr>
-      <td>Typ: Brettspiel+</td>
-    </tr>
-    <tr>
-      <td>Jahr: 2014+</td>
-    </tr>
+    <% @item.attributes.each do |attr_name, attr_value| %>
+        <ul class="list-group list-group-horizontal list-group-flush border-top border-2 mx-3">
+          <li class=" list-group-item flex-fill align-content-between py-1 text-break" style="border: none;"><%= I18n.t("items.form." + @item.item_type.to_s + "." + attr_name.to_s)%></li>
+          <li class="list-group-item w-50 align-content-between py-1 text-break" style="border: none;"><%= @item.send(attr_name) %></li>
+        </ul>
+    <% end %>
     </tbody>
   </table>
   <%# Main Button %>

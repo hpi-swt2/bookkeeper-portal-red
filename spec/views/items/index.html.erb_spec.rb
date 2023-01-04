@@ -3,15 +3,15 @@ require 'rails_helper'
 RSpec.describe "items/index", type: :view do
   before do
     assign(:items, [
-             Item.create!(
+             FactoryBot.create(
+               :book,
                name: "Communist Manifesto",
-               description: "A book about communism, brought to you by Karl Marx, Friedrich Engels and Team Red",
-               max_borrowing_days: 7
+               description: "A book about communism, brought to you by Karl Marx, Friedrich Engels and Team Red"
              ),
-             Item.create!(
+             FactoryBot.create(
+               :book,
                name: "The Hitchhikers Guide to the Galaxy",
-               description: "A science fiction comedy adventure",
-               max_borrowing_days: 7
+               description: "A science fiction comedy adventure"
              )
            ])
   end
