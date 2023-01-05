@@ -10,7 +10,7 @@
     </div>
   <% end %>
 
-  <%= render "form", item: @item %>
+  <%= render(CommonItemFieldComponent.new()) %>
 
   <div class="mb-2">
     <%= form.label :isbn, I18n.t("items.form.book.isbn"), class: "form-label" %>

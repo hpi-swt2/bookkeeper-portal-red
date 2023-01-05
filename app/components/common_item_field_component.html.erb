@@ -1,0 +1,21 @@
+  <div class="mb-2">
+    <label class="form-label" for="item_name"> <%= I18n.t("items.form.all.name") %> </label>
+    <input class="form-control" type="text" value="" name="item[name]" id="item_name">
+  </div>
+
+  <div class="mb-2">
+    <label class="form-label" for="item_description"> <%= I18n.t("items.form.all.description")%> </label>
+    <input class="form-control" type="text" value="" name="item[description]" id="item_description">
+  </div>
+
+  <div class="mb-2">
+    <label class="form-label" for="item_max_borrowing_days"> <%=I18n.t("items.form.all.max_borrowing_days")%> </label>
+    <input class="form-control" type="number" min=0 max=365 value="" name="item[max_borrowing_days]" id="item_max_borrowing_days">
+  </div>
+
+  <div class="mb-2">
+    <label class="form-label" for="item_max_reservation_days"> <%=I18n.t("items.form.all.max_reservation_days")%> </label>
+    <input class="form-control" type="number" min=0 max=365 value="" name="item[max_reservation_days]" id="item_max_reservation_days">
+  </div>
+
+

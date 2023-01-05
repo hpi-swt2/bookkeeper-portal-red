@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <%= render "form", item: @item %>
+  <%= render(CommonItemFieldComponent.new()) %>
 
   <div class="mb-2">
     <%= form.label :category, I18n.t("items.form.other.category"), class: "form-label" %>
