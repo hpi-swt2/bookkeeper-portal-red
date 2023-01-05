@@ -14,13 +14,21 @@ en:
       successfully_created: "Item was successfully created."
       successfully_updated: "Item was successfully updated."
       successfully_destroyed: "Item was successfully destroyed."
-      successfully_borrowed: "Item was successfully borrowed"
-      successfully_returned: "Item was successfully returned"
+      successfully_borrowed: "Item was successfully borrowed."
+      successfully_returned: "Item was successfully returned."
+      not_allowed_to_destroy: "You are not allowed to delete this item."
+      not_allowed_to_download: "You are not allowd to download the QR-Code of this item."
+      not_allowed_to_edit: "You are not allowed to edit this item."
+      deletion_confirmation: "Do you really want to delete the item?"
+    headlines:
+      my_items: "My Items"
+      borrowed_items: "Borrowed Items"
     buttons:
       new: "Create item"
       update: "Update item"
       show: "Show item"
       edit: "Edit item"
+      delete: "Delete item"
       back: "Back to items"
       borrow: "Borrow"
       return: "Return"
@@ -28,7 +36,7 @@ en:
     status_badge:
       available: "Available"
       borrowed_by_me: "Borrowed by me"
-      not_available: "Not available" 
+      not_available: "Not available"
     card_text:
       owner: from
     type:
@@ -40,12 +48,15 @@ en:
       new_movie: "New Movie"
       new_game: "New Game"
     form:
-      item:
+      edit: "Edit:"
+      new: "New:"
+      other:
         name: "Name"
         category: "Category"
         description: "Description"
-        max_borrowing_period: "Maximum Borrowing Period"
+        max_borrowing_days: "Maximum Borrowing Period"
       book:
+        name: "Name"
         isbn: "ISBN"
         author: "Author"
         release_date: "Release Date"
@@ -54,17 +65,26 @@ en:
         number_of_pages: "Number of Pages"
         publisher: "Publisher"
         edition: "Edition"
+        description: "Description"
+        max_borrowing_days: "Maximum Borrowing Period"
       movie:
+        name: "Name"
         director: "Director"
         release_date: "Release Date"
         format: "Format"
         genre: "Genre"
         language: "Language"
         fsk: "Age Rating"
+        description: "Description"
+        max_borrowing_days: "Maximum Borrowing Period"
       game:
+        name: "Name"
         author: "Author"
         illustrator: "Illustrator"
         publisher: "Publisher"
+        fsk: "Age Rating"
         number_of_players: "Number of Players"
         playing_time: "Playing Time"
         language: "Language"
+        description: "Description"
+        max_borrowing_days: "Maximum Borrowing Period"

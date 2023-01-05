@@ -1,0 +1,44 @@
+<div class="row mt-3 my-0">
+    <% @items.first(20).each do |item| %>
+        <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4">
+            <div class="card">
+                <img class="card-img-top" src="https://via.placeholder.com/400x300" alt="Card image cap">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-truncate"><%= item.name %></h5>
+                    <p class="card-text text-truncate"><%= I18n.t("items.card_text.owner") %> Alan Must</p>
+                    <p class="card-text text-truncate text-success"><%= item.status_text(current_user) %></p>
+                    <div class="card-body">
+                        <a class="mx-auto btn btn-primary" href=<%=item_path(item)%>><%=I18n.t("items.buttons.show")%></a>
+                    </div>
+                    <div class="card-body"></div>
+                </div>
+            </div>
+        </div>
+    <% end %>
+</div>
+
+<div class="btn-group dropdown desktop-only" id="dropdown-button-group">
+  <a class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <%=I18n.t("items.buttons.new")%>
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <%= link_to I18n.t("items.type.book"), new_item_path(item_type: :book), :class => "dropdown-item" %>
+    <%= link_to I18n.t("items.type.movie"), new_item_path(item_type: :movie), :class => "dropdown-item" %>
+    <%= link_to I18n.t("items.type.game"), new_item_path(item_type: :game), :class => "dropdown-item" %>
+    <%= link_to I18n.t("items.type.other"), new_item_path(item_type: :other), :class => "dropdown-item" %>
+  </div>
+</div>
+
+<div class="fixed-bottom d-flex justify-content-end mobile-only" id="mobile-dropdown-button-group">
+  <div class="btn-group dropdown">
+    <a class="btn btn-secondary d-flex align-items-center justify-content-center m-3" style="width: 60px; height: 60px; border-radius: 30px; box-shadow: 2px 2px 3px #00000044;" type="button" id="mobileDropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="bi bi-plus text-white fs-2"></i>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="mobileDropdownMenuButton">
+      <%= link_to I18n.t("items.type.book"), new_item_path(item_type: :book), :class => "dropdown-item" %>
+      <%= link_to I18n.t("items.type.movie"), new_item_path(item_type: :movie), :class => "dropdown-item" %>
+      <%= link_to I18n.t("items.type.game"), new_item_path(item_type: :game), :class => "dropdown-item" %>
+      <%= link_to I18n.t("items.type.other"), new_item_path(item_type: :other), :class => "dropdown-item" %>
+    </div>
+  </div>
+</div>
