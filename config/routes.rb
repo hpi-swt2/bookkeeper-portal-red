@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'develoment_tools/sign_in'
   get "items/:id/download", to: 'items#download', as: :download
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
