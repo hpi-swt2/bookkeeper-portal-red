@@ -123,3 +123,14 @@ Ensure you have access to a Unix-like environment through:
 - set the following variables in your rails environment:
     - `OPENID_CONNECT_CLIENT_ID`
     - `OPENID_CONNECT_CLIENT_SECRET`
+
+### Creating Debug Users
+To create a new user for debug purposes, open the rails console with `rails console` then enter 
+```ruby
+user = User.create(
+    email: "mail@example.com", 
+    full_name: "Max Mustermann", 
+    description: "A nice student!", 
+    password: "ThisIs_My!Super#Secure/Pw")
+```
+Any errors during creation are logged to `user.errors` (password length, special characters).
