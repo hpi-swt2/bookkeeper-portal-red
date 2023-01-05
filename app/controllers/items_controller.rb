@@ -47,6 +47,27 @@ class ItemsController < ApplicationController
     end
   end
 
+  # GET /items/borrowed
+  # lists all items borrowed by the current user
+  def borrowed_by_me
+    @items = current_user.lendings.where(completed_at: nil).map(&:item)
+    render :borrowed_items
+  end
+
+  # GET /items/my/borrowed
+  # lists all items of the current user which are currently borrowed
+  def mine_borrowed
+    # return items which are currently not lendable
+    @items = current_user.items.reject(&:lendable?)
+    render :borrowed_items
+  end
+
+  # GET /items/my
+  # lists all items of the current user
+  def my_items
+    @items = current_user.items
+  end
+
   # POST /items or /items.json
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def create
