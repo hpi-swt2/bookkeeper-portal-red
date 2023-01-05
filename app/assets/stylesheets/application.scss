@@ -82,7 +82,7 @@ $mobileDeviceCutoff: 992px;
 
 @media (min-width: $mobileDeviceCutoff) {
   .mobile-only {
-    display: none;
+    display: none !important;
   }
 }
 
