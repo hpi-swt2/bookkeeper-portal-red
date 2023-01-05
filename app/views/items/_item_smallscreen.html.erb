@@ -13,44 +13,42 @@
         <%= render(ItemAvailabilityBadgeComponent.new(item: @item, user: current_user)) %>
       </div>
     </div>
-    <div class="row">
-      <%# owner%>
-      <p class="card-text">
-        von:
-        <span class="text-warning">Ownername</span>
-      </p>
-    </div>
+   <%= render 'owner_component', item: @item %>
   </div>
-
-
-  <hr class="border border-primary border-2 opacity-75"/>
+   <%# Button %>
+  <% if current_user.can_manage?(@item) %>
+    <br>
+    <span class="d-flex justify-content-around">
+      <%= button_to I18n.t("items.buttons.edit"), edit_item_path(@item), method: :get, class: "mx-auto btn btn-primary"%>
+      <%= button_to I18n.t("items.buttons.delete"), item_path(@item), method: :delete, data: { turbo_confirm: I18n.t("items.messages.deletion_confirmation")}, class: "mx-auto btn btn-primary"%>
+      <%= link_to "<text>#{I18n.t("items.buttons.download_qrcode")}</text>".html_safe, download_path(@item),class: "btn btn-primary" %>
+    </span>
+  <% end %>
+  <hr class="border border-primary border-2 opacity-75">
   <%# Description%>
-  <p class="card-text"><%= @item.description %></p>
-
+  <p class="text-start text-break"><%= @item.description %></p>
+  <div id="item-location-small" style="height: 240px;"></div>
   <%# Attributes %>
   <table class="table">
     <tbody>
-    <tr>
-      <td>Spieler: 5</td>
-    </tr>
-    <tr>
-      <td>Alter: 12+</td>
-    </tr>
-    <tr>
-      <td>Typ: Brettspiel+</td>
-    </tr>
-    <tr>
-      <td>Jahr: 2014+</td>
-    </tr>
+    <% @item.attributes.each do |attr_name, attr_value| %>
+        <ul class="list-group list-group-horizontal list-group-flush border-top border-2 mx-3">
+          <li class=" list-group-item flex-fill align-content-between py-1 text-break" style="border: none;"><%= I18n.t("items.form." + @item.item_type.to_s + "." + attr_name.to_s)%></li>
+          <li class="list-group-item w-50 align-content-between py-1 text-break" style="border: none;"><%= @item.send(attr_name) %></li>
+        </ul>
+    <% end %>
     </tbody>
   </table>
-  <%# Main Button %>
-  <%= link_to "Edit this item", edit_item_path(@item) %> |
-  <%= link_to "Back to items", items_path %>
-  <%# <%= button_to "Destroy this item", @item, method: :delete %>
   <div class="button-blocker">
   </div>
-  <%= if current_user.lending_rights?(@item)
-    button_to @item.button_text(current_user), item_update_lending_path(@item), method: :patch, class: "btn btn-primary item-action-button"
-  end %>
+   <% if current_user.can_borrow?(@item) and @src_is_qrcode %>
+  <%= form_tag item_update_lending_path(@item), method: :patch do %>
+    <%= hidden_field_tag 'lat'  %>
+    <%= hidden_field_tag 'lng'  %>
+    <%= button_tag @item.button_text(current_user), class: "btn btn-primary item-action-button" %>
+  <% end %>
+  <script>
+    getLocation();
+  </script>
+<% end %>
 </div>

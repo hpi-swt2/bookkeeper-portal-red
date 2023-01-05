@@ -1,4 +1,6 @@
+# Model of the current group
 class Group < ApplicationRecord
+  validates :name, presence: true
   has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships
   has_many :permissions, dependent: :destroy
@@ -15,9 +17,16 @@ class Group < ApplicationRecord
     source: :item
   )
   has_many(
-    :lendable_items,
-    -> { where(permissions: { permission_type: :can_lend }) },
+    :borrowable_items,
+    -> { where(permissions: { permission_type: :can_borrow }) },
     through: :permissions,
     source: :item
   )
+
+  def self.owner_groups(item_id)
+    find_by_sql ["SELECT *
+      FROM groups
+      WHERE id IN (SELECT group_id FROM permissions WHERE item_id = :item_id AND permission_type = :permission_type)",
+                 { item_id: item_id, permission_type: "2" }]
+  end
 end

@@ -37,6 +37,8 @@ Our branches are named `{team-initals}/{feature-name}`, eg. `gdm/print-qrcode`. 
 
 Each PR requires at least one approved review before it can be merged into `dev`. Each PR branch must be rebased on `dev` before merging (or have `dev` merged into the PR branch before).
 
+Also please **do not squash** your commits.
+
 ### Code & Style Guide
 
 We follow the [Ruby Style Guide](https://rubystyle.guide/), which is enforced by RuboCop. Please use an editor extension to ensure that Rubocop offenses are highlighted directly.

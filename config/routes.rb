@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  get "items/:id/download", to: 'items#download', as: :download
 
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  resources :groups, except: [:show, :new] do
+    post :leave
+  end
   resources :items do
     patch :update_lending
     collection do
@@ -24,7 +28,8 @@ Rails.application.routes.draw do
   get "/profiles/me", to: "profiles#show_me"
   get "/profiles/:id", to: "profiles#show", as: :profile
 
-  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
-    # https://github.com/heartcombo/devise/blob/main/README.md
-  end
+  # QR-Code Scan site
+  get '/scan', to: 'qr_reader#scan'
+
+  delete "/notifications/:id", to: "notifications#destroy"
 end
