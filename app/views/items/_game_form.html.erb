@@ -11,10 +11,7 @@
     </div>
   <% end %>
 
-  <div class="mb-2">
-    <%= form.label :name, I18n.t("items.form.game.name"), class: "form-label" %>
-    <%= form.text_field :name, class: "form-control" %>
-  </div>
+  <%= render "form", item: @item %>
 
   <div class="mb-2">
     <%= form.label :author, I18n.t("items.form.game.author"), class: "form-label" %>
@@ -49,21 +46,6 @@
   <div class="mb-2">
     <%= form.label I18n.t("items.form.game.language"), class: "form-label" %>
     <%= form.text_field :language, class: "form-control" %>
-  </div>
-
-  <div class="mb-2">
-    <%= form.label I18n.t("items.form.game.description"), class: "form-label" %>
-    <%= form.text_field :description, class: "form-control" %>
-  </div>
-
-  <div class="mb-2">
-    <%= form.label I18n.t("items.form.game.max_borrowing_days"), class: "form-label" %>
-    <%= form.number_field :max_borrowing_days, min: 0, max: 365, class: "form-control" %>
-  </div>
-
-  <div class="mb-2">
-    <%= form.label I18n.t("items.form.game.max_reservation_days"), class: "form-label" %>
-    <%= form.number_field :max_reservation_days, min: 0, max: 365, class: "form-control"%>
   </div>
 
   <div class="mt-3">

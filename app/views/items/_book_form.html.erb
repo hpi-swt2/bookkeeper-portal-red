@@ -10,10 +10,7 @@
     </div>
   <% end %>
 
-  <div class="mb-2">
-    <%= form.label :name, I18n.t("items.form.book.name"), class: "form-label" %>
-    <%= form.text_field :name, class: "form-control" %>
-  </div>
+  <%= render "form", item: @item %>
 
   <div class="mb-2">
     <%= form.label :isbn, I18n.t("items.form.book.isbn"), class: "form-label" %>
@@ -53,21 +50,6 @@
   <div class="mb-2">
     <%= form.label I18n.t("items.form.book.edition"), class: "form-label" %>
     <%= form.text_field :edition, class: "form-control" %>
-  </div>
-
-  <div class="mb-2">
-    <%= form.label I18n.t("items.form.book.description"), class: "form-label" %>
-    <%= form.text_field :description, class: "form-control" %>
-  </div>
-
-  <div class="mb-2">
-    <%= form.label I18n.t("items.form.book.max_borrowing_days"), class: "form-label" %>
-    <%= form.number_field :max_borrowing_days, min: 0, max: 365, class: "form-control" %>
-  </div>
-
-  <div class="mb-2">
-    <%= form.label I18n.t("items.form.book.max_reservation_days"), class: "form-label" %>
-    <%= form.number_field :max_reservation_days, min: 0, max: 365, class: "form-control"%>
   </div>
 
   <div class="mt-3">

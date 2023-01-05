@@ -11,10 +11,7 @@
     </div>
   <% end %>
 
-  <div class="mb-2">
-    <%= form.label :name, I18n.t("items.form.movie.name"), class: "form-label" %>
-    <%= form.text_field :name, class: "form-control" %>
-  </div>
+  <%= render "form", item: @item %>
 
   <div class="mb-2">
     <%= form.label :director, I18n.t("items.form.movie.director"), class: "form-label" %>
@@ -44,21 +41,6 @@
   <div class="mb-2">
     <%= form.label :fsk, I18n.t("items.form.movie.fsk"), class: "form-label" %>
     <%= form.number_field :fsk, class: "form-control" %>
-  </div>
-
-  <div class="mb-2">
-    <%= form.label :description, I18n.t("items.form.movie.description"), class: "form-label" %>
-    <%= form.text_field :description, class: "form-control" %>
-  </div>
-
-  <div class="mb-2">
-    <%= form.label I18n.t("items.form.movie.max_borrowing_days"), class: "form-label" %>
-    <%= form.number_field :max_borrowing_days, min: 0, max: 365, class: "form-control" %>
-  </div>
-
-  <div class="mb-2">
-    <%= form.label I18n.t("items.form.movie.max_reservation_days"), class: "form-label" %>
-    <%= form.number_field :max_reservation_days, min: 0, max: 365, class: "form-control"%>
   </div>
 
   <div class="mt-3">
