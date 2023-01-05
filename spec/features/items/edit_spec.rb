@@ -5,7 +5,9 @@ describe "edit item page", type: :feature do
     FactoryBot.create(
       :book,
       name: "Harry Potter",
-      description: "Author: J.K.Rowling"
+      description: "Author: J.K.Rowling",
+      max_reservation_days: 2,
+      max_borrowing_days: 7
     )
   end
 

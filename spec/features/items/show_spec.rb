@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe "show item page", type: :feature do
-
   before do
     @item = FactoryBot.create(:book)
     @user = FactoryBot.create(:user, email: 'example@mail.com')
@@ -51,6 +50,7 @@ describe "show item page", type: :feature do
   end
 
   it "has working search field inside navbar" do
+    sign_in @user
     item2 = FactoryBot.create(:movie)
 
     sign_in @user

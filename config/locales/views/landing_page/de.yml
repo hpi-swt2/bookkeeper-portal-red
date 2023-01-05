@@ -16,8 +16,11 @@ de:
       successfully_created: "Item wurde erfolgreich erstellt."
       successfully_updated: "Item wurde erfolgreich geupdatet."
       successfully_destroyed: "Item wurde erfolgreich zerstört."
-      successfully_borrowed: "Item wurde erfolgreich ausgeliehen."
-      successfully_returned: "Item wurde erfolgreich zurückgegeben."
+      successfully_borrowed: "Item wurde erfolgreich ausgeliehen"
+      successfully_returned: "Item wurde erfolgreich zurückgegeben"
+      successfully_reserved: "Item wurde erfolgreich reserviert"
+      unsuccessfully_reserved: "Item Reservierung fehlgeschlagen"
+      lending_error: "Ausleihsystem Fehler"
       not_allowed_to_destroy: "Dir ist nicht erlaubt das Item zu löschen."
       not_allowed_to_download: "Dir ist nicht erlaubt den QR-Code des Items herunterzuladen."
       not_allowed_to_edit: "Dir ist nicht erlaubt das Item zu bearbeiten."
@@ -34,11 +37,13 @@ de:
       back: "Zurück zur Items Übersicht"
       borrow: "Ausleihen"
       return: "Zurückgeben"
+      reserve: "Reservieren"
       download_qrcode: "QR-Code herunterladen"
     status_badge:
       available: "Verfügbar"
-      borrowed_by_me: "Von mir ausgeliehen"
       not_available: "Nicht verfügbar"
+      borrowed_by_me: "Von mir ausgeliehen"
+      reserved_by_me: "Von mir reserviert"
     card_text:
       owner: von
     type:
@@ -57,6 +62,7 @@ de:
         category: "Kategorie"
         description: "Beschreibung"
         max_borrowing_days: "Ausleihzeit"
+        max_reservation_days: "Reservierungszeit"
       book:
         name: "Name"
         isbn: "ISBN"
@@ -69,6 +75,7 @@ de:
         edition: "Edition"
         description: "Beschreibung"
         max_borrowing_days: "Ausleihzeit"
+        max_reservation_days: "Reservierungszeit"
       movie:
         name: "Name"
         director: "Regisseur"
@@ -79,6 +86,7 @@ de:
         fsk: "Jugendfreigabe"
         description: "Beschreibung"
         max_borrowing_days: "Ausleihzeit"
+        max_reservation_days: "Reservierungszeit"
       game:
         name: "Name"
         author: "Autor"
@@ -90,3 +98,4 @@ de:
         language: "Sprache"
         description: "Beschreibung"
         max_borrowing_days: "Ausleihzeit"
+        max_reservation_days: "Reservierungszeit"

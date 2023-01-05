@@ -14,6 +14,7 @@ RSpec.describe "items/show", type: :view do
                     :other,
                     name: "Name",
                     description: "Description",
+                    max_reservation_days: 2,
                     max_borrowing_days: 7
                   ))
 

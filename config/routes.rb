@@ -6,6 +6,9 @@ Rails.application.routes.draw do
     post :leave
   end
   resources :items do
+    patch :reserve
+    patch :borrow
+    patch :give_back
     patch :update_lending
     collection do
       get "/my", to: "items#my_items", as: :my

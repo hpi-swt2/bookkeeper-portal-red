@@ -62,7 +62,12 @@
 
   <div class="mb-2">
     <%= form.label I18n.t("items.form.book.max_borrowing_days"), class: "form-label" %>
-    <%= form.number_field :max_borrowing_days, class: "form-control" %>
+    <%= form.number_field :max_borrowing_days, min: 0, max: 365, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label I18n.t("items.form.book.max_reservation_days"), class: "form-label" %>
+    <%= form.number_field :max_reservation_days, min: 0, max: 365, class: "form-control"%>
   </div>
 
   <div class="mt-3">

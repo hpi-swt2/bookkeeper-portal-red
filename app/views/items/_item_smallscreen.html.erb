@@ -41,14 +41,28 @@
   </table>
   <div class="button-blocker">
   </div>
-   <% if current_user.can_borrow?(@item) and @src_is_qrcode %>
-  <%= form_tag item_update_lending_path(@item), method: :patch do %>
-    <%= hidden_field_tag 'lat'  %>
-    <%= hidden_field_tag 'lng'  %>
-    <%= button_tag @item.button_text(current_user), class: "btn btn-primary item-action-button" %>
+
+  <% if @item.reservable_by?(current_user) && !@src_is_qrcode %>
+    <%= render(ItemBorrowButton.new(
+      text: I18n.t("items.buttons.reserve"), 
+      action: item_reserve_path(@item), 
+      bootstrap_classes: "btn btn-primary item-action-button")
+    )%>
   <% end %>
-  <script>
-    getLocation();
-  </script>
-<% end %>
+
+  <% if @item.borrowable_by?(current_user) && @src_is_qrcode %>
+    <%= render(ItemBorrowButton.new(
+      text: I18n.t("items.buttons.borrow"), 
+      action: item_borrow_path(@item), 
+      bootstrap_classes: "btn btn-primary item-action-button")
+    )%>
+  <% end %>
+
+  <% if @item.borrowed_by?(current_user) && @src_is_qrcode %>
+    <%= render(ItemBorrowButton.new(
+      text: I18n.t("items.buttons.return"), 
+      action: item_give_back_path(@item), 
+      bootstrap_classes: "btn btn-primary item-action-button")
+    )%>
+  <% end %>
 </div>
