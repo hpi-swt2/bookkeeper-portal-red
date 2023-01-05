@@ -42,6 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_093316) do
     t.float "lat"
     t.float "lng"
     t.integer "max_borrowing_days"
+    t.integer "max_reservation_days", default: 1, null: false
   end
 
   create_table "lendings", force: :cascade do |t|
@@ -106,10 +107,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_093316) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "full_name", default: "", null: false
-    t.string "description", default: "", null: false
     t.string "provider", limit: 50, default: "", null: false
     t.string "uid", limit: 50, default: "", null: false
+    t.string "full_name", default: "", null: false
+    t.string "description", default: "", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

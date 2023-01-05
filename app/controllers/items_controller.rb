@@ -11,6 +11,7 @@ class ItemsController < ApplicationController
 
   # GET /items/1 or /items/1.json
   def show
+    @item = Item.find(params[:id])
     @src_is_qrcode = params[:src] == "qrcode"
 
     return unless current_user.nil?
@@ -20,7 +21,14 @@ class ItemsController < ApplicationController
 
   def download
     @item = Item.find(params[:id])
-    send_data @item.to_pdf, filename: "item.pdf"
+    if current_user.can_manage?(@item)
+      send_data @item.to_pdf, filename: "item.pdf"
+    else
+      respond_to do |format|
+        format.html { redirect_to @item, notice: I18n.t("items.messages.not_allowed_to_download") }
+        format.json { head :no_content }
+      end
+    end
   end
 
   # GET /items/new
@@ -30,6 +38,34 @@ class ItemsController < ApplicationController
 
   # GET /items/1/edit
   def edit
+    @item = Item.find(params[:id])
+    return if current_user.can_manage?(@item)
+
+    respond_to do |format|
+      format.html { redirect_to @item, notice: I18n.t("items.messages.not_allowed_to_edit") }
+      format.json { head :no_content }
+    end
+  end
+
+  # GET /items/borrowed
+  # lists all items borrowed by the current user
+  def borrowed_by_me
+    @items = current_user.lendings.where(completed_at: nil).map(&:item)
+    render :borrowed_items
+  end
+
+  # GET /items/my/borrowed
+  # lists all items of the current user which are currently borrowed
+  def mine_borrowed
+    # return items which are currently not lendable
+    @items = current_user.items.reject(&:lendable?)
+    render :borrowed_items
+  end
+
+  # GET /items/my
+  # lists all items of the current user
+  def my_items
+    @items = current_user.items
   end
 
   # POST /items or /items.json
@@ -80,8 +116,10 @@ class ItemsController < ApplicationController
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PATCH/PUT /items/1 or /items/1.json
+  # rubocop:disable Metrics/AbcSize
   def update
     respond_to do |format|
+      @item.item_type = params[:item_type]
       if @item.update(item_params(params[:item_type]))
         format.html { redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_updated") }
         format.json { render :show, status: :ok, location: @item }
@@ -91,16 +129,26 @@ class ItemsController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # DELETE /items/1 or /items/1.json
+  # rubocop:disable Metrics/MethodLength
   def destroy
-    @item.destroy
+    if current_user.can_manage?(@item)
+      @item.destroy
+      msg = I18n.t("items.messages.successfully_destroyed")
+      redirect_path = items_path
+    else
+      msg = I18n.t("items.messages.not_allowed_to_destroy")
+      redirect_path = @item
+    end
 
     respond_to do |format|
-      format.html { redirect_to items_url, notice: I18n.t("items.messages.successfully_destroyed") }
+      format.html { redirect_to redirect_path, notice: msg }
       format.json { head :no_content }
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   private
 
@@ -124,7 +172,7 @@ class ItemsController < ApplicationController
       params.require(:item).permit(:item_type,  :name, :director, :release_date, :format, :genre, :language, :fsk,
                                    :description, :max_borrowing_days)
     when "game"
-      params.require(:item).permit(:item_type,  :name, :author, :illustrator, :publisher, :number_of_players,
+      params.require(:item).permit(:item_type,  :name, :author, :illustrator, :publisher, :fsk, :number_of_players,
                                    :playing_time, :language, :description, :max_borrowing_days)
     else
       item_type.eql?("other")
