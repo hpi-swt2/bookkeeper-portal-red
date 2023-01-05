@@ -4,7 +4,7 @@
     <h2 class="card-title"><%= @user.full_name %></h2>
     <%= mail_to @user.email, class: "card-subtitle mb-2 text-muted" %>
     <% if @user != current_user %>
-      <%= link_to "Log in as this user", su_path(@user.id) %>
+      <%= link_to "Log in as this user", development_tools_switch_user_path(@user.id) %>
     <% end %>
 
     <% if @user.description.present? %>
