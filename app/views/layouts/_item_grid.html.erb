@@ -1,3 +1,29 @@
+<div class="d-flex flex-row justify-content-end">
+  <%= search_form_for @q, html: { :class => '' } do |f| %>
+
+      <%= f.select :item_type_eq, options_for_select([
+          ["Category: All", "", {selected: true}], 
+          ["Books", Item.item_types["book"]], 
+          ["Movies", Item.item_types["movie"]], 
+          ["Games", Item.item_types["game"]], 
+          ["Other", Item.item_types["other"]]], 
+          @q.item_type_eq), {}, 
+        onChange: "javascript: this.form.submit();", 
+        class: "form-select bg-secondary text-white",
+        id: "filter-category"
+        %>
+
+      <% unless params[:q].nil? %>
+        <% params[:q].each do |p| %>
+          <% unless p[0].to_sym == :item_type_eq %>
+            <%= f.hidden_field p[0].to_sym, value: p[1]%>
+          <% end %>
+        <% end %> 
+      <% end %>
+
+  <% end %>
+</div>
+
 <div class="row mt-3 my-0">
     <% @items.first(20).each do |item| %>
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4">
