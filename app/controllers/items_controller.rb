@@ -59,7 +59,7 @@ class ItemsController < ApplicationController
   # lists all items of the current user which are currently borrowed
   def mine_borrowed
     # return items which are currently not lendable
-    @items = current_user.items.reject(&:lendable?)
+    @items = current_user.items.filter(&:borrowed?)
     render :borrowed_items
   end
 
