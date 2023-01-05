@@ -4,19 +4,10 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand text-white desktop-only py-0" href="/">
-      <%= image_tag "logo-hpi-small.png", width: 40 %>
-    </a>
-    <a class="navbar-brand text-white mobile-only" href="/scan">
-      <i class="bi bi-qr-code-scan fs-3"></i>
+      <%= image_tag "logo.svg", width: 40 %>
     </a>
     <div class="collapse navbar-collapse bg-primary" id="navbarToggle">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">
-            <i class="bi bi-house-fill mobile-only"></i>
-            <%=t("navbar.home")%>
-          </a>
-        </li>
         <li class="nav-item">
           <a class="nav-link" href="#">
             <i class="bi bi-book-fill mobile-only"></i>
@@ -68,6 +59,9 @@
         <a href="<%= profiles_me_path %>" class="desktop-only text-white"><i class="bi bi-person-fill fs-3"></i></a>
       </span>
     </div>
+    <a class="navbar-brand text-white mx-2" href="/scan">
+      <i class="bi bi-qr-code-scan fs-3"></i>
+    </a>
   </div>
 </nav>
 

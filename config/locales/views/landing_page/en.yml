@@ -1,7 +1,6 @@
 en:
   hello: "Hello world 2"
   navbar:
-    home: "Home"
     assets: "My Assets"
     groups: "My Groups"
     categories: "Categories"
