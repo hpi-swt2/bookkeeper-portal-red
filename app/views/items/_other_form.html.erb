@@ -27,11 +27,6 @@
   </div>
 
   <div class="mb-2">
-    <%= form.label :max_borrowing_days, I18n.t("items.form.other.max_borrowing_days"), class: "form-label" %>
-    <%= form.number_field :max_borrowing_days, class: "form-control" %>
-  </div>
-
-  <div class="mb-2">
     <%= form.label I18n.t("items.form.other.max_borrowing_days"), class: "form-label" %>
     <%= form.number_field :max_borrowing_days, min: 0, max: 365, class: "form-control" %>
   </div>

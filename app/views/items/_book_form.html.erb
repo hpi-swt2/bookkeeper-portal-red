@@ -25,8 +25,6 @@
     <%= form.text_field :author, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.button :submit , name: "item_type", value: "book", class: "mx-auto btn btn-primary" %>
   <div class="mb-2">
     <%= form.label :release_date, I18n.t("items.form.book.release_date"), class: "form-label" %>
     <%= form.date_field :release_date, class: "form-control" %>
@@ -63,12 +61,12 @@
   </div>
 
   <div class="mb-2">
-    <%= form.label I18n.t("items.form.game.max_borrowing_days"), class: "form-label" %>
+    <%= form.label I18n.t("items.form.book.max_borrowing_days"), class: "form-label" %>
     <%= form.number_field :max_borrowing_days, min: 0, max: 365, class: "form-control" %>
   </div>
 
   <div class="mb-2">
-    <%= form.label I18n.t("items.form.item.max_reservation_days"), class: "form-label" %>
+    <%= form.label I18n.t("items.form.book.max_reservation_days"), class: "form-label" %>
     <%= form.number_field :max_reservation_days, min: 0, max: 365, class: "form-control"%>
   </div>
 

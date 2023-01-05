@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :item do
+    item_type { "other" }
     name { "Item Name" }
     description { "Item Description" }
     max_reservation_days { 2 }

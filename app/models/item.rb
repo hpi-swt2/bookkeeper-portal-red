@@ -13,11 +13,10 @@ class Item < ApplicationRecord
 
   # hardcoded which attributes belong to which item type
   BOOK_ATTRIBUTES = %w[name isbn author release_date genre language number_of_pages publisher edition
-                       description max_borrowing_days].freeze
-  MOVIE_ATTRIBUTES = %w[name director release_date format genre language fsk description max_borrowing_days].freeze
-  GAME_ATTRIBUTES = %w[name author illustrator publisher fsk number_of_players playing_time language description
-                       max_borrowing_days].freeze
-  OTHER_ATTRIBUTES = %w[name category description max_borrowing_days].freeze
+                       description].freeze
+  MOVIE_ATTRIBUTES = %w[name director release_date format genre language fsk description].freeze
+  GAME_ATTRIBUTES = %w[name author illustrator publisher fsk number_of_players playing_time language description].freeze
+  OTHER_ATTRIBUTES = %w[name category description].freeze
 
   has_many :lendings, dependent: :destroy
   has_many :reservations, dependent: :destroy
