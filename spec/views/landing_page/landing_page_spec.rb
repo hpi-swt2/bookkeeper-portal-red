@@ -2,14 +2,22 @@ require 'rails_helper'
 
 RSpec.describe "landing_page/index", type: :view do
   before do
+    user = FactoryBot.create(:user, password: "password")
+    sign_in user
     assign(:items, [
-             Item.create!(
+             FactoryBot.create(
+               :book,
                name: "Telepathie für Anfänger",
-               description: "Ein hoch wissenschaftliches Buch über die Magie des Telefonierens"
+               description: "Ein hoch wissenschaftliches Buch über die Magie des Telefonierens",
+               max_reservation_days: 2,
+               max_borrowing_days: 7
              ),
-             Item.create!(
+             FactoryBot.create(
+               :book,
                name: "Schneewittchen",
-               description: "Ein wunderschönes Märchen"
+               description: "Ein wunderschönes Märchen",
+               max_reservation_days: 2,
+               max_borrowing_days: 7
              )
            ])
   end

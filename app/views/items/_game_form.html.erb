@@ -1,0 +1,72 @@
+<%= form_with(model: item) do |form| %>
+  <% if item.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+      <ul>
+        <% item.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-2">
+    <%= form.label :name, I18n.t("items.form.game.name"), class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label :author, I18n.t("items.form.game.author"), class: "form-label" %>
+    <%= form.text_field :author, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label :illustrator, I18n.t("items.form.game.illustrator"), class: "form-label" %>
+    <%= form.text_field :illustrator, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label I18n.t("items.form.game.publisher"), class: "form-label" %>
+    <%= form.text_field :publisher, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label I18n.t("items.form.game.fsk"), class: "form-label" %>
+    <%= form.number_field :fsk, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label I18n.t("items.form.game.number_of_players"), class: "form-label" %>
+    <%= form.number_field :number_of_players, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label I18n.t("items.form.game.playing_time"), class: "form-label" %>
+    <%= form.number_field :playing_time, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label I18n.t("items.form.game.language"), class: "form-label" %>
+    <%= form.text_field :language, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label I18n.t("items.form.game.description"), class: "form-label" %>
+    <%= form.text_field :description, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label I18n.t("items.form.game.max_borrowing_days"), class: "form-label" %>
+    <%= form.number_field :max_borrowing_days, min: 0, max: 365, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label I18n.t("items.form.game.max_reservation_days"), class: "form-label" %>
+    <%= form.number_field :max_reservation_days, min: 0, max: 365, class: "form-control"%>
+  </div>
+
+  <div class="mt-3">
+    <%= form.button :submit , name: "item_type", value: "game", class: "btn btn-primary" %>
+  </div>
+<% end %>

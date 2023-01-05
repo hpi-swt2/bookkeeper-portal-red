@@ -1,3 +1,4 @@
+# Model of the current group
 class Group < ApplicationRecord
   validates :name, presence: true
   has_many :memberships, dependent: :destroy
@@ -21,4 +22,11 @@ class Group < ApplicationRecord
     through: :permissions,
     source: :item
   )
+
+  def self.owner_groups(item_id)
+    find_by_sql ["SELECT *
+      FROM groups
+      WHERE id IN (SELECT group_id FROM permissions WHERE item_id = :item_id AND permission_type = :permission_type)",
+                 { item_id: item_id, permission_type: "2" }]
+  end
 end

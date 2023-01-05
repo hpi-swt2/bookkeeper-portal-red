@@ -15,4 +15,20 @@ RSpec.describe NotificationMailer, type: :mailer do
     end
   end
 
+  # it "can connect to and authenticate with gmail" do
+  #   expect { described_class.test_notification.deliver_now }.not_to raise_error
+  # end
+
+  it "creates a notification object" do
+    user = FactoryBot.build(:user)
+    user.id = 1
+    user.save
+
+    expect { described_class.send_info("Test", user).deliver_now }.to change(Notification, :count).by(1)
+    expect(Notification.last.message).to eq("Test")
+    expect(Notification.last.user_id).to eq(1)
+    expect(Notification.last.notification_type).to eq("info")
+    expect(Notification.last.display).to be(true)
+    expect(Notification.last.sent).to be_within(5.seconds).of(Time.zone.now)
+  end
 end

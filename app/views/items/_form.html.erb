@@ -12,21 +12,26 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label I18n.t("items.form.item.name"), style: "display: block" %>
     <%= form.text_field :name %>
   </div>
 
   <div>
-    <%= form.label :description, style: "display: block" %>
+    <%= form.label I18n.t("items.form.item.description"), style: "display: block" %>
     <%= form.text_field :description %>
   </div>
 
   <div>
-    <%= form.label :max_borrowing_period, style: "display: block" %>
-    <%= form.datetime_field :max_borrowing_period %>
+    <%= form.label I18n.t("items.form.item.max_borrowing_days"), style: "display: block" %>
+    <%= form.number_field :max_borrowing_days %>
+  </div>
+  <br>
+  <div>
+    <%= form.label I18n.t("items.form.item.max_reservation_days"), style: "display: block" %>
+    <%= form.number_field :max_reservation_days, min: 0, max: 365 %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit (form.object.new_record? ? I18n.t("items.buttons.new") : I18n.t("items.buttons.update")), class: "mx-auto btn btn-primary" %>
   </div>
 <% end %>

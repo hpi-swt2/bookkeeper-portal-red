@@ -14,20 +14,14 @@
             <%=t("navbar.assets")%>
           </a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <% if user_signed_in? %>
+        <li class="nav-item">
+          <%= link_to groups_path, class: "nav-link" do %>
             <i class="bi bi-collection-fill mobile-only"></i>
-            <%=t("navbar.groups")%>
-          </a>
-          <ul class="dropdown-menu bg-primary">
-            <li><a class="dropdown-item text-white" href="#">SWA-Lehrstuhl
-              <i class="bi bi-patch-check-fill text-warning"></i></a></li>
-            <li><a class="dropdown-item text-white" href="#">Fachschaftsrat
-              <i class="bi bi-patch-check-fill text-warning"></i></a></li>
-            <li><a class="dropdown-item text-white" href="#">Filmklub</a></li>
-            <li><a class="dropdown-item text-white" href="#">Spieleklub</a></li>
-          </ul>
+            <%=t(:my_groups)%>
+          <% end %>
         </li>
+        <% end %>
         <li class="nav-item">
           <a class="nav-link" href="#">
             <i class="bi bi-tag-fill mobile-only"></i>
@@ -58,14 +52,10 @@
 
       </ul>
 
-      <form class="d-flex desktop-only mx-3">
-        <input class="form-control me-2" type="search" placeholder=<%=t("navbar.search")%> aria-label="Search">
-        <button class="btn btn-outline-light" type="submit">
-          <i class="bi bi-search"></i>
-        </button>
-      </form>
+      <%= render "items/search_form" %>
       <span>
-        <a href="#" class="desktop-only text-white"><i class="bi bi-bell-fill fs-3"></i></a>
+        <a href="#" class="desktop-only text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#notification-inbox-container"
+           aria-controls="notification-inbox-container" id="notification-inbox-button"><i class="bi bi-bell-fill fs-3"></i></a>
         <a href="<%= profiles_me_path %>" class="desktop-only text-white"><i class="bi bi-person-fill fs-3"></i></a>
       </span>
     </div>
@@ -74,3 +64,13 @@
     </a>
   </div>
 </nav>
+
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="notification-inbox-container" aria-labelledby="notification-inbox-containerLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="notification-inbox-containerLabel">Notifications</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <%= render(NotificationInboxComponent.new(current_user)) %>
+  </div>
+</div>
