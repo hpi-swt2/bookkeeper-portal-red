@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   resources :items do
     patch :update_lending
     collection do
-      get "/my", to: "items#my_items"
-      get "/my/borrowed", to: "items#my_borrowed_items"
-      get "/borrowed", to: "items#borrowed_items"
+      get "/my", to: "items#my_items", as: :my
+      get "/my/borrowed", to: "items#mine_borrowed", as: :mine_borrowed
+      get "/borrowed", to: "items#borrowed_by_me", as: :borrowed_by_me
     end
   end
 

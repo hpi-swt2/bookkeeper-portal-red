@@ -25,14 +25,14 @@ class ItemsController < ApplicationController
 
   # GET /items/borrowed
   # lists all items borrowed by the current user
-  def borrowed_items
+  def borrowed_by_me
     @items = current_user.lendings.where(completed_at: nil).map(&:item)
     render :borrowed_items
   end
 
   # GET /items/my/borrowed
   # lists all items of the current user which are currently borrowed
-  def my_borrowed_items
+  def mine_borrowed
     # return items which are currently not lendable
     @items = current_user.items.reject(&:lendable?)
     render :borrowed_items
@@ -42,7 +42,6 @@ class ItemsController < ApplicationController
   # lists all items of the current user
   def my_items
     @items = current_user.items
-    render :my_items
   end
 
   # POST /items or /items.json

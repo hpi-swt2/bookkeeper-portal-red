@@ -35,7 +35,7 @@ RSpec.describe "borrowed items", type: :feature do
 
   it "shows my items that are borrowed" do
     sign_in user1
-    visit my_borrowed_items_path
+    visit mine_borrowed_items_path
 
     expect(page).not_to have_text "Item 1"
     expect(page).to have_text "Item 2"
@@ -44,7 +44,7 @@ RSpec.describe "borrowed items", type: :feature do
 
   it "shows items that i've borrowed" do
     sign_in user1
-    visit borrowed_items_path
+    visit borrowed_by_me_items_path
 
     expect(page).not_to have_text "Item 1"
     expect(page).not_to have_text "Item 2"
