@@ -57,11 +57,15 @@
             <%# Description%>
             <p class="text-start text-wrap"><%= @item.description %></p>
             <%# Infobox%>
-            <% if @item.reserved_by?(current_user) and @item.borrowable_by?(current_user) and !@src_is_qrcode %>
-              <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.borrow.heading"), body: I18n.t("items.infobox.borrow.body"), bootstrap_classes: "border-secondary mx-5"))%>
-            <% end %>
-            <% if @item.borrowed_by?(current_user) and !@src_is_qrcode %>
-              <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.return.heading"), body: I18n.t("items.infobox.return.body"), bootstrap_classes: "border-secondary mx-5"))%>
+            <% if current_user.can_borrow?(@item) %>
+              <% if @item.reserved_by?(current_user) and @item.borrowable_by?(current_user) and !@src_is_qrcode %>
+                <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.borrow.heading"), body: I18n.t("items.infobox.borrow.body"), bootstrap_classes: "border-secondary mx-5"))%>
+              <% end %>
+              <% if @item.borrowed_by?(current_user) and !@src_is_qrcode %>
+                <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.return.heading"), body: I18n.t("items.infobox.return.body"), bootstrap_classes: "border-secondary mx-5"))%>
+              <% end %>
+            <% else %>
+              <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.missing-borrowing-permissions.heading"), body: I18n.t("items.infobox.missing-borrowing-permissions.body"), bootstrap_classes: "border-secondary mx-5"))%>
             <% end %>
             <%# Map%>
             <div id="item-location-large" style="height: 240px;"></div>
