@@ -56,7 +56,14 @@
             
             <%# Description%>
             <p class="text-start text-wrap"><%= @item.description %></p>
-
+            <%# Infobox%>
+            <% if @item.reserved_by?(current_user) and @item.borrowable_by?(current_user) and !@src_is_qrcode %>
+              <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.borrow.heading"), body: I18n.t("items.infobox.borrow.body"), bootstrap_classes: "border-secondary mx-5"))%>
+            <% end %>
+            <% if @item.borrowed_by?(current_user) and !@src_is_qrcode %>
+              <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.return.heading"), body: I18n.t("items.infobox.return.body"), bootstrap_classes: "border-secondary mx-5"))%>
+            <% end %>
+            <%# Map%>
             <div id="item-location-large" style="height: 240px;"></div>
           </div>
           <%= button_to I18n.t("items.buttons.back"), items_path, method: :get, class: "mx-auto btn btn-primary"%>
