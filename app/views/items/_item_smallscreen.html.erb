@@ -27,6 +27,14 @@
   <hr class="border border-primary border-2 opacity-75">
   <%# Description%>
   <p class="text-start text-break"><%= @item.description %></p>
+  <%# Infobox%>
+  <% if @item.reserved_by?(current_user) and @item.borrowable_by?(current_user) and !@src_is_qrcode %>
+    <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.borrow.heading"), body: I18n.t("items.infobox.borrow.body"), bootstrap_classes: "border-secondary mx-5"))%>
+  <% end %>
+  <% if @item.borrowed_by?(current_user) and !@src_is_qrcode %>
+    <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.return.heading"), body: I18n.t("items.infobox.return.body"), bootstrap_classes: "border-secondary mx-5"))%>
+  <% end %>
+  <%# Map %>
   <div id="item-location-small" style="height: 240px;"></div>
   <%# Attributes %>
   <table class="table">
