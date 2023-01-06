@@ -1,2 +1,2 @@
-class CommonItemFieldComponent < ViewComponent:: Base
+class CommonItemFieldComponent < ViewComponent::Base
 end

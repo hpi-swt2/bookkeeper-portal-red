@@ -1,34 +1,19 @@
-<%= form_with(model: item) do |form| %>
-  <% if item.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+<div class="mb-2">
+  <%= label :name, I18n.t("items.form.all.name"), class: "form-label" %>
+  <%= text_field :name, class: "form-control" %>
+</div>
 
-      <ul>
-        <% item.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<div class="mb-2">
+  <%= label :description, I18n.t("items.form.all.description"), class: "form-label" %>
+  <%= text_field :description, class: "form-control" %>
+</div>
 
-  <div class="mb-2">
-    <%= form.label :name, I18n.t("items.form.all.name"), class: "form-label" %>
-    <%= form.text_field :name, class: "form-control" %>
-  </div>
+<div class="mb-2">
+  <%= label I18n.t("items.form.all.max_borrowing_days"), class: "form-label" %>
+  <%= number_field :max_borrowing_days, min: 0, max: 365, class: "form-control" %>
+</div>
 
-  <div class="mb-2">
-    <%= form.label :description, I18n.t("items.form.all.description"), class: "form-label" %>
-    <%= form.text_field :description, class: "form-control" %>
-  </div>
-
-  <div class="mb-2">
-    <%= form.label I18n.t("items.form.all.max_borrowing_days"), class: "form-label" %>
-    <%= form.number_field :max_borrowing_days, min: 0, max: 365, class: "form-control" %>
-  </div>
-
-  <div class="mb-2">
-    <%= form.label I18n.t("items.form.all.max_reservation_days"), class: "form-label" %>
-    <%= form.number_field :max_reservation_days, min: 0, max: 365, class: "form-control"%>
-  </div>
-
-<% end %>
+<div class="mb-2">
+  <%= label I18n.t("items.form.all.max_reservation_days"), class: "form-label" %>
+  <%= number_field :max_reservation_days, min: 0, max: 365, class: "form-control"%>
+</div>
