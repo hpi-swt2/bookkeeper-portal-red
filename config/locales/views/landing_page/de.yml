@@ -3,7 +3,6 @@ de:
   login_with_oidc: "Mit OIDC einloggen"
   my_profile: "Mein Profil"
   navbar:
-    home: "Startseite"
     assets: "Meine Assets"
     groups: "Meine Gruppen"
     categories: "Kategorien"
