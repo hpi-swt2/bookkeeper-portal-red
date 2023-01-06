@@ -82,7 +82,7 @@ $mobileDeviceCutoff: 992px;
 
 @media (min-width: $mobileDeviceCutoff) {
   .mobile-only {
-    display: none;
+    display: none !important;
   }
 }
 
@@ -102,4 +102,13 @@ footer {
 
 .navbar-nav .active {
   color: white !important;
+}
+
+#main-content-wrapper {
+  min-height: 70vh;
+}
+
+#navbarToggle {
+  width: auto;
+  padding-right: 30px;
 }
