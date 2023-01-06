@@ -106,6 +106,6 @@ de:
       return: 
         heading: "Wie kann ich diesen Artikel zurückgeben?"
         body: "Scannen Sie mit Ihrem mobilen Gerät den QR-Code dieses Artikels. Sie finden den Artikel an dem unten angegebenen Ort."
-      missing-borrowing-permissions: 
+      missing_borrowing_permissions: 
         heading: "Warum kann ich diesen Artikel nicht ausleihen?"
         body: "Sie gehören nicht zu einer Gruppe, die diesen Artikel ausleihen darf."

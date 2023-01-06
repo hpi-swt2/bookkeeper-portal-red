@@ -100,6 +100,13 @@ describe "show item page", type: :feature do
     expect(page).not_to have_text(:visible, I18n.t("items.infobox.missing-borrowing-permissions.body"))
   end
 
+  it "has a 'no-access' status badge if the user has no borrowing permissions" do
+    @item2 = FactoryBot.create(:movie)
+    sign_in @user
+    visit item_path(@item2)
+    expect(page).to have_text(:visible, I18n.t("items.status_badge.no_access"))
+  end
+
   it "has working search field inside navbar" do
     sign_in @user
     item2 = FactoryBot.create(:movie)
