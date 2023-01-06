@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_15_093316) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_05_110905) do
   create_table "groups", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -41,7 +41,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_093316) do
     t.string "category"
     t.float "lat"
     t.float "lng"
-    t.integer "max_borrowing_days"
+    t.integer "max_borrowing_days", default: 1, null: false
+    t.integer "max_reservation_days", default: 1, null: false
   end
 
   create_table "lendings", force: :cascade do |t|
@@ -64,6 +65,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_093316) do
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_memberships_on_group_id"
     t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "notification_type"
+    t.string "message"
+    t.datetime "sent", precision: nil
+    t.boolean "display"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "permissions", force: :cascade do |t|
@@ -107,6 +119,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_093316) do
   add_foreign_key "lendings", "users"
   add_foreign_key "memberships", "groups"
   add_foreign_key "memberships", "users"
+  add_foreign_key "notifications", "users"
   add_foreign_key "permissions", "groups"
   add_foreign_key "permissions", "items"
   add_foreign_key "reservations", "items"

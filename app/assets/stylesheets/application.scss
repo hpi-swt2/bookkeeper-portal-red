@@ -33,6 +33,7 @@ $warning: $hpi-orange;
 $danger: $hpi-red;
 $light: #BDBDBD;
 $dark: black;
+$lightGrey: rgb(211, 211, 211);
 
 $btn-border-radius: 5px;
 $btn-font-weight: 600; // semibold
@@ -81,7 +82,7 @@ $mobileDeviceCutoff: 992px;
 
 @media (min-width: $mobileDeviceCutoff) {
   .mobile-only {
-    display: none;
+    display: none !important;
   }
 }
 
@@ -101,4 +102,13 @@ footer {
 
 .navbar-nav .active {
   color: white !important;
+}
+
+#main-content-wrapper {
+  min-height: 70vh;
+}
+
+#navbarToggle {
+  width: auto;
+  padding-right: 30px;
 }
