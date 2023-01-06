@@ -1,37 +1,4 @@
-<div class="d-flex flex-row justify-content-end">
-  <%= search_form_for @q, url: request.path, html: { :class => '' } do |f| %>
-
-    <div class="input-group">
-      <label class="bg-secondary border border-secondary input-group-text" for="">
-        <% if !params[:q].nil? && !params[:q]["item_type_eq"].empty? %>
-          <i class="bi bi-funnel-fill"></i>
-        <% end %>
-        <% if !params[:q].nil? && params[:q]["item_type_eq"].empty? %>
-          <i class="bi bi-funnel"></i>
-        <% end %>
-      </label>
-      <%= f.select :item_type_eq, options_for_select([
-          ["Category: All", "", {selected: true}], 
-          ["Books", Item.item_types["book"]], 
-          ["Movies", Item.item_types["movie"]], 
-          ["Games", Item.item_types["game"]], 
-          ["Other", Item.item_types["other"]]], 
-          @q.item_type_eq), {}, 
-        onChange: "javascript: this.form.submit();", 
-        class: "bg-secondary border border-secondary btn text-white dropdown dropdown-toggle",
-        id: "filter-category" %>
-    </div>
-
-    <% unless params[:q].nil? %>
-      <% params[:q].each do |p| %>
-        <% unless p[0].to_sym == :item_type_eq %>
-          <%= f.hidden_field p[0].to_sym, value: p[1]%>
-        <% end %>
-      <% end %>
-    <% end %>
-
-  <% end %>
-</div>
+<%= render "layouts/filter_form" %>
 
 <div class="row mt-3 my-0">
     <% @items.first(20).each do |item| %>
