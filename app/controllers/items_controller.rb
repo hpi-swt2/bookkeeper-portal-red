@@ -41,7 +41,6 @@ class ItemsController < ApplicationController
   # GET /items/1/edit
   def edit
     @item = Item.find(params[:id])
-    return
     return if current_user.can_manage?(@item)
 
     respond_to do |format|
@@ -55,7 +54,7 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params(params[:item_type]))
     @item.item_type = params[:item_type]
-    # create_permission(item_json)
+    create_permission
 
     respond_to do |format|
       if @item.save
@@ -67,7 +66,6 @@ class ItemsController < ApplicationController
       end
     end
   end
-
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -97,15 +95,14 @@ class ItemsController < ApplicationController
       end
     end
   end
-
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PATCH/PUT /items/1 or /items/1.json
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def update
     respond_to do |format|
       @item.item_type = params[:item_type]
-      create_permission(item_json)
+      create_permission
       if @item.update(item_params(params[:item_type]))
         format.html { redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_updated") }
         format.json { render :show, status: :ok, location: @item }
@@ -115,8 +112,7 @@ class ItemsController < ApplicationController
       end
     end
   end
-
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # DELETE /items/1 or /items/1.json
   # rubocop:disable Metrics/MethodLength
@@ -135,7 +131,6 @@ class ItemsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
   # rubocop:enable Metrics/MethodLength
 
   def permissions
@@ -174,7 +169,6 @@ class ItemsController < ApplicationController
       params.require(:item).permit(:item_type, :name, :category, :description, :max_borrowing_days)
     end
   end
-
   # rubocop:enable Metrics/MethodLength
 
   def create_lending
@@ -186,12 +180,17 @@ class ItemsController < ApplicationController
     @lending.completed_at = nil
   end
 
-  def create_permission(item_json)
-    item_json["permission_groups"].each do |group|
-      @item.permissions.clear
-      @item.permissions.build(:group_id => group["id"], :permission_type => group["permission_type"]) unless groop.empty?
+  def create_permission
+    @item.permissions.clear
+    pair = []
+
+    params.each do |key, value|
+      pair[pair.length] = value.to_i if key.start_with?("permission_")
+      if pair.length >= 2
+        @item.permissions.build(group_id: pair[0], permission_type: pair[1])
+        pair = []
+      end
     end
   end
 end
-
 # rubocop:enable Metrics/ClassLength

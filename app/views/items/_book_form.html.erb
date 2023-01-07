@@ -94,7 +94,7 @@
     </div>
 
     <div class="mt-3 row">
-      <%= form.submit (form.object.new_record? ? I18n.t("items.buttons.new") : I18n.t("items.buttons.update")), class: "mx-auto btn btn-primary" %>
+      <%= form.button (form.object.new_record? ? I18n.t("items.buttons.new") : I18n.t("items.buttons.update")), name: "item_type", value: "book", class: "mx-auto btn btn-primary" %>
     </div>
   </div>
 
