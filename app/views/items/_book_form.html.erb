@@ -101,22 +101,24 @@
 <% end %>
 
 <script>
-    const {createApp} = Vue
-
-    createApp({
+    Vue.createApp({
         data() {
             return {
+                itemId: <%= item.id.nil? ? 'null' : item.id %>,
                 permissions: [],
                 levels: [
-                    {title: "Can Manage", level: 0},
-                    {title: "Can Borrow", level: 1},
-                    {title: "Can View", level: 2},
+                    {title: "Can Manage", level: "can_manage"},
+                    {title: "Can Borrow", level: "can_borrow"},
+                    {title: "Can View", level: "can_view"},
                 ],
                 groups: []
             }
         },
         created() {
             this.fetchGroups()
+            if (this.itemId) {
+                this.fetchExistingPermissions()
+            }
         },
         methods: {
             fetchGroups() {
@@ -124,6 +126,18 @@
                     .then(response => response.json())
                     .then(data => {
                         this.groups = data
+                    })
+            },
+            fetchExistingPermissions() {
+                fetch(`/items/${this.itemId}/permissions.json`, {method: 'GET', redirect: 'follow'})
+                    .then(response => response.json())
+                    .then(data => {
+                        this.permissions = data.map(permEntry => {
+                            return {
+                                groupId: permEntry.group_id,
+                                permissionLevel: permEntry.permission_type
+                            }
+                        });
                     })
             },
             addPermission() {

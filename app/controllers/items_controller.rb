@@ -1,5 +1,7 @@
 # rubocop:disable Metrics/ClassLength
 class ItemsController < ApplicationController
+  include ActionController::MimeResponds
+
   before_action :set_item, only: %i[ show edit update destroy ]
   before_action :set_item_from_item_id, only: %i[ update_lending ]
 
@@ -65,6 +67,7 @@ class ItemsController < ApplicationController
       end
     end
   end
+
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -94,6 +97,7 @@ class ItemsController < ApplicationController
       end
     end
   end
+
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PATCH/PUT /items/1 or /items/1.json
@@ -111,6 +115,7 @@ class ItemsController < ApplicationController
       end
     end
   end
+
   # rubocop:enable Metrics/AbcSize
 
   # DELETE /items/1 or /items/1.json
@@ -130,7 +135,15 @@ class ItemsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
   # rubocop:enable Metrics/MethodLength
+
+  def permissions
+    associated_permissions = Permission.where(item_id: params["id"])
+    respond_to do |format|
+      format.json { render json: associated_permissions }
+    end
+  end
 
   private
 
@@ -151,16 +164,17 @@ class ItemsController < ApplicationController
       params.require(:item).permit(:item_type, :name, :isbn, :author, :release_date, :genre, :language,
                                    :number_of_pages, :publisher, :edition, :description, :max_borrowing_days)
     when "movie"
-      params.require(:item).permit(:item_type,  :name, :director, :release_date, :format, :genre, :language, :fsk,
+      params.require(:item).permit(:item_type, :name, :director, :release_date, :format, :genre, :language, :fsk,
                                    :description, :max_borrowing_days)
     when "game"
-      params.require(:item).permit(:item_type,  :name, :author, :illustrator, :publisher, :fsk, :number_of_players,
+      params.require(:item).permit(:item_type, :name, :author, :illustrator, :publisher, :fsk, :number_of_players,
                                    :playing_time, :language, :description, :max_borrowing_days)
     else
       item_type.eql?("other")
       params.require(:item).permit(:item_type, :name, :category, :description, :max_borrowing_days)
     end
   end
+
   # rubocop:enable Metrics/MethodLength
 
   def create_lending
@@ -171,7 +185,7 @@ class ItemsController < ApplicationController
     @lending.item = @item
     @lending.completed_at = nil
   end
-  
+
   def create_permission(item_json)
     item_json["permission_groups"].each do |group|
       @item.permissions.clear
@@ -179,4 +193,5 @@ class ItemsController < ApplicationController
     end
   end
 end
+
 # rubocop:enable Metrics/ClassLength
