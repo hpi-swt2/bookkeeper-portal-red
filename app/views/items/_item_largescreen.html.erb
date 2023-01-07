@@ -65,7 +65,7 @@
                 <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.return.heading"), body: I18n.t("items.infobox.return.body"), bootstrap_classes: "border-secondary mx-5"))%>
               <% end %>
             <% else %>
-              <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.missing-borrowing-permissions.heading"), body: I18n.t("items.infobox.missing-borrowing-permissions.body"), bootstrap_classes: "border-secondary mx-5"))%>
+              <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.missing_borrowing_permissions.heading"), body: I18n.t("items.infobox.missing_borrowing_permissions.body"), bootstrap_classes: "border-secondary mx-5"))%>
             <% end %>
             <%# Map%>
             <div id="item-location-large" style="height: 240px;"></div>
