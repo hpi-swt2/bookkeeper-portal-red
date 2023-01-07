@@ -1,34 +1,5 @@
 <h1>Items</h1>
 
 <div id="items">
-  <div class="container">
-      <div class="row ">
-        <% @items.each do |item| %>
-          <div class="col-sm-3 mb-4">
-          <div class="card">
-            <img class="card-img-top" src="https://via.placeholder.com/400x300" alt="Card image cap">
-            <div class="card-body text-center">
-              <h5 class="card-title text-truncate"><%= item.name %></h5>
-              <p class="card-text text-truncate"><%= I18n.t("items.card_text.owner") %> Alan Must</p>
-              <p class="card-text text-truncate text-success"><%= item.status_text(current_user) %></p>
-              <%= link_to I18n.t("items.buttons.show"), item, class: "card-link" %>
-              <%= link_to I18n.t("items.buttons.edit"), edit_item_path(item), class: "card-link" %>
-            </div>
-          </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-</div>
-
-<div class="btn-group dropdown">
-  <a class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <%=I18n.t("items.buttons.new")%>
-  </a>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <%= link_to I18n.t("items.type.book"), new_item_path(item_type: :book), :class => "dropdown-item" %>
-    <%= link_to I18n.t("items.type.movie"), new_item_path(item_type: :movie), :class => "dropdown-item" %>
-    <%= link_to I18n.t("items.type.game"), new_item_path(item_type: :game), :class => "dropdown-item" %>
-    <%= link_to I18n.t("items.type.other"), new_item_path(item_type: :other), :class => "dropdown-item" %>
-  </div>
+    <%= render "layouts/item_grid" %>
 </div>

@@ -11,52 +11,57 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label I18n.t("items.form.item.name"), style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="mb-2">
+    <%= form.label :name, I18n.t("items.form.movie.name"), class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
-   <div>
-    <%= form.label I18n.t("items.form.movie.director"), style: "display: block" %>
-    <%= form.text_field :director %>
-   </div>
-
-   <div>
-    <%= form.label I18n.t("items.form.movie.release_date"), style: "display: block" %>
-    <%= form.date_field :release_date %>
-   </div>
-
-   <div>
-    <%= form.label I18n.t("items.form.movie.format"), style: "display: block" %>
-    <%= form.text_field :format %>
-   </div>
-
-   <div>
-    <%= form.label I18n.t("items.form.movie.genre"), style: "display: block" %>
-    <%= form.text_field :genre %>
-   </div>
-
-   <div>
-    <%= form.label I18n.t("items.form.movie.language"), style: "display: block" %>
-    <%= form.text_field :language %>
-   </div>
-
-   <div>
-    <%= form.label I18n.t("items.form.movie.fsk"), style: "display: block" %>
-    <%= form.number_field :lfsk %>
-   </div>
- 
-  <div>
-    <%= form.label I18n.t("items.form.item.description"), style: "display: block" %>
-    <%= form.text_field :description %>
+  <div class="mb-2">
+    <%= form.label :director, I18n.t("items.form.movie.director"), class: "form-label" %>
+    <%= form.text_field :director, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label I18n.t("items.form.item.max_borrowing_days"), style: "display: block" %>
-    <%= form.number_field :max_borrowing_days %>
+  <div class="mb-2">
+    <%= form.label :release_date, I18n.t("items.form.movie.release_date"), class: "form-label" %>
+    <%= form.date_field :release_date, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.button :submit , name: "item_type", value: "movie" %>
+  <div class="mb-2">
+    <%= form.label :format, I18n.t("items.form.movie.format"), class: "form-label" %>
+    <%= form.text_field :format, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label :genre, I18n.t("items.form.movie.genre"), class: "form-label" %>
+    <%= form.text_field :genre, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label :language, I18n.t("items.form.movie.language"), class: "form-label" %>
+    <%= form.text_field :language, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label :fsk, I18n.t("items.form.movie.fsk"), class: "form-label" %>
+    <%= form.number_field :fsk, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label :description, I18n.t("items.form.movie.description"), class: "form-label" %>
+    <%= form.text_field :description, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label I18n.t("items.form.movie.max_borrowing_days"), class: "form-label" %>
+    <%= form.number_field :max_borrowing_days, min: 0, max: 365, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label I18n.t("items.form.movie.max_reservation_days"), class: "form-label" %>
+    <%= form.number_field :max_reservation_days, min: 0, max: 365, class: "form-control"%>
+  </div>
+
+  <div class="mt-3">
+    <%= form.button :submit , name: "item_type", value: "movie", class: "btn btn-primary" %>
   </div>
 <% end %>

@@ -4,6 +4,7 @@ describe "new item page", type: :feature do
   before do
     @item_title = "Harry Potter und der Stein der Weisen"
     @item_description = "Buch von J.K.Rowling"
+    @item_max_reservation_days = 2
     @item_max_borrowing_days = 7
   end
 
@@ -18,7 +19,8 @@ describe "new item page", type: :feature do
     page.fill_in "item[name]", with: @item_title
     page.fill_in "item[description]", with: @item_description
     page.fill_in "item[max_borrowing_days]", with: @item_max_borrowing_days
-    page.click_button('Create Item')
+    page.fill_in "item[max_reservation_days]", with: @item_max_reservation_days
+    page.click_button("item_type")
     expect(page).to have_text("Item was successfully created.")
     expect((Item.find_by name: @item_title).description).to eq(@item_description)
   end

@@ -1,0 +1,23 @@
+<div class="modal fade" id="editGroupModal" tabindex="-1" aria-labelledby="editGroupModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="editGroupModalLabel"><%= t(:edit_group) %></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= t(:cancel) %>"></button>
+      </div>
+      <div class="modal-body">
+        <%= form_with(model: group) do |form| %>
+          <div>
+            <%= form.label :name, t(:group_name_prompt), class: "form-label" %>
+            <%= form.text_field :name, placeholder: t(:group_name), class: "form-control" %>
+          </div>
+      </div>
+
+      <div class="modal-footer border-0 justify-content-evenly">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t(:cancel) %></button>
+        <%= form.submit t(:save), :class => "btn btn-primary" %>
+      </div>
+        <% end %>
+    </div>
+  </div>
+</div>
