@@ -180,17 +180,24 @@ class ItemsController < ApplicationController
     @lending.completed_at = nil
   end
 
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def create_permission
     @item.permissions.clear
-    pair = []
-
+    permissions = []
     params.each do |key, value|
-      pair[pair.length] = value.to_i if key.start_with?("permission_")
-      if pair.length >= 2
-        @item.permissions.build(group_id: pair[0], permission_type: pair[1])
-        pair = []
+      next unless key.start_with?("permission_")
+
+      index = key.split("_")[1].to_i * 2
+      if key.split("_")[2] == "group"
+        permissions[index] = value.to_i
+      else
+        permissions[index + 1] = Permission.permission_types[value]
       end
+    end
+
+    permissions.each_slice(2) do |group_id, level|
+      Permission.create(item: @item, group_id: group_id, permission_type: level)
     end
   end
 end
-# rubocop:enable Metrics/ClassLength
+# rubocop:enable Metrics/ClassLength, Metrics/MethodLength, Metrics/AbcSize
