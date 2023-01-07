@@ -1,90 +1,85 @@
 <%= form_with(model: item) do |form| %>
-  <% if item.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
-      <ul>
-        <% item.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+  <div id="item_form">
+    <% if item.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+        <ul>
+          <% item.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="mb-2">
+      <%= form.label :name, I18n.t("items.form.book.name"), class: "form-label" %>
+      <%= form.text_field :name, class: "form-control" %>
     </div>
-  <% end %>
 
-  <div class="mb-2">
-    <%= form.label :name, I18n.t("items.form.book.name"), class: "form-label" %>
-    <%= form.text_field :name, class: "form-control" %>
-  </div>
+    <div class="mb-2">
+      <%= form.label :isbn, I18n.t("items.form.book.isbn"), class: "form-label" %>
+      <%= form.number_field :isbn, class: "form-control" %>
+    </div>
 
-  <div class="mb-2">
-    <%= form.label :isbn, I18n.t("items.form.book.isbn"), class: "form-label" %>
-    <%= form.number_field :isbn, class: "form-control" %>
-  </div>
+    <div class="mb-2">
+      <%= form.label :author, I18n.t("items.form.book.author"), class: "form-label" %>
+      <%= form.text_field :author, class: "form-control" %>
+    </div>
 
-  <div class="mb-2">
-    <%= form.label :author, I18n.t("items.form.book.author"), class: "form-label" %>
-    <%= form.text_field :author, class: "form-control" %>
-  </div>
+    <div class="mb-2">
+      <%= form.label :release_date, I18n.t("items.form.book.release_date"), class: "form-label" %>
+      <%= form.date_field :release_date, class: "form-control" %>
+    </div>
 
-  <div class="mb-2">
-    <%= form.label :release_date, I18n.t("items.form.book.release_date"), class: "form-label" %>
-    <%= form.date_field :release_date, class: "form-control" %>
-  </div>
+    <div class="mb-2">
+      <%= form.label I18n.t("items.form.book.genre"), class: "form-label" %>
+      <%= form.text_field :genre, class: "form-control" %>
+    </div>
 
-  <div class="mb-2">
-    <%= form.label I18n.t("items.form.book.genre"), class: "form-label" %>
-    <%= form.text_field :genre, class: "form-control" %>
-  </div>
+    <div class="mb-2">
+      <%= form.label I18n.t("items.form.book.language"), class: "form-label" %>
+      <%= form.text_field :language, class: "form-control" %>
+    </div>
 
-  <div class="mb-2">
-    <%= form.label I18n.t("items.form.book.language"), class: "form-label" %>
-    <%= form.text_field :language, class: "form-control" %>
-  </div>
+    <div class="mb-2">
+      <%= form.label I18n.t("items.form.book.number_of_pages"), class: "form-label" %>
+      <%= form.number_field :number_of_pages, class: "form-control" %>
+    </div>
 
-  <div class="mb-2">
-    <%= form.label I18n.t("items.form.book.number_of_pages"), class: "form-label" %>
-    <%= form.number_field :number_of_pages, class: "form-control" %>
-  </div>
+    <div class="mb-2">
+      <%= form.label I18n.t("items.form.book.publisher"), class: "form-label" %>
+      <%= form.text_field :publisher, class: "form-control" %>
+    </div>
 
-  <div class="mb-2">
-    <%= form.label I18n.t("items.form.book.publisher"), class: "form-label" %>
-    <%= form.text_field :publisher, class: "form-control" %>
-  </div>
+    <div class="mb-2">
+      <%= form.label I18n.t("items.form.book.edition"), class: "form-label" %>
+      <%= form.text_field :edition, class: "form-control" %>
+    </div>
 
-  <div class="mb-2">
-    <%= form.label I18n.t("items.form.book.edition"), class: "form-label" %>
-    <%= form.text_field :edition, class: "form-control" %>
-  </div>
+    <div class="mb-2">
+      <%= form.label I18n.t("items.form.book.description"), class: "form-label" %>
+      <%= form.text_field :description, class: "form-control" %>
+    </div>
 
-  <div class="mb-2">
-    <%= form.label I18n.t("items.form.book.description"), class: "form-label" %>
-    <%= form.text_field :description, class: "form-control" %>
-  </div>
+    <div class="mb-2">
+      <%= form.label I18n.t("items.form.book.max_borrowing_days"), class: "form-label" %>
+      <%= form.number_field :max_borrowing_days, class: "form-control" %>
+    </div>
 
-  <div class="mb-2">
-    <%= form.label I18n.t("items.form.book.max_borrowing_days"), class: "form-label" %>
-    <%= form.number_field :max_borrowing_days, class: "form-control" %>
-  </div>
+    <h3 class="mt-3"><%= "Permissions" %></h3>
 
-  <div class="mt-3">
-    <%= form.submit (form.object.new_record? ? I18n.t("items.buttons.new") : I18n.t("items.buttons.update")),
-                    :style => "display: none;", id: "item_from_submit", class: "mx-auto btn btn-primary" %>
-  </div>
-
-  <h3 class="mt-3"><%= "Permissions" %></h3>
-
-  <div id="permissions_edit">
     <div class="container text-center mb-5">
       <div class="alert alert-warning" role="alert" v-if="duplicateEntries">
-        A simple warning alert—check it out!
+        TODO: Duplicate Entries
       </div>
       <div class="row mt-2" v-for="(permission, i) in permissions">
         <div class="col">
-          <select class="form-select" required v-model="permission.groupId">
+          <select :name="`permission_${i}_group_id`" class="form-select" required v-model="permission.groupId">
             <option :value="group.id" v-for="group in groups">{{group.name}}</option>
           </select>
         </div>
         <div class="col">
-          <select class="form-select" required v-model="permission.permissionLevel">
+          <select :name="`permission_${i}_level`" class="form-select" required v-model="permission.permissionLevel">
             <option :value="level.level" v-for="level in levels">{{level.title}}</option>
           </select>
         </div>
@@ -96,10 +91,10 @@
         <button class="btn btn-outline-secondary btn-sm" type="button" @click="addPermission">Add</button>
       </div>
 
-      <div class="row mt-5">
-        <button class="btn btn-primary" type="button" @click="save">Save</button>
-      </div>
+    </div>
 
+    <div class="mt-3 row">
+      <%= form.submit (form.object.new_record? ? I18n.t("items.buttons.new") : I18n.t("items.buttons.update")), class: "mx-auto btn btn-primary" %>
     </div>
   </div>
 
@@ -141,20 +136,6 @@
                 this.permissions = this.permissions
                     .slice(0, index)
                     .concat(this.permissions.slice(index + 1))
-            },
-            save() {
-                let itemId = <%= item.id %> // alternative: window.location.pathname.split("/")[2];
-
-                fetch(`/items/${itemId}/permissions`, {
-                    method: "POST", body: {
-                        // TODO
-                    }
-                })
-                    .then(response => {
-                        if (response.ok) {
-                            document.getElementById("item_from_submit").click()
-                        }
-                    })
             }
         },
         computed: {
@@ -163,5 +144,5 @@
                     !== this.permissions.length;
             }
         }
-    }).mount('#permissions_edit')
+    }).mount('#item_form')
 </script>
