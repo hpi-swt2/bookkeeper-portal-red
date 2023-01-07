@@ -89,15 +89,15 @@ describe "show item page", type: :feature do
     @item2 = FactoryBot.create(:movie)
     sign_in @user
     visit item_path(@item2)
-    expect(page).to have_text(:visible, I18n.t("items.infobox.missing-borrowing-permissions.heading"))
-    expect(page).to have_text(:visible, I18n.t("items.infobox.missing-borrowing-permissions.body"))
+    expect(page).to have_text(:visible, I18n.t("items.infobox.missing_borrowing_permissions.heading"))
+    expect(page).to have_text(:visible, I18n.t("items.infobox.missing_borrowing_permissions.body"))
   end
 
   it "does not display an infotext if the user has borrowing permissions" do
     sign_in @user
     visit item_path(@item)
-    expect(page).not_to have_text(:visible, I18n.t("items.infobox.missing-borrowing-permissions.heading"))
-    expect(page).not_to have_text(:visible, I18n.t("items.infobox.missing-borrowing-permissions.body"))
+    expect(page).not_to have_text(:visible, I18n.t("items.infobox.missing_borrowing_permissions.heading"))
+    expect(page).not_to have_text(:visible, I18n.t("items.infobox.missing_borrowing_permissions.body"))
   end
 
   it "has a 'no-access' status badge if the user has no borrowing permissions" do
