@@ -1,14 +1,12 @@
-<div class="container">
-  <div class="d-flex flex-row-reverse">
-    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#createGroupModal">
-      <%= t(:create_group) %>
-    </button>
-  </div>
+<div class="d-flex flex-row-reverse">
+  <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#createGroupModal">
+    <%= t(:create_group) %>
+  </button>
 </div>
 <%= render "modal-create" %>
 
-  <% @groups.each do |group| %>
-  <div class="bg-light">
+<% @groups.each do |group| %>
+<div class="bg-light">
   <div class="container text-center mt-5 py-3">
     <h3>
       <%= group.name %>
@@ -18,21 +16,20 @@
         <%= link_to t(:leave_group), group_leave_path(group), data: {turbo_method: :post, turbo_confirm: "Are you sure?"}, class: "btn btn-primary" %>
       <% end %>
     </h3>
-  <div class="row" style="overflow-x: scroll">
-    <div class="d-flex">
-      <% [1,2,3,4,5,6,7,8,9].each do |item_num| %>
-      <div class="card col-12 col-md-3 mx-2">
-        <%= image_tag "dummy_image.png", class: "card-img-top" %>
-        <div class="card-body">
-          <h5 class="card-title">Item <%= item_num %></h5>
-          <p class="card-text">von: <span class="text-warning">Herbert Beimel</span></p>
-          <p class="card-text text-success">verfügbar</p>
+    <div class="row" style="overflow-x: scroll">
+      <div class="d-flex">
+        <% [1,2,3,4,5,6,7,8,9].each do |item_num| %>
+        <div class="card col-12 col-md-3 mx-2">
+          <%= image_tag "dummy_image.png", class: "card-img-top" %>
+          <div class="card-body">
+            <h5 class="card-title">Item <%= item_num %></h5>
+              <p class="card-text">von: <span class="text-warning">Herbert Beimel</span></p>
+              <p class="card-text text-success">verfügbar</p>
+          </div>
         </div>
+        <% end %>
       </div>
-      <% end %>
     </div>
   </div>
-  </div>
-  </div>
-  <% end %>
 </div>
+<% end %>
