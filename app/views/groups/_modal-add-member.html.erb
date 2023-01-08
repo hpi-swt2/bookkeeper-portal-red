@@ -1,0 +1,28 @@
+<div class="modal fade" id="addMemberGroupModal" tabindex="-1" aria-labelledby="addMemberGroupModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="addMemberGroupModalLabel"><%= t(:group_add_member) %></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= t(:cancel) %>"></button>
+      </div>
+      <div class="modal-body">
+        <!-- doesn't work, was just an idea -->
+        <%= form_with(model: Membership.new) do |form| %>
+          <div>
+            <%= form.label :user, t(:group_add_member_prompt), class: "form-label" %>
+            <%= form.text_field :name, placeholder: "example.user@hpi.de", class: "form-control" %>
+          </div>
+      </div>
+
+      <%# manual calls: %>
+      <%# user = User.where(:email => "form input").first %>
+      <%# Membership.create(user: user, group: group, role: :member) %>
+
+      <div class="modal-footer border-0 justify-content-evenly">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t(:cancel) %></button>
+        <%= form.submit t(:save), :class => "btn btn-primary" %>
+      </div>
+        <% end %>
+    </div>
+  </div>
+</div>
