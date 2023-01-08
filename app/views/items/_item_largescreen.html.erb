@@ -40,13 +40,7 @@
                   <%= render(ItemAvailabilityBadgeComponent.new(item: @item, user: current_user)) %>
                 </div>
               </div>
-              <div class="row">
-                <%# owner%>
-                <p class="card-text">
-                  <%= I18n.t("items.card_text.owner") %>
-                  <span class="text-warning">Ownername</span>
-                </p>
-              </div>
+              <%= render 'owner_component', item: @item %>
             </div>
             
             <%# Button %>
@@ -62,20 +56,41 @@
             
             <%# Description%>
             <p class="text-start text-wrap"><%= @item.description %></p>
-
+            <%# Infobox%>
+            <% if @item.reserved_by?(current_user) and @item.borrowable_by?(current_user) and !@src_is_qrcode %>
+              <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.borrow.heading"), body: I18n.t("items.infobox.borrow.body"), bootstrap_classes: "border-secondary mx-5"))%>
+            <% end %>
+            <% if @item.borrowed_by?(current_user) and !@src_is_qrcode %>
+              <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.return.heading"), body: I18n.t("items.infobox.return.body"), bootstrap_classes: "border-secondary mx-5"))%>
+            <% end %>
+            <%# Map%>
             <div id="item-location-large" style="height: 240px;"></div>
           </div>
           <%= button_to I18n.t("items.buttons.back"), items_path, method: :get, class: "mx-auto btn btn-primary"%>
           <div class="d-flex justify-content-center w-100 mb-5">
-            <% if current_user.can_borrow?(@item) and @src_is_qrcode  %>
-              <%= form_tag item_update_lending_path(@item), method: :patch do %>
-                <%= hidden_field_tag 'lat'  %>
-                <%= hidden_field_tag 'lng'  %>
-                <%= button_tag @item.button_text(current_user), class: "mx-auto btn btn-primary" %>
-              <% end %>
-              <script>
-                getLocation();
-              </script>
+
+            <% if @item.reservable_by?(current_user) && !@src_is_qrcode %>
+              <%= render(ItemBorrowButton.new(
+                text: I18n.t("items.buttons.reserve"), 
+                action: item_reserve_path(@item), 
+                bootstrap_classes: "mx-auto btn btn-primary")
+              )%>
+            <% end %>
+
+            <% if @item.borrowable_by?(current_user) && @src_is_qrcode %>
+              <%= render(ItemBorrowButton.new(
+                text: I18n.t("items.buttons.borrow"), 
+                action: item_borrow_path(@item), 
+                bootstrap_classes: "mx-auto btn btn-primary")
+              )%>
+            <% end %>
+
+            <% if @item.borrowed_by?(current_user) && @src_is_qrcode %>
+              <%= render(ItemBorrowButton.new(
+                text: I18n.t("items.buttons.return"), 
+                action: item_give_back_path(@item), 
+                bootstrap_classes: "mx-auto btn btn-primary")
+              )%>
             <% end %>
           </div>
         </div>
