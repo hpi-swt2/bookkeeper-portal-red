@@ -1,5 +1,5 @@
 <h1>
-  <%= @group.name %>
+  <%= render partial: "name", locals: {group: @group} %>
   <button type="button" class="btn btn-sm btn-primary text-light bi bi-pencil-fill" data-bs-toggle="modal" data-bs-target="#editGroupModal">
   </button>
 </h1>
