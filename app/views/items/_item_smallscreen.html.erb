@@ -50,27 +50,29 @@
   <div class="button-blocker">
   </div>
 
-  <% if @item.reservable_by?(current_user) && !@src_is_qrcode %>
-    <%= render(ItemBorrowButton.new(
-      text: I18n.t("items.buttons.reserve"), 
-      action: item_reserve_path(@item), 
-      bootstrap_classes: "btn btn-secondary item-action-button")
-    )%>
-  <% end %>
+  <div style="position: relative; z-index: 9999">
+    <% if @item.reservable_by?(current_user) && !@src_is_qrcode %>
+      <%= render(ItemBorrowButton.new(
+        text: I18n.t("items.buttons.reserve"),
+        action: item_reserve_path(@item),
+        bootstrap_classes: "btn btn-secondary item-action-button")
+      )%>
+    <% end %>
 
-  <% if @item.borrowable_by?(current_user) && @src_is_qrcode %>
-    <%= render(ItemBorrowButton.new(
-      text: I18n.t("items.buttons.borrow"), 
-      action: item_borrow_path(@item), 
-      bootstrap_classes: "btn btn-secondary item-action-button")
-    )%>
-  <% end %>
+    <% if @item.borrowable_by?(current_user) && @src_is_qrcode %>
+      <%= render(ItemBorrowButton.new(
+        text: I18n.t("items.buttons.borrow"),
+        action: item_borrow_path(@item),
+        bootstrap_classes: "btn btn-secondary item-action-button")
+      )%>
+    <% end %>
 
-  <% if @item.borrowed_by?(current_user) && @src_is_qrcode %>
-    <%= render(ItemBorrowButton.new(
-      text: I18n.t("items.buttons.return"), 
-      action: item_give_back_path(@item), 
-      bootstrap_classes: "btn btn-secondary item-action-button")
-    )%>
-  <% end %>
+    <% if @item.borrowed_by?(current_user) && @src_is_qrcode %>
+      <%= render(ItemBorrowButton.new(
+        text: I18n.t("items.buttons.return"),
+        action: item_give_back_path(@item),
+        bootstrap_classes: "btn btn-secondary item-action-button")
+      )%>
+    <% end %>
+  </div>
 </div>
