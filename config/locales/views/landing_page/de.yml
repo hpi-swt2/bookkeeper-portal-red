@@ -87,10 +87,10 @@ de:
         number_of_players: "Spielerzahl"
         playing_time: "Spieldauer"
         language: "Sprache"
-        infobox:
-          borrow: 
-            heading: "Wie kann man diesen Artikel ausleihen?"
-            body: "Scannen Sie mit Ihrem mobilen Gerät den QR-Code dieses Artikels. Sie finden den Gegenstand an dem unten angegebenen Ort."
+    infobox:
+      borrow: 
+        heading: "Wie kann man diesen Artikel ausleihen?"
+        body: "Scannen Sie mit Ihrem mobilen Gerät den QR-Code dieses Artikels. Sie finden den Gegenstand an dem unten angegebenen Ort."
       return: 
         heading: "Wie kann ich diesen Artikel zurückgeben?"
         body: "Scannen Sie mit Ihrem mobilen Gerät den QR-Code dieses Artikels. Sie finden den Artikel an dem unten angegebenen Ort."
