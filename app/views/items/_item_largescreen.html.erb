@@ -14,8 +14,13 @@
                 <tbody>
                 <% @item.attributes.each do |attr_name, attr_value| %>
                     <ul class="list-group list-group-horizontal list-group-flush border-top border-1 mx-3">
+                    <% if @item.common_attributes.include? attr_name %>
+                      <li class=" list-group-item flex-fill align-content-between py-1 text-break" style="border: none;"><%= I18n.t("items.form." + "all" + "." + attr_name.to_s)%></li>
+                      <li class="list-group-item w-50 align-content-between py-1 text-break" style="border: none;"><%= @item.send(attr_name) %></li>
+                    <% else %>
                       <li class=" list-group-item flex-fill align-content-between py-1 text-break" style="border: none;"><%= I18n.t("items.form." + @item.item_type.to_s + "." + attr_name.to_s)%></li>
                       <li class="list-group-item w-50 align-content-between py-1 text-break" style="border: none;"><%= @item.send(attr_name) %></li>
+                    <% end %>
                     </ul>
                 <% end %>
                 </tbody>

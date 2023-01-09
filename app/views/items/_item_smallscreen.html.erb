@@ -44,37 +44,44 @@
   <table class="table">
     <tbody>
     <% @item.attributes.each do |attr_name, attr_value| %>
-        <ul class="list-group list-group-horizontal list-group-flush border-top border-2 mx-3">
+      <ul class="list-group list-group-horizontal list-group-flush border-top border-1 mx-3">
+        <% if @item.common_attributes.include? attr_name %>
+          <li class=" list-group-item flex-fill align-content-between py-1 text-break" style="border: none;"><%= I18n.t("items.form." + "all" + "." + attr_name.to_s)%></li>
+          <li class="list-group-item w-50 align-content-between py-1 text-break" style="border: none;"><%= @item.send(attr_name) %></li>
+        <% else %>
           <li class=" list-group-item flex-fill align-content-between py-1 text-break" style="border: none;"><%= I18n.t("items.form." + @item.item_type.to_s + "." + attr_name.to_s)%></li>
           <li class="list-group-item w-50 align-content-between py-1 text-break" style="border: none;"><%= @item.send(attr_name) %></li>
-        </ul>
+        <% end %>
+      </ul>
     <% end %>
     </tbody>
   </table>
   <div class="button-blocker">
   </div>
 
-  <% if @item.reservable_by?(current_user) && !@src_is_qrcode %>
-    <%= render(ItemBorrowButton.new(
-      text: I18n.t("items.buttons.reserve"), 
-      action: item_reserve_path(@item), 
-      bootstrap_classes: "btn btn-primary item-action-button")
-    )%>
-  <% end %>
+  <div style="position: relative; z-index: 9999">
+    <% if @item.reservable_by?(current_user) && !@src_is_qrcode %>
+      <%= render(ItemBorrowButton.new(
+        text: I18n.t("items.buttons.reserve"),
+        action: item_reserve_path(@item),
+        bootstrap_classes: "btn btn-secondary item-action-button")
+      )%>
+    <% end %>
 
-  <% if @item.borrowable_by?(current_user) && @src_is_qrcode %>
-    <%= render(ItemBorrowButton.new(
-      text: I18n.t("items.buttons.borrow"), 
-      action: item_borrow_path(@item), 
-      bootstrap_classes: "btn btn-primary item-action-button")
-    )%>
-  <% end %>
+    <% if @item.borrowable_by?(current_user) && @src_is_qrcode %>
+      <%= render(ItemBorrowButton.new(
+        text: I18n.t("items.buttons.borrow"),
+        action: item_borrow_path(@item),
+        bootstrap_classes: "btn btn-secondary item-action-button")
+      )%>
+    <% end %>
 
-  <% if @item.borrowed_by?(current_user) && @src_is_qrcode %>
-    <%= render(ItemBorrowButton.new(
-      text: I18n.t("items.buttons.return"), 
-      action: item_give_back_path(@item), 
-      bootstrap_classes: "btn btn-primary item-action-button")
-    )%>
-  <% end %>
+    <% if @item.borrowed_by?(current_user) && @src_is_qrcode %>
+      <%= render(ItemBorrowButton.new(
+        text: I18n.t("items.buttons.return"),
+        action: item_give_back_path(@item),
+        bootstrap_classes: "btn btn-secondary item-action-button")
+      )%>
+    <% end %>
+  </div>
 </div>
