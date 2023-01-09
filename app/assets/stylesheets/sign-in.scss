@@ -1,0 +1,36 @@
+@import "application";
+
+.sign-in-form {
+    td {
+        border: 2px solid $light;
+    }
+    
+    img {
+        max-width: 200px;
+        margin: 5px;
+    }
+
+    .sign-in-header {
+        background-color: #f8f8f8;
+    }
+
+    #openid_connect-signin, p {
+        margin-top: 20px;
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: $mobileDeviceCutoff) {
+    .sign-in-form {
+        max-width: 500px;
+    }
+}
+
+@media (max-width: $mobileDeviceCutoff) {
+    .sign-in-form {
+        margin: 0;
+    }
+}

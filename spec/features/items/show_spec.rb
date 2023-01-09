@@ -25,19 +25,19 @@ describe "show item page", type: :feature do
       it "only shows borrow button if src=qrcode is present" do
         sign_in @user
         visit "#{item_path(@item)}?src=qrcode"
-        expect(page).to have_text(:visible, "Borrow")
+        expect(page).to have_button(I18n.t('items.buttons.borrow'))
       end
 
       it "doesn't show borrow button if src=qrcode is not present" do
         sign_in @user
         visit item_path(@item)
-        expect(page).not_to have_text(:visible, "Borrow")
+        expect(page).not_to have_button(I18n.t('items.buttons.borrow'))
       end
 
       it "doesn't show borrow button if src=not-qrcode" do
         sign_in @user
         visit "#{item_path(@item)}?src=not-qrcode"
-        expect(page).not_to have_text(:visible, "Borrow")
+        expect(page).not_to have_button(I18n.t('items.buttons.borrow'))
       end
     end
   end
