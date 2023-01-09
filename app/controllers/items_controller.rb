@@ -223,19 +223,19 @@ class ItemsController < ApplicationController
   def item_params(item_type)
     case item_type
     when "book"
-      params.require(:item).permit(:item_type, :name, :isbn, :author, :release_date, :genre, :language,
-                                   :number_of_pages, :publisher, :edition, :description, :max_borrowing_days,
-                                   :max_reservation_days)
+      params.require(:item).permit( :item_type, :name, :isbn, :author, :release_date, :genre, :language,
+                                    :number_of_pages, :publisher, :edition, :description, :max_borrowing_days,
+                                    :max_reservation_days)
     when "movie"
-      params.require(:item).permit(:item_type,  :name, :director, :release_date, :format, :genre, :language, :fsk,
-                                   :description, :max_borrowing_days, :max_reservation_days)
+      params.require(:item).permit( :item_type,  :name, :director, :release_date, :format, :genre, :language, :fsk,
+                                    :description, :max_borrowing_days, :max_reservation_days)
     when "game"
-      params.require(:item).permit(:item_type,  :name, :author, :illustrator, :publisher, :fsk, :number_of_players,
-                                   :playing_time, :language, :description, :max_borrowing_days, :max_reservation_days)
+      params.require(:item).permit( :item_type,  :name, :author, :illustrator, :publisher, :fsk, :number_of_players,
+                                    :playing_time, :language, :description, :max_borrowing_days, :max_reservation_days)
     else
       item_type.eql?("other")
-      params.require(:item).permit(:item_type, :name, :category, :description, :max_borrowing_days,
-                                   :max_reservation_days)
+      params.require(:item).permit( :item_type, :name, :category, :description, :max_borrowing_days, 
+                                    :max_reservation_days)
     end
   end
   # rubocop:enable Metrics/MethodLength
@@ -270,8 +270,8 @@ class ItemsController < ApplicationController
   end
 
   def create_reservation
-    @reservation = Reservation.new(item_id: @item.id, user_id: @user.id, starts_at: Time.current,
-                                   ends_at: Time.current + @item.max_reservation_days.days)
+    @reservation = Reservation.new( item_id: @item.id, user_id: @user.id, starts_at: Time.current, 
+                                    ends_at: Time.current + @item.max_reservation_days.days)
   end
 end
 # rubocop:enable Metrics/ClassLength, Metrics/MethodLength, Metrics/AbcSize
