@@ -118,6 +118,7 @@ de:
       new:
         sign_in: Anmelden
         sign_in_with: Mit %{provider} anmelden
+        info-text: "Derzeit werden nur Anmeldungen via \"HPI OpenIDConnect\" und einem HPI Account oder mit einem HPI Gast-Account unterstützt."
       signed_in: Erfolgreich angemeldet.
       signed_out: Erfolgreich abgemeldet.
     shared:

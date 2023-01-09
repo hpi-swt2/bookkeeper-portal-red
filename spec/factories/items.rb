@@ -14,7 +14,7 @@ FactoryBot.define do
     max_reservation_days { 2 }
     max_borrowing_days { 7 }
 
-    isbn { 1_234_567_890_123 }
+    isbn { "1-234-567-890-123" }
     author { "Karl Marx, Friedrich Engels" }
     release_date { "1848-02-21" }
     genre { "politics" }
