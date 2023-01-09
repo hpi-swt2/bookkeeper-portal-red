@@ -8,11 +8,6 @@ describe "Notification inbox", type: :feature do
   end
 
   context 'with JS', driver: :selenium_chrome, js: true, ui: true do
-    before do
-      # Window needs to be wide enough to show notification button
-      Capybara.current_session.current_window.resize_to(1000, 900)
-    end
-
     it "no longer shows a notification when it is dismissed" do
       Capybara.current_session.current_window.resize_to(1600, 900)
       NotificationMailer.send_info("Test_2", user).deliver_now
