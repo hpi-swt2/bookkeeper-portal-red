@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_05_110905) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_08_133416) do
   create_table "groups", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -25,7 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_110905) do
     t.datetime "updated_at", null: false
     t.integer "status", default: 0, null: false
     t.integer "item_type"
-    t.bigint "isbn"
+    t.string "isbn"
     t.string "author"
     t.date "release_date"
     t.string "genre"
@@ -108,10 +108,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_110905) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "full_name", default: "", null: false
-    t.string "description", default: "", null: false
     t.string "provider", limit: 50, default: "", null: false
     t.string "uid", limit: 50, default: "", null: false
+    t.string "full_name", default: "", null: false
+    t.string "description", default: "", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

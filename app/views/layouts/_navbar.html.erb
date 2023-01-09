@@ -43,16 +43,15 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
-              <%= link_to "English", { :locale => 'en' }, class: "dropdown-item" %>
+              <%= link_to "English", params.permit!.merge(locale: 'en'), class: "dropdown-item" %>
             </li>
             <li>
-              <%= link_to "Deutsch", { :locale => 'de' }, class: "dropdown-item" %>
+              <%= link_to "Deutsch", params.permit!.merge(locale: 'de'), class: "dropdown-item" %>
             </li>
           </ul>
         </li>
 
       </ul>
-
       <%= render "items/search_form" %>
       <span>
         <a href="#" class="desktop-only text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#notification-inbox-container"
