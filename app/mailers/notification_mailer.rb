@@ -41,7 +41,7 @@ class NotificationMailer < ApplicationMailer
     notification = Notification.new
     notification.message = message
     notification.user_id = user.id
-    notification.sent = DateTime.now
+    notification.sent = Time.current
     notification.display = true
     notification.notification_type = notification_type
 

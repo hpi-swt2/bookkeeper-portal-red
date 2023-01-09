@@ -14,6 +14,7 @@ describe "Notification inbox", type: :feature do
     end
 
     it "no longer shows a notification when it is dismissed" do
+      Capybara.current_session.current_window.resize_to(1600, 900)
       NotificationMailer.send_info("Test_2", user).deliver_now
       visit root_path
       page.find_by_id("notification-inbox-button").click
