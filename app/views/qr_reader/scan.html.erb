@@ -10,7 +10,7 @@
 <script type="text/javascript">
 
 function decodeOnce(codeReader, selectedDeviceId) {
-    codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
+    codeReader.decodeFromInputVideoDevice(selectedDeviceId, "video").then((result) => {
         document.location.href = result.text;
     })
     .catch((err) => {
@@ -37,7 +37,7 @@ function openQrCodeReader() {
     })
 }
 
-document.getElementById("zxingScript").addEventListener('load', openQrCodeReader)
-document.addEventListener('turbo:load', openQrCodeReader)
+document.getElementById("zxingScript").addEventListener("load", openQrCodeReader)
+document.addEventListener("turbo:load", openQrCodeReader)
 
 </script>
