@@ -101,6 +101,7 @@ class Item < ApplicationRecord
   end
 
   def status_text(user)
+    return I18n.t("items.status_badge.no_access") unless user.can_borrow?(self)
     return I18n.t("items.status_badge.reserved_by_me") if reserved_by?(user)
     return I18n.t("items.status_badge.available") if borrowable_by?(user)
     return I18n.t("items.status_badge.borrowed_by_me") if borrowed_by?(user)
