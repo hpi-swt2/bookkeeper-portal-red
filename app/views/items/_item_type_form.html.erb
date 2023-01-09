@@ -66,14 +66,19 @@
       <div class="row mt-5">
         <button class="btn btn-outline-secondary btn-sm" type="button" @click="addPermission">Add</button>
       </div>
-
     </div>
 
-    <div class="mt-3 row">
-      <%= form.button (form.object.new_record? ? I18n.t("items.buttons.new") : I18n.t("items.buttons.update")), name: "item_type", value: "book", class: "mx-auto btn btn-primary" %>
+    <div class="mt-3">
+      <% if @item.book? %>
+        <%= form.button :submit, name: "item_type", value: "book", class: "btn btn-primary" %>
+      <% elsif @item.movie? %>
+        <%= form.button :submit , name: "item_type", value: "movie", class: "btn btn-primary" %>
+      <% elsif @item.game? %>
+        <%= form.button :submit , name: "item_type", value: "game", class: "btn btn-primary" %>
+      <% else @item.other? %>
+        <%= form.button :submit , name: "item_type", value: "other", class: "btn btn-primary" %>
+      <% end %>
     </div>
-  </div>
-
 </div>
 <% end %>
 
