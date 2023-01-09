@@ -4,19 +4,10 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand text-white desktop-only py-0" href="/">
-      <%= image_tag "logo-hpi-small.png", width: 40 %>
-    </a>
-    <a class="navbar-brand text-white mobile-only" href="/scan">
-      <i class="bi bi-qr-code-scan fs-3"></i>
+      <%= image_tag "logo.svg", width: 40 %>
     </a>
     <div class="collapse navbar-collapse bg-primary" id="navbarToggle">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">
-            <i class="bi bi-house-fill mobile-only"></i>
-            <%=t("navbar.home")%>
-          </a>
-        </li>
         <li class="nav-item">
           <a class="nav-link" href="#">
             <i class="bi bi-book-fill mobile-only"></i>
@@ -39,7 +30,8 @@
         </li>
 
         <li class="mobile-only nav-item">
-          <a href="#" class="nav-link"><i class="bi bi-bell-fill"></i> <%=t("navbar.notifications")%></a>
+          <a data-bs-toggle="offcanvas" data-bs-target="#notification-inbox-container"
+             aria-controls="notification-inbox-container" id="notification-inbox-button-mobile" class="nav-link"><i class="bi bi-bell-fill"></i> <%=t("navbar.notifications")%></a>
         </li>
         <li class="mobile-only nav-item">
           <a href="<%= profiles_me_path %>" class="nav-link"><i class="bi bi-person-fill"></i> <%=t("navbar.profile")%></a>
@@ -51,16 +43,15 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
-              <%= link_to "English", { :locale => 'en' }, class: "dropdown-item" %>
+              <%= link_to "English", params.permit!.merge(locale: 'en'), class: "dropdown-item" %>
             </li>
             <li>
-              <%= link_to "Deutsch", { :locale => 'de' }, class: "dropdown-item" %>
+              <%= link_to "Deutsch", params.permit!.merge(locale: 'de'), class: "dropdown-item" %>
             </li>
           </ul>
         </li>
 
       </ul>
-
       <%= render "items/search_form" %>
       <span>
         <a href="#" class="desktop-only text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#notification-inbox-container"
@@ -68,6 +59,9 @@
         <a href="<%= profiles_me_path %>" class="desktop-only text-white"><i class="bi bi-person-fill fs-3"></i></a>
       </span>
     </div>
+    <a class="navbar-brand text-white mx-2" href="/scan">
+      <i class="bi bi-qr-code-scan fs-3"></i>
+    </a>
   </div>
 </nav>
 

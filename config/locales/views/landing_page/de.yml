@@ -3,7 +3,6 @@ de:
   login_with_oidc: "Mit OIDC einloggen"
   my_profile: "Mein Profil"
   navbar:
-    home: "Startseite"
     assets: "Meine Assets"
     groups: "Meine Gruppen"
     categories: "Kategorien"
@@ -16,12 +15,18 @@ de:
       successfully_created: "Item wurde erfolgreich erstellt."
       successfully_updated: "Item wurde erfolgreich geupdatet."
       successfully_destroyed: "Item wurde erfolgreich zerstört."
-      successfully_borrowed: "Item wurde erfolgreich ausgeliehen."
-      successfully_returned: "Item wurde erfolgreich zurückgegeben."
+      successfully_borrowed: "Item wurde erfolgreich ausgeliehen"
+      successfully_returned: "Item wurde erfolgreich zurückgegeben"
+      successfully_reserved: "Item wurde erfolgreich reserviert"
+      unsuccessfully_reserved: "Item Reservierung fehlgeschlagen"
+      lending_error: "Ausleihsystem Fehler"
       not_allowed_to_destroy: "Dir ist nicht erlaubt das Item zu löschen."
       not_allowed_to_download: "Dir ist nicht erlaubt den QR-Code des Items herunterzuladen."
       not_allowed_to_edit: "Dir ist nicht erlaubt das Item zu bearbeiten."
       deletion_confirmation: "Soll das Item wirklich gelöscht werden?"
+    headlines:
+      my_items: "Meine Items"
+      borrowed_items: "Ausgeliehene Items"
     buttons:
       new: "Item erstellen"
       update: "Item aktualisieren"
@@ -31,11 +36,13 @@ de:
       back: "Zurück zur Items Übersicht"
       borrow: "Ausleihen"
       return: "Zurückgeben"
+      reserve: "Reservieren"
       download_qrcode: "QR-Code herunterladen"
     status_badge:
       available: "Verfügbar"
-      borrowed_by_me: "Von mir ausgeliehen"
       not_available: "Nicht verfügbar"
+      borrowed_by_me: "Von mir ausgeliehen"
+      reserved_by_me: "Von mir reserviert"
     card_text:
       owner: von
     type:
@@ -49,13 +56,14 @@ de:
     form:
       edit: "Bearbeite:"
       new: "Neues:"
-      other:
+      all:
         name: "Name"
-        category: "Kategorie"
         description: "Beschreibung"
         max_borrowing_days: "Ausleihzeit"
+        max_reservation_days: "Reservierungszeit"
+      other:
+        category: "Kategorie"
       book:
-        name: "Name"
         isbn: "ISBN"
         author: "Autor"
         release_date: "Erscheinungsdatum"
@@ -64,20 +72,14 @@ de:
         number_of_pages: "Seitenzahl"
         publisher: "Verleger"
         edition: "Edition"
-        description: "Beschreibung"
-        max_borrowing_days: "Ausleihzeit"
       movie:
-        name: "Name"
         director: "Regisseur"
         release_date: "Erscheinungsdatum"
         format: "Format"
         genre: "Genre"
         language: "Sprache"
         fsk: "Jugendfreigabe"
-        description: "Beschreibung"
-        max_borrowing_days: "Ausleihzeit"
       game:
-        name: "Name"
         author: "Autor"
         illustrator: "Illustrator"
         publisher: "Verleger"
@@ -85,5 +87,10 @@ de:
         number_of_players: "Spielerzahl"
         playing_time: "Spieldauer"
         language: "Sprache"
-        description: "Beschreibung"
-        max_borrowing_days: "Ausleihzeit"
+    infobox:
+      borrow: 
+        heading: "Wie kann man diesen Artikel ausleihen?"
+        body: "Scannen Sie mit Ihrem mobilen Gerät den QR-Code dieses Artikels. Sie finden den Gegenstand an dem unten angegebenen Ort."
+      return: 
+        heading: "Wie kann ich diesen Artikel zurückgeben?"
+        body: "Scannen Sie mit Ihrem mobilen Gerät den QR-Code dieses Artikels. Sie finden den Artikel an dem unten angegebenen Ort."
