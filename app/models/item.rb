@@ -18,6 +18,11 @@ class Item < ApplicationRecord
   GAME_ATTRIBUTES = %w[author illustrator publisher fsk number_of_players playing_time language].freeze
   OTHER_ATTRIBUTES = %w[category].freeze
 
+  BOOK_IMPORTANT_ATTRIBUTES = %w[author genre language].freeze
+  MOVIE_IMPORTANT_ATTRIBUTES = %w[format genre language fsk].freeze
+  GAME_IMPORTANT_ATTRIBUTES = %w[number_of_players playing_time].freeze
+  OTHER_IMPORTANT_ATTRIBUTES = %w[category].freeze
+
   has_many :lendings, dependent: :destroy
   has_many :reservations, dependent: :destroy
   has_many :permissions, dependent: :destroy
@@ -51,6 +56,13 @@ class Item < ApplicationRecord
 
   def common_attributes
     COMMON_ATTRIBUTES
+  end
+
+  def important_attributes
+    return BOOK_IMPORTANT_ATTRIBUTES if item_type.eql? "book"
+    return MOVIE_IMPORTANT_ATTRIBUTES if item_type.eql? "movie"
+    return GAME_IMPORTANT_ATTRIBUTES if item_type.eql? "game"
+    return OTHER_IMPORTANT_ATTRIBUTES if item_type.eql? "other"
   end
 
   def attribute?(attribute)
