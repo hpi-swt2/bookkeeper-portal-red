@@ -50,6 +50,7 @@ en:
       new:
         sign_in: Log in
         sign_in_with: Log in with %{provider}
+        info-text: "Currently, only registration with \"HPI OpenIDConnect\" and a HPI account or a HPI guest account is supported."
       signed_in: "Signed in successfully."
       signed_out: "Signed out successfully."
       already_signed_out: "Signed out successfully."
