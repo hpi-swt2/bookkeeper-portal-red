@@ -15,6 +15,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_08_133416) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "tag"
   end
 
   create_table "items", force: :cascade do |t|
