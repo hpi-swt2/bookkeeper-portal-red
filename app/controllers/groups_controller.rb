@@ -61,6 +61,24 @@ class GroupsController < ApplicationController
     end
   end
 
+  ## this is never called ... -->
+
+  # POST /groups/1/add_user or /groups/1/add_user.json
+  def add_user
+    respond_to do |format|
+      group = @group
+      user = User.where(email: "form input").first
+      if Membership.create(user: user, group: group, role: :member)
+        format.html { redirect_to groups_url, notice: t(:group_update) }
+        format.json { head :no_content }
+      else
+        unprocessable_response(format, redirect: :edit, entity: @group)
+      end
+    end
+  end
+
+  ## <--
+
   private
 
   def assure_signed_in

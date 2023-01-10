@@ -6,23 +6,16 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= t(:cancel) %>"></button>
       </div>
       <div class="modal-body">
-        <!-- doesn't work, was just an idea -->
-        <%= form_with(model: Membership.new) do |form| %>
-          <div>
-            <%= form.label :user, t(:group_add_member_prompt), class: "form-label" %>
-            <%= form.text_field :name, placeholder: "example.user@hpi.de", class: "form-control" %>
-          </div>
-      </div>
-
-      <%# manual calls: %>
-      <%# user = User.where(:email => "form input").first %>
-      <%# Membership.create(user: user, group: group, role: :member) %>
-
-      <div class="modal-footer border-0 justify-content-evenly">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t(:cancel) %></button>
-        <%= form.submit t(:save), :class => "btn btn-primary" %>
-      </div>
-        <% end %>
+      <%= form_with(model: @group, url: group_add_user_path(@group), local: true) do |form| %>
+        <div>
+          <%= form.label :user, t(:group_add_member_prompt), class: "form-label" %>
+          <%= form.text_field :user, placeholder: "example.user@hpi.de", class: "form-control" %>
+          
+          <div class="modal-footer border-0 justify-content-evenly">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t(:cancel) %></button>
+          <%= form.submit t(:save), :class => "btn btn-primary" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
