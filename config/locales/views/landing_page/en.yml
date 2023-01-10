@@ -54,6 +54,7 @@ en:
     form:
       edit: "Edit:"
       new: "New:"
+      duplicate_entries: "There can only be one right assigned to a group!"
       all:
         name: "Name"
         description: "Description"
