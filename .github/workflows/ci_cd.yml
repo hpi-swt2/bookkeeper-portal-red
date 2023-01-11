@@ -33,11 +33,11 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
-        
+
       - name: Install Chrome
         run: |
-              chmod +x ./scripts/InstallChrome.sh
-              ./scripts/InstallChrome.sh 
+              chmod +x ./.github/scripts/InstallChrome.sh
+              ./.github/scripts/InstallChrome.sh
 
       - name: Setup Ruby and bundle
         uses: ruby/setup-ruby@v1
