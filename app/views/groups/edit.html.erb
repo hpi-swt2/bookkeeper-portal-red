@@ -24,10 +24,12 @@
     <tr>
       <td><%= user.full_name %></td>
       <td><%= user.email %></td>
-      <td>
-        <a href="#" class="btn btn-sm btn-warning text-light"><i class="bi bi-chat-fill"></i></a>
-        <a href="#" class="btn btn-sm btn-primary"><i class="bi bi-person-dash-fill"></i></a>
-      </td>
+      <% if not user.admin_in?(@group)%>
+        <td>
+          <a href="#" class="btn btn-sm btn-warning text-light"><i class="bi bi-chat-fill"></i></a>
+          <a href="#" class="btn btn-sm btn-primary"><i class="bi bi-person-dash-fill"></i></a>
+        </td>
+      <% end %>
     </tr>
     <% end %>
   </tbody>
