@@ -23,4 +23,18 @@ RSpec.describe Group, type: :model do
     expect(group.borrowable_items.count).to eq(1)
     expect(group.borrowable_items.first).to eq(item3)
   end
+
+  context "when group is a personal_group" do
+    let(:personal_group) { FactoryBot.create(:group, tag: :personal_group) }
+
+    it "cannot have two users" do
+      user1 = FactoryBot.create(:user)
+      FactoryBot.create(:membership, user: user1, group: personal_group)
+      user2 = FactoryBot.create(:user)
+      expect do
+        FactoryBot.create(:membership, user: user2, group: personal_group)
+      end.to raise_error(ActiveRecord::RecordInvalid)
+    end
+  end
+
 end

@@ -3,7 +3,7 @@ FactoryBot.define do
     sequence(:name) { |n| "Group #{n}" }
 
     trait :verified do
-      tag { :verified }
+      tag { :verified_group }
     end
   end
 end
