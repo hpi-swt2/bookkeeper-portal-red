@@ -22,6 +22,12 @@ describe "OpenId Connect Login", type: :feature do
     it "displays a success message" do
       expect(page).to have_css(".alert-success")
     end
+
+    it "creates a personal group for the user" do
+      user = User.first
+      print(User.count)
+      expect(user.personal_group).not_to be_nil
+    end
   end
 
   context "with invalid credentials" do

@@ -10,4 +10,41 @@ describe User, type: :model do
   it "has an email attribute" do
     expect(user.email).not_to be_blank
   end
+
+  context "personal group" do
+    it "can be accessed" do
+      p_group = user.create_personal_group
+      expect(user.has_personal_group?).to be(true)
+      expect(user.personal_group).to eq(p_group)
+    end
+
+    it "must exist to be accessed" do
+      expect(user.has_personal_group?).to be(false)
+      expect { user.personal_group }.to raise_error(StandardError)
+    end
+
+    it "cannot create multiple" do
+      user.create_personal_group
+      expect { user.create_personal_group }.to raise_error(StandardError)
+    end
+
+    it "throws error if there a multiple personal groups" do
+      user.create_personal_group
+      p_group = Group.create(name: "personal_group", tag: :personal_group)
+      p_group_membership = Membership.create(group_id: p_group.id, user_id: user.id, role: :member)
+      user.memberships.push(p_group_membership)
+      user.save
+      expect { user.has_personal_group? }.to raise_error(StandardError)
+      expect { user.personal_group }.to raise_error(StandardError)
+    end
+
+    it "is destroyed when user is destroyed" do
+
+      p_group = user.create_personal_group
+      p_group_id = p_group.id
+      user.destroy
+      expect(Group.exists?(p_group_id)).to be(false)
+    end
+  end
+
 end
