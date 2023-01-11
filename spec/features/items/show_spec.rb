@@ -145,4 +145,19 @@ describe "show item page", type: :feature do
     expect(page).not_to have_text(:visible, I18n.t("items.buttons.delete"))
     expect(page).not_to have_text(:visible, I18n.t("items.buttons.download_qrcode"))
   end
+
+  it "not display owner-return button if item is not borrowed or borrowed by the owner himself" do
+    sign_in @user
+    visit item_path(@item)
+    expect(page).not_to have_text(:visible, I18n.t("items.buttons.owner-return"))
+  end
+
+  it "not display owner-return button if item is borrowed by the owner himself" do
+    sign_in @user
+    FactoryBot.create(:lending, item_id: @item.id, user_id: @user.id, started_at: Time.zone.now, completed_at: nil,
+                                due_at: 2.days.from_now)
+    visit "#{item_path(@item)}?src=qrcode"
+    expect(page).not_to have_text(:visible, I18n.t("items.buttons.owner-return"))
+    expect(page).to have_text(:visible, I18n.t("items.buttons.return"))
+  end
 end
