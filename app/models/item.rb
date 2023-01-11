@@ -121,5 +121,4 @@ class Item < ApplicationRecord
 
     I18n.t("items.status_badge.not_available")
   end
-
 end

@@ -220,7 +220,8 @@ class ItemsController < ApplicationController
                                    :description, :max_borrowing_days, :max_reservation_days, :image)
     when "game"
       params.require(:item).permit(:item_type,  :name, :author, :illustrator, :publisher, :fsk, :number_of_players,
-                                   :playing_time, :language, :description, :max_borrowing_days, :max_reservation_days, :image)
+                                   :playing_time, :language, :description, :max_borrowing_days, :max_reservation_days,
+                                   :image)
     else
       item_type.eql?("other")
       params.require(:item).permit(:item_type, :name, :category, :description, :max_borrowing_days,
