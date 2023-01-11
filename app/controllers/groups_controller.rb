@@ -61,9 +61,8 @@ class GroupsController < ApplicationController
     end
   end
 
-  ## this is never called ... -->
 
-  # POST /groups/1/add_user or /groups/1/add_user.json
+  # PATCH /groups/1/add_user or /groups/1/add_user.json
   def add_user
     respond_to do |format|
       group = @group
@@ -77,7 +76,6 @@ class GroupsController < ApplicationController
     end
   end
 
-  ## <--
 
   private
 
