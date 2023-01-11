@@ -94,6 +94,14 @@
               )%>
             <% end %>
 
+            <% if @item.owner_can_return?(current_user)%>
+              <%= render(ItemBorrowButton.new(
+                text: I18n.t("items.buttons.owner-return"), 
+                action: item_give_back_path(@item), 
+                bootstrap_classes: "mx-auto btn btn-primary")
+              )%>
+            <% end %>
+
             <% if @item.borrowed_by?(current_user) && @src_is_qrcode %>
               <%= render(ItemBorrowButton.new(
                 text: I18n.t("items.buttons.return"), 
