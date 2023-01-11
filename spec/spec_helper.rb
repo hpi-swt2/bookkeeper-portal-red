@@ -12,17 +12,6 @@
 # the additional setup, and require it from the spec files that actually need
 # it.
 #
-
-Capybara.register_driver :selenium do |app|
-  options = Selenium::WebDriver::Chrome::Options.new
-  # options.add_argument("--headless")
-  # options.add_argument("--window-size=1400,1400")
-  options.add_argument("--no-sandbox")
-  options.add_argument("--disable-dev-shm-usage")
-
-  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
-end
-
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
