@@ -1,5 +1,7 @@
 # rubocop:disable Metrics/ClassLength
 class ItemsController < ApplicationController
+  include ActionController::MimeResponds
+
   before_action :set_item, only: %i[ show edit update destroy ]
   before_action :set_item_from_item_id, only: %i[ borrow reserve give_back]
   helper_method :button_text, :button_path
@@ -74,6 +76,7 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params(params[:item_type]))
     @item.item_type = params[:item_type]
+    create_permission
 
     respond_to do |format|
       if @item.save
@@ -162,10 +165,11 @@ class ItemsController < ApplicationController
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PATCH/PUT /items/1 or /items/1.json
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def update
     respond_to do |format|
       @item.item_type = params[:item_type]
+      create_permission
       if @item.update(item_params(params[:item_type]))
         format.html { redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_updated") }
         format.json { render :show, status: :ok, location: @item }
@@ -175,7 +179,7 @@ class ItemsController < ApplicationController
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # DELETE /items/1 or /items/1.json
   # rubocop:disable Metrics/MethodLength
@@ -195,6 +199,13 @@ class ItemsController < ApplicationController
     end
   end
   # rubocop:enable Metrics/MethodLength
+
+  def permissions
+    associated_permissions = Permission.where(item_id: params["id"])
+    respond_to do |format|
+      format.json { render json: associated_permissions }
+    end
+  end
 
   private
 
@@ -238,9 +249,29 @@ class ItemsController < ApplicationController
     @lending.completed_at = nil
   end
 
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  def create_permission
+    @item.permissions.clear
+    permissions = []
+    params.each do |key, value|
+      next unless key.start_with?("permission_")
+
+      index = key.split("_")[1].to_i * 2
+      if key.split("_")[2] == "group"
+        permissions[index] = value.to_i
+      else
+        permissions[index + 1] = Permission.permission_types[value]
+      end
+    end
+
+    permissions.each_slice(2) do |group_id, level|
+      Permission.create(item: @item, group_id: group_id, permission_type: level)
+    end
+  end
+
   def create_reservation
     @reservation = Reservation.new(item_id: @item.id, user_id: @user.id, starts_at: Time.current,
                                    ends_at: Time.current + @item.max_reservation_days.days)
   end
 end
-# rubocop:enable Metrics/ClassLength
+# rubocop:enable Metrics/ClassLength, Metrics/MethodLength, Metrics/AbcSize

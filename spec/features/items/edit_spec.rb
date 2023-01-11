@@ -47,4 +47,29 @@ describe "edit item page", type: :feature do
     expect(page).to have_text("Item was successfully updated.")
     expect((Item.find_by name: "Harry Potter und die Kammer des Schreckens").description).to eq(item.description)
   end
+
+  context 'with JS', driver: :selenium_chrome, js: true, ui: true do
+    it "shows all availible groups in the permission list" do
+      sign_in @user
+      @user.memberships.push(@membership)
+      item.manager_groups.push(@group)
+      visit edit_item_path(item)
+      page.find_by_id("add-permission-button").click
+      expect(page.find_by_id("permission-group-select")).to have_selector("option", count: Group.count + 1)
+    end
+
+
+    it "updates the permission list when a new group is added" do
+      sign_in @user
+      @user.memberships.push(@membership)
+      item.manager_groups.push(@group)
+      visit edit_item_path(item)
+      page.find_by_id("add-permission-button").click
+      page.find_by_id("permission-group-select").find("option[value='#{Group.last.id}']").select_option
+      page.find_by_id("permission-role-select").find("option[value='1']").select_option
+      page.find_by_id("add-permission-button").click  
+    end
+    # sleep 0.5 # Waiting for JS to execute (not ideal, but works)
+  end
+
 end
