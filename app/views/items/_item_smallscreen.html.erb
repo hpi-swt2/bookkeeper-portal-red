@@ -2,6 +2,18 @@
 <div class="small-screen">
   <%# Image slider%>
   <%= image_tag "dummy_image.png", class: "card-img-top"%>
+
+
+  "BLUB!"
+
+  <% puts"BLUB" %>
+  <% puts @item.image %>
+  <% if @item.image.attached? %>
+    <% @item.image %>
+    <image src="<%(url_for(@item.image))%>">
+  <% end%>
+
+
   <hr class="border border-primary border-2 opacity-75"/>
  
   <div class="container">

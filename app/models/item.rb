@@ -120,4 +120,6 @@ class Item < ApplicationRecord
 
     I18n.t("items.status_badge.not_available")
   end
+
+  has_one_attached :image
 end

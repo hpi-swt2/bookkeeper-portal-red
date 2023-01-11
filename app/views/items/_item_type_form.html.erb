@@ -9,7 +9,11 @@
       </ul>
     </div>
   <% end %>
-
+  
+  <div class="mb-2">
+    <%= form.label "Item Photo" %><br>
+    <%= form.file_field :image%>
+  </div>
   
   <div class="mb-2">
     <%= form.label :name, I18n.t("items.form.all.name"), class: "form-label" %>
@@ -40,5 +44,4 @@
   <% else @item.other? %>
     <%= render "other_form", item: @item, form: form %>
   <% end %>
-
 <% end %>

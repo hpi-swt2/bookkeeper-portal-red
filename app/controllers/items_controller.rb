@@ -75,6 +75,11 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params(params[:item_type]))
     @item.item_type = params[:item_type]
 
+    puts "HELLU"
+    puts params
+
+    @item.image.attach(params[:image])
+
     respond_to do |format|
       if @item.save
         format.html { redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_created") }
@@ -214,17 +219,17 @@ class ItemsController < ApplicationController
     when "book"
       params.require(:item).permit(:item_type, :name, :isbn, :author, :release_date, :genre, :language,
                                    :number_of_pages, :publisher, :edition, :description, :max_borrowing_days,
-                                   :max_reservation_days)
+                                   :max_reservation_days, :image)
     when "movie"
       params.require(:item).permit(:item_type,  :name, :director, :release_date, :format, :genre, :language, :fsk,
-                                   :description, :max_borrowing_days, :max_reservation_days)
+                                   :description, :max_borrowing_days, :max_reservation_days, :image)
     when "game"
       params.require(:item).permit(:item_type,  :name, :author, :illustrator, :publisher, :fsk, :number_of_players,
-                                   :playing_time, :language, :description, :max_borrowing_days, :max_reservation_days)
+                                   :playing_time, :language, :description, :max_borrowing_days, :max_reservation_days, :image)
     else
       item_type.eql?("other")
       params.require(:item).permit(:item_type, :name, :category, :description, :max_borrowing_days,
-                                   :max_reservation_days)
+                                   :max_reservation_days, :image)
     end
   end
   # rubocop:enable Metrics/MethodLength
