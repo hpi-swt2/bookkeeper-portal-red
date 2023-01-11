@@ -9,7 +9,9 @@ en:
   delete_group: "Delete group"
   leave_group: "Leave group"
   edit_group: "Edit group"
+
   group_add_member: "Add user"
+  group_add_member_prompt: "Please provide the email address of the user you'd like to add to this group."
 
   group_name : "Groupname"
   group_name_prompt: "Please provide a name for your group"
