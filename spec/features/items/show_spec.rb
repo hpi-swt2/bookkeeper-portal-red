@@ -10,7 +10,7 @@ describe "show item page", type: :feature do
   end
 
   [[1600, 900], [400, 600]].each do |screen_size|
-    context 'with multiple screensizes', driver: :selenium_chrome, ui: true do
+    context 'with multiple screensizes', driver: :selenium, ui: true do
       before do
         Capybara.current_session.current_window.resize_to(screen_size[0], screen_size[1])
       end
