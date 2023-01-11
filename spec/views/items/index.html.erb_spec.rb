@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "items/index", type: :view do
-  before do
-    @q = Item.ransack(params[:q])
-  end
-
 
   before do
     user = FactoryBot.create(:user, password: "password")
@@ -24,7 +20,7 @@ RSpec.describe "items/index", type: :view do
                max_reservation_days: 2,
                max_borrowing_days: 7
              )
-             ])
+           ])
     # initialize search and filter
     @q = Item.ransack(params[:q])
   end
