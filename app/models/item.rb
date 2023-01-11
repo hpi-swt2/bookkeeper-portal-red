@@ -45,6 +45,7 @@ class Item < ApplicationRecord
     source: :group
   )
 
+  has_one_attached :image
   # items can be of different types. This function returns which attributes
   # are relevant for this item depending on it's type
   def attributes
