@@ -1,8 +1,17 @@
 <%= search_form_for @q, html: { :class => 'd-flex mx-3' } do |f| %>
 
     <%= f.search_field :name_or_description_cont, class: 'form-control me-2', placeholder: t("navbar.search") %>
+    
+    <% unless params[:q].nil? %>
+      <% params[:q].each do |p| %>
+        <% unless p[0].to_sym == :name_or_description_cont %>
+          <%= f.hidden_field p[0].to_sym, value: p[1]%>
+        <% end %>
+      <% end %> 
+    <% end %>
+    
     <%= button_tag( :class => "btn btn-outline-light", :value => "search" ) do %>
         <i class="bi bi-search"></i>
     <% end %>
-
+    
 <% end %>
