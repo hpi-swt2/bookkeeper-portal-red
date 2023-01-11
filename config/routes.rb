@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :groups, except: [:show, :new] do
     post :leave
-    post :add_user
+    patch :add_user
   end
   resources :items do
     patch :reserve

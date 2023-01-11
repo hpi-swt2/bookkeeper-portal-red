@@ -67,7 +67,7 @@ class GroupsController < ApplicationController
   def add_user
     respond_to do |format|
       group = @group
-      user = User.where(email: "form input").first
+      user = User.where(email: params[:user]).first
       if Membership.create(user: user, group: group, role: :member)
         format.html { redirect_to groups_url, notice: t(:group_update) }
         format.json { head :no_content }
