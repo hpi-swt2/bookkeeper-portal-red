@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       get "/my", to: "items#my_items", as: :my
       get "/my/borrowed", to: "items#mine_borrowed", as: :mine_borrowed
       get "/borrowed", to: "items#borrowed_by_me", as: :borrowed_by_me
+      get :export_csv
     end
   end
 

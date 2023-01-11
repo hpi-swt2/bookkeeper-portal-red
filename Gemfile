@@ -124,3 +124,6 @@ gem "rqrcode"
 gem "prawn-qrcode"
 
 gem "ransack", "~> 3.2"
+
+# For csv export of items
+gem "csv"
