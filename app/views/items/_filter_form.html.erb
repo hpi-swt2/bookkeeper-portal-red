@@ -1,5 +1,5 @@
 <div class="d-flex flex-row justify-content-end">
-  <%= search_form_for @q do |f| %>
+  <%= search_form_for @q, url: request.path do |f| %>
 
     <div class="input-group">
       <label class="bg-secondary border border-secondary input-group-text" for="">
