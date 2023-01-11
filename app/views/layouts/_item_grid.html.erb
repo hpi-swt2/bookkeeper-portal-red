@@ -33,3 +33,7 @@
     </div>
   </div>
 </div>
+
+<div class="btn-group desktop-only">
+  <%= link_to I18n.t("export_csv"), export_csv_items_path(request.query_parameters), class: "btn btn-secondary" %>
+</div>
