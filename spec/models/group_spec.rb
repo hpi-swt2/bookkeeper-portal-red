@@ -25,7 +25,7 @@ RSpec.describe Group, type: :model do
     expect(group.borrowable_items.first).to eq(item3)
   end
 
-  context "is a personal_group" do
+  context "when group is a personal_group" do
     let(:personal_group) { FactoryBot.create(:group, tag: :personal_group) }
 
     it "cannot have two users" do

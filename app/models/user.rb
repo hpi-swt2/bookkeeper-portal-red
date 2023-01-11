@@ -30,12 +30,12 @@ class User < ApplicationRecord
   def personal_group
     personal_groups = groups.where(groups: { tag: :personal_group })
     raise StandardError, "#{self} has multiple personal_groups" if personal_groups.size > 1
-    raise StandardError, "#{self} has no personal_group" if personal_groups.size == 0
+    raise StandardError, "#{self} has no personal_group" if personal_groups.empty?
 
     personal_groups.first
   end
 
-  def has_personal_group?
+  def exists_personal_group?
     personal_groups = groups.where(groups: { tag: :personal_group })
     raise StandardError, "#{self} has multiple personal_groups" if personal_groups.size > 1
     return false if personal_groups.empty?
@@ -58,7 +58,7 @@ class User < ApplicationRecord
   end
 
   def create_personal_group
-    raise StandardError, "#{self} already has personal group" if has_personal_group?
+    raise StandardError, "#{self} already has personal group" if exists_personal_group?
 
     p_group = Group.create(name: "personal_group", tag: :personal_group)
     p_group_membership = Membership.create(group_id: p_group.id, user_id: id, role: :member)
@@ -90,8 +90,6 @@ class User < ApplicationRecord
 
   def destroy_personal_groups
     personal_groups = groups.where(groups: { tag: :personal_group })
-    for group in personal_groups do
-      group.destroy
-    end
+    personal_groups.each(&:destroy)
   end
 end
