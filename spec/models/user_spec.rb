@@ -27,7 +27,7 @@ describe User, type: :model do
     expect { user.create_personal_group }.to raise_error(StandardError)
   end
 
-  it "throws error if there a multiple personal groups" do
+  it "throws error if there are multiple personal groups" do
     user.create_personal_group
     p_group = Group.create(name: "personal_group", tag: :personal_group)
     p_group_membership = Membership.create(group_id: p_group.id, user_id: user.id, role: :member)
@@ -38,7 +38,6 @@ describe User, type: :model do
   end
 
   it "is destroyed when user is destroyed" do
-
     p_group = user.create_personal_group
     p_group_id = p_group.id
     user.destroy

@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Group, type: :model do
   let(:group) { FactoryBot.create(:group) }
-  let(:personal_group) { FactoryBot.create(:group, tag: :personal_group) }
 
   it "can have multiple items with different permissions" do
     item1 = FactoryBot.create(:item)
