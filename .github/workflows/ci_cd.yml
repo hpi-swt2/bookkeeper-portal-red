@@ -33,6 +33,11 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
+        
+      - name: Install Chrome
+        run: |
+              chmod +x ./scripts/InstallChrome.sh
+              ./scripts/InstallChrome.sh 
 
       - name: Setup Ruby and bundle
         uses: ruby/setup-ruby@v1
@@ -55,7 +60,7 @@ jobs:
         run: |
           cp config/database.ci.yml config/database.yml
           bundle exec rails db:setup
-          bundle exec rspec --tag ~local_only spec/ --tag ~ui --format documentation --format RSpec::Github::Formatter
+          bundle exec rspec --tag ~local_only spec/ --format documentation --format RSpec::Github::Formatter
 
   # Name of the job
   deploy:
