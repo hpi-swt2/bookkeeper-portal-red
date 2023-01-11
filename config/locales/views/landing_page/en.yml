@@ -54,7 +54,14 @@ en:
     form:
       edit: "Edit:"
       new: "New:"
-      duplicate_entries: "There can only be one right assigned to a group!"
+      permissions:
+        title: "Permissions"
+        duplicate_entries: "Only one permission per group is allowed!"
+        add: "Add"
+        remove: "Remove"
+        can_borrow: "can Borrow"
+        can_manage: "can Manage"
+        can_view: "can View"
       all:
         name: "Name"
         description: "Description"
