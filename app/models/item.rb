@@ -45,6 +45,7 @@ class Item < ApplicationRecord
     source: :group
   )
 
+  has_one_attached :image
   # items can be of different types. This function returns which attributes
   # are relevant for this item depending on it's type
   def attributes
@@ -121,5 +122,4 @@ class Item < ApplicationRecord
     I18n.t("items.status_badge.not_available")
   end
 
-  has_one_attached :image
 end

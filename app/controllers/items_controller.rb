@@ -74,12 +74,7 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params(params[:item_type]))
     @item.item_type = params[:item_type]
-
-    puts "HELLU"
-    puts params
-
-    @item.image.attach(params[:image])
-
+    @item.image.attach(item_params(params[:item_type])[:image])
     respond_to do |format|
       if @item.save
         format.html { redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_created") }

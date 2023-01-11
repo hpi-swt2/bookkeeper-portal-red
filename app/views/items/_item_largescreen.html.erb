@@ -6,7 +6,11 @@
       <div class="col-xl-6 p-3">
         <div class="card h-100">
           <%# Image slider%>
-          <%= image_tag "dummy_image.png", class: "card-img-top"%>
+          <% if @item.image.attached? %>
+            <%= image_tag @item.image.representation(resize_to_fill: [614, 441]), class: "card-img-top" %>
+          <% else %>
+            <%= image_tag "dummy_image.png", class: "card-img-top"%>
+          <% end%>
           <div class="card-body ">
             <%# Attributes if small enough arranged as grid%>
             <div class="imagecard-attributes">
@@ -58,7 +62,6 @@
               </span>
               <hr class="border border-primary border-2 opacity-75">
             <% end %>
-            
             <%# Description%>
             <p class="text-start text-wrap"><%= @item.description %></p>
             <%# Infobox%>

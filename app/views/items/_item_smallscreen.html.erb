@@ -1,18 +1,11 @@
 <%# The main show page for small screens %>
 <div class="small-screen">
   <%# Image slider%>
-  <%= image_tag "dummy_image.png", class: "card-img-top"%>
-
-
-  "BLUB!"
-
-  <% puts"BLUB" %>
-  <% puts @item.image %>
   <% if @item.image.attached? %>
-    <% @item.image %>
-    <image src="<%(url_for(@item.image))%>">
+    <%= image_tag @item.image.representation(resize_to_fill: [614, 441]), class: "card-img-top" %>
+  <% else %>
+    <%= image_tag "dummy_image.png", class: "card-img-top"%>
   <% end%>
-
 
   <hr class="border border-primary border-2 opacity-75"/>
  
