@@ -44,4 +44,10 @@ describe "User Profile Page", type: :feature do
     visit profile_path(id: user2.id)
     expect(page).not_to have_link(href: edit_profile_path)
   end
+
+  it "inlcudes a link to show the analytics for the authorized user" do
+    sign_in user
+    visit profiles_me_path
+    expect(page).to have_link(href: analytics_path)
+  end
 end
