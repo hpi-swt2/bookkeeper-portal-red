@@ -1,16 +1,26 @@
 require 'rails_helper'
 
 RSpec.describe "items/index", type: :view do
+
   before do
+    user = FactoryBot.create(:user, password: "password")
+    sign_in user
     assign(:items, [
-             Item.create!(
+             FactoryBot.create(
+               :book,
                name: "Communist Manifesto",
+               author: "Karl Marx",
+               genre: "",
                description: "A book about communism, brought to you by Karl Marx, Friedrich Engels and Team Red",
+               max_reservation_days: 2,
                max_borrowing_days: 7
              ),
-             Item.create!(
+             FactoryBot.create(
+               :book,
                name: "The Hitchhikers Guide to the Galaxy",
+               genre: "",
                description: "A science fiction comedy adventure",
+               max_reservation_days: 2,
                max_borrowing_days: 7
              )
            ])
@@ -38,6 +48,17 @@ RSpec.describe "items/index", type: :view do
     render
     expect(rendered).not_to match(/A book about communism, brought to you by Karl Marx, Friedrich Engels and Team Red/)
     expect(rendered).not_to match(/A science fiction comedy adventure/)
+  end
+
+  it "renders important item attributes based on item_type" do
+    render
+    expect(rendered).to match(/Karl Marx/)
+    expect(rendered).to match(I18n.t("items.form.book.author"))
+  end
+
+  it "does not render important item attributes if empty" do
+    render
+    expect(rendered).not_to match(I18n.t("items.form.book.genre"))
   end
 
   it "renders 'new item' button" do

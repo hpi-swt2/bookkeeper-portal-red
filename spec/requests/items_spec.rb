@@ -18,11 +18,16 @@ RSpec.describe "/items", type: :request do
   # Item. As you add validations to Item, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    { name: "Item 1", description: "Item 1 description", max_borrowing_days: 7 }
+    FactoryBot.attributes_for(:book)
   end
 
   let(:invalid_attributes) do
-    { name: "", description: "Item 1 description", max_borrowing_days: -1 }
+    { name: "", description: "Item 1 description", max_borrowing_days: -1, max_reservation_days: 2 }
+  end
+
+  before do
+    user = FactoryBot.create(:user, password: "password")
+    sign_in user
   end
 
   describe "GET /index" do
@@ -36,8 +41,6 @@ RSpec.describe "/items", type: :request do
   describe "GET /show" do
     it "renders a successful response" do
       item = Item.create! valid_attributes
-      user = FactoryBot.create(:user, password: "password")
-      sign_in user
       get item_url(item)
       expect(response).to be_successful
     end
@@ -53,6 +56,12 @@ RSpec.describe "/items", type: :request do
   describe "GET /edit" do
     it "renders a successful response" do
       item = Item.create! valid_attributes
+      user = FactoryBot.create(:user, password: "password")
+      sign_in user
+      group = FactoryBot.create(:group)
+      membership = Membership.new(role: :admin, user_id: user.id, group: group)
+      user.memberships.push(membership)
+      item.manager_groups.push(group)
       get edit_item_url(item)
       expect(response).to be_successful
     end
@@ -122,6 +131,12 @@ RSpec.describe "/items", type: :request do
   describe "DELETE /destroy" do
     it "destroys the requested item" do
       item = Item.create! valid_attributes
+      user = FactoryBot.create(:user, password: "password")
+      sign_in user
+      group = FactoryBot.create(:group)
+      membership = Membership.new(role: 1, user_id: user.id, group: group)
+      user.memberships.push(membership)
+      item.manager_groups.push(group)
       expect do
         delete item_url(item)
       end.to change(Item, :count).by(-1)
@@ -129,6 +144,12 @@ RSpec.describe "/items", type: :request do
 
     it "redirects to the items list" do
       item = Item.create! valid_attributes
+      user = FactoryBot.create(:user, password: "password")
+      sign_in user
+      group = FactoryBot.create(:group)
+      membership = Membership.new(role: 1, user_id: user.id, group: group)
+      user.memberships.push(membership)
+      item.manager_groups.push(group)
       delete item_url(item)
       expect(response).to redirect_to(items_url)
     end

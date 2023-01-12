@@ -2,9 +2,19 @@ Rails.application.routes.draw do
   get "items/:id/download", to: 'items#download', as: :download
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  resources :groups
+  resources :groups, except: [:show, :new] do
+    post :leave
+  end
   resources :items do
+    patch :reserve
+    patch :borrow
+    patch :give_back
     patch :update_lending
+    collection do
+      get "/my", to: "items#my_items", as: :my
+      get "/my/borrowed", to: "items#mine_borrowed", as: :mine_borrowed
+      get "/borrowed", to: "items#borrowed_by_me", as: :borrowed_by_me
+    end
   end
 
   # Add controllers for omniauth (openid connect)
