@@ -24,6 +24,9 @@
         id: "filter-category" %>
     </div>
 
+
+    <!-- copy old ransack query parameters from other former queries into hidden fields, so that 
+      these are also submitted. Thats necessary to combine multiple different ransack queries -->
     <% unless params[:q].nil? %>
       <% params[:q].each do |p| %>
         <% unless p[0].to_sym == :item_type_eq %>
