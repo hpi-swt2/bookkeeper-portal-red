@@ -33,6 +33,9 @@ Rails.application.routes.draw do
   get "/profiles/:id", to: "profiles#show", as: :profile
   get "/profiles/me/edit", to: "profiles#edit_me", as: :edit_profile
 
+  # Analytics routes
+  get '/analytics', to: 'analytics#show'
+
   # QR-Code Scan site
   get '/scan', to: 'qr_reader#scan'
 
