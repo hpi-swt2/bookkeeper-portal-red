@@ -9,6 +9,9 @@
       <% end %>
       </h2>
     <%= mail_to @user.email, class: "card-subtitle mb-2 text-muted" %>
+    <% if Rails.env.development? and @user != current_user %>
+      <%= link_to "Log in as this user", development_tools_switch_user_path(@user.id) %>
+    <% end %>
 
     <hr>
     <p class="card-text">

@@ -36,6 +36,11 @@ Rails.application.routes.draw do
   # Analytics routes
   get '/analytics', to: 'analytics#show', as: :analytics
 
+  # Development-only user switching code
+  if Rails.env.development?
+    get "/development/switch_user/:id", to: "development_tools#switch_user", as: :development_tools_switch_user
+  end
+
   # QR-Code Scan site
   get '/scan', to: 'qr_reader#scan'
 
