@@ -19,6 +19,8 @@ de:
       successfully_returned: "Item wurde erfolgreich zurückgegeben"
       successfully_reserved: "Item wurde erfolgreich reserviert"
       unsuccessfully_reserved: "Item Reservierung fehlgeschlagen"
+      joining_waitlist_succeeded: "Du bist der Warteliste beigetreten."
+      leaving_waitlist_succeeded: "Du hast die Warteliste verlassen."
       lending_error: "Ausleihsystem Fehler"
       not_allowed_to_destroy: "Dir ist nicht erlaubt das Item zu löschen."
       not_allowed_to_download: "Dir ist nicht erlaubt den QR-Code des Items herunterzuladen."
@@ -37,6 +39,8 @@ de:
       borrow: "Ausleihen"
       return: "Zurückgeben"
       reserve: "Reservieren"
+      join_waitlist: "Warteliste beitreten"
+      leave_waitlist: "Warteliste verlassen"
       download_qrcode: "QR-Code herunterladen"
     status_badge:
       available: "Verfügbar"

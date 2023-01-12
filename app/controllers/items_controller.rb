@@ -1,7 +1,7 @@
 # rubocop:disable Metrics/ClassLength
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show edit update destroy ]
-  before_action :set_item_from_item_id, only: %i[ borrow reserve give_back]
+  before_action :set_item_from_item_id, only: %i[ borrow reserve give_back join_waitlist leave_waitlist]
   helper_method :button_text, :button_path
 
   # GET /items or /items.json
@@ -160,6 +160,30 @@ class ItemsController < ApplicationController
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+  # PATCH
+  def join_waitlist
+    @user = current_user
+    can_join_waitlist = @item.allows_joining_waitlist?(@user)
+    waiting_position = WaitingPosition.new(item_id: @item.id, user_id: @user.id)
+    waiting_position.save if can_join_waitlist
+
+    respond_to do |format|
+      format.html { redirect_to @item, notice: I18n.t("items.messages.joining_waitlist_succeeded") }
+      format.json { render @item, status: :ok, location: @item }
+    end
+  end
+
+  # PATCH
+  def leave_waitlist
+    @user = current_user
+    WaitingPosition.find_by(user_id: @user.id, item_id: @item.id)&.destroy
+
+    respond_to do |format|
+      format.html { redirect_to @item, notice: I18n.t("items.messages.leaving_waitlist_succeeded") }
+      format.json { render @item, status: :ok, location: @item }
+    end
+  end
 
   # PATCH/PUT /items/1 or /items/1.json
   # rubocop:disable Metrics/AbcSize
