@@ -96,4 +96,5 @@ en:
       missing_borrowing_permissions: 
         heading: "Why can't I borrow this item?"
         body: "You are not part of a group that is allowed to borrow this item."
-
+  profile:
+    description_header: "Description"

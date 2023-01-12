@@ -21,7 +21,8 @@ Rails.application.routes.draw do
   devise_for :users,
              controllers: {
                omniauth_callbacks: "users/omniauth_callbacks",
-               sessions: "users/sessions"
+               sessions: "users/sessions",
+               registrations: "registrations"
              }
 
   # Defines the root path route ("/")
@@ -30,6 +31,7 @@ Rails.application.routes.draw do
   # Profile routes
   get "/profiles/me", to: "profiles#show_me"
   get "/profiles/:id", to: "profiles#show", as: :profile
+  get "/profiles/me/edit", to: "profiles#edit_me", as: :edit_profile
 
   # QR-Code Scan site
   get '/scan', to: 'qr_reader#scan'

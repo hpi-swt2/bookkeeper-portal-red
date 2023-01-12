@@ -98,3 +98,5 @@ de:
       missing_borrowing_permissions: 
         heading: "Warum kann ich diesen Artikel nicht ausleihen?"
         body: "Sie gehören nicht zu einer Gruppe, die diesen Artikel ausleihen darf."
+  profile:
+    description_header: "Beschreibung"
