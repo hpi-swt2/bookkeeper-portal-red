@@ -43,6 +43,7 @@ de:
       not_available: "Nicht verfügbar"
       borrowed_by_me: "Von mir ausgeliehen"
       reserved_by_me: "Von mir reserviert"
+      no_access: "Kein Zugriff"
     card_text:
       owner: von
     type:
@@ -56,14 +57,14 @@ de:
     form:
       edit: "Bearbeite:"
       new: "Neues:"
-      other:
+      all:
         name: "Name"
-        category: "Kategorie"
         description: "Beschreibung"
         max_borrowing_days: "Ausleihzeit"
         max_reservation_days: "Reservierungszeit"
+      other:
+        category: "Kategorie"
       book:
-        name: "Name"
         isbn: "ISBN"
         author: "Autor"
         release_date: "Erscheinungsdatum"
@@ -72,22 +73,14 @@ de:
         number_of_pages: "Seitenzahl"
         publisher: "Verleger"
         edition: "Edition"
-        description: "Beschreibung"
-        max_borrowing_days: "Ausleihzeit"
-        max_reservation_days: "Reservierungszeit"
       movie:
-        name: "Name"
         director: "Regisseur"
         release_date: "Erscheinungsdatum"
         format: "Format"
         genre: "Genre"
         language: "Sprache"
         fsk: "Jugendfreigabe"
-        description: "Beschreibung"
-        max_borrowing_days: "Ausleihzeit"
-        max_reservation_days: "Reservierungszeit"
       game:
-        name: "Name"
         author: "Autor"
         illustrator: "Illustrator"
         publisher: "Verleger"
@@ -95,9 +88,6 @@ de:
         number_of_players: "Spielerzahl"
         playing_time: "Spieldauer"
         language: "Sprache"
-        description: "Beschreibung"
-        max_borrowing_days: "Ausleihzeit"
-        max_reservation_days: "Reservierungszeit"
     infobox:
       borrow: 
         heading: "Wie kann man diesen Artikel ausleihen?"
@@ -105,3 +95,6 @@ de:
       return: 
         heading: "Wie kann ich diesen Artikel zurückgeben?"
         body: "Scannen Sie mit Ihrem mobilen Gerät den QR-Code dieses Artikels. Sie finden den Artikel an dem unten angegebenen Ort."
+      missing_borrowing_permissions: 
+        heading: "Warum kann ich diesen Artikel nicht ausleihen?"
+        body: "Sie gehören nicht zu einer Gruppe, die diesen Artikel ausleihen darf."

@@ -25,19 +25,19 @@ describe "show item page", type: :feature do
       it "only shows borrow button if src=qrcode is present" do
         sign_in @user
         visit "#{item_path(@item)}?src=qrcode"
-        expect(page).to have_text(:visible, "Borrow")
+        expect(page).to have_button(I18n.t('items.buttons.borrow'))
       end
 
       it "doesn't show borrow button if src=qrcode is not present" do
         sign_in @user
         visit item_path(@item)
-        expect(page).not_to have_text(:visible, "Borrow")
+        expect(page).not_to have_button(I18n.t('items.buttons.borrow'))
       end
 
       it "doesn't show borrow button if src=not-qrcode" do
         sign_in @user
         visit "#{item_path(@item)}?src=not-qrcode"
-        expect(page).not_to have_text(:visible, "Borrow")
+        expect(page).not_to have_button(I18n.t('items.buttons.borrow'))
       end
     end
   end
@@ -49,7 +49,7 @@ describe "show item page", type: :feature do
     expect(page).to have_text(:visible, @item.description)
   end
 
-  it "displays a Infotext if src=qrcode is not present and the item is reserved by the current user" do
+  it "displays an infotext if src=qrcode is not present and the item is reserved by the current user" do
     FactoryBot.create(:reservation, item_id: @item.id, user_id: @user.id, starts_at: Time.zone.now,
                                     ends_at: 2.days.from_now)
     sign_in @user
@@ -58,7 +58,7 @@ describe "show item page", type: :feature do
     expect(page).to have_text(:visible, I18n.t("items.infobox.borrow.body"))
   end
 
-  it "does not display a Infotext if src=qrcode is present and the item is reserved by the current user" do
+  it "does not display an infotext if src=qrcode is present and the item is reserved by the current user" do
     FactoryBot.create(:reservation, item_id: @item.id, user_id: @user.id, starts_at: Time.zone.now,
                                     ends_at: 2.days.from_now)
     sign_in @user
@@ -67,7 +67,7 @@ describe "show item page", type: :feature do
     expect(page).not_to have_text(:visible, I18n.t("items.infobox.borrow.body"))
   end
 
-  it "displays a Infotext if src=qrcode is not present and the item is borrowed by the current user" do
+  it "displays an infotext if src=qrcode is not present and the item is borrowed by the current user" do
     FactoryBot.create(:lending, item_id: @item.id, user_id: @user.id, started_at: Time.zone.now, completed_at: nil,
                                 due_at: 2.days.from_now)
     sign_in @user
@@ -76,13 +76,35 @@ describe "show item page", type: :feature do
     expect(page).to have_text(:visible, I18n.t("items.infobox.return.body"))
   end
 
-  it "does not display a Infotext if src=qrcode is present and the item is borrowed by the current user" do
+  it "does not display an infotext if src=qrcode is present and the item is borrowed by the current user" do
     FactoryBot.create(:lending, item_id: @item.id, user_id: @user.id, started_at: Time.zone.now, completed_at: nil,
                                 due_at: 2.days.from_now)
     sign_in @user
     visit "#{item_path(@item)}?src=qrcode"
     expect(page).not_to have_text(:visible, I18n.t("items.infobox.return.heading"))
     expect(page).not_to have_text(:visible, I18n.t("items.infobox.return.body"))
+  end
+
+  it "displays an infotext if the user has no borrowing permissions" do
+    @item2 = FactoryBot.create(:movie)
+    sign_in @user
+    visit item_path(@item2)
+    expect(page).to have_text(:visible, I18n.t("items.infobox.missing_borrowing_permissions.heading"))
+    expect(page).to have_text(:visible, I18n.t("items.infobox.missing_borrowing_permissions.body"))
+  end
+
+  it "does not display an infotext if the user has borrowing permissions" do
+    sign_in @user
+    visit item_path(@item)
+    expect(page).not_to have_text(:visible, I18n.t("items.infobox.missing_borrowing_permissions.heading"))
+    expect(page).not_to have_text(:visible, I18n.t("items.infobox.missing_borrowing_permissions.body"))
+  end
+
+  it "has a 'no-access' status badge if the user has no borrowing permissions" do
+    @item2 = FactoryBot.create(:movie)
+    sign_in @user
+    visit item_path(@item2)
+    expect(page).to have_text(:visible, I18n.t("items.status_badge.no_access"))
   end
 
   it "has working search field inside navbar" do

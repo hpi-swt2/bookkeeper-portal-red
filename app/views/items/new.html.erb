@@ -1,6 +1,6 @@
-<h1><%=I18n.t("items.form.new")%></h1>
+<h1><%=I18n.t("items.form.new")%> <%=I18n.t("items.type." + @item.item_type.to_s)%></h1>
 
-<%= render :partial => "items/item_type_form", item: @item %>
+<%= render "items/item_type_form", item: @item %> 
 
 <br>
 

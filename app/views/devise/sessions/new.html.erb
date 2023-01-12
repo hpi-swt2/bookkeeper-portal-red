@@ -1,3 +1,15 @@
-<div class="text-center form-signin w-100 m-auto" style="max-width: 300px;">
-  <%= render "devise/shared/links" %>
-</div>
+<%= stylesheet_link_tag "sign-in.css" %>
+
+<table class="text-center sign-in-form w-100 m-auto">
+  <tbody>
+    <tr class="sign-in-header">
+      <td><%= image_tag "logo-hpi-color.png", alt: "HPI Logo" %></td>
+    </tr>
+    <tr>
+      <td class="sign-in-links">
+        <%= render "devise/shared/links" %>
+        <p><%= I18n.t("devise.sessions.new.info-text") %></p>
+      </td>
+    </tr>
+  </tbody>
+</table>

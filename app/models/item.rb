@@ -12,11 +12,16 @@ class Item < ApplicationRecord
   enum :item_type, other: 0, book: 1, movie: 2, game: 3
 
   # hardcoded which attributes belong to which item type
-  BOOK_ATTRIBUTES = %w[name isbn author release_date genre language number_of_pages publisher edition
-                       description].freeze
-  MOVIE_ATTRIBUTES = %w[name director release_date format genre language fsk description].freeze
-  GAME_ATTRIBUTES = %w[name author illustrator publisher fsk number_of_players playing_time language description].freeze
-  OTHER_ATTRIBUTES = %w[name category description].freeze
+  COMMON_ATTRIBUTES = %w[name description max_borrowing_days max_reservation_days].freeze
+  BOOK_ATTRIBUTES = %w[isbn author release_date genre language number_of_pages publisher edition].freeze
+  MOVIE_ATTRIBUTES = %w[director release_date format genre language fsk].freeze
+  GAME_ATTRIBUTES = %w[author illustrator publisher fsk number_of_players playing_time language].freeze
+  OTHER_ATTRIBUTES = %w[category].freeze
+
+  BOOK_IMPORTANT_ATTRIBUTES = %w[author genre language].freeze
+  MOVIE_IMPORTANT_ATTRIBUTES = %w[format genre language fsk].freeze
+  GAME_IMPORTANT_ATTRIBUTES = %w[number_of_players playing_time].freeze
+  OTHER_IMPORTANT_ATTRIBUTES = %w[category].freeze
 
   has_many :lendings, dependent: :destroy
   has_many :reservations, dependent: :destroy
@@ -43,10 +48,21 @@ class Item < ApplicationRecord
   # items can be of different types. This function returns which attributes
   # are relevant for this item depending on it's type
   def attributes
-    return BOOK_ATTRIBUTES if item_type.eql? "book"
-    return MOVIE_ATTRIBUTES if item_type.eql? "movie"
-    return GAME_ATTRIBUTES if item_type.eql? "game"
-    return OTHER_ATTRIBUTES if item_type.eql? "other"
+    return COMMON_ATTRIBUTES + BOOK_ATTRIBUTES if item_type.eql? "book"
+    return COMMON_ATTRIBUTES + MOVIE_ATTRIBUTES if item_type.eql? "movie"
+    return COMMON_ATTRIBUTES + GAME_ATTRIBUTES if item_type.eql? "game"
+    return COMMON_ATTRIBUTES + OTHER_ATTRIBUTES if item_type.eql? "other"
+  end
+
+  def common_attributes
+    COMMON_ATTRIBUTES
+  end
+
+  def important_attributes
+    return BOOK_IMPORTANT_ATTRIBUTES if item_type.eql? "book"
+    return MOVIE_IMPORTANT_ATTRIBUTES if item_type.eql? "movie"
+    return GAME_IMPORTANT_ATTRIBUTES if item_type.eql? "game"
+    return OTHER_IMPORTANT_ATTRIBUTES if item_type.eql? "other"
   end
 
   def attribute?(attribute)
@@ -97,6 +113,7 @@ class Item < ApplicationRecord
   end
 
   def status_text(user)
+    return I18n.t("items.status_badge.no_access") unless user.can_borrow?(self)
     return I18n.t("items.status_badge.reserved_by_me") if reserved_by?(user)
     return I18n.t("items.status_badge.available") if borrowable_by?(user)
     return I18n.t("items.status_badge.borrowed_by_me") if borrowed_by?(user)

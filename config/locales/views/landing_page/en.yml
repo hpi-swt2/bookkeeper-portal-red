@@ -41,6 +41,7 @@ en:
       not_available: "Not available"
       borrowed_by_me: "Borrowed by me"
       reserved_by_me: "Reserved by me"
+      no_access: "No access"
     card_text:
       owner: from
     type:
@@ -54,14 +55,14 @@ en:
     form:
       edit: "Edit:"
       new: "New:"
-      other:
+      all:
         name: "Name"
-        category: "Category"
         description: "Description"
         max_borrowing_days: "Borrowing Period"
         max_reservation_days: "Reservation Period"
+      other:
+        category: "Category"
       book:
-        name: "Name"
         isbn: "ISBN"
         author: "Author"
         release_date: "Release Date"
@@ -70,22 +71,14 @@ en:
         number_of_pages: "Number of Pages"
         publisher: "Publisher"
         edition: "Edition"
-        description: "Description"
-        max_borrowing_days: "Borrowing Period"
-        max_reservation_days: "Reservation Period"
       movie:
-        name: "Name"
         director: "Director"
         release_date: "Release Date"
         format: "Format"
         genre: "Genre"
         language: "Language"
         fsk: "Age Rating"
-        description: "Description"
-        max_borrowing_days: "Borrowing Period"
-        max_reservation_days: "Reservation Period"
       game:
-        name: "Name"
         author: "Author"
         illustrator: "Illustrator"
         publisher: "Publisher"
@@ -93,9 +86,6 @@ en:
         number_of_players: "Number of Players"
         playing_time: "Playing Time"
         language: "Language"
-        description: "Description"
-        max_borrowing_days: "Borrowing Period"
-        max_reservation_days: "Reservation Period"
     infobox:
       borrow: 
         heading: "How to borrow this item?"
@@ -103,3 +93,7 @@ en:
       return: 
         heading: "How to return this item?"
         body: "Use your mobile device to scan the QR-code of this item. You will find the item at the location below."
+      missing_borrowing_permissions: 
+        heading: "Why can't I borrow this item?"
+        body: "You are not part of a group that is allowed to borrow this item."
+
