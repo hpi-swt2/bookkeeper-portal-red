@@ -14,6 +14,12 @@
             <%=t("navbar.assets")%>
           </a>
         </li>
+        <li class="nav-item">
+          <%= link_to borrowed_by_me_items_path, class: "nav-link" do %>
+            <i class="bi bi-book-fill mobile-only"></i>
+            <%=t("navbar.borrowed_assets")%>
+          <% end %>
+        </li>
         <% if user_signed_in? %>
         <li class="nav-item">
           <%= link_to groups_path, class: "nav-link" do %>

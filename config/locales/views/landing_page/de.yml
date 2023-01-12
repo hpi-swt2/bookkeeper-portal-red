@@ -4,6 +4,7 @@ de:
   my_profile: "Mein Profil"
   navbar:
     assets: "Meine Assets"
+    borrowed_assets: "Geliehene Assets"
     groups: "Meine Gruppen"
     categories: "Kategorien"
     notifications: "Benachrichtigungen"
