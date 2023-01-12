@@ -4,6 +4,7 @@ de:
   my_profile: "Mein Profil"
   navbar:
     assets: "Meine Assets"
+    borrowed_assets: "Geliehene Assets"
     groups: "Meine Gruppen"
     categories: "Kategorien"
     notifications: "Benachrichtigungen"
@@ -91,12 +92,16 @@ de:
         playing_time: "Spieldauer"
         language: "Sprache"
     infobox:
-      borrow: 
+      borrow:
         heading: "Wie kann man diesen Artikel ausleihen?"
         body: "Scannen Sie mit Ihrem mobilen Gerät den QR-Code dieses Artikels. Sie finden den Gegenstand an dem unten angegebenen Ort."
-      return: 
+      return:
         heading: "Wie kann ich diesen Artikel zurückgeben?"
         body: "Scannen Sie mit Ihrem mobilen Gerät den QR-Code dieses Artikels. Sie finden den Artikel an dem unten angegebenen Ort."
-      missing_borrowing_permissions: 
+      missing_borrowing_permissions:
         heading: "Warum kann ich diesen Artikel nicht ausleihen?"
         body: "Sie gehören nicht zu einer Gruppe, die diesen Artikel ausleihen darf."
+  profile:
+    description_header: "Beschreibung"
+  analytics:
+    headline: "Meine Statistiken"
