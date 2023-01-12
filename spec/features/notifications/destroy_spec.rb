@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'spec_helper'
 
 describe "Notification inbox", type: :feature do
   let(:user) { FactoryBot.create(:user, password: 'password') }
@@ -7,7 +8,7 @@ describe "Notification inbox", type: :feature do
     sign_in user
   end
 
-  context 'with JS', driver: :selenium, js: true, ui: true do
+  context 'with JS', js: true, ui: true do
     before do
       # Window needs to be wide enough to show notification button
       Capybara.current_session.current_window.resize_to(1000, 900)

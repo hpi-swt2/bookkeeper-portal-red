@@ -26,7 +26,10 @@ require "view_component/test_helpers"
 require "capybara/rails"
 require "capybara/rspec"
 
-Capybara.register_driver :selenium do |app|
+require 'selenium-webdriver'
+require 'webdrivers'
+
+Capybara.register_driver :custom do |app|
   options = Selenium::WebDriver::Chrome::Options.new
   # options.add_argument("--headless")
   # options.add_argument("--window-size=1400,1400")
@@ -35,6 +38,7 @@ Capybara.register_driver :selenium do |app|
 
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
+Capybara.javascript_driver = :custom
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
