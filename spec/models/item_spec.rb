@@ -115,7 +115,6 @@ RSpec.describe Item, type: :model do
   describe "Owner return:" do
     let(:user) { FactoryBot.create(:user) }
     let(:user2) { FactoryBot.create(:user) }
-    let(:user3) { FactoryBot.create(:user) }
 
     before do
       manage_group = FactoryBot.create(:group)
@@ -128,29 +127,26 @@ RSpec.describe Item, type: :model do
     end
 
     it "does not allow owner-return if user has no management rights" do
-      expect(item.owner_can_return?(user)).to be false
+      expect(user.can_return_as_owner?(item)).to be false
+      FactoryBot.create(:lending, item_id: item.id, user_id: user2.id, started_at: Time.zone.now, completed_at: nil,
+                                  due_at: 2.days.from_now)
+      expect(user.can_return_as_owner?(item)).to be false
     end
 
     it "does not allow owner-return if item is borrowed by owner himself" do
       FactoryBot.create(:lending, item_id: item.id, user_id: user2.id, started_at: Time.zone.now, completed_at: nil,
                                   due_at: 2.days.from_now)
-      expect(item.owner_can_return?(user2)).to be false
-    end
-
-    it "does not allow owner-return if user has no management rights and item is borrowed by someone else" do
-      FactoryBot.create(:lending, item_id: item.id, user_id: user2.id, started_at: Time.zone.now, completed_at: nil,
-                                  due_at: 2.days.from_now)
-      expect(item.owner_can_return?(user)).to be false
+      expect(user2.can_return_as_owner?(item)).to be false
     end
 
     it "does not allow owner-return if user has management rights but item is not borrowed" do
-      expect(item.owner_can_return?(user2)).to be false
+      expect(user2.can_return_as_owner?(item)).to be false
     end
 
     it "does allow owner-return if user has management rights and item is borrowed" do
       FactoryBot.create(:lending, item_id: item.id, user_id: user.id, started_at: Time.zone.now, completed_at: nil,
                                   due_at: 2.days.from_now)
-      expect(item.owner_can_return?(user2)).to be true
+      expect(user2.can_return_as_owner?(item)).to be true
     end
   end
 

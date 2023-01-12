@@ -104,10 +104,6 @@ class Item < ApplicationRecord
     Lending.exists?(user_id: user.id, item_id: id, completed_at: nil)
   end
 
-  def owner_can_return?(user)
-    !borrowed_by?(user) && borrowed? && user.can_manage?(self)
-  end
-
   def cancel_reservation_for(user)
     return unless reserved_by?(user)
 

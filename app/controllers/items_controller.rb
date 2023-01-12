@@ -124,7 +124,7 @@ class ItemsController < ApplicationController
       @lending.completed_at = Time.current
       msg = I18n.t("items.messages.successfully_returned")
     elsif @item.borrowed? && @user.can_manage?(@item)
-      @lending = Lending.where(item_id: @item.id, user_id: @user.id, completed_at: nil).first
+      @lending = Lending.where(item_id: @item.id, completed_at: nil).first
       @lending.completed_at = Time.current
       msg = I18n.t("items.messages.successfully_returned-by-owner")
     else
@@ -158,7 +158,7 @@ class ItemsController < ApplicationController
         format.html { redirect_to @item, notice: msg }
         format.json { render @item, status: :ok, location: @item }
       else
-        format.html { render :show, status: :unprocessable_entity }
+        format.html { render :show, status: :unprocessable_entity, notice: msg }
         format.json { render json: @reservation.errors, status: :unprocessable_entity }
       end
     end
