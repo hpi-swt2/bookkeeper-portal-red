@@ -1,3 +1,5 @@
+<%= render "items/filter_form" %>
+
 <div class="row mt-3 my-0">
     <% @items.first(20).each do |item| %>
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4">
@@ -5,12 +7,18 @@
                 <img class="card-img-top" src="https://via.placeholder.com/400x300" alt="Card image cap">
                 <div class="card-body text-center">
                     <h5 class="card-title text-truncate"><%= item.name %></h5>
-                    <p class="card-text text-truncate"><%= I18n.t("items.card_text.owner") %> Alan Must</p>
+                    <ul class="list-group">
+                      <% item.important_attributes.each do |attr| %>
+                        <% unless item[attr.to_sym].blank? %>
+                          <li class="list-group-item p-0 border-0"> <%= I18n.t("items.form." + item.item_type.to_s + "." + attr.to_s) %>: <%= item[attr.to_sym] %></li>
+                        <% end %>
+                      <% end %>
+                    </ul>
+                    <p class="card-text text-truncate m-3"><%= I18n.t("items.card_text.owner") %> Alan Must</p>
                     <p class="card-text text-truncate text-success"><%= item.status_text(current_user) %></p>
                     <div class="card-body">
                         <a class="mx-auto btn btn-primary" href=<%=item_path(item)%>><%=I18n.t("items.buttons.show")%></a>
                     </div>
-                    <div class="card-body"></div>
                 </div>
             </div>
         </div>

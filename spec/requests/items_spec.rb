@@ -22,7 +22,12 @@ RSpec.describe "/items", type: :request do
   end
 
   let(:invalid_attributes) do
-    { name: "", description: "Item 1 description", max_borrowing_days: -1 }
+    { name: "", description: "Item 1 description", max_borrowing_days: -1, max_reservation_days: 2 }
+  end
+
+  before do
+    user = FactoryBot.create(:user, password: "password")
+    sign_in user
   end
 
   describe "GET /index" do
@@ -36,8 +41,6 @@ RSpec.describe "/items", type: :request do
   describe "GET /show" do
     it "renders a successful response" do
       item = Item.create! valid_attributes
-      user = FactoryBot.create(:user, password: "password")
-      sign_in user
       get item_url(item)
       expect(response).to be_successful
     end

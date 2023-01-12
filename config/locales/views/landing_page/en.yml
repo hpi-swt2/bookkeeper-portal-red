@@ -1,7 +1,6 @@
 en:
   hello: "Hello world 2"
   navbar:
-    home: "Home"
     assets: "My Assets"
     groups: "My Groups"
     categories: "Categories"
@@ -14,8 +13,11 @@ en:
       successfully_created: "Item was successfully created."
       successfully_updated: "Item was successfully updated."
       successfully_destroyed: "Item was successfully destroyed."
-      successfully_borrowed: "Item was successfully borrowed."
-      successfully_returned: "Item was successfully returned."
+      successfully_borrowed: "Item was successfully borrowed"
+      successfully_returned: "Item was successfully returned"
+      successfully_reserved: "Item was successfully reserved"
+      unsuccessfully_reserved: "Item reservation failed"
+      lending_error: "Lending error"
       not_allowed_to_destroy: "You are not allowed to delete this item."
       not_allowed_to_download: "You are not allowd to download the QR-Code of this item."
       not_allowed_to_edit: "You are not allowed to edit this item."
@@ -30,13 +32,16 @@ en:
       edit: "Edit item"
       delete: "Delete item"
       back: "Back to items"
+      reserve: "Reserve"
       borrow: "Borrow"
       return: "Return"
       download_qrcode: "Download QR-Code"
     status_badge:
       available: "Available"
-      borrowed_by_me: "Borrowed by me"
       not_available: "Not available"
+      borrowed_by_me: "Borrowed by me"
+      reserved_by_me: "Reserved by me"
+      no_access: "No access"
     card_text:
       owner: from
     type:
@@ -50,13 +55,14 @@ en:
     form:
       edit: "Edit:"
       new: "New:"
-      other:
+      all:
         name: "Name"
-        category: "Category"
         description: "Description"
-        max_borrowing_days: "Maximum Borrowing Period"
+        max_borrowing_days: "Borrowing Period"
+        max_reservation_days: "Reservation Period"
+      other:
+        category: "Category"
       book:
-        name: "Name"
         isbn: "ISBN"
         author: "Author"
         release_date: "Release Date"
@@ -65,20 +71,14 @@ en:
         number_of_pages: "Number of Pages"
         publisher: "Publisher"
         edition: "Edition"
-        description: "Description"
-        max_borrowing_days: "Maximum Borrowing Period"
       movie:
-        name: "Name"
         director: "Director"
         release_date: "Release Date"
         format: "Format"
         genre: "Genre"
         language: "Language"
         fsk: "Age Rating"
-        description: "Description"
-        max_borrowing_days: "Maximum Borrowing Period"
       game:
-        name: "Name"
         author: "Author"
         illustrator: "Illustrator"
         publisher: "Publisher"
@@ -86,5 +86,17 @@ en:
         number_of_players: "Number of Players"
         playing_time: "Playing Time"
         language: "Language"
-        description: "Description"
-        max_borrowing_days: "Maximum Borrowing Period"
+    infobox:
+      borrow:
+        heading: "How to borrow this item?"
+        body: "Use your mobile device to scan the QR-code of this item. You will find the item at the location below."
+      return:
+        heading: "How to return this item?"
+        body: "Use your mobile device to scan the QR-code of this item. You will find the item at the location below."
+      missing_borrowing_permissions:
+        heading: "Why can't I borrow this item?"
+        body: "You are not part of a group that is allowed to borrow this item."
+  profile:
+    description_header: "Description"
+  analytics:
+    headline: "My Analytics"

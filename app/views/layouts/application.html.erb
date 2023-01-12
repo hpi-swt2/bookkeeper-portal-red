@@ -17,11 +17,10 @@
 
 <%= render "layouts/navbar" %>
 
-
-<body class="bg-primary">
-<div class="bg-white">
-  <div class="wrapper container">
-    <div class="mx-0 py-5 my-5">
+<body>
+<div class="bg-white" id="main-content-wrapper">
+  <div class="wrapper container d-flex justify-content-between">
+    <div class="mx-0 py-5 my-5 w-100">
       <% if notice %><p class="alert alert-success"><%= notice %></p>
       <% end %>
       <% if alert %><p class="alert alert-danger"><%= alert %></p>
@@ -31,7 +30,6 @@
   </div>
 </div>
 </body>
-
 
 <%= render "layouts/footer" %>
 

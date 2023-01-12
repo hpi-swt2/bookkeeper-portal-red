@@ -1,7 +1,8 @@
 # rubocop:disable Metrics/ClassLength
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show edit update destroy ]
-  before_action :set_item_from_item_id, only: %i[ update_lending ]
+  before_action :set_item_from_item_id, only: %i[ borrow reserve give_back]
+  helper_method :button_text, :button_path
 
   # GET /items or /items.json
   def index
@@ -58,7 +59,7 @@ class ItemsController < ApplicationController
   # lists all items of the current user which are currently borrowed
   def mine_borrowed
     # return items which are currently not lendable
-    @items = current_user.items.reject(&:lendable?)
+    @items = current_user.items.filter(&:borrowed?)
     render :borrowed_items
   end
 
@@ -84,23 +85,46 @@ class ItemsController < ApplicationController
       end
     end
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def update_lending
+  # PATCH
+  def borrow
     @user = current_user
+    @item.lat = params[:lat]
+    @item.lng = params[:lng]
+    @item.save
+    if @item.borrowable_by?(@user)
+      create_lending
+      msg = I18n.t("items.messages.successfully_borrowed")
+    else
+      msg = I18n.t("items.messages.lending_error")
+    end
 
-    @lending = Lending.where(item_id: @item.id, completed_at: nil)[0]
+    @item.cancel_reservation_for(@user)
+
+    respond_to do |format|
+      if @lending.save
+        format.html { redirect_to @item, notice: msg }
+        format.json { render :index, status: :ok, location: @item }
+      else
+        format.html { render :show, status: :unprocessable_entity, notice: msg }
+        format.json { render json: @lending.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH
+  def give_back
+    @user = current_user
     @item.lat = params[:lat]
     @item.lng = params[:lng]
     @item.save
 
-    if @lending.nil?
-      create_lending
-      msg = I18n.t("items.messages.successfully_borrowed")
-    else
-      @lending.completed_at = DateTime.now
+    if @item.borrowed_by?(@user)
+      @lending = Lending.where(item_id: @item.id, user_id: @user.id, completed_at: nil).first
+      @lending.completed_at = Time.current
       msg = I18n.t("items.messages.successfully_returned")
+    else
+      msg = I18n.t("items.messages.lending_error")
     end
 
     respond_to do |format|
@@ -108,8 +132,30 @@ class ItemsController < ApplicationController
         format.html { redirect_to @item, notice: msg }
         format.json { render :index, status: :ok, location: @item }
       else
-        format.html { render :show, status: :unprocessable_entity }
+        format.html { render :show, status: :unprocessable_entity, notice: msg }
         format.json { render json: @lending.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH
+  def reserve
+    @user = current_user
+    item_reservable_by_user = @item.reservable_by?(@user)
+    if item_reservable_by_user
+      create_reservation
+      msg = I18n.t("items.messages.successfully_reserved")
+    else
+      msg = I18n.t("items.messages.unsuccessfully_reserved")
+    end
+
+    respond_to do |format|
+      if !item_reservable_by_user || @reservation.save
+        format.html { redirect_to @item, notice: msg }
+        format.json { render @item, status: :ok, location: @item }
+      else
+        format.html { render :show, status: :unprocessable_entity }
+        format.json { render json: @reservation.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -167,27 +213,34 @@ class ItemsController < ApplicationController
     case item_type
     when "book"
       params.require(:item).permit(:item_type, :name, :isbn, :author, :release_date, :genre, :language,
-                                   :number_of_pages, :publisher, :edition, :description, :max_borrowing_days)
+                                   :number_of_pages, :publisher, :edition, :description, :max_borrowing_days,
+                                   :max_reservation_days)
     when "movie"
       params.require(:item).permit(:item_type,  :name, :director, :release_date, :format, :genre, :language, :fsk,
-                                   :description, :max_borrowing_days)
+                                   :description, :max_borrowing_days, :max_reservation_days)
     when "game"
       params.require(:item).permit(:item_type,  :name, :author, :illustrator, :publisher, :fsk, :number_of_players,
-                                   :playing_time, :language, :description, :max_borrowing_days)
+                                   :playing_time, :language, :description, :max_borrowing_days, :max_reservation_days)
     else
       item_type.eql?("other")
-      params.require(:item).permit(:item_type, :name, :category, :description, :max_borrowing_days)
+      params.require(:item).permit(:item_type, :name, :category, :description, :max_borrowing_days,
+                                   :max_reservation_days)
     end
   end
   # rubocop:enable Metrics/MethodLength
 
   def create_lending
     @lending = Lending.new
-    @lending.started_at = DateTime.now
+    @lending.started_at = Time.current
     @lending.due_at = @lending.started_at.next_day(@max_borrowing_days)
     @lending.user = @user
     @lending.item = @item
     @lending.completed_at = nil
+  end
+
+  def create_reservation
+    @reservation = Reservation.new(item_id: @item.id, user_id: @user.id, starts_at: Time.current,
+                                   ends_at: Time.current + @item.max_reservation_days.days)
   end
 end
 # rubocop:enable Metrics/ClassLength
