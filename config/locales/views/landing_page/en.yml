@@ -41,6 +41,7 @@ en:
       not_available: "Not available"
       borrowed_by_me: "Borrowed by me"
       reserved_by_me: "Reserved by me"
+      no_access: "No access"
     card_text:
       owner: from
     type:
@@ -86,9 +87,16 @@ en:
         playing_time: "Playing Time"
         language: "Language"
     infobox:
-      borrow: 
+      borrow:
         heading: "How to borrow this item?"
         body: "Use your mobile device to scan the QR-code of this item. You will find the item at the location below."
-      return: 
+      return:
         heading: "How to return this item?"
         body: "Use your mobile device to scan the QR-code of this item. You will find the item at the location below."
+      missing_borrowing_permissions:
+        heading: "Why can't I borrow this item?"
+        body: "You are not part of a group that is allowed to borrow this item."
+  profile:
+    description_header: "Description"
+  analytics:
+    headline: "My Analytics"
