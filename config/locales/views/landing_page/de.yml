@@ -18,6 +18,7 @@ de:
       successfully_destroyed: "Item wurde erfolgreich zerstört."
       successfully_borrowed: "Item wurde erfolgreich ausgeliehen"
       successfully_returned: "Item wurde erfolgreich zurückgegeben"
+      successfully_returned-by-owner: "Item wurde erfolgreich vom Besitzer zurückgegeben"
       successfully_reserved: "Item wurde erfolgreich reserviert"
       unsuccessfully_reserved: "Item Reservierung fehlgeschlagen"
       lending_error: "Ausleihsystem Fehler"
@@ -37,6 +38,7 @@ de:
       back: "Zurück zur Items Übersicht"
       borrow: "Ausleihen"
       return: "Zurückgeben"
+      owner-return: "Als Besitzer zurückgeben"
       reserve: "Reservieren"
       download_qrcode: "QR-Code herunterladen"
     status_badge:

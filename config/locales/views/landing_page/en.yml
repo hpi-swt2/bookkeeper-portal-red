@@ -16,6 +16,7 @@ en:
       successfully_destroyed: "Item was successfully destroyed."
       successfully_borrowed: "Item was successfully borrowed"
       successfully_returned: "Item was successfully returned"
+      successfully_returned-by-owner: "Item was successfully returned by owner"
       successfully_reserved: "Item was successfully reserved"
       unsuccessfully_reserved: "Item reservation failed"
       lending_error: "Lending error"
@@ -36,6 +37,7 @@ en:
       reserve: "Reserve"
       borrow: "Borrow"
       return: "Return"
+      owner-return: "Return as owner"
       download_qrcode: "Download QR-Code"
     status_badge:
       available: "Available"
