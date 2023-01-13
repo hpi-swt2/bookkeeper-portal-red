@@ -19,6 +19,15 @@ class User < ApplicationRecord
   has_many :reservations, dependent: :destroy
   has_many :notifications, dependent: :destroy
 
+  def can_view?(item)
+    item_groups = item.viewer_groups
+
+    groups.each do |user_group|
+      return true if item_groups.include? user_group
+    end
+    false
+  end
+
   def can_borrow?(item)
     item_groups = item.borrower_groups
 

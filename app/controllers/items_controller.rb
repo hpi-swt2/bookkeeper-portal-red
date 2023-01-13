@@ -11,13 +11,19 @@ class ItemsController < ApplicationController
   end
 
   # GET /items/1 or /items/1.json
+  # rubocop:disable Metrics/AbcSize
   def show
     @item = Item.find(params[:id])
     @src_is_qrcode = params[:src] == "qrcode"
 
-    return unless current_user.nil?
-
-    redirect_to new_user_session_path
+    if current_user.nil?
+      redirect_to new_user_session_path
+    elsif !current_user.can_view?(@item)
+      respond_to do |format|
+        format.html { redirect_to items_path, notice: I18n.t("items.messages.not_allowed_to_access") }
+        format.json { head :no_content }
+      end
+    end
   end
 
   def download
@@ -26,7 +32,7 @@ class ItemsController < ApplicationController
       send_data @item.to_pdf, filename: "item.pdf"
     else
       respond_to do |format|
-        format.html { redirect_to @item, notice: I18n.t("items.messages.not_allowed_to_download") }
+        format.html { redirect_to @item, status: :forbidde, nnotice: I18n.t("items.messages.not_allowed_to_download") }
         format.json { head :no_content }
       end
     end
@@ -70,7 +76,7 @@ class ItemsController < ApplicationController
   end
 
   # POST /items or /items.json
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
   def create
     @item = Item.new(item_params(params[:item_type]))
     @item.item_type = params[:item_type]

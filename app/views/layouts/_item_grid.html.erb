@@ -1,7 +1,8 @@
 <%= render "items/filter_form" %>
 
 <div class="row mt-3 my-0">
-    <% @items.first(20).each do |item| %>
+    <% @visible_items = @items.select{ |item| current_user.can_view?(item) } %>
+    <% @visible_items.first(20).each do |item| %>
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4">
             <div class="card">
                 <img class="card-img-top" src="https://via.placeholder.com/400x300" alt="Card image cap">
