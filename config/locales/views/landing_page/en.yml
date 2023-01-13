@@ -2,6 +2,7 @@ en:
   hello: "Hello world 2"
   navbar:
     assets: "My Assets"
+    borrowed_assets: "Borrowed Assets"
     groups: "My Groups"
     categories: "Categories"
     notifications: "Notifications"
@@ -15,6 +16,7 @@ en:
       successfully_destroyed: "Item was successfully destroyed."
       successfully_borrowed: "Item was successfully borrowed"
       successfully_returned: "Item was successfully returned"
+      successfully_returned-by-owner: "Item was successfully returned by owner"
       successfully_reserved: "Item was successfully reserved"
       unsuccessfully_reserved: "Item reservation failed"
       lending_error: "Lending error"
@@ -35,6 +37,7 @@ en:
       reserve: "Reserve"
       borrow: "Borrow"
       return: "Return"
+      owner-return: "Return as owner"
       download_qrcode: "Download QR-Code"
     status_badge:
       available: "Available"
@@ -87,13 +90,16 @@ en:
         playing_time: "Playing Time"
         language: "Language"
     infobox:
-      borrow: 
+      borrow:
         heading: "How to borrow this item?"
         body: "Use your mobile device to scan the QR-code of this item. You will find the item at the location below."
-      return: 
+      return:
         heading: "How to return this item?"
         body: "Use your mobile device to scan the QR-code of this item. You will find the item at the location below."
-      missing_borrowing_permissions: 
+      missing_borrowing_permissions:
         heading: "Why can't I borrow this item?"
         body: "You are not part of a group that is allowed to borrow this item."
-
+  profile:
+    description_header: "Description"
+  analytics:
+    headline: "My Analytics"

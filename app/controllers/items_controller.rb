@@ -102,11 +102,11 @@ class ItemsController < ApplicationController
     @item.cancel_reservation_for(@user)
 
     respond_to do |format|
-      if @lending.save
+      if @lending&.save
         format.html { redirect_to @item, notice: msg }
         format.json { render :index, status: :ok, location: @item }
       else
-        format.html { render :show, status: :unprocessable_entity, notice: msg }
+        format.html { render @item, status: :unprocessable_entity, notice: msg }
         format.json { render json: @lending.errors, status: :unprocessable_entity }
       end
     end
@@ -123,16 +123,20 @@ class ItemsController < ApplicationController
       @lending = Lending.where(item_id: @item.id, user_id: @user.id, completed_at: nil).first
       @lending.completed_at = Time.current
       msg = I18n.t("items.messages.successfully_returned")
+    elsif @item.borrowed? && @user.can_manage?(@item)
+      @lending = Lending.where(item_id: @item.id, completed_at: nil).first
+      @lending.completed_at = Time.current
+      msg = I18n.t("items.messages.successfully_returned-by-owner")
     else
       msg = I18n.t("items.messages.lending_error")
     end
 
     respond_to do |format|
-      if @lending.save
+      if @lending&.save
         format.html { redirect_to @item, notice: msg }
         format.json { render :index, status: :ok, location: @item }
       else
-        format.html { render :show, status: :unprocessable_entity, notice: msg }
+        format.html { redirect_to @item, status: :unprocessable_entity, notice: msg }
         format.json { render json: @lending.errors, status: :unprocessable_entity }
       end
     end
@@ -154,7 +158,7 @@ class ItemsController < ApplicationController
         format.html { redirect_to @item, notice: msg }
         format.json { render @item, status: :ok, location: @item }
       else
-        format.html { render :show, status: :unprocessable_entity }
+        format.html { render :show, status: :unprocessable_entity, notice: msg }
         format.json { render json: @reservation.errors, status: :unprocessable_entity }
       end
     end

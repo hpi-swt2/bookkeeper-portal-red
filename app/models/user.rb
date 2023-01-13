@@ -52,6 +52,10 @@ class User < ApplicationRecord
     false
   end
 
+  def can_return_as_owner?(item)
+    !item.borrowed_by?(self) && item.borrowed? && can_manage?(item)
+  end
+
   def items
     # get all items where the user is a manager of any group
     Item.joins(:manager_groups).where(groups: { id: groups })
