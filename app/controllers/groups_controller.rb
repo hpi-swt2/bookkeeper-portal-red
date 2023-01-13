@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
   before_action :assure_signed_in
   before_action :set_user_group
-  before_action :set_group, only: %i[ edit update destroy ]
+  before_action :set_group, only: %i[ edit update destroy]
   before_action :assure_admin, only: %i[ edit update destroy ]
 
   # GET /groups or /groups.json
@@ -63,10 +63,18 @@ class GroupsController < ApplicationController
 
   # PATCH /groups/1/add_user or /groups/1/add_user.json
   def add_user
+    
+     ## Todo: 
+      ##    * fix alert if user not found
+      ##    * fix logic i.e. can't add self, duplicate, etc. 
+      ##    * clean up method
+      ##    * parameters are messed up.. (thus can't use set_group)
+
     respond_to do |format|
-      group = @group
-      user = User.where(email: params[:user]).first
-      if Membership.create(user: user, group: group, role: :member)
+      @group = Group.find(params[:group_id]) # this is required to access the group -- but why?
+      user = User.where(email: params[:group][:user]).first # this is also weird
+
+      if !@group.blank? && !user.blank? && Membership.create(user: user, group: @group, role: :member)
         format.html { redirect_to groups_url, notice: t(:group_update) }
         format.json { head :no_content }
       else
@@ -108,6 +116,7 @@ class GroupsController < ApplicationController
     format.html { render redirect, status: :unprocessable_entity }
     format.json { render json: entity.errors, status: :unprocessable_entity }
   end
+
 
   # Only allow a list of trusted parameters through.
   def group_params
