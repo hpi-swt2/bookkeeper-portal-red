@@ -22,9 +22,13 @@ RSpec.describe "borrowed items", type: :feature do
     # item1 and item2 are managed by group1 (user1)
     item1.manager_groups << group1
     item2.manager_groups << group1
+    item1.viewer_groups << group1
+    item2.viewer_groups << group1
 
     # item3 is managed by group2 (user2)
     item3.manager_groups << group2
+    item3.viewer_groups << group2
+    item3.viewer_groups << group1
 
     # item2 is borrowed by user2
     # item3 is borrowed by user1

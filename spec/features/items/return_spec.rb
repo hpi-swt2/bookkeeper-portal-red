@@ -14,6 +14,8 @@ describe "returining process", type: :feature do
     FactoryBot.create(:membership, user: user2, group: borrow_group)
     FactoryBot.create(:permission, item: item, group: borrow_group, permission_type: :can_borrow)
     FactoryBot.create(:permission, item: item, group: manage_group, permission_type: :can_manage)
+    FactoryBot.create(:permission, item: item, group: borrow_group, permission_type: :can_view)
+    FactoryBot.create(:permission, item: item, group: manage_group, permission_type: :can_view)
   end
 
   context "with two users - one with management rights -" do

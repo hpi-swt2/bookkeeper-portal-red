@@ -16,6 +16,7 @@ RSpec.describe "my items", type: :feature do
 
     # item1 is managed by group1 (user1)
     item1.manager_groups << group1
+    item1.viewer_groups << group1
   end
 
   it "shows my items" do
