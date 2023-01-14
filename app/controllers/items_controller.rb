@@ -15,6 +15,16 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @src_is_qrcode = params[:src] == "qrcode"
 
+    # Usually reservations from the waitlist are automatically created
+    # by a scheduled job when the previous reservation expires. 
+    # However, since the job runs not constantly, there might be an edge
+    # case where a previous reservation has expired and there are people
+    # on the waitlist, but the job has had no chance to create a reservation
+    # for them yet. In order to prevent other people from "stealing the reservation"
+    # without being on the waitlist during this interval, we do the same
+    # check as the job before showing the item page to the user.
+    @item.create_reservation_from_waitlist
+
     return unless current_user.nil?
 
     redirect_to new_user_session_path
