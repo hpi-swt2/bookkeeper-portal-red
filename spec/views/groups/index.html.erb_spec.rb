@@ -25,6 +25,6 @@ RSpec.describe "groups/index", type: :view do
 
   it "renders all but personal groups" do
     render
-    expect(rendered).to have_no_text(user.personal_group.name)
+    expect(rendered).not_to have_text(user.personal_group.name)
   end
 end
