@@ -22,11 +22,11 @@ describe "waitlist", type: :feature do
       sign_in user
 
       visit item_path(item)
-      expect(page).to have_button I18n.t('items.buttons.join_waitlist')
-      expect(page).not_to have_button I18n.t('items.buttons.leave_waitlist')
+      expect(page).to have_button I18n.t('items.buttons.join_waitlist', users_waiting: 0)
+      expect(page).not_to have_button I18n.t('items.buttons.leave_waitlist', users_waiting: 0)
 
       # match: :first is needed because the mobile and web screen are rendered at the same time
-      click_on I18n.t('items.buttons.join_waitlist'), match: :first
+      click_on I18n.t('items.buttons.join_waitlist', users_waiting: 0), match: :first
       expect(item.waitlist_has?(user)).to be true
       expect(item.allows_joining_waitlist?(user)).to be false
     end
@@ -39,10 +39,10 @@ describe "waitlist", type: :feature do
       sign_in user
 
       visit item_path(item)
-      expect(page).to have_button I18n.t('items.buttons.leave_waitlist')
-      expect(page).not_to have_button I18n.t('items.buttons.join_waitlist')
+      expect(page).to have_button I18n.t('items.buttons.leave_waitlist', users_waiting: 0)
+      expect(page).not_to have_button I18n.t('items.buttons.join_waitlist', users_waiting: 0)
 
-      click_on I18n.t('items.buttons.leave_waitlist'), match: :first
+      click_on I18n.t('items.buttons.leave_waitlist', users_waiting: 0), match: :first
       expect(item.waitlist_has?(user)).to be false
       expect(item.allows_joining_waitlist?(user)).to be true
     end
@@ -52,7 +52,7 @@ describe "waitlist", type: :feature do
                                       ends_at: 2.days.from_now)
       sign_in user
       visit item_path(item)
-      expect(page).not_to have_button I18n.t('items.buttons.join_waitlist')
+      expect(page).not_to have_button I18n.t('items.buttons.join_waitlist', users_waiting: 0)
     end
 
     it "does not allow him to join the item waitlist if the user already has his own lending" do
@@ -63,7 +63,7 @@ describe "waitlist", type: :feature do
                                   due_at: 2.days.from_now)
       sign_in user
       visit item_path(item)
-      expect(page).not_to have_button I18n.t('items.buttons.join_waitlist')
+      expect(page).not_to have_button I18n.t('items.buttons.join_waitlist', users_waiting: 0)
     end
 
     it "automatically creates a reservation for the user that holds the oldest waiting position when the item is returned and deletes the waiting position" do
