@@ -6,6 +6,7 @@ describe "waitlist", type: :feature do
   let(:password) { 'password' }
   let(:user) { FactoryBot.create(:user, password: password) }
   let(:user2) { FactoryBot.create(:user, password: password) }
+  let(:user3) { FactoryBot.create(:user, password: password) }
 
   context "when user has borrowing rights" do
     before do
@@ -63,6 +64,25 @@ describe "waitlist", type: :feature do
       sign_in user
       visit item_path(item)
       expect(page).not_to have_button I18n.t('items.buttons.join_waitlist')
+    end
+
+    it "automatically creates a reservation for the user that holds the oldest waiting position when the item is returned and deletes the waiting position" do
+      # User 2 has the oldest waiting position, user 3 the newest one:
+      FactoryBot.create(:waiting_position, item_id: item.id, user_id: user2.id, created_at: 2.days.ago)
+      FactoryBot.create(:waiting_position, item_id: item.id, user_id: user3.id, created_at: 1.day.ago)
+      # Our user has currently borrowed the item:
+      FactoryBot.create(:lending, item_id: item.id, user_id: user.id, started_at: Time.zone.now, completed_at: nil,
+                                  due_at: 2.days.from_now)
+
+      sign_in user
+      visit "#{item_path(item)}?src=qrcode"
+      click_on I18n.t('items.buttons.return'), match: :first
+
+      # After our user returns the item, we expect that user 2 has converted his
+      # waiting position to a reservation and user 3 still has his waiting position:
+      expect(item.reserved_by?(user2)).to be true
+      expect(item.waitlist_has?(user2)).to be false
+      expect(item.waitlist_has?(user3)).to be true
     end
   end
 end

@@ -122,6 +122,7 @@ class ItemsController < ApplicationController
     if @item.borrowed_by?(@user)
       @lending = Lending.where(item_id: @item.id, user_id: @user.id, completed_at: nil).first
       @lending.completed_at = Time.current
+      @item.create_reservation_from_waitlist
       msg = I18n.t("items.messages.successfully_returned")
     else
       msg = I18n.t("items.messages.lending_error")
@@ -143,14 +144,14 @@ class ItemsController < ApplicationController
     @user = current_user
     item_reservable_by_user = @item.reservable_by?(@user)
     if item_reservable_by_user
-      create_reservation
+      @reservation = @item.create_reservation(@user)
       msg = I18n.t("items.messages.successfully_reserved")
     else
       msg = I18n.t("items.messages.unsuccessfully_reserved")
     end
 
     respond_to do |format|
-      if !item_reservable_by_user || @reservation.save
+      if !item_reservable_by_user || @reservation.errors.empty?
         format.html { redirect_to @item, notice: msg }
         format.json { render @item, status: :ok, location: @item }
       else
@@ -260,11 +261,6 @@ class ItemsController < ApplicationController
     @lending.user = @user
     @lending.item = @item
     @lending.completed_at = nil
-  end
-
-  def create_reservation
-    @reservation = Reservation.new(item_id: @item.id, user_id: @user.id, starts_at: Time.current,
-                                   ends_at: Time.current + @item.max_reservation_days.days)
   end
 end
 # rubocop:enable Metrics/ClassLength

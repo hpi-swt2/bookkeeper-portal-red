@@ -112,6 +112,21 @@ class Item < ApplicationRecord
     WaitingPosition.exists?(user_id: user.id, item_id: id)
   end
 
+  def create_reservation_from_waitlist
+    return if current_reservation
+
+    waiting_position = WaitingPosition.where(item_id: id).order(:created_at).first
+    return unless waiting_position
+
+    waiting_position.destroy
+    create_reservation(waiting_position.user)
+  end
+
+  def create_reservation(user)
+    Reservation.create(item_id: id, user_id: user.id, starts_at: Time.current,
+                       ends_at: Time.current + max_reservation_days.days)
+  end
+
   def cancel_reservation_for(user)
     return unless reserved_by?(user)
 
