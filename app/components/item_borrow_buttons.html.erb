@@ -1,0 +1,28 @@
+<% if @item.reservable_by?(@current_user) && !@src_is_qrcode %>
+                  <%= render(ItemBorrowButton.new(
+                text: I18n.t("items.buttons.reserve"), 
+                action: item_reserve_path(@item), 
+                bootstrap_classes: "mx-auto btn btn-primary")
+              )%>
+                <% end %>
+                <% if @item.borrowable_by?(@current_user) && @src_is_qrcode %>
+                  <%= render(ItemBorrowButton.new(
+                text: I18n.t("items.buttons.borrow"), 
+                action: item_borrow_path(@item), 
+                bootstrap_classes: "mx-auto btn btn-primary")
+              )%>
+                <% end %>
+                <% if @current_user.can_return_as_owner?(@item)%>
+                  <%= render(ItemBorrowButton.new(
+                text: I18n.t("items.buttons.owner-return"), 
+                action: item_give_back_path(@item), 
+                bootstrap_classes: "mx-auto btn btn-primary")
+              )%>
+                <% end %>
+                <% if @item.borrowed_by?(@current_user) && @src_is_qrcode %>
+                  <%= render(ItemBorrowButton.new(
+                text: I18n.t("items.buttons.return"), 
+                action: item_give_back_path(@item), 
+                bootstrap_classes: "mx-auto btn btn-primary")
+              )%>
+                <% end %>

@@ -25,8 +25,7 @@ function saveUserPositionInHiddenForm(position) {
   document.getElementById('lng').value = position.coords.longitude;
 }
 </script>
-  <%= render "item_largescreen" %>
-  <%= render "item_smallscreen" %>
+  <%= render "item_screen" %>
 </div>
   
 
@@ -56,6 +55,5 @@ function saveUserPositionInHiddenForm(position) {
       var marker = L.marker(itemCoordinates).addTo(map);
     }
   }
-  renderMap('item-location-small');
-  renderMap('item-location-large');
+  renderMap('item-location');
 </script>

@@ -4,7 +4,7 @@ class Item < ApplicationRecord
 
   validates :name, presence: true
   validates :max_reservation_days, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 365 }
-  validates :max_borrowing_days, numericality: { greater_than_or_equal_to: 0 }
+  validates :max_borrowing_days, numericality: { greater_than: 0 }
 
   validates :number_of_pages, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 

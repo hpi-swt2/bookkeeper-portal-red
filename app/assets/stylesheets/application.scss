@@ -33,7 +33,7 @@ $warning: $hpi-orange;
 $danger: $hpi-red;
 $light: #BDBDBD;
 $dark: black;
-$lightGrey: rgb(211, 211, 211);
+$lightGrey: #eee;
 
 $btn-border-radius: 5px;
 $btn-font-weight: 600; // semibold
@@ -51,6 +51,8 @@ $enable-cssgrid: true;
 $mobileDeviceCutoff: 992px;
 
 @import "flag-icon";
+
+@import "font-awesome";
 
 @media (max-width: $mobileDeviceCutoff) {
   .navbar-collapse {

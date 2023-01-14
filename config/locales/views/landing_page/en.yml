@@ -10,6 +10,8 @@ en:
     search: "Search"
   scan_qrcode: "Scan a QR-Code"
   items:
+    location: "Here you can pick me up"
+    complete_information: "Details"
     messages:
       successfully_created: "Item was successfully created."
       successfully_updated: "Item was successfully updated."

@@ -2,7 +2,7 @@
 
 class ItemAvailabilityBadgeComponent < ViewComponent::Base
   def initialize(item:, user:)
-    super()
+    super
     @item = item
     @user = user
   end

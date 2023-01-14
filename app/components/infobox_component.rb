@@ -2,7 +2,7 @@
 
 class InfoboxComponent < ViewComponent::Base
   def initialize(heading:, body:, bootstrap_classes:)
-    super()
+    super
     @heading = heading
     @body = body
     @bootstrap_classes = bootstrap_classes

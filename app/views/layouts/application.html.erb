@@ -15,22 +15,25 @@
   <% end %>
 </head>
 
-<%= render "layouts/navbar" %>
 
 <body>
+<%= render "layouts/navbar" %>
+<div>
+dd
+</div>
 <div class="bg-white" id="main-content-wrapper">
   <div class="wrapper container d-flex justify-content-between">
     <div class="mx-0 py-5 my-5 w-100">
+    
       <% if notice %><p class="alert alert-success"><%= notice %></p>
       <% end %>
       <% if alert %><p class="alert alert-danger"><%= alert %></p>
       <% end %>
       <%= yield %>
+      
     </div>
   </div>
 </div>
-</body>
-
 <%= render "layouts/footer" %>
-
+</body>
 </html>

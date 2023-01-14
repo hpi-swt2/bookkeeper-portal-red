@@ -12,6 +12,8 @@ de:
     search: "Suchen"
   scan_qrcode: "QR-Code einscannen"
   items:
+    location: "Hier kannst du mich abholen"
+    complete_information: "Details"
     messages:
       successfully_created: "Item wurde erfolgreich erstellt."
       successfully_updated: "Item wurde erfolgreich geupdatet."

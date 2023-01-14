@@ -1,0 +1,188 @@
+<div class="container mb-5">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-20 ps-0 pe-0">
+      <div class="card">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="images p-0">
+              <%= image_tag "dummy_image.png", class: "card-img-top"%></div>
+          </div>
+          <div class="col-md-6">
+            <div class="product p-4">
+              <div class="d-flex justify-content-end justify-content-lg-between align-items-center">
+                <div class="d-none d-lg-block align-items-center">
+                  <%= link_to items_path, class: "btn btn-primary" do %>
+                    <i class='fa fa-long-arrow-left'></i>
+                    <span class='ms-1'>Back</span>
+                  <% end %>
+                </div>
+                <%= render(ItemAvailabilityBadgeComponent.new(item: @item, user: current_user)) %>
+              </div>
+              <div class="mt-2 mb-3"> <span class="text-uppercase text-muted brand"><%= @item.item_type %></span>
+                <h5 class="text-uppercase"><%= @item.name %></h5>
+                <div class="price d-flex flex-row align-items-center">
+                  <div><%= render(OwnerComponent.new(item: @item)) %></div>
+                </div>
+              </div>
+              <p class='truncate' data-truncate-length='200'>
+                <%= @item.description %>
+              </p>
+              <div class="btn-group btn-group-stretch my-3" role="group" aria-label="Basic example">
+                <%= link_to I18n.t("items.buttons.edit"), edit_item_path(@item), method: :get, class: "btn btn-primary btn-sm"%>
+                <%= button_to I18n.t("items.buttons.delete"), item_path(@item), method: :delete, data: { turbo_confirm: I18n.t("items.messages.deletion_confirmation")}, class: "btn btn-primary btn-sm rounded-0"%>
+                <%= link_to "<text>#{I18n.t("items.buttons.download_qrcode")}</text>".html_safe, download_path(@item),class: "btn btn-primary btn-sm" %>
+              </div>
+              <% if current_user.can_borrow?(@item) %>
+                <% if @item.reserved_by?(current_user) and @item.borrowable_by?(current_user) and !@src_is_qrcode %>
+                  <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.borrow.heading"), body: I18n.t("items.infobox.borrow.body"), bootstrap_classes: "border-secondary mx-2"))%>
+                <% end %>
+                <% if @item.borrowed_by?(current_user) and !@src_is_qrcode %>
+                  <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.return.heading"), body: I18n.t("items.infobox.return.body"), bootstrap_classes: "border-secondary mx-2"))%>
+                <% end %>
+              <% else %>
+                <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.missing_borrowing_permissions.heading"), body: I18n.t("items.infobox.missing_borrowing_permissions.body"), bootstrap_classes: "border-secondary mx-2"))%>
+              <% end %>
+              <%# <div class="sizes mt-3">
+                <h6 class="text-uppercase">Size</h6>
+                <label class="radio"> <input type="radio" name="size" value="S" checked> <span>S</span> </label> <label class="radio"> <input type="radio" name="size" value="M"> <span>M</span> </label> <label class="radio"> <input type="radio" name="size" value="L"> <span>L</span> </label> <label class="radio"> <input type="radio" name="size" value="XL"> <span>XL</span> </label> <label class="radio"> <input type="radio" name="size" value="XXL"> <span>XXL</span> </label>
+              </div> %>
+              <div class="align-items-center d-lg-block d-none">
+                <% if @item.reservable_by?(current_user) && !@src_is_qrcode %>
+                  <%= render(ItemBorrowButton.new(
+                text: I18n.t("items.buttons.reserve"), 
+                action: item_reserve_path(@item), 
+                bootstrap_classes: "mx-auto btn btn-success btn-center")
+              )%>
+                <% end %>
+                <% if @item.borrowable_by?(current_user) && @src_is_qrcode %>
+                  <%= render(ItemBorrowButton.new(
+                text: I18n.t("items.buttons.borrow"), 
+                action: item_borrow_path(@item), 
+                bootstrap_classes: "mx-auto btn btn-success  btn-center")
+              )%>
+                <% end %>
+                <% if current_user.can_return_as_owner?(@item)%>
+                  <%= render(ItemBorrowButton.new(
+                text: I18n.t("items.buttons.owner-return"), 
+                action: item_give_back_path(@item), 
+                bootstrap_classes: "mx-auto btn btn-success  btn-center")
+              )%>
+                <% end %>
+                <% if @item.borrowed_by?(current_user) && @src_is_qrcode %>
+                  <%= render(ItemBorrowButton.new(
+                text: I18n.t("items.buttons.return"), 
+                action: item_give_back_path(@item), 
+                bootstrap_classes: "mx-auto btn btn-success  btn-center")
+              )%>
+                <% end %>
+              </div>
+              <%# <div class="cart mt-4 align-items-center"> <button class="btn btn-danger text-uppercase me-2 px-4">Add to cart</button> <i class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i> </div>
+              <p> %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-0 p-0">
+      <button class="btn btn-primary mt-3 " type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+        <%= I18n.t("items.complete_information")%>
+      </button>
+      <div class="collapse collapse-vertical mt-3" id="collapseWidthExample">
+        <div class="card card-body p-1">
+          <table class="table">
+            <tbody>
+              <% @item.attributes.each do |attr_name, attr_value| %>
+                <ul class="list-group list-group-horizontal list-group-flush border-top border-1 mx-1">
+                  <% if @item.common_attributes.include? attr_name %>
+                    <li class=" list-group-item flex-fill align-content-between py-1 text-break" style="border: none;"><%= I18n.t("items.form." + "all" + "." + attr_name.to_s)%></li>
+                    <li class="list-group-item w-50 align-content-between py-1 text-break" style="border: none;"><%= @item.send(attr_name) %></li>
+                  <% else %>
+                    <li class=" list-group-item flex-fill align-content-between py-1 text-break" style="border: none;"><%= I18n.t("items.form." + @item.item_type.to_s + "." + attr_name.to_s)%></li>
+                    <li class="list-group-item w-50 align-content-between py-1 text-break" style="border: none;"><%= @item.send(attr_name) %></li>
+                  <% end %>
+                </ul>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <hr class="bg-primary border-2 border-top border-primary m-3">
+    <h5 class="text pb-1"> <%= I18n.t("items.location")%></h5>
+    <div id="item-location" style="height: 240px;"></div>
+    <hr class="bg-primary border-2 border-top border-primary m-3">
+    <div class="d-lg-none" style="position: relative; z-index: 9999">
+      <div style="position: relative; z-index: 9999">
+        <% if @item.reservable_by?(current_user) && !@src_is_qrcode %>
+          <%= render(ItemBorrowButton.new(
+        text: I18n.t("items.buttons.reserve"),
+        action: item_reserve_path(@item),
+        bootstrap_classes: "btn btn-success item-action-button")
+      )%>
+        <% end %>
+        <% if current_user.can_return_as_owner?(@item)%>
+          <%= render(ItemBorrowButton.new(
+        text: I18n.t("items.buttons.owner-return"), 
+        action: item_give_back_path(@item), 
+        bootstrap_classes: "mx-auto btn btn-success")
+      )%>
+        <% end %>
+        <% if @item.borrowable_by?(current_user) && @src_is_qrcode %>
+          <%= render(ItemBorrowButton.new(
+        text: I18n.t("items.buttons.borrow"),
+        action: item_borrow_path(@item),
+        bootstrap_classes: "btn btn-success item-action-button")
+      )%>
+        <% end %>
+        <% if @item.borrowed_by?(current_user) && @src_is_qrcode %>
+          <%= render(ItemBorrowButton.new(
+        text: I18n.t("items.buttons.return"),
+        action: item_give_back_path(@item),
+        bootstrap_classes: "btn btn-success item-action-button")
+      )%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("turbo:load", function(){
+      const truncateElements = document.getElementsByClassName("truncate");
+
+      for(const element of truncateElements) {
+        const length = element.getAttribute("data-truncate-length");
+        const hiddenString = element.innerText.substring(length);
+
+        const hiddenElement = document.createElement("span");
+        hiddenElement.classList.add("visually-hidden");
+        hiddenElement.innerText = hiddenString;
+
+        if (element.innerText.length > length) {
+          element.innerText = element.innerText.substring(0, length) + "...";
+        }
+
+        const showMoreButton = document.createElement("a");
+        showMoreButton.innerText = "Show more";
+        showMoreButton.classList = "link link-primary ms-2";
+        showMoreButton.onclick = function() {
+          element.removeChild(showMoreButton);
+          element.innerText = element.innerText.substring(0, element.childNodes[0].length - 3) + hiddenString;
+          element.appendChild(showLessButton);
+        };
+
+        const showLessButton = document.createElement("a");
+        showLessButton.innerText = "Show less";
+        showLessButton.classList = "link link-primary ms-2";
+        showLessButton.onclick = function() {
+          element.removeChild(showLessButton);
+          element.innerText = element.innerText.substring(0, element.childNodes[0].length - hiddenString.length) + "...";
+          element.appendChild(showMoreButton);
+        };
+
+
+
+        if (element.innerText.length > length) {
+          element.appendChild(showMoreButton);
+        }
+        element.appendChild(hiddenElement);
+      }});
+  </script>
