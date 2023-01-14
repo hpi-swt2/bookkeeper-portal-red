@@ -112,6 +112,14 @@ class Item < ApplicationRecord
     WaitingPosition.exists?(user_id: user.id, item_id: id)
   end
 
+  def users_on_waitlist_before(user)
+    user_position = WaitingPosition.where(item_id: id, user_id: user.id).first
+
+    return WaitingPosition.where(item_id: id).count unless user_position
+
+    WaitingPosition.where(item_id: id).where(["created_at < ?", user_position.created_at]).count
+  end
+
   def create_reservation_from_waitlist
     return if current_reservation
 

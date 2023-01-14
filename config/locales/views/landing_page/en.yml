@@ -37,8 +37,8 @@ en:
       reserve: "Reserve"
       borrow: "Borrow"
       return: "Return"
-      join_waitlist: "Join Waitlist"
-      leave_waitlist: "Leave Waitlist"
+      join_waitlist: "Join Waitlist (%{users_waiting} waiting)"
+      leave_waitlist: "Leave Waitlist (%{users_waiting} before you)"
       download_qrcode: "Download QR-Code"
     status_badge:
       available: "Available"

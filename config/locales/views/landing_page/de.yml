@@ -39,8 +39,8 @@ de:
       borrow: "Ausleihen"
       return: "Zurückgeben"
       reserve: "Reservieren"
-      join_waitlist: "Warteliste beitreten"
-      leave_waitlist: "Warteliste verlassen"
+      join_waitlist: "Warteliste beitreten (%{users_waiting} warten)"
+      leave_waitlist: "Warteliste verlassen (%{users_waiting} vor Dir)"
       download_qrcode: "QR-Code herunterladen"
     status_badge:
       available: "Verfügbar"
