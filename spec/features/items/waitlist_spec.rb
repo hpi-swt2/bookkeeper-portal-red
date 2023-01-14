@@ -66,7 +66,8 @@ describe "waitlist", type: :feature do
       expect(page).not_to have_button I18n.t('items.buttons.join_waitlist', users_waiting: 0)
     end
 
-    it "automatically creates a reservation for the user that holds the oldest waiting position when the item is returned and deletes the waiting position" do
+    it "automatically creates a reservation for the user that holds the oldest waiting position when the item " \
+       "is returned and deletes the waiting position" do
       # User 2 has the oldest waiting position, user 3 the newest one:
       FactoryBot.create(:waiting_position, item_id: item.id, user_id: user2.id, created_at: 2.days.ago)
       FactoryBot.create(:waiting_position, item_id: item.id, user_id: user3.id, created_at: 1.day.ago)

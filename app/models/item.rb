@@ -1,4 +1,5 @@
 # Model of the current item/asset
+# rubocop:disable Metrics/ClassLength
 class Item < ApplicationRecord
   include ExportPdf
 
@@ -152,3 +153,4 @@ class Item < ApplicationRecord
     I18n.t("items.status_badge.not_available")
   end
 end
+# rubocop:enable Metrics/ClassLength
