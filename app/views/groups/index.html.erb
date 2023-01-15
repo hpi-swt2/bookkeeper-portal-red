@@ -5,7 +5,7 @@
 </div>
 <%= render "modal-create" %>
 
-<% @groups.each do |group| %>
+<% @groups.select{ |g| !g.personal_group? }.each do |group| %>
 <div class="bg-light">
   <div class="container text-center mt-5 py-3">
     <h3>
