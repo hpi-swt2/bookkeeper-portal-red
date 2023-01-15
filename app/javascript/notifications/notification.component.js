@@ -15,7 +15,7 @@ const template = `
     </p>
     <p>{{ message }}</p>
     <a class="card-link" @click="collapsed = !collapsed" v-if="expandable">
-        {{ collapsed ? "Show more" : "Show less" }}
+        {{ collapsed ? "\23F5" : "\23F6" }}
     </a>
   </div>
 </div>
