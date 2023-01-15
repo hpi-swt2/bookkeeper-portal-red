@@ -1,11 +1,21 @@
 <div class="card">
   <div class="card-body">
-    <h2 class="card-title"><%= @user.full_name %></h2>
+    <h2 class="card-title">
+      <%= @user.full_name %>
+      <% if @user == current_user %>
+        <%= link_to analytics_path do %>
+          <i class="bi-clipboard-pulse" style="color: #F6A800; float: right"></i>
+        <% end %>
+      <% end %>
+      </h2>
     <%= mail_to @user.email, class: "card-subtitle mb-2 text-muted" %>
+    <% if Rails.env.development? and @user != current_user %>
+      <%= link_to "Log in as this user", development_tools_switch_user_path(@user.id) %>
+    <% end %>
 
     <hr>
     <p class="card-text">
-    <h3 class="card-title" style="text-align: left">
+    <h3 class="card-title">
       <%= t("profile.description_header") %>
       <% if @user == current_user %>
         <%= link_to edit_profile_path do %>
