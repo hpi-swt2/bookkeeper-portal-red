@@ -19,7 +19,7 @@
     <div class="row" style="overflow-x: scroll">
       <div class="d-flex">
         <% group.viewable_items.each do |item| %>
-          <div class="card col-12 col-md-3 mx-2">
+          <div class="col-12 col-md-3 mx-2">
             <%= render "items/item_card", item: item %>
           </div>
         <% end %>
