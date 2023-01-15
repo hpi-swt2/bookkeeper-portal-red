@@ -25,7 +25,9 @@
       <td><%= user.full_name %></td>
       <td><%= user.email %></td>
       <td>
-        <a href="#" class="btn btn-sm btn-warning text-light"><i class="bi bi-chat-fill"></i></a>
+        <%= mail_to user.email, class: "btn btn-sm btn-warning text-light" do %>
+        <i class="bi bi-chat-fill"></i>
+        <% end %>
         <a href="#" class="btn btn-sm btn-primary"><i class="bi bi-person-dash-fill"></i></a>
       </td>
     </tr>
