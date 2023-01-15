@@ -9,7 +9,6 @@ import "controllers"
 // https://getbootstrap.com/docs/5.2/components/tooltips/
 import "popper"
 import "bootstrap"
-import "./notifications/inbox.app"
 
 /*
  * Enable Bootstrap tooltips
