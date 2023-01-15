@@ -7,7 +7,11 @@ de:
     borrowed_assets: "Geliehene Assets"
     groups: "Meine Gruppen"
     categories: "Kategorien"
-    notifications: "Benachrichtigungen"
+    notifications:
+      headline: "Benachrichtigungen"
+      emptyInbox: "Du hast aktuell keine Bencharichtigungen 🕵️"
+      showMore: "Nachricht ausklappen"
+      showLess: "Nachricht einklappen"
     profile: "Mein Profil"
     search: "Suchen"
   scan_qrcode: "QR-Code einscannen"
