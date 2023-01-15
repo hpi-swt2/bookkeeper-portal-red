@@ -45,4 +45,5 @@ Rails.application.routes.draw do
   get '/scan', to: 'qr_reader#scan'
 
   delete "/notifications/:id", to: "notifications#destroy"
+  get "/notifications/", to: "notifications#all"
 end
