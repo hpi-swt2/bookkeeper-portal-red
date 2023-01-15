@@ -8,7 +8,7 @@ const template = `
     <p class="card-title">
       <strong>{{ type }}</strong> - {{ date }}, {{ time }}
       <div class="pr-4">
-        <button @click="remove" class="text-right position-absolute top-0 end-0 text-primary fs-4 btn btn-icon" id="delete-notification-button-id">
+        <button @click="remove" class="text-right position-absolute top-0 end-0 text-primary fs-4 btn btn-icon" :id="'delete-notification-button-' + id">
           <i class="bi bi-x"></i>
         </button>
       </div>
