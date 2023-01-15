@@ -1,19 +1,9 @@
-<% if @item.book? %>
-<h1><%=I18n.t("items.type.new_book")%></h1>
- <%= render "book_form", item: @item %>
-<% elsif @item.movie? %>
-<h1><%=I18n.t("items.type.new_movie")%></h1>
- <%= render "movie_form", item: @item %>
-<% elsif @item.game? %>
-<h1><%=I18n.t("items.type.new_game")%></h1>
- <%= render "game_form", item: @item %>
-<% else @item.other? %>
-<h1><%=I18n.t("items.buttons.new")%></h1>
- <%= render "other_form", item: @item %>
-<% end %>
+<h1><%=I18n.t("items.form.new")%> <%=I18n.t("items.type." + @item.item_type.to_s)%></h1>
+
+<%= render "items/item_type_form", item: @item %> 
 
 <br>
 
-<div>
-  <%= link_to I18n.t("items.buttons.back"), items_path %>
+<div class="card-body">
+    <a class="mx-auto btn btn-primary" href=<%=items_path%>><%=I18n.t("items.buttons.back")%></a>
 </div>

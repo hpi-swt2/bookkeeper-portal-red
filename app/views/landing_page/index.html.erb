@@ -1,20 +1,4 @@
 <div id="items">
-  <div class="container py-5">
-    <div class="row ">
-      <% @items.first(20).each do |item| %>
-        <div class="col-sm-3 mb-4">
-          <div class="card">
-            <img class="card-img-top" src="https://via.placeholder.com/400x300" alt="Card image cap">
-            <div class="card-body text-center">
-              <h5 class="card-title text-truncate"><%= item.name %></h5>
-              <p class="card-text text-truncate"><%= I18n.t("items.card_text.owner") %> Alan Must</p>
-              <p class="card-text text-truncate text-success"><%= item.status_text(current_user) %></p>
-              <%= link_to I18n.t("items.buttons.show"), item, class: "card-link" %>
-              <%= link_to I18n.t("items.buttons.edit"), edit_item_path(item), class: "card-link" %>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
+    <%= render "layouts/item_grid" %>
   </div>
 </div>

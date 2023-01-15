@@ -8,8 +8,10 @@ class ItemAvailabilityBadgeComponent < ViewComponent::Base
   end
 
   def status_classes
-    return "bg-success" if @item.lendable?
-    return "bg-secondary" if @item.borrowed_by?(@user)
+    return "bg-light" unless @user.can_borrow?(@item)
+    return "bg-warning" if @item.borrowed_by?(@user)
+    return "bg-secondary" if @item.reserved_by?(@user)
+    return "bg-success" if @item.borrowable_by?(@user)
 
     "bg-primary"
   end

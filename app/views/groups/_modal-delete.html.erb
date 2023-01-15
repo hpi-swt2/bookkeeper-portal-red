@@ -1,0 +1,18 @@
+<div class="modal fade" id="deleteGroupModal" tabindex="-1" aria-labelledby="deleteGroupModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="editGroupModalLabel"><%= t(:delete_group) %></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= t(:cancel) %>"></button>
+      </div>
+      <div class="modal-body">
+        <%= t(:confirmation) %>
+      </div>
+      <div class="modal-footer border-0 justify-content-evenly">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t(:cancel) %></button>
+        <%= button_to t(:delete_group), group, method: :delete, class: "btn btn-primary" %>
+      </div>
+       
+    </div>
+  </div>
+</div>

@@ -5,7 +5,7 @@ module ExportPdf
     qr_code = RQRCode::QRCode.new(File.join(
                                     Rails.application.routes.url_helpers.item_url(self,
                                                                                   host: "localhost:3000"),
-                                    "/?source=qrcode"
+                                    "/?src=qrcode"
                                   ))
     item_name = name
     Prawn::Document.new do

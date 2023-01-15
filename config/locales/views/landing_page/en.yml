@@ -1,8 +1,8 @@
 en:
   hello: "Hello world 2"
   navbar:
-    home: "Home"
     assets: "My Assets"
+    borrowed_assets: "Borrowed Assets"
     groups: "My Groups"
     categories: "Categories"
     notifications: "Notifications"
@@ -16,19 +16,35 @@ en:
       successfully_destroyed: "Item was successfully destroyed."
       successfully_borrowed: "Item was successfully borrowed"
       successfully_returned: "Item was successfully returned"
+      successfully_returned-by-owner: "Item was successfully returned by owner"
+      successfully_reserved: "Item was successfully reserved"
+      unsuccessfully_reserved: "Item reservation failed"
+      lending_error: "Lending error"
+      not_allowed_to_destroy: "You are not allowed to delete this item."
+      not_allowed_to_download: "You are not allowd to download the QR-Code of this item."
+      not_allowed_to_edit: "You are not allowed to edit this item."
+      deletion_confirmation: "Do you really want to delete the item?"
+    headlines:
+      my_items: "My Items"
+      borrowed_items: "Borrowed Items"
     buttons:
       new: "Create item"
       update: "Update item"
       show: "Show item"
       edit: "Edit item"
+      delete: "Delete item"
       back: "Back to items"
+      reserve: "Reserve"
       borrow: "Borrow"
       return: "Return"
+      owner-return: "Return as owner"
       download_qrcode: "Download QR-Code"
     status_badge:
       available: "Available"
+      not_available: "Not available"
       borrowed_by_me: "Borrowed by me"
-      not_available: "Not available" 
+      reserved_by_me: "Reserved by me"
+      no_access: "No access"
     card_text:
       owner: from
     type:
@@ -40,11 +56,15 @@ en:
       new_movie: "New Movie"
       new_game: "New Game"
     form:
-      item:
+      edit: "Edit:"
+      new: "New:"
+      all:
         name: "Name"
-        category: "Category"
         description: "Description"
-        max_borrowing_period: "Maximum Borrowing Period"
+        max_borrowing_days: "Borrowing Period"
+        max_reservation_days: "Reservation Period"
+      other:
+        category: "Category"
       book:
         isbn: "ISBN"
         author: "Author"
@@ -65,6 +85,21 @@ en:
         author: "Author"
         illustrator: "Illustrator"
         publisher: "Publisher"
+        fsk: "Age Rating"
         number_of_players: "Number of Players"
         playing_time: "Playing Time"
         language: "Language"
+    infobox:
+      borrow:
+        heading: "How to borrow this item?"
+        body: "Use your mobile device to scan the QR-code of this item. You will find the item at the location below."
+      return:
+        heading: "How to return this item?"
+        body: "Use your mobile device to scan the QR-code of this item. You will find the item at the location below."
+      missing_borrowing_permissions:
+        heading: "Why can't I borrow this item?"
+        body: "You are not part of a group that is allowed to borrow this item."
+  profile:
+    description_header: "Description"
+  analytics:
+    headline: "My Analytics"
