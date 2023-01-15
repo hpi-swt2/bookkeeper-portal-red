@@ -18,15 +18,10 @@
     </h3>
     <div class="row" style="overflow-x: scroll">
       <div class="d-flex">
-        <% [1,2,3,4,5,6,7,8,9].each do |item_num| %>
-        <div class="card col-12 col-md-3 mx-2">
-          <%= image_tag "dummy_image.png", class: "card-img-top" %>
-          <div class="card-body">
-            <h5 class="card-title">Item <%= item_num %></h5>
-              <p class="card-text">von: <span class="text-warning">Herbert Beimel</span></p>
-              <p class="card-text text-success">verfügbar</p>
+        <% group.viewable_items.each do |item| %>
+          <div class="card col-12 col-md-3 mx-2">
+            <%= render "items/item_card", item: item %>
           </div>
-        </div>
         <% end %>
       </div>
     </div>
