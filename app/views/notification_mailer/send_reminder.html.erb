@@ -1,7 +1,8 @@
 <h3>Hi <%= @user.full_name %>,</h3>
-<br/>
 <p><%= @message %></p>
-<br/>
+<% if @message_2.length > 0 %>
+  <p><%= @message_2 %></p>
+<% end %>
 <p>Thanks,<br/>
   your automatic e-mail system</p>
 <p>Bookkeeper Red</p>
