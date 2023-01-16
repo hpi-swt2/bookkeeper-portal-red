@@ -126,7 +126,6 @@ class GroupsController < ApplicationController
     format.json { render json: entity.errors, status: :unprocessable_entity }
   end
 
-
   # Only allow a list of trusted parameters through.
   def group_params
     params.require(:group).permit(:name)
