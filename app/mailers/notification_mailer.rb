@@ -14,11 +14,11 @@ class NotificationMailer < ApplicationMailer
   end
 
   # Yes, the instance variables are necessary here and yes we are aware of the code duplications
-  def send_reminder(user, message, message_2: '', as_mail: true)
+  def send_reminder(user, message, message2: '', as_mail: true)
     @user = user
     @message = message
-    @message_2 = message_2
-    create_notification(message + " ~ " + message_2, user, :reminder)
+    @message2 = message2
+    create_notification("#{message} ~ #{message2}", user, :reminder)
     mail(to: @user.email, subject: "Bookkeeper Red Reminder") if as_mail # rubocop:disable Rails/I18nLocaleTexts
   end
 
