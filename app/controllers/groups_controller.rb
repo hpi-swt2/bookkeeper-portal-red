@@ -1,8 +1,9 @@
 class GroupsController < ApplicationController
   before_action :assure_signed_in
   before_action :set_user_group
-  before_action :set_group, only: %i[ edit update destroy]
-  before_action :assure_admin, only: %i[ edit update destroy ]
+  before_action :set_group, only: %i[ edit update destroy ]
+  before_action :set_group_from_id, only: %i[ remove_user ]
+  before_action :assure_admin, only: %i[ edit update destroy remove_user ]
 
   # GET /groups or /groups.json
   def index
@@ -61,6 +62,19 @@ class GroupsController < ApplicationController
     end
   end
 
+  # PATCH /groups/1/remove_user or /groups/1/remove_user.json
+  def remove_user
+    user = User.find(params[:user])
+    respond_to do |format|
+      if user.memberships.destroy_by(group: @group)
+        format.html { redirect_to edit_group_path(@group), notice: t(:group_update) }
+        format.json { head :no_content }
+      else
+        unprocessable_response(format, redirect: :edit, entity: @group)
+      end
+    end
+  end
+
   # PATCH /groups/1/add_user or /groups/1/add_user.json
   def add_user
     
@@ -110,6 +124,10 @@ class GroupsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_group
     @group = Group.find(params[:id])
+  end
+
+  def set_group_from_id
+    @group = Group.find(params[:group_id])
   end
 
   def unprocessable_response(format, redirect:, entity:)
