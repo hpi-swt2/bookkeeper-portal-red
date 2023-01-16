@@ -25,8 +25,8 @@ Rails.application.routes.draw do
                registrations: "registrations"
              }
 
-  # Defines the root path route ("/")
-  root "landing_page#index"
+  # Defines home path route ("/home")
+  get "/", to: "landing_page#index", as: :home
 
   # Profile routes
   get "/profiles/me", to: "profiles#show_me"
