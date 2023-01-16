@@ -16,14 +16,12 @@
         <%= link_to t(:leave_group), group_leave_path(group), data: {turbo_method: :post, turbo_confirm: "Are you sure?"}, class: "btn btn-primary" %>
       <% end %>
     </h3>
-    <div class="row" style="overflow-x: scroll">
-      <div class="d-flex">
-        <% group.viewable_items.each do |item| %>
-          <div class="col-12 col-md-3 mx-2">
-            <%= render "items/item_card", item: item %>
-          </div>
-        <% end %>
-      </div>
+    <div class="d-flex" style="overflow-x: auto">
+      <% group.viewable_items.each do |item| %>
+        <div class="col-12 col-md-3 mx-2">
+          <%= render "items/item_card", item: item %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
