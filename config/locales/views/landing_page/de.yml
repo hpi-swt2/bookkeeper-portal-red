@@ -4,9 +4,14 @@ de:
   my_profile: "Mein Profil"
   navbar:
     assets: "Meine Assets"
+    borrowed_assets: "Geliehene Assets"
     groups: "Meine Gruppen"
     categories: "Kategorien"
-    notifications: "Benachrichtigungen"
+    notifications:
+      headline: "Benachrichtigungen"
+      emptyInbox: "Du hast aktuell keine Bencharichtigungen 🕵️"
+      showMore: "Nachricht ausklappen"
+      showLess: "Nachricht einklappen"
     profile: "Mein Profil"
     search: "Suchen"
   scan_qrcode: "QR-Code einscannen"
@@ -17,6 +22,7 @@ de:
       successfully_destroyed: "Item wurde erfolgreich zerstört."
       successfully_borrowed: "Item wurde erfolgreich ausgeliehen"
       successfully_returned: "Item wurde erfolgreich zurückgegeben"
+      successfully_returned-by-owner: "Item wurde erfolgreich vom Besitzer zurückgegeben"
       successfully_reserved: "Item wurde erfolgreich reserviert"
       unsuccessfully_reserved: "Item Reservierung fehlgeschlagen"
       lending_error: "Ausleihsystem Fehler"
@@ -36,6 +42,7 @@ de:
       back: "Zurück zur Items Übersicht"
       borrow: "Ausleihen"
       return: "Zurückgeben"
+      owner-return: "Als Besitzer zurückgeben"
       reserve: "Reservieren"
       download_qrcode: "QR-Code herunterladen"
     status_badge:
@@ -43,6 +50,7 @@ de:
       not_available: "Nicht verfügbar"
       borrowed_by_me: "Von mir ausgeliehen"
       reserved_by_me: "Von mir reserviert"
+      no_access: "Kein Zugriff"
     card_text:
       owner: von
     type:
@@ -96,9 +104,16 @@ de:
         playing_time: "Spieldauer"
         language: "Sprache"
     infobox:
-      borrow: 
+      borrow:
         heading: "Wie kann man diesen Artikel ausleihen?"
         body: "Scannen Sie mit Ihrem mobilen Gerät den QR-Code dieses Artikels. Sie finden den Gegenstand an dem unten angegebenen Ort."
-      return: 
+      return:
         heading: "Wie kann ich diesen Artikel zurückgeben?"
         body: "Scannen Sie mit Ihrem mobilen Gerät den QR-Code dieses Artikels. Sie finden den Artikel an dem unten angegebenen Ort."
+      missing_borrowing_permissions:
+        heading: "Warum kann ich diesen Artikel nicht ausleihen?"
+        body: "Sie gehören nicht zu einer Gruppe, die diesen Artikel ausleihen darf."
+  profile:
+    description_header: "Beschreibung"
+  analytics:
+    headline: "Meine Statistiken"

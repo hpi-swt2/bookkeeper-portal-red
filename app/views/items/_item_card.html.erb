@@ -1,0 +1,18 @@
+<div class="card">
+    <img class="card-img-top" src="https://via.placeholder.com/400x300" alt="Card image cap">
+    <div class="card-body text-center">
+        <h5 class="card-title text-truncate"><%= item.name %></h5>
+        <ul class="list-group">
+            <% item.important_attributes.each do |attr| %>
+            <% unless item[attr.to_sym].blank? %>
+                <li class="list-group-item p-0 border-0"> <%= I18n.t("items.form." + item.item_type.to_s + "." + attr.to_s) %>: <%= item[attr.to_sym] %></li>
+            <% end %>
+            <% end %>
+        </ul>
+        <%= render 'items/owner_component', item: item %>
+        <p class="card-text text-truncate text-success"><%= item.status_text(current_user) %></p>
+        <div class="card-body">
+            <a class="mx-auto btn btn-primary" href=<%=item_path(item)%>><%=I18n.t("items.buttons.show")%></a>
+        </div>
+    </div>
+</div>
