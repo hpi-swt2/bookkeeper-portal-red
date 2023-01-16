@@ -1,7 +1,8 @@
 <div class="d-flex flex-row justify-content-end">
+  <!-- FILTER Dropdown-->
   <%= search_form_for @q, url: request.path do |f| %>
 
-    <div class="input-group">
+    <div class="input-group m-1">
       <label class="bg-secondary border border-secondary input-group-text" for="">
           
           <% if !params[:q].try(:[], :item_type_eq).nil? && !params[:q]["item_type_eq"].empty? %>
@@ -30,6 +31,43 @@
     <% unless params[:q].nil? %>
       <% params[:q].each do |p| %>
         <% unless p[0].to_sym == :item_type_eq %>
+          <%= f.hidden_field p[0].to_sym, value: p[1]%>
+        <% end %>
+      <% end %>
+    <% end %>
+
+  <% end %>
+
+
+  <!-- SORT Dropdown-->
+  <%= search_form_for @q, url: request.path do |f| %>
+
+    <div class="input-group m-1">
+
+      <label class="bg-secondary border border-secondary input-group-text" for="">
+          
+        <% if !params[:q].try(:[], :s).nil? && !params[:q]["s"].empty? %>
+          <i class="bi bi-arrow-down-square-fill"></i>
+
+        <% elsif params[:q].try(:[], :s).nil? || params[:q]["s"].empty? %>
+          <i class="bi bi-arrow-down-square"></i>
+        <% end %>
+
+      </label>
+      <%= f.select :s, options_for_select([ 
+          ["Sort: none", '', {selected: true}],
+          ["newly added", 'created_at desc'],
+          ["alpabetical", 'name']], 
+          params[:q].try(:[], :s)), {},
+        onChange: "javascript: this.form.submit();",
+        class: "bg-secondary border border-secondary btn text-white dropdown dropdown-toggle" %>
+
+    </div>
+    <!-- copy old ransack query parameters from other former queries into hidden fields, so that 
+      these are also submitted. Thats necessary to combine multiple different ransack queries -->
+    <% unless params[:q].nil? %>
+      <% params[:q].each do |p| %>
+        <% unless p[0].to_sym == :s %>
           <%= f.hidden_field p[0].to_sym, value: p[1]%>
         <% end %>
       <% end %>
