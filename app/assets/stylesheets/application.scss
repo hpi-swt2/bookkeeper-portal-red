@@ -80,7 +80,7 @@ $footerHeight: 8rem;
     transition: left 300ms ease-in-out;
   }
 
-  .navbar-toggler.collapsed ~ .navbar-collapse {
+  .navbar-toggler.collapsed~.navbar-collapse {
     transition: left 500ms ease-in-out;
   }
 }
@@ -103,6 +103,7 @@ footer {
   bottom: 0px;
   width: 100%;
   height: $footerHeight;
+  overflow: hidden;
 }
 
 .navbar-nav .nav-link {
