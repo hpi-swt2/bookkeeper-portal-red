@@ -93,9 +93,7 @@ $mobileDeviceCutoff: 992px;
 }
 
 .btn-secondary {
-  --bs-btn-color: #fff;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-active-color: #fff;
+  @extend .text-white;
 }
 
 footer {
