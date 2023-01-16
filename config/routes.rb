@@ -49,5 +49,5 @@ Rails.application.routes.draw do
 
   get '/groups/all', to: 'groups#all'
   get "/notifications/", to: "notifications#all"
-  
+
 end
