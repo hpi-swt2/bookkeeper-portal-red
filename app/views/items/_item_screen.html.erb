@@ -27,11 +27,13 @@
               <p class='truncate' data-truncate-length='200'>
                 <%= @item.description %>
               </p>
-              <div class="btn-group btn-group-stretch my-3" role="group" aria-label="Basic example">
-                <%= link_to I18n.t("items.buttons.edit"), edit_item_path(@item), method: :get, class: "btn btn-primary btn-sm"%>
-                <%= button_to I18n.t("items.buttons.delete"), item_path(@item), method: :delete, data: { turbo_confirm: I18n.t("items.messages.deletion_confirmation")}, class: "btn btn-primary btn-sm rounded-0"%>
-                <%= link_to "<text>#{I18n.t("items.buttons.download_qrcode")}</text>".html_safe, download_path(@item),class: "btn btn-primary btn-sm" %>
-              </div>
+              <% if current_user.can_manage?(@item) %>
+                <div class="btn-group btn-group-stretch my-3" role="group" aria-label="Basic example">
+                  <%= link_to I18n.t("items.buttons.edit"), edit_item_path(@item), method: :get, class: "btn btn-primary btn-sm"%>
+                  <%= button_to I18n.t("items.buttons.delete"), item_path(@item), method: :delete, data: { turbo_confirm: I18n.t("items.messages.deletion_confirmation")}, class: "btn btn-primary btn-sm rounded-0"%>
+                  <%= link_to "<text>#{I18n.t("items.buttons.download_qrcode")}</text>".html_safe, download_path(@item),class: "btn btn-primary btn-sm" %>
+                </div>
+              <% end %>
               <% if current_user.can_borrow?(@item) %>
                 <% if @item.reserved_by?(current_user) and @item.borrowable_by?(current_user) and !@src_is_qrcode %>
                   <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.borrow.heading"), body: I18n.t("items.infobox.borrow.body"), bootstrap_classes: "border-secondary mx-2"))%>
