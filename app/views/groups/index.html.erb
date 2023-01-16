@@ -7,7 +7,7 @@
 
 <% @groups.select{ |g| !g.personal_group? }.each do |group| %>
 <div class="bg-light">
-  <div class="container text-center mt-5 py-3">
+  <div class="container text-center mt-5 p-3">
     <h3>
       <%= render GroupNameComponent.new(group: group) %>
       <% if @user.admin_in?(group)%>
@@ -16,7 +16,7 @@
         <%= link_to t(:leave_group), group_leave_path(group), data: {turbo_method: :post, turbo_confirm: "Are you sure?"}, class: "btn btn-primary" %>
       <% end %>
     </h3>
-    <div class="row mx-1 gx-3 flex-nowrap overflow-auto">
+    <div class="row gx-3 flex-nowrap overflow-auto">
       <% group.viewable_items.each do |item| %>
         <div class="col-12 col-md-3">
           <%= render "items/item_card", item: item %>
