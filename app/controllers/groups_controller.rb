@@ -2,8 +2,8 @@ class GroupsController < ApplicationController
   before_action :assure_signed_in
   before_action :set_user_group
   before_action :set_group, only: %i[ edit update destroy ]
-  before_action :set_group_from_id, only: %i[ remove_user ]
-  before_action :assure_admin, only: %i[ edit update destroy remove_user ]
+  before_action :set_group_from_id, only: %i[ remove_user add_user ]
+  before_action :assure_admin, only: %i[ edit update destroy remove_user add_user ]
 
   # GET /groups or /groups.json
   def index
@@ -77,19 +77,10 @@ class GroupsController < ApplicationController
 
   # PATCH /groups/1/add_user or /groups/1/add_user.json
   def add_user
-    
-     ## Todo: 
-      ##    * fix alert if user not found
-      ##    * fix logic i.e. can't add self, duplicate, etc. 
-      ##    * clean up method
-      ##    * parameters are messed up.. (thus can't use set_group)
-
     respond_to do |format|
-      @group = Group.find(params[:group_id]) # this is required to access the group -- but why?
-      user = User.where(email: params[:group][:user]).first # this is also weird
-
-      if !@group.blank? && !user.blank? && Membership.create(user: user, group: @group, role: :member)
-        format.html { redirect_to groups_url, notice: t(:group_update) }
+      user = User.where(email: params[:user][:email]).first
+      if Membership.where(user: user, group: @group, role: :member).first_or_create
+        format.html { redirect_to edit_group_url(@group), notice: t(:group_update) }
         format.json { head :no_content }
       else
         unprocessable_response(format, redirect: :edit, entity: @group)
