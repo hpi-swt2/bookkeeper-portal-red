@@ -12,4 +12,10 @@ class Permission < ApplicationRecord
     end
     groups
   end
+
+  def self.permission_for_group(group_id, item_id)
+    Permission.all.find_each do |permission|
+      return permission.permission_type if permission.item_id == item_id && permission.group_id == group_id
+    end
+  end
 end

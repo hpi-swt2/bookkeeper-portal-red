@@ -24,5 +24,4 @@ describe "new item page", type: :feature do
     expect(page).to have_text("Item was successfully created.")
     expect((Item.find_by name: @item_title).description).to eq(@item_description)
   end
-
 end

@@ -49,27 +49,42 @@ describe "edit item page", type: :feature do
   end
 
   context 'with JS', driver: :selenium_chrome, js: true, ui: true do
-    it "shows all availible groups in the permission list" do
+    it "renders the correct preselected permission" do
+      sign_in @user
+      @user.memberships.push(@membership)
+      item.manager_groups.push(@group)
+      visit edit_item_path(item)
+      select_group = page.find_by_id("permission_select_0_group_id").text
+      expect(select_group).to eq(@group.name)
+      select_level = find_by_id("permission_select_0_level").value
+      expect(select_level).to eq("can_manage")
+    end
+
+    it "updates the permissions after submitting the form" do
+      sign_in @user
+      @group2 = FactoryBot.create(:group)
+      @user.memberships.push(@membership)
+      item.manager_groups.push(@group)
+      visit edit_item_path(item)
+      page.find_by_id("add-permission-button").click
+      select @group2.name, from: "permission_select_1_group_id"
+      select "Can Manage", from: "permission_select_1_level"
+      page.find("button[type='submit'][value='#{item.item_type}']").click
+      sleep 0.5 # Waiting for JS to execute (not ideal, but works)
+      expect(Permission.permission_for_group(@group2.id, item.id)).to eq("can_manage")
+    end
+
+    it "shows an error message and disables button if a group has multiple permissions selected" do
       sign_in @user
       @user.memberships.push(@membership)
       item.manager_groups.push(@group)
       visit edit_item_path(item)
       page.find_by_id("add-permission-button").click
-      expect(page.find_by_id("permission-group-select")).to have_selector("option", count: Group.count + 1)
+      select @group.name, from: "permission_select_1_group_id"
+      select "Can Borrow", from: "permission_select_1_level"
+      expect(page).to have_button('Update Item', disabled: true)
+      expect(page).to have_text("Only one permission per group is allowed!")
     end
-
-
-    it "updates the permission list when a new group is added" do
-      sign_in @user
-      @user.memberships.push(@membership)
-      item.manager_groups.push(@group)
-      visit edit_item_path(item)
-      page.find_by_id("add-permission-button").click
-      page.find_by_id("permission-group-select").find("option[value='#{Group.last.id}']").select_option
-      page.find_by_id("permission-role-select").find("option[value='1']").select_option
-      page.find_by_id("add-permission-button").click  
-    end
-    # sleep 0.5 # Waiting for JS to execute (not ideal, but works)
   end
 
 end
