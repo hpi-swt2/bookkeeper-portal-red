@@ -27,6 +27,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "landing_page#index"
+  # Defines home path route ("/home")
+  get "/", to: "landing_page#index", as: :home
 
   # Profile routes
   get "/profiles/me", to: "profiles#show_me"
@@ -45,4 +47,5 @@ Rails.application.routes.draw do
   get '/scan', to: 'qr_reader#scan'
 
   delete "/notifications/:id", to: "notifications#destroy"
+  get "/notifications/", to: "notifications#all"
 end

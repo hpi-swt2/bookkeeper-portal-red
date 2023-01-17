@@ -1,14 +1,16 @@
 de:
   hello: "Hallo Welt 2"
-  login_with_oidc: "Mit OIDC einloggen"
-  my_profile: "Mein Profil"
   navbar:
-    assets: "Meine Assets"
-    borrowed_assets: "Geliehene Assets"
+    assets: "Meine Items"
+    borrowed_assets: "Geliehene Items"
     groups: "Meine Gruppen"
-    categories: "Kategorien"
-    notifications: "Benachrichtigungen"
+    notifications:
+      headline: "Benachrichtigungen"
+      emptyInbox: "Du hast aktuell keine Bencharichtigungen. 🕵️"
+      showMore: "Nachricht ausklappen"
+      showLess: "Nachricht einklappen"
     profile: "Mein Profil"
+    home: "Startseite"
     search: "Suchen"
   scan_qrcode: "QR-Code einscannen"
   items:
