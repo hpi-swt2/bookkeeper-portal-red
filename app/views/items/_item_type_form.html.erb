@@ -89,22 +89,26 @@
                 itemId: <%= item.id.nil? ? 'null' : item.id %>,
                 permissions: [],
                 levels: [
-                    {title: "Can Manage", level: "can_manage"},
-                    {title: "Can Borrow", level: "can_borrow"},
-                    {title: "Can View", level: "can_view"},
+                    {title: "<%= I18n.t("items.form.permissions.can_manage") %>", level: "can_manage"},
+                    {title: "<%= I18n.t("items.form.permissions.can_borrow") %>", level: "can_borrow"},
+                    {title: "<%= I18n.t("items.form.permissions.can_view") %>", level: "can_view"},
                 ],
                 groups: []
             }
         },
-        created() {
-            this.fetchGroups()
+        async created() {
+            await this.fetchGroups()
             if (this.itemId) {
                 this.fetchExistingPermissions()
+            }
+            else {
+              // Add default permission
+              this.addStandardPermissions()
             }
         },
         methods: {
             fetchGroups() {
-                fetch("/groups/all.json", {method: "GET"})
+                return fetch("/groups/all.json", {method: "GET"})
                     .then(response => response.json())
                     .then(data => {
                         this.groups = data
@@ -127,6 +131,30 @@
                     groupId: "",
                     permissionLevel: null,
                 })
+            },
+            getPersonalGroupId() {
+                personal_group = this.groups.find(group => group.name === "personal_group")
+                if (personal_group) {
+                    return personal_group.id
+                }
+                else {
+                    return 0
+                }
+                return this.groups.find(group => group.name === "personal_group").id
+            },
+            getEverybodyGroupId() {
+                everybody_group = this.groups.find(group => group.name === "everybody_group")
+                if (everybody_group) {
+                    return everybody_group.id
+                }
+                else {
+                    return 0
+                }
+            },
+            addStandardPermissions() {
+                this.permissions = [
+                    {groupId: this.getPersonalGroupId(), permissionLevel: "can_manage"},
+                    {groupId: this.getEverybodyGroupId(), permissionLevel: "can_borrow"}]
             },
             remove(index) {
                 this.permissions = this.permissions

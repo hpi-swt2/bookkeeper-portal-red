@@ -67,9 +67,9 @@ en:
         duplicate_entries: "Only one permission per group is allowed!"
         add: "Add"
         remove: "Remove"
-        can_borrow: "can Borrow"
-        can_manage: "can Manage"
-        can_view: "can View"
+        can_borrow: "can borrow"
+        can_manage: "can manage"
+        can_view: "can view"
       all:
         name: "Name"
         description: "Description"
