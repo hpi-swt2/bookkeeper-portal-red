@@ -14,11 +14,11 @@
 
       </label>
       <%= f.select :item_type_eq, options_for_select([
-          ["Category: All", "", {selected: true}], 
-          ["Books", Item.item_types["book"]], 
-          ["Movies", Item.item_types["movie"]], 
-          ["Games", Item.item_types["game"]], 
-          ["Other", Item.item_types["other"]]], 
+          [I18n.t("filter.no_filter"), "", {selected: true}],
+          [I18n.t("items.type.book"), Item.item_types["book"]],
+          [I18n.t("items.type.movie"), Item.item_types["movie"]],
+          [I18n.t("items.type.game"), Item.item_types["game"]],
+          [I18n.t("items.type.other"), Item.item_types["other"]]],
           @q.item_type_eq), {}, 
         onChange: "javascript: this.form.submit();",
         class: "bg-secondary border border-secondary btn text-white dropdown dropdown-toggle",
@@ -36,6 +36,8 @@
       <% end %>
     <% end %>
 
+    <%= hidden_field_tag('locale', params[:locale]) %>
+
   <% end %>
 
 
@@ -47,17 +49,17 @@
       <label class="bg-secondary border border-secondary input-group-text" for="">
           
         <% if !params[:q].try(:[], :s).nil? && !params[:q]["s"].empty? %>
-          <i class="bi bi-arrow-down-square-fill"></i>
+          <i class="bi bi-arrow-down-circle-fill"></i>
 
         <% elsif params[:q].try(:[], :s).nil? || params[:q]["s"].empty? %>
-          <i class="bi bi-arrow-down-square"></i>
+          <i class="bi bi-arrow-down-circle"></i>
         <% end %>
 
       </label>
       <%= f.select :s, options_for_select([ 
-          ["Sort: none", '', {selected: true}],
-          ["newly added", 'created_at desc'],
-          ["alpabetical", 'name']], 
+          [I18n.t("sort.no_sort"), '', {selected: true}],
+          [I18n.t("sort.newly_added"), 'created_at desc'],
+          [I18n.t("sort.alphabetically"), 'name']],
           params[:q].try(:[], :s)), {},
         onChange: "javascript: this.form.submit();",
         class: "bg-secondary border border-secondary btn text-white dropdown dropdown-toggle" %>
@@ -72,6 +74,8 @@
         <% end %>
       <% end %>
     <% end %>
+
+    <%= hidden_field_tag('locale', params[:locale]) %>
 
   <% end %>
 </div>

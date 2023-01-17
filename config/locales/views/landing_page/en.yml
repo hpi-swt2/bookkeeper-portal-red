@@ -13,6 +13,12 @@ en:
     profile: "My Profile"
     search: "Search"
   scan_qrcode: "Scan a QR-Code"
+  filter:
+    no_filter: "Category: all"
+  sort:
+    no_sort: "Sort: none"
+    newly_added: "newly added"
+    alphabetically: "name A-Z"
   items:
     messages:
       successfully_created: "Item was successfully created."
