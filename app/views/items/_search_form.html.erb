@@ -11,9 +11,10 @@
         <% end %>
       <% end %> 
     <% end %>
+
+    <%= hidden_field_tag('locale', params[:locale]) %>
     
-    <%= button_tag( :class => "btn btn-outline-light", :value => "search" ) do %>
+    <%= button_tag( :class => "btn btn-outline-light", :value => "search") do %>
         <i class="bi bi-search"></i>
     <% end %>
-    
 <% end %>
