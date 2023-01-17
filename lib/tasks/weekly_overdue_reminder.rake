@@ -2,7 +2,7 @@ desc "Check for borrowed items that became overdue a multiple of weeks ago " \
      "and send a reminder email (and notification) to the user"
 task weekly_overdue_reminder: :environment do
   Lending.all.each do |lending|
-    time_diff = (Time.zone.now - lending.due_at.to_date).to_i
+    time_diff = (Time.zone.now.to_date - lending.due_at.to_date).to_i
 
     next unless (time_diff % 7).zero? && lending.completed_at.nil?
 
