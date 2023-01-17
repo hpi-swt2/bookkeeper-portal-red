@@ -8,6 +8,10 @@
     </a>
     <div class="collapse navbar-collapse bg-primary" id="navbarToggle">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="mobile-only nav-item">
+          <a href="<%= home_path %>" class="nav-link"><i class="bi bi-house-fill"></i> <%= t("navbar.home") %>
+          </a>
+        </li>
         <li class="nav-item">
           <%= link_to my_items_path, class: "nav-link" do %>
             <i class="bi bi-book-fill mobile-only"></i>
@@ -36,10 +40,6 @@
         </li>
         <li class="mobile-only nav-item">
           <a href="<%= profiles_me_path %>" class="nav-link"><i class="bi bi-person-fill"></i> <%= t("navbar.profile") %>
-          </a>
-        </li>
-        <li class="mobile-only nav-item">
-          <a href="<%= home_path %>" class="nav-link"><i class="bi bi-house-fill"></i> <%= t("navbar.home") %>
           </a>
         </li>
 
