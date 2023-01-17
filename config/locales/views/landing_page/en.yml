@@ -107,3 +107,6 @@ en:
     description_header: "Description"
   analytics:
     headline: "My Analytics"
+    history:
+      headline: "History"
+      not_returned: "not returned yet"

@@ -1,0 +1,19 @@
+<h1><%= t('analytics.history.headline') %></h1>
+
+<% if @mode == "borrowed_by_me" %>
+    <div class="mx-auto btn btn-dark">
+        <%= link_to t('items.headlines.my_items'), analytics_history_borrowed_from_me_path, class: "text-decoration-none text-white"%>
+    </div>
+    <div class="mx-auto btn btn-primary">
+        <%= link_to t('items.headlines.borrowed_items'), analytics_history_borrowed_by_me_path, class: "text-decoration-none text-white" %>
+    </div>
+<% else %>
+    <div class="mx-auto btn btn-primary">
+        <%= link_to t('items.headlines.my_items'), analytics_history_borrowed_from_me_path, class: "text-decoration-none text-white"%>
+    </div>
+    <div class="mx-auto btn btn-dark">
+        <%= link_to t('items.headlines.borrowed_items'), analytics_history_borrowed_by_me_path, class: "text-decoration-none text-white" %>
+    </div>
+<% end %>
+
+<%= render "layouts/item_history_table" %>

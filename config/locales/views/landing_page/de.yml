@@ -109,3 +109,6 @@ de:
     description_header: "Beschreibung"
   analytics:
     headline: "Meine Statistiken"
+    history:
+      headline: "Historie"
+      not_returned: "bisher nicht zurückgegeben"
