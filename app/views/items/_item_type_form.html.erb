@@ -122,7 +122,7 @@
                         this.permissions = data.map(permEntry => {
                             return {
                                 groupId: permEntry.group_id,
-                                permissionLevel: permEntry.permission_type
+                                permissionLevel: this.convertEnum(permEntry.permission_type)
                             }
                         });
                     })
@@ -142,6 +142,19 @@
             },
             addStandardPermissions() {
                 this.permissions.push({groupId: this.getEverybodyGroupId(), permissionLevel: "can_borrow"})
+            },
+            // not the best way, because we are hardcoding the enum values
+            convertEnum(enumInteger) {
+                switch (enumInteger) {
+                    case 0:
+                        return "can_manage"
+                    case 1:
+                        return "can_borrow"
+                    case 2:
+                        return "can_view"
+                    default:
+                        return "can_view"
+                }
             },
             remove(index) {
                 this.permissions = this.permissions

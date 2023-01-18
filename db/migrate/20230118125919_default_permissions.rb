@@ -6,7 +6,7 @@ class DefaultPermissions < ActiveRecord::Migration[7.0]
       SELECT id, (
           SELECT groups.id
           FROM groups
-          WHERE groups.tag = 1
+          WHERE groups.tag = 2
           LIMIT 1),
           0,
           datetime(),

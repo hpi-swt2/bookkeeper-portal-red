@@ -9,10 +9,10 @@ class GroupsController < ApplicationController
   end
 
   def all
-    public_groups = Group.where.not(tag: :personal_group)
+    personal_groups = Group.where(tag: :personal_group)
 
     respond_to do |format|
-      format.json { render json: public_groups }
+      format.json { render json: Group.all - personal_groups }
     end
   end
 
