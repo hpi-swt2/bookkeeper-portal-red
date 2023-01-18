@@ -13,6 +13,7 @@ en:
     home: "Home"
     search: "Search"
   scan_qrcode: "Scan a QR-Code"
+  export_csv: "Export CSV"
   items:
     messages:
       successfully_created: "Item was successfully created."

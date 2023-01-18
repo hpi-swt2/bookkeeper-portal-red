@@ -47,11 +47,15 @@ class Item < ApplicationRecord
 
   # items can be of different types. This function returns which attributes
   # are relevant for this item depending on it's type
-  def attributes
+  def self.attributes(item_type)
     return COMMON_ATTRIBUTES + BOOK_ATTRIBUTES if item_type.eql? "book"
     return COMMON_ATTRIBUTES + MOVIE_ATTRIBUTES if item_type.eql? "movie"
     return COMMON_ATTRIBUTES + GAME_ATTRIBUTES if item_type.eql? "game"
     return COMMON_ATTRIBUTES + OTHER_ATTRIBUTES if item_type.eql? "other"
+  end
+
+  def attributes
+    Item.attributes(item_type)
   end
 
   def common_attributes

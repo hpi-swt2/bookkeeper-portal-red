@@ -69,6 +69,14 @@ class ItemsController < ApplicationController
     @items = current_user.items
   end
 
+  # GET /items/export_csv
+  # export current items to csv
+  def export_csv
+    @q = Item.ransack(params[:q])
+    @items = @q.result(distinct: true)
+    send_data CsvExport.to_csv(@items), filename: "items.csv"
+  end
+
   # POST /items or /items.json
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def create
