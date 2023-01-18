@@ -97,6 +97,10 @@ $footerHeight: 8rem;
   }
 }
 
+.btn-secondary {
+  @extend .text-white;
+}
+
 footer {
   border-bottom: $primary;
   position: absolute;
