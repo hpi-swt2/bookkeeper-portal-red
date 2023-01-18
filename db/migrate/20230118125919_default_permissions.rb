@@ -16,4 +16,3 @@ class DefaultPermissions < ActiveRecord::Migration[7.0]
     # rubocop:enable Rails/ReversibleMigration
   end
 end
-
