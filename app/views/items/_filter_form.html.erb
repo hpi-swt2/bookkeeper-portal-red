@@ -36,6 +36,7 @@
       <% end %>
     <% end %>
 
+    <!-- copy language parameter to hidden field, so it will be added again to the url -->
     <%= hidden_field_tag('locale', params[:locale]) %>
 
   <% end %>
@@ -75,6 +76,7 @@
       <% end %>
     <% end %>
 
+    <!-- copy language parameter to hidden field, so it will be added again to the url -->
     <%= hidden_field_tag('locale', params[:locale]) %>
 
   <% end %>

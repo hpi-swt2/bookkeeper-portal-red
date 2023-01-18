@@ -18,7 +18,6 @@ RSpec.describe "grid view", type: :feature do
 
     cards = page.all('div.card h5')
 
-    print(cards)
     expect(cards[0]).to have_text("AAA")
     expect(cards[1]).to have_text("BBB")
     expect(cards[2]).to have_text("CCC")
@@ -30,7 +29,6 @@ RSpec.describe "grid view", type: :feature do
 
     cards = page.all('div.card h5')
 
-    print(cards)
     expect(cards[0]).to have_text("CCC")
     expect(cards[1]).to have_text("BBB")
     expect(cards[2]).to have_text("AAA")
