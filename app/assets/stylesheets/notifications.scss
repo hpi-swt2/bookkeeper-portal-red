@@ -15,26 +15,4 @@
 .notification-message {
   min-height: 50px;
   margin-bottom: 5px;
-
-  .collapse.collapse:not(.show) {
-    display: block;
-    height: 3rem;
-    overflow: hidden;
-  }
-
-  .collapse.collapsing {
-    height: 3rem;
-  }
-
-  a {
-    text-decoration: none;
-  }
-
-  a.collapsed::after {
-    content: '\23F5';
-  }
-
-  a:not(.collapsed)::after {
-    content: '\23F6';
-  }
 }

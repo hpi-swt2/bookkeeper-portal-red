@@ -1,12 +1,16 @@
 en:
   hello: "Hello world 2"
   navbar:
-    assets: "My Assets"
-    borrowed_assets: "Borrowed Assets"
+    assets: "My Items"
+    borrowed_assets: "Borrowed Items"
     groups: "My Groups"
-    categories: "Categories"
-    notifications: "Notifications"
+    notifications:
+      headline: "Notifications"
+      emptyInbox: "You don't have any notifications yet. 🕵️️"
+      showMore: "Show more"
+      showLess: "Show less"
     profile: "My Profile"
+    home: "Home"
     search: "Search"
   scan_qrcode: "Scan a QR-Code"
   items:
