@@ -7,9 +7,9 @@ RSpec.describe "grid view", type: :feature do
 
   before do
     # create some items
-    item1 = FactoryBot.create(:book, name: 'BBB', created_at: 'Mon, 16 Jan 2023 15:39:17.645343000 UTC +00:00')
-    item2 = FactoryBot.create(:movie, name: 'AAA', created_at: 'Sun, 15 Jan 2023 15:39:17.645343000 UTC +00:00')
-    item3 = FactoryBot.create(:game, name: 'CCC', created_at: 'Tue, 17 Jan 2023 15:39:17.645343000 UTC +00:00')
+    FactoryBot.create(:book, name: 'BBB', created_at: 'Mon, 16 Jan 2023 15:39:17.645343000 UTC +00:00')
+    FactoryBot.create(:movie, name: 'AAA', created_at: 'Sun, 15 Jan 2023 15:39:17.645343000 UTC +00:00')
+    FactoryBot.create(:game, name: 'CCC', created_at: 'Tue, 17 Jan 2023 15:39:17.645343000 UTC +00:00')
   end
 
   it "can sort items by name" do
