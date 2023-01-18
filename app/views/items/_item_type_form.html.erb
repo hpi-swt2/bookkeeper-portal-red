@@ -1,48 +1,49 @@
 <%= form_with(model: @item) do |form| %>
-<div id="item_form">
-  <% if @item.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
-      <ul>
-        <% @item.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+  <div id="item_form">
+    <% if @item.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+        <ul>
+          <% @item.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+
+    <div class="mb-2">
+      <%= form.label :name, I18n.t("items.form.all.name"), class: "form-label" %>
+      <%= form.text_field :name, class: "form-control", :required => true %>
     </div>
-  <% end %>
 
-  
-  <div class="mb-2">
-    <%= form.label :name, I18n.t("items.form.all.name"), class: "form-label" %>
-    <%= form.text_field :name, class: "form-control", :required => true %>
-  </div>
+    <div class="mb-2">
+      <%= form.label :description, I18n.t("items.form.all.description"), class: "form-label" %>
+      <%= form.text_field :description, class: "form-control" %>
+    </div>
 
-  <div class="mb-2">
-    <%= form.label :description, I18n.t("items.form.all.description"), class: "form-label" %>
-    <%= form.text_field :description, class: "form-control" %>
-  </div>
+    <div class="mb-2">
+      <%= form.label I18n.t("items.form.all.max_borrowing_days"), class: "form-label" %>
+      <%= form.number_field :max_borrowing_days, min: 0, max: 365, class: "form-control" %>
+    </div>
 
-  <div class="mb-2">
-    <%= form.label I18n.t("items.form.all.max_borrowing_days"), class: "form-label" %>
-    <%= form.number_field :max_borrowing_days, min: 0, max: 365, class: "form-control" %>
-  </div>
+    <div class="mb-2">
+      <%= form.label I18n.t("items.form.all.max_reservation_days"), class: "form-label" %>
+      <%= form.number_field :max_reservation_days, min: 0, max: 365, class: "form-control" %>
+    </div>
 
-  <div class="mb-2">
-    <%= form.label I18n.t("items.form.all.max_reservation_days"), class: "form-label" %>
-    <%= form.number_field :max_reservation_days, min: 0, max: 365, class: "form-control"%>
-  </div>
-  
-  <% if @item.book? %>
-    <%= render "book_form", item: @item, form: form %>
-  <% elsif @item.movie? %>
-    <%= render "movie_form", item: @item, form: form %>
-  <% elsif @item.game? %>
-    <%= render "game_form", item: @item, form: form %>
-  <% else @item.other? %>
-    <%= render "other_form", item: @item, form: form %>
-  <% end %>
+    <% if @item.book? %>
+      <%= render "book_form", item: @item, form: form %>
+    <% elsif @item.movie? %>
+      <%= render "movie_form", item: @item, form: form %>
+    <% elsif @item.game? %>
+      <%= render "game_form", item: @item, form: form %>
+    <% else
+         @item.other? %>
+      <%= render "other_form", item: @item, form: form %>
+    <% end %>
 
-  <h3 class="mt-3"><%= I18n.t("items.form.permissions.title") %></h3>
+    <h3 class="mt-3"><%= I18n.t("items.form.permissions.title") %></h3>
 
     <div class="container text-center mb-5">
       <div class="alert alert-warning" role="alert" v-if="duplicateEntries">
@@ -72,14 +73,15 @@
       <% if @item.book? %>
         <%= form.button :submit, name: "item_type", value: "book", class: "btn btn-primary", id: "item-submit-button" %>
       <% elsif @item.movie? %>
-        <%= form.button :submit , name: "item_type", value: "movie", class: "btn btn-primary", id: "item-submit-button" %>
+        <%= form.button :submit, name: "item_type", value: "movie", class: "btn btn-primary", id: "item-submit-button" %>
       <% elsif @item.game? %>
-        <%= form.button :submit , name: "item_type", value: "game", class: "btn btn-primary", id: "item-submit-button" %>
-      <% else @item.other? %>
-        <%= form.button :submit , name: "item_type", value: "other", class: "btn btn-primary", id: "item-submit-button" %>
+        <%= form.button :submit, name: "item_type", value: "game", class: "btn btn-primary", id: "item-submit-button" %>
+      <% else
+           @item.other? %>
+        <%= form.button :submit, name: "item_type", value: "other", class: "btn btn-primary", id: "item-submit-button" %>
       <% end %>
     </div>
-</div>
+  </div>
 <% end %>
 
 <script>
@@ -100,10 +102,9 @@
             await this.fetchGroups()
             if (this.itemId) {
                 this.fetchExistingPermissions()
-            }
-            else {
-              // Add default permission
-              this.addStandardPermissions()
+            } else {
+                // Add default permission
+                this.addStandardPermissions()
             }
         },
         methods: {
@@ -132,29 +133,15 @@
                     permissionLevel: null,
                 })
             },
-            getPersonalGroupId() {
-                personal_group = this.groups.find(group => group.name === "personal_group")
-                if (personal_group) {
-                    return personal_group.id
-                }
-                else {
-                    return 0
-                }
-                return this.groups.find(group => group.name === "personal_group").id
-            },
             getEverybodyGroupId() {
-                everybody_group = this.groups.find(group => group.name === "everybody_group")
+                let everybody_group = this.groups.find(group => group.tag === "everyone_group")
                 if (everybody_group) {
                     return everybody_group.id
                 }
-                else {
-                    return 0
-                }
+                return 0
             },
             addStandardPermissions() {
-                this.permissions = [
-                    {groupId: this.getPersonalGroupId(), permissionLevel: "can_manage"},
-                    {groupId: this.getEverybodyGroupId(), permissionLevel: "can_borrow"}]
+                this.permissions.push({groupId: this.getEverybodyGroupId(), permissionLevel: "can_borrow"})
             },
             remove(index) {
                 this.permissions = this.permissions

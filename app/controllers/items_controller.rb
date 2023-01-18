@@ -166,6 +166,7 @@ class ItemsController < ApplicationController
       end
     end
   end
+
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PATCH/PUT /items/1 or /items/1.json
@@ -183,6 +184,7 @@ class ItemsController < ApplicationController
       end
     end
   end
+
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # DELETE /items/1 or /items/1.json
@@ -202,10 +204,16 @@ class ItemsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
   # rubocop:enable Metrics/MethodLength
 
   def permissions
-    associated_permissions = Permission.where(item_id: params["id"])
+    associated_permissions = Permission.find_by_sql ["
+        SELECT DISTINCT p.*
+        FROM groups g JOIN memberships m on g.id = m.group_id JOIN permissions p on g.id = p.group_id
+        WHERE NOT (tag = 1 AND user_id = :user_id) AND item_id = :item_id",
+                                                     { user_id: current_user.id, item_id: params["id"] }]
+
     respond_to do |format|
       format.json { render json: associated_permissions }
     end
@@ -231,10 +239,10 @@ class ItemsController < ApplicationController
                                    :number_of_pages, :publisher, :edition, :description, :max_borrowing_days,
                                    :max_reservation_days)
     when "movie"
-      params.require(:item).permit(:item_type,  :name, :director, :release_date, :format, :genre, :language, :fsk,
+      params.require(:item).permit(:item_type, :name, :director, :release_date, :format, :genre, :language, :fsk,
                                    :description, :max_borrowing_days, :max_reservation_days)
     when "game"
-      params.require(:item).permit(:item_type,  :name, :author, :illustrator, :publisher, :fsk, :number_of_players,
+      params.require(:item).permit(:item_type, :name, :author, :illustrator, :publisher, :fsk, :number_of_players,
                                    :playing_time, :language, :description, :max_borrowing_days, :max_reservation_days)
     else
       item_type.eql?("other")
@@ -242,6 +250,7 @@ class ItemsController < ApplicationController
                                    :max_reservation_days)
     end
   end
+
   # rubocop:enable Metrics/MethodLength
 
   def create_lending
@@ -271,6 +280,14 @@ class ItemsController < ApplicationController
     permissions.each_slice(2) do |group_id, level|
       Permission.create(item: @item, group_id: group_id, permission_type: level)
     end
+
+    personal_group = Group.find_by_sql ["
+        SELECT g.*
+        FROM users JOIN memberships m on users.id = m.user_id JOIN groups g on m.group_id = g.id
+        WHERE user_id = :user_id AND tag = 1
+        LIMIT 1", { user_id: current_user.id }]
+
+    Permission.create(item: @item, group_id: personal_group.first.id, permission_type: :can_manage)
   end
 
   def create_reservation
@@ -278,4 +295,5 @@ class ItemsController < ApplicationController
                                    ends_at: Time.current + @item.max_reservation_days.days)
   end
 end
+
 # rubocop:enable Metrics/ClassLength, Metrics/MethodLength, Metrics/AbcSize
