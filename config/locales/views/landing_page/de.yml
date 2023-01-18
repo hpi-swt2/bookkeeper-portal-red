@@ -15,6 +15,7 @@ de:
       successfully_created: "Item wurde erfolgreich erstellt."
       successfully_updated: "Item wurde erfolgreich geupdatet."
       successfully_destroyed: "Item wurde erfolgreich zerstört."
+      successfully_destroyed_image: "Bild wurde erfolgreich zerstört."
       successfully_borrowed: "Item wurde erfolgreich ausgeliehen"
       successfully_returned: "Item wurde erfolgreich zurückgegeben"
       successfully_reserved: "Item wurde erfolgreich reserviert"

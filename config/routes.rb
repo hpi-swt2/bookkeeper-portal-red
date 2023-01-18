@@ -15,6 +15,11 @@ Rails.application.routes.draw do
       get "/my/borrowed", to: "items#mine_borrowed", as: :mine_borrowed
       get "/borrowed", to: "items#borrowed_by_me", as: :borrowed_by_me
     end
+    member do
+      delete 'remove_image/:signed_id', to: 'items#remove_image', as: 'remove_image'
+      post 'add_image', to: 'items#add_image', as: 'add_image'
+      delete :delete_image_attachment
+    end
   end
 
   # Add controllers for omniauth (openid connect)

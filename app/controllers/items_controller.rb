@@ -31,6 +31,25 @@ class ItemsController < ApplicationController
       end
     end
   end
+  
+  def remove_image
+    @item = Item.find(params[:id])
+    if current_user.can_manage?(@item)
+      @image = @item.images.find { |image| image.signed_id == params[:signed_id] }
+      if @image
+        @image.purge
+        return redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_destoryed_image")
+      end      
+    end
+    redirect_to item_url(@item), notice: I18n.t("items.messages.not_allowed_to_edit")
+  end
+
+  def add_image
+    @item = Item.find(params[:id])
+    puts "adding images: #{params[:images]}"
+    @item.images.attach(params[:images])
+    redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_destoryed_image")
+  end
 
   # GET /items/new
   def new

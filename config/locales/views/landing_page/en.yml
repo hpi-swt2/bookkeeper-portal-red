@@ -13,6 +13,7 @@ en:
       successfully_created: "Item was successfully created."
       successfully_updated: "Item was successfully updated."
       successfully_destroyed: "Item was successfully destroyed."
+      successfully_destroyed_image: "Image was successfully destroyed."
       successfully_borrowed: "Item was successfully borrowed"
       successfully_returned: "Item was successfully returned"
       successfully_reserved: "Item was successfully reserved"

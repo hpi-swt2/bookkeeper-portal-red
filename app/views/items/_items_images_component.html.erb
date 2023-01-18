@@ -19,6 +19,11 @@
                     
                       <% if image.representable? %>
                         <%= image_tag image.representation(resize_to_fill: [614, 441]), class: "card-img-top" %>
+                        <div class="carousel-caption d-none d-md-block">
+                             <%= link_to 'Remove', remove_image_item_path(signed_id: image.signed_id, id: @item.id),
+                                data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %>
+                        </div>
+
                         <% end %>
                 
                     </div>
@@ -38,3 +43,15 @@
               <% else %>
                 <img class="card-img-top" src="https://via.placeholder.com/400x300" alt="Card image cap">
               <% end%>
+            
+
+            
+
+
+              <%= form_with(url: add_image_item_url(id: @item.id)) do |form| %>
+                    <div class="mb-2">
+                        <%= form.label "Item Photos"  %><br>
+                        <%= form.file_field :images, multiple: true, id: "addImagesInput" %>
+                    </div>
+                      <%= form.submit "Save" %>
+            <% end %>
