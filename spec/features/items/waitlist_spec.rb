@@ -53,6 +53,7 @@ describe "waitlist", type: :feature do
       sign_in user
       visit item_path(item)
       expect(page).not_to have_button I18n.t('items.buttons.join_waitlist', users_waiting: 0)
+      expect(item.allows_joining_waitlist?(user)).to be false
     end
 
     it "does not allow him to join the item waitlist if the user already has his own lending" do
@@ -64,6 +65,7 @@ describe "waitlist", type: :feature do
       sign_in user
       visit item_path(item)
       expect(page).not_to have_button I18n.t('items.buttons.join_waitlist', users_waiting: 0)
+      expect(item.allows_joining_waitlist?(user)).to be false
     end
 
     it "automatically creates a reservation for the user that holds the oldest waiting position when the item " \
