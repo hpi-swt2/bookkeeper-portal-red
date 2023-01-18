@@ -10,5 +10,3 @@ task return_reminder: :environment do
     NotificationMailer.send_reminder(user, message1, message2: message2).deliver_now
   end
 end
-
-
