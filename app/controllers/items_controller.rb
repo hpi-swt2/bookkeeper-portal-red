@@ -170,20 +170,24 @@ class ItemsController < ApplicationController
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PATCH
   def join_waitlist
     @user = current_user
     can_join_waitlist = @item.allows_joining_waitlist?(@user)
     waiting_position = WaitingPosition.new(item_id: @item.id, user_id: @user.id)
-    waiting_position.save if can_join_waitlist
 
     respond_to do |format|
-      format.html { redirect_to @item, notice: I18n.t("items.messages.joining_waitlist_succeeded") }
-      format.json { render @item, status: :ok, location: @item }
+      if can_join_waitlist && waiting_position.save
+        format.html { redirect_to @item, notice: I18n.t("items.messages.joining_waitlist_succeeded") }
+        format.json { render @item, status: :ok, location: @item }
+      else
+        format.html { render :show, status: :unprocessable_entity }
+        format.json { render json: waiting_position.errors, status: :unprocessable_entity }
+      end
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PATCH
   def leave_waitlist
