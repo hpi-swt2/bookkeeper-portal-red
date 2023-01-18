@@ -1,11 +1,6 @@
 <%# The main show page for small screens %>
 <div class="small-screen">
   <%# Image slider%>
-  <% if @item.image.attached? %>
-    <%= image_tag @item.image.representation(resize_to_fill: [614, 441]), class: "card-img-top" %>
-  <% else %>
-    <%= image_tag "dummy_image.png", class: "card-img-top"%>
-  <% end%>
 
   <hr class="border border-primary border-2 opacity-75"/>
  

@@ -2,12 +2,8 @@
     <% @items.first(20).each do |item| %>
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4">
             <div class="card">
-             <% if item.image.attached? %>
-                <%= image_tag item.image.representation(resize_to_fill: [400, 300]), class: "card-img-top" %>
-              <% else %>
-                <img class="card-img-top" src="https://via.placeholder.com/400x300" alt="Card image cap">
-              <% end%>
-                
+                <% @item=item %>
+                <%= render 'items/items_images_component' %>
                 <div class="card-body text-center">
                     <h5 class="card-title text-truncate"><%= item.name %></h5>
                     <ul class="list-group">
