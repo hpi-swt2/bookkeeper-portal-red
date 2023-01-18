@@ -20,6 +20,8 @@ RSpec.describe "landing_page/index", type: :view do
                max_borrowing_days: 7
              )
            ])
+    # initialize search and filter
+    @q = Item.ransack(params[:q])
   end
 
   pending "test generated html"
@@ -44,6 +46,11 @@ RSpec.describe "landing_page/index", type: :view do
     render
     expect(rendered).not_to match(/Ein hoch wissenschaftliches Buch über die Magie des Telefonierens/)
     expect(rendered).not_to match(/Ein wunderschönes Märchen/)
+  end
+
+  it "renders item cards that are clickable" do
+    render
+    expect(rendered).to have_css("a.btn.mx-auto.btn-primary.stretched-link")
   end
 
 end

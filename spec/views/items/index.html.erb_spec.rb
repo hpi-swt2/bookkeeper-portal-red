@@ -24,6 +24,8 @@ RSpec.describe "items/index", type: :view do
                max_borrowing_days: 7
              )
            ])
+    # initialize search and filter
+    @q = Item.ransack(params[:q])
   end
 
   pending "test generated html"
@@ -66,4 +68,8 @@ RSpec.describe "items/index", type: :view do
     expect(rendered).to have_css('#dropdownMenuButton')
   end
 
+  it "renders item cards that are clickable" do
+    render
+    expect(rendered).to have_css("a.btn.mx-auto.btn-primary.stretched-link")
+  end
 end

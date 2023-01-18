@@ -1,15 +1,19 @@
 de:
   hello: "Hallo Welt 2"
-  login_with_oidc: "Mit OIDC einloggen"
-  my_profile: "Mein Profil"
   navbar:
-    assets: "Meine Assets"
+    assets: "Meine Items"
+    borrowed_assets: "Geliehene Items"
     groups: "Meine Gruppen"
-    categories: "Kategorien"
-    notifications: "Benachrichtigungen"
+    notifications:
+      headline: "Benachrichtigungen"
+      emptyInbox: "Du hast aktuell keine Bencharichtigungen. 🕵️"
+      showMore: "Nachricht ausklappen"
+      showLess: "Nachricht einklappen"
     profile: "Mein Profil"
+    home: "Startseite"
     search: "Suchen"
   scan_qrcode: "QR-Code einscannen"
+  export_csv: "CSV exportieren"
   items:
     messages:
       successfully_created: "Item wurde erfolgreich erstellt."
@@ -17,6 +21,7 @@ de:
       successfully_destroyed: "Item wurde erfolgreich zerstört."
       successfully_borrowed: "Item wurde erfolgreich ausgeliehen"
       successfully_returned: "Item wurde erfolgreich zurückgegeben"
+      successfully_returned-by-owner: "Item wurde erfolgreich vom Besitzer zurückgegeben"
       successfully_reserved: "Item wurde erfolgreich reserviert"
       unsuccessfully_reserved: "Item Reservierung fehlgeschlagen"
       joining_waitlist_succeeded: "Du bist der Warteliste beigetreten."
@@ -38,6 +43,7 @@ de:
       back: "Zurück zur Items Übersicht"
       borrow: "Ausleihen"
       return: "Zurückgeben"
+      owner-return: "Als Besitzer zurückgeben"
       reserve: "Reservieren"
       join_waitlist: "Warteliste beitreten (%{users_waiting} warten)"
       leave_waitlist: "Warteliste verlassen (%{users_waiting} vor Dir)"
@@ -93,12 +99,16 @@ de:
         playing_time: "Spieldauer"
         language: "Sprache"
     infobox:
-      borrow: 
+      borrow:
         heading: "Wie kann man diesen Artikel ausleihen?"
         body: "Scannen Sie mit Ihrem mobilen Gerät den QR-Code dieses Artikels. Sie finden den Gegenstand an dem unten angegebenen Ort."
-      return: 
+      return:
         heading: "Wie kann ich diesen Artikel zurückgeben?"
         body: "Scannen Sie mit Ihrem mobilen Gerät den QR-Code dieses Artikels. Sie finden den Artikel an dem unten angegebenen Ort."
-      missing_borrowing_permissions: 
+      missing_borrowing_permissions:
         heading: "Warum kann ich diesen Artikel nicht ausleihen?"
         body: "Sie gehören nicht zu einer Gruppe, die diesen Artikel ausleihen darf."
+  profile:
+    description_header: "Beschreibung"
+  analytics:
+    headline: "Meine Statistiken"
