@@ -1,7 +1,6 @@
-# rubocop:disable Rails/ReversibleMigration
-
 class DefaultPermissions < ActiveRecord::Migration[7.0]
   def change
+    # rubocop:disable Rails/ReversibleMigration
     execute "
       INSERT INTO permissions(item_id, group_id, permission_type, created_at, updated_at)
       SELECT id, (
@@ -14,5 +13,7 @@ class DefaultPermissions < ActiveRecord::Migration[7.0]
           datetime()
       FROM items;
       "
+    # rubocop:enable Rails/ReversibleMigration
   end
 end
+

@@ -1,7 +1,6 @@
-# rubocop:disable Rails/ReversibleMigration
-
 class DefaultGroupMemberships < ActiveRecord::Migration[7.0]
   def change
+    # rubocop:disable Rails/ReversibleMigration
     execute "
       INSERT INTO memberships(user_id, group_id, role, created_at, updated_at)
       SELECT users.id,
@@ -11,5 +10,6 @@ class DefaultGroupMemberships < ActiveRecord::Migration[7.0]
              datetime()
       FROM users;
     "
+    # rubocop:enable Rails/ReversibleMigration
   end
 end
