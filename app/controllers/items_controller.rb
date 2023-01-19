@@ -331,14 +331,10 @@ class ItemsController < ApplicationController
       Permission.create(item_id: @item.id, group_id: group_id, permission_type: level)
     end
 
-    personal_group = Group.find_by_sql ["
-        SELECT g.*
-        FROM users JOIN memberships m on users.id = m.user_id JOIN groups g on m.group_id = g.id
-        WHERE user_id = :user_id AND tag = 1
-        LIMIT 1", { user_id: current_user.id }]
+    personal_group = current_user.personal_group
     return if personal_group.empty?
 
-    Permission.create(item_id: @item.id, group_id: personal_group.first.id, permission_type: :can_manage)
+    Permission.create(item_id: @item.id, group_id: personal_group.id, permission_type: :can_manage)
   end
 
   def create_reservation
