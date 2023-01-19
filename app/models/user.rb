@@ -72,12 +72,15 @@ class User < ApplicationRecord
   end
 
   def add_to_everyone_group
-    e_group = Group.where(tag: :everyone).first
-    return if e_group.nil?
-
+    e_group = Group.where(tag: "everyone_group").first
+    # for first user
+    if e_group.nil?
+      e_group = Group.create(name: "everyone", tag: "everyone_group")
+    end
     e_group_membership = Membership.create(group_id: e_group.id, user_id: id, role: :member)
     memberships.push(e_group_membership)
     save
+    
   end
 
   # Handles user creation based on data returned from OIDC login process. If
