@@ -85,6 +85,15 @@ class User < ApplicationRecord
     p_group
   end
 
+  def add_to_everyone_group
+    e_group = Group.where(tag: "everyone_group").first
+    # for first user
+    e_group = Group.create(name: "everyone", tag: "everyone_group") if e_group.nil?
+    e_group_membership = Membership.create(group_id: e_group.id, user_id: id, role: :member)
+    memberships.push(e_group_membership)
+    save
+  end
+
   # Handles user creation based on data returned from OIDC login process. If
   # the user already exists, returns the user.
   def self.from_omniauth(auth)
@@ -95,6 +104,7 @@ class User < ApplicationRecord
       user.full_name = auth.info.name
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
+      user.add_to_everyone_group
       user.create_personal_group
     end
   end

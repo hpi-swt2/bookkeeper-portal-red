@@ -73,6 +73,14 @@ en:
     form:
       edit: "Edit:"
       new: "New:"
+      permissions:
+        title: "Permissions"
+        duplicate_entries: "Only one permission per group is allowed!"
+        add: "Add"
+        remove: "Remove"
+        can_borrow: "can borrow"
+        can_manage: "can manage"
+        can_view: "can view"
       all:
         name: "Name"
         description: "Description"
