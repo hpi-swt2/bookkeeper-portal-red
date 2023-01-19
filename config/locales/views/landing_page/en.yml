@@ -13,6 +13,12 @@ en:
     home: "Home"
     search: "Search"
   scan_qrcode: "Scan a QR-Code"
+  filter:
+    no_filter: "Category: all"
+  sort:
+    no_sort: "Sort: none"
+    newly_added: "newly added"
+    alphabetically: "name A-Z"
   export_csv: "Export CSV"
   items:
     messages:
