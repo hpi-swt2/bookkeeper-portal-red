@@ -18,8 +18,31 @@ class User < ApplicationRecord
   has_many :lendings, dependent: :destroy
   has_many :reservations, dependent: :destroy
   has_many :notifications, dependent: :destroy
+
+  def can_view?(item)
+    return true if can_manage?(item) || can_borrow?(item)
+
+    item_groups = item.viewer_groups
+
+    groups.each do |user_group|
+      return true if item_groups.include? user_group
+    end
+    false
+  end
+
   def can_borrow?(item)
+    return true if can_manage?(item)
+
     item_groups = item.borrower_groups
+
+    groups.each do |user_group|
+      return true if item_groups.include? user_group
+    end
+    false
+  end
+
+  def can_manage?(item)
+    item_groups = item.manager_groups
 
     groups.each do |user_group|
       return true if item_groups.include? user_group
@@ -41,15 +64,6 @@ class User < ApplicationRecord
     return false if personal_groups.empty?
 
     true
-  end
-
-  def can_manage?(item)
-    item_groups = item.manager_groups
-
-    groups.each do |user_group|
-      return true if item_groups.include? user_group
-    end
-    false
   end
 
   def can_return_as_owner?(item)

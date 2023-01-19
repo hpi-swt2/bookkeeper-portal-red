@@ -94,11 +94,7 @@ class ItemsController < ApplicationController
     @item.item_type = params[:item_type]
 
     item_saved = @item.save
-    if item_saved
-      Permission.create(item: @item, group: current_user.personal_group, permission_type: :can_borrow)
-      Permission.create(item: @item, group: current_user.personal_group, permission_type: :can_manage)
-      Permission.create(item: @item, group: current_user.personal_group, permission_type: :can_view)
-    end
+    Permission.create(item: @item, group: current_user.personal_group, permission_type: :can_manage) if item_saved
 
     respond_to do |format|
       if item_saved
