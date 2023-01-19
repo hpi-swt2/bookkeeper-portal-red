@@ -44,4 +44,25 @@ describe User, type: :model do
     expect(Group.exists?(p_group_id)).to be(false)
   end
 
+  it "can view items when having borrow permissions" do
+    item = FactoryBot.create(:item)
+    user.create_personal_group
+    item.borrower_groups << user.personal_group
+    expect(user.can_view?(item)).to be(true)
+  end
+
+  it "can view items when having manage permissions" do
+    item = FactoryBot.create(:item)
+    user.create_personal_group
+    item.manager_groups << user.personal_group
+    expect(user.can_view?(item)).to be(true)
+  end
+
+  it "can borrow items when having manage permissions" do
+    item = FactoryBot.create(:item)
+    user.create_personal_group
+    item.manager_groups << user.personal_group
+    expect(user.can_borrow?(item)).to be(true)
+  end
+
 end
