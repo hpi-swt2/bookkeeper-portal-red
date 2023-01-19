@@ -13,6 +13,12 @@ de:
     home: "Startseite"
     search: "Suchen"
   scan_qrcode: "QR-Code einscannen"
+  filter:
+    no_filter: "Kategorie: alle"
+  sort:
+    no_sort: "Sortierung: keine"
+    newly_added: "Neu Hinzugefügt"
+    alphabetically: "Name A-Z"
   export_csv: "CSV exportieren"
   items:
     messages:
