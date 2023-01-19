@@ -36,6 +36,7 @@ de:
       not_allowed_to_destroy: "Dir ist nicht erlaubt das Item zu löschen."
       not_allowed_to_download: "Dir ist nicht erlaubt den QR-Code des Items herunterzuladen."
       not_allowed_to_edit: "Dir ist nicht erlaubt das Item zu bearbeiten."
+      not_allowed_to_access: "Dir ist nicht erlaubt auf das Item zu zugreifen."
       deletion_confirmation: "Soll das Item wirklich gelöscht werden?"
     headlines:
       my_items: "Meine Items"

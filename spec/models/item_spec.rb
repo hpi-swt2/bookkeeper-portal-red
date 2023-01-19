@@ -115,6 +115,7 @@ RSpec.describe Item, type: :model do
   describe "Owner return:" do
     let(:user) { FactoryBot.create(:user) }
     let(:user2) { FactoryBot.create(:user) }
+    let(:user3) { FactoryBot.create(:user) }
 
     before do
       manage_group = FactoryBot.create(:group)
@@ -124,6 +125,8 @@ RSpec.describe Item, type: :model do
       FactoryBot.create(:membership, user: user2, group: borrow_group)
       FactoryBot.create(:permission, item: item, group: borrow_group, permission_type: :can_borrow)
       FactoryBot.create(:permission, item: item, group: manage_group, permission_type: :can_manage)
+      FactoryBot.create(:permission, item: item, group: borrow_group, permission_type: :can_view)
+      FactoryBot.create(:permission, item: item, group: manage_group, permission_type: :can_view)
     end
 
     it "does not allow owner-return if user has no management rights" do
@@ -147,6 +150,15 @@ RSpec.describe Item, type: :model do
       FactoryBot.create(:lending, item_id: item.id, user_id: user.id, started_at: Time.zone.now, completed_at: nil,
                                   due_at: 2.days.from_now)
       expect(user2.can_return_as_owner?(item)).to be true
+    end
+
+    it "does not allow item acsess for user with no acsess rights" do
+      expect(user3.can_view?(item)).to be false
+    end
+
+    it "does allow item acsess for user with acsess rights" do
+      expect(user.can_view?(item)).to be true
+      expect(user2.can_view?(item)).to be true
     end
   end
 
