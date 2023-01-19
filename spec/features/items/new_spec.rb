@@ -41,7 +41,7 @@ describe "new item page", type: :feature do
     item = Item.find_by(name: "An item name")
     expect(personal_group.managed_items.count).to eq(1)
     expect(personal_group.managed_items.first).to eq(item)
-    
+
     expect(user.can_manage?(item)).to be(true)
     expect(user.can_borrow?(item)).to be(true)
     expect(user.can_view?(item)).to be(true)
