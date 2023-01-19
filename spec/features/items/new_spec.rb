@@ -1,6 +1,15 @@
 require "rails_helper"
 
 describe "new item page", type: :feature do
+  before do
+    @user = FactoryBot.create(:user, email: 'example@mail.com')
+    sign_in @user
+    @item_title = "Harry Potter und der Stein der Weisen"
+    @item_description = "Buch von J.K.Rowling"
+    @item_max_reservation_days = 2
+    @item_max_borrowing_days = 7
+  end
+
   let(:password) { 'password' }
   let(:user) { FactoryBot.create(:user, password: password) }
 
@@ -27,14 +36,12 @@ describe "new item page", type: :feature do
     expect((Item.find_by name: @item_title).description).to eq(@item_description)
   end
 
-  it "sets the managing, borrowing and viewing rights of the item creator" do
+  it "sets managing rights for the item creator" do
     sign_in user
     expect(user.exists_personal_group?).to be(true)
 
     personal_group = user.personal_group
     expect(personal_group.managed_items.count).to eq(0)
-    expect(personal_group.viewable_items.count).to eq(0)
-    expect(personal_group.borrowable_items.count).to eq(0)
 
     visit new_item_path
     page.fill_in "item[name]", with: "An item name"
@@ -43,14 +50,9 @@ describe "new item page", type: :feature do
     item = Item.find_by(name: "An item name")
     expect(personal_group.managed_items.count).to eq(1)
     expect(personal_group.managed_items.first).to eq(item)
+
     expect(user.can_manage?(item)).to be(true)
-
-    expect(personal_group.viewable_items.count).to eq(1)
-    expect(personal_group.viewable_items.first).to eq(item)
-
-    expect(personal_group.borrowable_items.count).to eq(1)
-    expect(personal_group.borrowable_items.first).to eq(item)
     expect(user.can_borrow?(item)).to be(true)
+    expect(user.can_view?(item)).to be(true)
   end
-
 end
