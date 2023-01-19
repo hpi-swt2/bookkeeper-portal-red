@@ -36,7 +36,7 @@ en:
       not_allowed_to_destroy: "You are not allowed to delete this item."
       not_allowed_to_download: "You are not allowd to download the QR-Code of this item."
       not_allowed_to_edit: "You are not allowed to edit this item."
-      not_allowed_to_access: "You are not allowed to acsess this item."
+      not_allowed_to_access: "You are not allowed to access this item."
       deletion_confirmation: "Do you really want to delete the item?"
     headlines:
       my_items: "My Items"
