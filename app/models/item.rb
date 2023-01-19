@@ -126,7 +126,7 @@ class Item < ApplicationRecord
   end
 
   def create_reservation_from_waitlist
-    return if current_reservation
+    return if reserved? || borrowed?
 
     waiting_position = WaitingPosition.where(item_id: id).order(:created_at).first
     return unless waiting_position

@@ -32,10 +32,6 @@ describe "waitlist", type: :feature do
     end
 
     it "allows him to join the item waitlist if the item is currently borrowed by another user" do
-      # We have to create a waiting position for the other user, so that the waiting position that
-      # will be created for our user when clicking the button will not immediately be converted into
-      # a reservation when showing the item page.
-      FactoryBot.create(:waiting_position, item_id: item.id, user_id: user2.id)
       FactoryBot.create(:lending, item_id: item.id, user_id: user2.id, started_at: Time.zone.now, completed_at: nil,
                                   due_at: 2.days.from_now)
 
@@ -109,6 +105,39 @@ describe "waitlist", type: :feature do
       expect(item.reserved_by?(user2)).to be true
       expect(item.waitlist_has?(user2)).to be false
       expect(item.waitlist_has?(user3)).to be true
+    end
+
+    it "automatically creates a reservation for a waiting user if no reservation is present when showing the item" do
+      FactoryBot.create(:waiting_position, item_id: item.id, user_id: user.id, created_at: 2.days.ago)
+
+      sign_in user
+
+      expect(item.reserved_by?(user)).to be false
+      expect(item.waitlist_has?(user)).to be true
+
+      visit item_path(item)
+
+      # Showing the page should automatically create reservations for waiting users:
+      expect(item.reserved_by?(user)).to be true
+      expect(item.waitlist_has?(user)).to be false
+    end
+
+    it "does not automatically create a reservation for a waiting user if no reservation but a lending is present " \
+       "when showing the item" do
+      FactoryBot.create(:waiting_position, item_id: item.id, user_id: user.id, created_at: 2.days.ago)
+      FactoryBot.create(:lending, item_id: item.id, user_id: user2.id, started_at: Time.zone.now, completed_at: nil,
+                                  due_at: 2.days.from_now)
+
+      sign_in user
+
+      expect(item.reserved_by?(user)).to be false
+      expect(item.waitlist_has?(user)).to be true
+
+      visit item_path(item)
+
+      # Showing the page should not have automatically created a reservation for waiting users:
+      expect(item.reserved_by?(user)).to be false
+      expect(item.waitlist_has?(user)).to be true
     end
   end
 end
