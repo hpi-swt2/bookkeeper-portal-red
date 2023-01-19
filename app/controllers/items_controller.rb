@@ -95,7 +95,9 @@ class ItemsController < ApplicationController
 
     item_saved = @item.save
     if item_saved
+      Permission.create(item: @item, group: current_user.personal_group, permission_type: :can_borrow)
       Permission.create(item: @item, group: current_user.personal_group, permission_type: :can_manage)
+      Permission.create(item: @item, group: current_user.personal_group, permission_type: :can_view)
     end
 
     respond_to do |format|
