@@ -10,7 +10,7 @@
             <% end %>
         </ul>
         <%= render 'items/owner_component', item: item %>
-        <p class="card-text text-truncate text-success"><%= item.status_text(current_user) %></p>
+        <%= render(ItemAvailabilityBadgeComponent.new(item: item, user: current_user)) %>
         <div class="card-body">
             <a class="mx-auto btn btn-primary stretched-link" href=<%=item_path(item)%>><%=I18n.t("items.buttons.show")%></a>
         </div>
