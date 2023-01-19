@@ -332,8 +332,6 @@ class ItemsController < ApplicationController
     end
 
     personal_group = current_user.personal_group
-    return if personal_group.empty?
-
     Permission.create(item_id: @item.id, group_id: personal_group.id, permission_type: :can_manage)
   end
 
