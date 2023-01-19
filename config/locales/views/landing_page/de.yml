@@ -1,16 +1,25 @@
 de:
   hello: "Hallo Welt 2"
-  login_with_oidc: "Mit OIDC einloggen"
-  my_profile: "Mein Profil"
   navbar:
-    assets: "Meine Assets"
-    borrowed_assets: "Geliehene Assets"
+    assets: "Meine Items"
+    borrowed_assets: "Geliehene Items"
     groups: "Meine Gruppen"
-    categories: "Kategorien"
-    notifications: "Benachrichtigungen"
+    notifications:
+      headline: "Benachrichtigungen"
+      emptyInbox: "Du hast aktuell keine Bencharichtigungen. 🕵️"
+      showMore: "Nachricht ausklappen"
+      showLess: "Nachricht einklappen"
     profile: "Mein Profil"
+    home: "Startseite"
     search: "Suchen"
   scan_qrcode: "QR-Code einscannen"
+  filter:
+    no_filter: "Kategorie: alle"
+  sort:
+    no_sort: "Sortierung: keine"
+    newly_added: "Neu Hinzugefügt"
+    alphabetically: "Name A-Z"
+  export_csv: "CSV exportieren"
   items:
     messages:
       successfully_created: "Item wurde erfolgreich erstellt."
@@ -21,6 +30,8 @@ de:
       successfully_returned-by-owner: "Item wurde erfolgreich vom Besitzer zurückgegeben"
       successfully_reserved: "Item wurde erfolgreich reserviert"
       unsuccessfully_reserved: "Item Reservierung fehlgeschlagen"
+      joining_waitlist_succeeded: "Du bist der Warteliste beigetreten."
+      leaving_waitlist_succeeded: "Du hast die Warteliste verlassen."
       lending_error: "Ausleihsystem Fehler"
       not_allowed_to_destroy: "Dir ist nicht erlaubt das Item zu löschen."
       not_allowed_to_download: "Dir ist nicht erlaubt den QR-Code des Items herunterzuladen."
@@ -40,6 +51,8 @@ de:
       return: "Zurückgeben"
       owner-return: "Als Besitzer zurückgeben"
       reserve: "Reservieren"
+      join_waitlist: "Warteliste beitreten (%{users_waiting} warten)"
+      leave_waitlist: "Warteliste verlassen (%{users_waiting} vor Dir)"
       download_qrcode: "QR-Code herunterladen"
     status_badge:
       available: "Verfügbar"
