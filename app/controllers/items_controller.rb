@@ -46,7 +46,7 @@ class ItemsController < ApplicationController
   def download
     @item = Item.find(params[:id])
     if current_user.can_manage?(@item)
-      send_data @item.to_pdf, filename: "item.pdf"
+      send_data @item.to_pdf(request.host), filename: "item.pdf"
     else
       respond_to do |format|
         format.html { redirect_to @item, status: :forbidde, nnotice: I18n.t("items.messages.not_allowed_to_download") }
