@@ -1,7 +1,7 @@
 # rubocop:disable Metrics/ClassLength
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show edit update destroy ]
-  before_action :set_item_from_item_id, only: %i[ borrow reserve give_back]
+  before_action :set_item_from_item_id, only: %i[ borrow reserve give_back join_waitlist leave_waitlist]
   helper_method :button_text, :button_path
 
   # GET /items or /items.json
@@ -11,7 +11,7 @@ class ItemsController < ApplicationController
   end
 
   # GET /items/1 or /items/1.json
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def show
     @item = Item.find(params[:id])
     @src_is_qrcode = params[:src] == "qrcode"
@@ -24,7 +24,22 @@ class ItemsController < ApplicationController
         format.json { head :no_content }
       end
     end
+
+    # Usually reservations from the waitlist are automatically created
+    # by a scheduled job when the previous reservation expires.
+    # However, since the job runs not constantly, there might be an edge
+    # case where a previous reservation has expired and there are people
+    # on the waitlist, but the job has had no chance to create a reservation
+    # for them yet. In order to prevent other people from "stealing the reservation"
+    # without being on the waitlist during this interval, we do the same
+    # check as the job before showing the item page to the user.
+    @item.create_reservation_from_waitlist
+
+    return unless current_user.nil?
+
+    redirect_to new_user_session_path
   end
+  # rubocop:enable Metrics/MethodLength
 
   def download
     @item = Item.find(params[:id])
@@ -75,14 +90,25 @@ class ItemsController < ApplicationController
     @items = current_user.items
   end
 
+  # GET /items/export_csv
+  # export current items to csv
+  def export_csv
+    @q = Item.ransack(params[:q])
+    @items = @q.result(distinct: true)
+    send_data CsvExport.to_csv(@items), filename: "items.csv"
+  end
+
   # POST /items or /items.json
   # rubocop:disable Metrics/MethodLength
   def create
     @item = Item.new(item_params(params[:item_type]))
     @item.item_type = params[:item_type]
 
+    item_saved = @item.save
+    Permission.create(item: @item, group: current_user.personal_group, permission_type: :can_manage) if item_saved
+
     respond_to do |format|
-      if @item.save
+      if item_saved
         format.html { redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_created") }
         format.json { render :show, status: :created, location: @item }
       else
@@ -128,6 +154,7 @@ class ItemsController < ApplicationController
     if @item.borrowed_by?(@user)
       @lending = Lending.where(item_id: @item.id, user_id: @user.id, completed_at: nil).first
       @lending.completed_at = Time.current
+      @item.create_reservation_from_waitlist
       msg = I18n.t("items.messages.successfully_returned")
     elsif @item.borrowed? && @user.can_manage?(@item)
       @lending = Lending.where(item_id: @item.id, completed_at: nil).first
@@ -153,14 +180,14 @@ class ItemsController < ApplicationController
     @user = current_user
     item_reservable_by_user = @item.reservable_by?(@user)
     if item_reservable_by_user
-      create_reservation
+      @reservation = @item.create_reservation(@user)
       msg = I18n.t("items.messages.successfully_reserved")
     else
       msg = I18n.t("items.messages.unsuccessfully_reserved")
     end
 
     respond_to do |format|
-      if !item_reservable_by_user || @reservation.save
+      if !item_reservable_by_user || @reservation.errors.empty?
         format.html { redirect_to @item, notice: msg }
         format.json { render @item, status: :ok, location: @item }
       else
@@ -169,7 +196,35 @@ class ItemsController < ApplicationController
       end
     end
   end
+
+  # PATCH
+  def join_waitlist
+    @user = current_user
+    can_join_waitlist = @item.allows_joining_waitlist?(@user)
+    waiting_position = WaitingPosition.new(item_id: @item.id, user_id: @user.id)
+
+    respond_to do |format|
+      if can_join_waitlist && waiting_position.save
+        format.html { redirect_to @item, notice: I18n.t("items.messages.joining_waitlist_succeeded") }
+        format.json { render @item, status: :ok, location: @item }
+      else
+        format.html { render :show, status: :unprocessable_entity }
+        format.json { render json: waiting_position.errors, status: :unprocessable_entity }
+      end
+    end
+  end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+  # PATCH
+  def leave_waitlist
+    @user = current_user
+    WaitingPosition.find_by(user_id: @user.id, item_id: @item.id)&.destroy
+
+    respond_to do |format|
+      format.html { redirect_to @item, notice: I18n.t("items.messages.leaving_waitlist_succeeded") }
+      format.json { render @item, status: :ok, location: @item }
+    end
+  end
 
   # PATCH/PUT /items/1 or /items/1.json
   # rubocop:disable Metrics/AbcSize
@@ -246,11 +301,6 @@ class ItemsController < ApplicationController
     @lending.user = @user
     @lending.item = @item
     @lending.completed_at = nil
-  end
-
-  def create_reservation
-    @reservation = Reservation.new(item_id: @item.id, user_id: @user.id, starts_at: Time.current,
-                                   ends_at: Time.current + @item.max_reservation_days.days)
   end
 end
 # rubocop:enable Metrics/ClassLength

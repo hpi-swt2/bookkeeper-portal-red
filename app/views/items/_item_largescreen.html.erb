@@ -109,6 +109,22 @@
                 bootstrap_classes: "mx-auto btn btn-primary")
               )%>
             <% end %>
+
+            <% if @item.allows_joining_waitlist?(current_user) %>
+              <%= render(ItemBorrowButton.new(
+                text: I18n.t("items.buttons.join_waitlist", :users_waiting => @item.users_on_waitlist_before(current_user)), 
+                action: item_join_waitlist_path(@item), 
+                bootstrap_classes: "mx-auto btn btn-primary")
+              )%>
+            <% end %>
+
+            <% if @item.waitlist_has?(current_user) %>
+              <%= render(ItemBorrowButton.new(
+                text: I18n.t("items.buttons.leave_waitlist", :users_waiting => @item.users_on_waitlist_before(current_user)), 
+                action: item_leave_waitlist_path(@item), 
+                bootstrap_classes: "mx-auto btn btn-primary")
+              )%>
+            <% end %>
           </div>
         </div>
       </div>

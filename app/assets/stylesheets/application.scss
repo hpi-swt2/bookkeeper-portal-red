@@ -49,8 +49,13 @@ $enable-cssgrid: true;
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
 
 $mobileDeviceCutoff: 992px;
+$footerHeight: 8rem;
 
 @import "flag-icon";
+
+:root {
+  --footer-height: #{$footerHeight};
+}
 
 @media (max-width: $mobileDeviceCutoff) {
   .navbar-collapse {
@@ -75,7 +80,7 @@ $mobileDeviceCutoff: 992px;
     transition: left 300ms ease-in-out;
   }
 
-  .navbar-toggler.collapsed ~ .navbar-collapse {
+  .navbar-toggler.collapsed~.navbar-collapse {
     transition: left 500ms ease-in-out;
   }
 }
@@ -92,8 +97,17 @@ $mobileDeviceCutoff: 992px;
   }
 }
 
+.btn-secondary {
+  @extend .text-white;
+}
+
 footer {
   border-bottom: $primary;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: $footerHeight;
+  overflow: hidden;
 }
 
 .navbar-nav .nav-link {
@@ -102,10 +116,6 @@ footer {
 
 .navbar-nav .active {
   color: white !important;
-}
-
-#main-content-wrapper {
-  min-height: 70vh;
 }
 
 #navbarToggle {

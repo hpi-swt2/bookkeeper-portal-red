@@ -71,4 +71,8 @@ RSpec.describe "items/index", type: :view do
     expect(rendered).to have_css('#dropdownMenuButton')
   end
 
+  it "renders item cards that are clickable" do
+    render
+    expect(rendered).to have_css("a.btn.mx-auto.btn-primary.stretched-link")
+  end
 end
