@@ -31,6 +31,29 @@ describe "waitlist", type: :feature do
       expect(item.allows_joining_waitlist?(user)).to be false
     end
 
+    it "allows him to join the item waitlist if the item is currently borrowed by another user" do
+      # We have to create a waiting position for the other user, so that the waiting position that
+      # will be created for our user when clicking the button will not immediately be converted into
+      # a reservation when showing the item page.
+      FactoryBot.create(:waiting_position, item_id: item.id, user_id: user2.id)
+      FactoryBot.create(:lending, item_id: item.id, user_id: user2.id, started_at: Time.zone.now, completed_at: nil,
+                                  due_at: 2.days.from_now)
+
+      sign_in user
+
+      expect(item.waitlist_has?(user)).to be false
+
+      visit item_path(item)
+      expect(page).to have_button I18n.t('items.buttons.join_waitlist', users_waiting: 0)
+      expect(page).not_to have_button I18n.t('items.buttons.leave_waitlist', users_waiting: 0)
+
+      # match: :first is needed because the mobile and web screen are rendered at the same time
+      click_on I18n.t('items.buttons.join_waitlist', users_waiting: 0), match: :first
+
+      expect(item.waitlist_has?(user)).to be true
+      expect(item.allows_joining_waitlist?(user)).to be false
+    end
+
     it "allows him to leave the item waitlist if he is already on it" do
       FactoryBot.create(:reservation, item_id: item.id, user_id: user2.id, starts_at: Time.zone.now,
                                       ends_at: 2.days.from_now)
