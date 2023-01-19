@@ -8,6 +8,6 @@ class NotificationMailerPreview < ActionMailer::Preview
   def send_reminder
     user = FactoryBot.build(:user)
     user.id = 1
-    NotificationMailer.send_reminder("This could be your test message!", user)
+    NotificationMailer.send_reminder(user, "This could be your test message!")
   end
 end

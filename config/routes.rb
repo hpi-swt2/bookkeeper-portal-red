@@ -11,10 +11,13 @@ Rails.application.routes.draw do
     patch :borrow
     patch :give_back
     patch :update_lending
+    patch :join_waitlist
+    patch :leave_waitlist
     collection do
       get "/my", to: "items#my_items", as: :my
       get "/my/borrowed", to: "items#mine_borrowed", as: :mine_borrowed
       get "/borrowed", to: "items#borrowed_by_me", as: :borrowed_by_me
+      get :export_csv
     end
   end
 

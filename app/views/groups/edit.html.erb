@@ -1,6 +1,6 @@
 <h1>
   <%= render GroupNameComponent.new(group: @group) %>
-  <button type="button" class="btn btn-sm btn-primary text-light bi bi-pencil-fill" data-bs-toggle="modal" data-bs-target="#editGroupModal">
+  <button type="button" class="btn btn-sm btn-primary bi bi-pencil-fill" data-bs-toggle="modal" data-bs-target="#editGroupModal">
   </button>
 </h1>
 
@@ -25,7 +25,9 @@
       <td><%= user.full_name %></td>
       <td><%= user.email %></td>
       <td>
-        <a href="#" class="btn btn-sm btn-warning text-light"><i class="bi bi-chat-fill"></i></a>
+        <%= mail_to user.email, class: "btn btn-sm btn-secondary" do %>
+          <i class="bi bi-chat-fill"></i>
+        <% end %>
         <a href="#" class="btn btn-sm btn-primary"><i class="bi bi-person-dash-fill"></i></a>
       </td>
     </tr>
