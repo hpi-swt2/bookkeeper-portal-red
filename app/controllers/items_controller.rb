@@ -209,7 +209,7 @@ class ItemsController < ApplicationController
 
   def permissions
     # A bit janky but otherwise it selects the id of the personal_group instead of the permissions id
-    associated_permissions = Group.joins(:permissions).where.not('groups.tag': "personal_group").or(Group.joins(:permissions).where('groups.tag': nil)).select('permissions.id', Permission.attribute_names.reject { |attribute_name| attribute_name == 'id' }).where('permissions.item_id': params["id"])
+    associated_permissions = Group.joins(:permissions).where.not('groups.tag': "personal_group").or(Group.joins(:permissions).where('groups.tag': nil)).select('permissions.id', Permission.attribute_names.reject { |attribute_name| attribute_name == 'id' }).where('permissions.item_id': params["id"]) # rubocop:disable Layout/LineLength
     respond_to do |format|
       format.json { render json: associated_permissions }
     end
@@ -282,9 +282,9 @@ class ItemsController < ApplicationController
         FROM users JOIN memberships m on users.id = m.user_id JOIN groups g on m.group_id = g.id
         WHERE user_id = :user_id AND tag = 1
         LIMIT 1", { user_id: current_user.id }]
-    unless personal_group.empty?
-      Permission.create(item_id: @item.id, group_id: personal_group.first.id, permission_type: :can_manage)
-    end
+    return if personal_group.empty?
+
+    Permission.create(item_id: @item.id, group_id: personal_group.first.id, permission_type: :can_manage)
   end
 
   def create_reservation
