@@ -30,6 +30,8 @@ en:
       successfully_returned-by-owner: "Item was successfully returned by owner"
       successfully_reserved: "Item was successfully reserved"
       unsuccessfully_reserved: "Item reservation failed"
+      joining_waitlist_succeeded: "You joined the waitlist for this item."
+      leaving_waitlist_succeeded: "You have left the waitlist for this item."
       lending_error: "Lending error"
       not_allowed_to_destroy: "You are not allowed to delete this item."
       not_allowed_to_download: "You are not allowd to download the QR-Code of this item."
@@ -49,6 +51,8 @@ en:
       borrow: "Borrow"
       return: "Return"
       owner-return: "Return as owner"
+      join_waitlist: "Join Waitlist (%{users_waiting} waiting)"
+      leave_waitlist: "Leave Waitlist (%{users_waiting} before you)"
       download_qrcode: "Download QR-Code"
     status_badge:
       available: "Available"
