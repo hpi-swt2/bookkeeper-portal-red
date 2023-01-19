@@ -19,7 +19,7 @@ RSpec.describe "grid view", type: :feature do
   end
 
   it "can sort items by name" do
-    
+
     sign_in user1
     visit "/items?q[s]=name"
 
