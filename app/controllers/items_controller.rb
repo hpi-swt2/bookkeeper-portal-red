@@ -256,7 +256,13 @@ class ItemsController < ApplicationController
 
   def permissions
     # A bit janky but otherwise it selects the id of the personal_group instead of the permissions id
-    associated_permissions = Group.joins(:permissions).where.not('groups.tag': "personal_group").or(Group.joins(:permissions).where('groups.tag': nil)).select('permissions.id', Permission.attribute_names.reject { |attribute_name| attribute_name == 'id' }).where('permissions.item_id': params["id"]) # rubocop:disable Layout/LineLength
+    associated_permissions = Group.joins(:permissions)
+                                  .where.not('groups.tag': "personal_group")
+                                  .or(Group.joins(:permissions).where('groups.tag': nil))
+                                  .select('permissions.id', Permission.attribute_names.reject do |attribute_name|
+                                                              attribute_name == 'id'
+                                                            end)
+                                  .where('permissions.item_id': params["id"])
     respond_to do |format|
       format.json { render json: associated_permissions }
     end
