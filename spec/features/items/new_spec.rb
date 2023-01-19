@@ -36,7 +36,6 @@ describe "new item page", type: :feature do
     expect((Item.find_by name: @item_title).description).to eq(@item_description)
   end
 
-
   it "sets managing rights for the item creator" do
     sign_in user
     expect(user.exists_personal_group?).to be(true)
@@ -46,12 +45,11 @@ describe "new item page", type: :feature do
     item = Item.find_by(name: "An item name")
     expect(personal_group.managed_items.count).to eq(1)
     expect(personal_group.managed_items.first).to eq(item)
-    
+
     expect(user.can_manage?(item)).to be(true)
     expect(user.can_borrow?(item)).to be(true)
     expect(user.can_view?(item)).to be(true)
   end
-
 
   #   expect(personal_group.borrowable_items.count).to eq(1)
   #   expect(personal_group.borrowable_items.first).to eq(item)

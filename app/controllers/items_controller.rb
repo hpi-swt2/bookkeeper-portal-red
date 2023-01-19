@@ -97,7 +97,6 @@ class ItemsController < ApplicationController
     item_saved = @item.save
     create_permission
 
-
     respond_to do |format|
       if item_saved
         format.html { redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_created") }
