@@ -5,25 +5,28 @@ RSpec.describe "items/index", type: :view do
   before do
     user = FactoryBot.create(:user, password: "password")
     sign_in user
-    assign(:items, [
-             FactoryBot.create(
-               :book,
-               name: "Communist Manifesto",
-               author: "Karl Marx",
-               genre: "",
-               description: "A book about communism, brought to you by Karl Marx, Friedrich Engels and Team Red",
-               max_reservation_days: 2,
-               max_borrowing_days: 7
-             ),
-             FactoryBot.create(
-               :book,
-               name: "The Hitchhikers Guide to the Galaxy",
-               genre: "",
-               description: "A science fiction comedy adventure",
-               max_reservation_days: 2,
-               max_borrowing_days: 7
-             )
-           ])
+    @item1 = FactoryBot.create(
+      :book,
+      name: "Communist Manifesto",
+      author: "Karl Marx",
+      genre: "",
+      description: "A book about communism, brought to you by Karl Marx, Friedrich Engels and Team Red",
+      max_reservation_days: 2,
+      max_borrowing_days: 7
+    )
+    @item2 = FactoryBot.create(
+      :book,
+      name: "The Hitchhikers Guide to the Galaxy",
+      genre: "",
+      description: "A science fiction comedy adventure",
+      max_reservation_days: 2,
+      max_borrowing_days: 7
+    )
+    assign(:items, [@item1, @item2])
+    group = FactoryBot.create(:group)
+    FactoryBot.create(:membership, user: user, group: group)
+    FactoryBot.create(:permission, item: @item1, group: group, permission_type: :can_view)
+    FactoryBot.create(:permission, item: @item2, group: group, permission_type: :can_view)
     # initialize search and filter
     @q = Item.ransack(params[:q])
   end
@@ -68,4 +71,8 @@ RSpec.describe "items/index", type: :view do
     expect(rendered).to have_css('#dropdownMenuButton')
   end
 
+  it "renders item cards that are clickable" do
+    render
+    expect(rendered).to have_css("a.btn.mx-auto.btn-primary.stretched-link")
+  end
 end

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get "items/:id/download", to: 'items#download', as: :download
+  get '/items/:id/permissions', to: 'items#permissions'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :groups, except: [:show, :new] do
@@ -10,10 +11,13 @@ Rails.application.routes.draw do
     patch :borrow
     patch :give_back
     patch :update_lending
+    patch :join_waitlist
+    patch :leave_waitlist
     collection do
       get "/my", to: "items#my_items", as: :my
       get "/my/borrowed", to: "items#mine_borrowed", as: :mine_borrowed
       get "/borrowed", to: "items#borrowed_by_me", as: :borrowed_by_me
+      get :export_csv
     end
   end
 
@@ -27,6 +31,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "landing_page#index"
+  # Defines home path route ("/home")
+  get "/", to: "landing_page#index", as: :home
 
   # Profile routes
   get "/profiles/me", to: "profiles#show_me"
@@ -45,4 +51,8 @@ Rails.application.routes.draw do
   get '/scan', to: 'qr_reader#scan'
 
   delete "/notifications/:id", to: "notifications#destroy"
+
+  get '/groups/all', to: 'groups#all'
+  get "/notifications/", to: "notifications#all"
+
 end

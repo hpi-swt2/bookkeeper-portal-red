@@ -1,4 +1,5 @@
 # Model of the current item/asset
+# rubocop:disable Metrics/ClassLength
 class Item < ApplicationRecord
   include ExportPdf
 
@@ -47,11 +48,15 @@ class Item < ApplicationRecord
 
   # items can be of different types. This function returns which attributes
   # are relevant for this item depending on it's type
-  def attributes
+  def self.attributes(item_type)
     return COMMON_ATTRIBUTES + BOOK_ATTRIBUTES if item_type.eql? "book"
     return COMMON_ATTRIBUTES + MOVIE_ATTRIBUTES if item_type.eql? "movie"
     return COMMON_ATTRIBUTES + GAME_ATTRIBUTES if item_type.eql? "game"
     return COMMON_ATTRIBUTES + OTHER_ATTRIBUTES if item_type.eql? "other"
+  end
+
+  def attributes
+    Item.attributes(item_type)
   end
 
   def common_attributes
@@ -104,6 +109,37 @@ class Item < ApplicationRecord
     Lending.exists?(user_id: user.id, item_id: id, completed_at: nil)
   end
 
+  def allows_joining_waitlist?(user)
+    reserved? and !reserved_by?(user) and !borrowed_by?(user) and !waitlist_has?(user)
+  end
+
+  def waitlist_has?(user)
+    WaitingPosition.exists?(user_id: user.id, item_id: id)
+  end
+
+  def users_on_waitlist_before(user)
+    user_position = WaitingPosition.where(item_id: id, user_id: user.id).first
+
+    return WaitingPosition.where(item_id: id).count unless user_position
+
+    WaitingPosition.where(item_id: id).where(["created_at < ?", user_position.created_at]).count
+  end
+
+  def create_reservation_from_waitlist
+    return if current_reservation
+
+    waiting_position = WaitingPosition.where(item_id: id).order(:created_at).first
+    return unless waiting_position
+
+    waiting_position.destroy
+    create_reservation(waiting_position.user)
+  end
+
+  def create_reservation(user)
+    Reservation.create(item_id: id, user_id: user.id, starts_at: Time.current,
+                       ends_at: Time.current + max_reservation_days.days)
+  end
+
   def cancel_reservation_for(user)
     return unless reserved_by?(user)
 
@@ -121,3 +157,4 @@ class Item < ApplicationRecord
     I18n.t("items.status_badge.not_available")
   end
 end
+# rubocop:enable Metrics/ClassLength
