@@ -338,7 +338,6 @@ class ItemsController < ApplicationController
     @reservation = Reservation.new(item_id: @item.id, user_id: @user.id, starts_at: Time.current,
                                    ends_at: Time.current + @item.max_reservation_days.days)
   end
-
 end
 
 # rubocop:enable Metrics/ClassLength, Metrics/MethodLength, Metrics/AbcSize
