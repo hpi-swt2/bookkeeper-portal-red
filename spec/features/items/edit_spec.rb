@@ -57,7 +57,7 @@ describe "edit item page", type: :feature do
       select_group = page.find_by_id("permission_select_0_group_id").value
       expect(select_group).to eq(@group.id.to_s)
       select_level = find_by_id("permission_select_0_level").value
-      expect(select_level).to eq("can_manage")
+      expect(select_level).to eq("can_view")
     end
 
     it "updates the permissions after submitting the form" do

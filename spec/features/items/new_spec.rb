@@ -2,6 +2,8 @@ require "rails_helper"
 
 describe "new item page", type: :feature do
   before do
+    @user = FactoryBot.create(:user, email: 'example@mail.com')
+    sign_in @user
     @item_title = "Harry Potter und der Stein der Weisen"
     @item_description = "Buch von J.K.Rowling"
     @item_max_reservation_days = 2

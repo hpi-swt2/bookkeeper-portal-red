@@ -282,7 +282,9 @@ class ItemsController < ApplicationController
         FROM users JOIN memberships m on users.id = m.user_id JOIN groups g on m.group_id = g.id
         WHERE user_id = :user_id AND tag = 1
         LIMIT 1", { user_id: current_user.id }]
-    Permission.create(item_id: @item.id, group_id: personal_group.first.id, permission_type: :can_manage)
+    unless personal_group.empty?
+      Permission.create(item_id: @item.id, group_id: personal_group.first.id, permission_type: :can_manage)
+    end
   end
 
   def create_reservation
