@@ -37,4 +37,44 @@ describe "edit item page", type: :feature do
     expect(page).to have_text("Item was successfully updated.")
     expect((Item.find_by name: "Harry Potter und die Kammer des Schreckens").description).to eq(@item.description)
   end
+
+  context 'with JS', driver: :selenium_chrome, js: true, ui: true do
+    it "renders the correct preselected permission" do
+      sign_in @user
+      @user.memberships.push(@membership)
+      item.manager_groups.push(@group)
+      visit edit_item_path(item)
+      select_group = page.find_by_id("permission_select_0_group_id").value
+      expect(select_group).to eq(@group.id.to_s)
+      select_level = find_by_id("permission_select_0_level").value
+      expect(select_level).to eq("can_manage")
+    end
+
+    it "updates the permissions after submitting the form" do
+      sign_in @user
+      @group2 = FactoryBot.create(:group)
+      @user.memberships.push(@membership)
+      item.manager_groups.push(@group)
+      visit edit_item_path(item)
+      page.find_by_id("add-permission-button").click
+      select @group2.name, from: "permission_select_1_group_id"
+      select "can manage", from: "permission_select_1_level"
+      page.find("button[type='submit'][value='#{item.item_type}']").click
+      sleep 0.5 # Waiting for JS to execute (not ideal, but works)
+      expect(Permission.permission_for_group(@group2.id, item.id)).to eq("can_manage")
+    end
+
+    it "shows an error message and disables button if a group has multiple permissions selected" do
+      sign_in @user
+      @user.memberships.push(@membership)
+      item.manager_groups.push(@group)
+      visit edit_item_path(item)
+      page.find_by_id("add-permission-button").click
+      select @group.name, from: "permission_select_1_group_id"
+      select "can borrow", from: "permission_select_1_level"
+      expect(page).to have_button('Update Item', disabled: true)
+      expect(page).to have_text("Only one permission per group is allowed!")
+    end
+  end
+
 end

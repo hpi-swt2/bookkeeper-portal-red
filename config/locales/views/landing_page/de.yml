@@ -74,6 +74,14 @@ de:
     form:
       edit: "Bearbeite:"
       new: "Neues:"
+      permissions:
+        title: "Berechtigungen"
+        duplicate_entries: "Pro Gruppe darf nur ein Recht zugewiesen werden!"
+        add: "Hinzufügen"
+        remove: "Entfernen"
+        can_borrow: "kann Ausleihen"
+        can_manage: "kann Verwalten"
+        can_view: "kann Ansehen"
       all:
         name: "Name"
         description: "Beschreibung"
