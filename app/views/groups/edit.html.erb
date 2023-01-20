@@ -24,11 +24,13 @@
     <tr>
       <td><%= user.full_name %></td>
       <td><%= user.email %></td>
-      <% if not user.admin_in?(@group)%>
+      <% if not user.admin_in?(@group) %>
         <td>
           <a href="#" class="btn btn-sm btn-warning text-light"><i class="bi bi-chat-fill"></i></a>
-          <%= button_to group_remove_user_path(@group), method: :patch, params: {group: @group, user: user}, class: "btn btn-sm btn-primary", form: {class: "d-inline"} do %>
-            <i class="bi bi-person-dash-fill"></i>
+          <% if @user.admin_in?(@group) %>
+            <%= button_to group_remove_user_path(@group), method: :patch, params: {group: @group, user: user}, class: "btn btn-sm btn-primary", form: {class: "d-inline"} do %>
+              <i class="bi bi-person-dash-fill"></i>
+            <% end %>
           <% end %>
         </td>
       <% end %>
@@ -37,14 +39,16 @@
   </tbody>
 </table>
 
-<div class="d-flex justify-content-center">
-  <button type="button" class="btn btn-secondary mx-1" data-bs-toggle="modal" data-bs-target="#addMemberGroupModal">
-    <%= t(:group_add_member) %>
-  </button>
-  <%= render "modal-add-member", group: @group %>
+<% if @user.admin_in?(@group) %> 
+  <div class="d-flex justify-content-center">
+    <button type="button" class="btn btn-secondary mx-1" data-bs-toggle="modal" data-bs-target="#addMemberGroupModal">
+      <%= t(:group_add_member) %>
+    </button>
+    <%= render "modal-add-member", group: @group %>
 
-  <button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#deleteGroupModal">
-    <%= t(:delete_group) %>
-  </button>
-  <%= render "modal-delete", group: @group %>
-</div>
+    <button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#deleteGroupModal">
+      <%= t(:delete_group) %>
+    </button>
+    <%= render "modal-delete", group: @group %>
+  </div>
+<% end %>

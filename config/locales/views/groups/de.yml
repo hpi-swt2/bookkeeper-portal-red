@@ -31,3 +31,6 @@ de:
   group_update: "Die Gruppe wurde erfolgreich aktualisiert"
   group_destroy: "Die Gruppe wurde wurde erfolgreich gelöscht"
 
+  group_user_not_found: "Dieser Nutzer konnte nicht gefunden werden"
+  group_user_added: "Nutzer wurde hinzugefügt"
+

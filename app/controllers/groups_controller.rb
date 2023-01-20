@@ -79,9 +79,10 @@ class GroupsController < ApplicationController
   def add_user
     respond_to do |format|
       user = User.where(email: params[:user][:email]).first
-      if Membership.where(user: user, group: @group, role: :member).first_or_create
-        format.html { redirect_to edit_group_url(@group), notice: t(:group_update) }
-        format.json { head :no_content }
+      if user.blank?
+        respond_with_notice(format, redirect: edit_group_url(@group), notice: t(:group_user_not_found))
+      elsif Membership.where(user: user, group: @group, role: :member).first_or_create
+        respond_with_notice(format, redirect: edit_group_url(@group), notice: t(:group_user_added))
       else
         unprocessable_response(format, redirect: :edit, entity: @group)
       end
@@ -124,6 +125,11 @@ class GroupsController < ApplicationController
   def unprocessable_response(format, redirect:, entity:)
     format.html { render redirect, status: :unprocessable_entity }
     format.json { render json: entity.errors, status: :unprocessable_entity }
+  end
+
+  def respond_with_notice(format, redirect:, notice:)
+    format.html { redirect_to redirect, notice: notice }
+    format.json { head :no_content }
   end
 
   # Only allow a list of trusted parameters through.

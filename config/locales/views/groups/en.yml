@@ -30,3 +30,6 @@ en:
   group_new: "Group has been created successfully"
   group_update: "Group has been updated successfully"
   group_destroy: "Group has been deleted successfully"
+
+  group_user_not_found: "This user could not be found"
+  group_user_added: "User was successfully added"
