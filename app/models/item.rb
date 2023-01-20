@@ -110,7 +110,7 @@ class Item < ApplicationRecord
   end
 
   def allows_joining_waitlist?(user)
-    reserved? and !reserved_by?(user) and !borrowed_by?(user) and !waitlist_has?(user)
+    (borrowed? || reserved?) and !reserved_by?(user) and !borrowed_by?(user) and !waitlist_has?(user)
   end
 
   def waitlist_has?(user)
@@ -126,7 +126,7 @@ class Item < ApplicationRecord
   end
 
   def create_reservation_from_waitlist
-    return if current_reservation
+    return if reserved? || borrowed?
 
     waiting_position = WaitingPosition.where(item_id: id).order(:created_at).first
     return unless waiting_position
