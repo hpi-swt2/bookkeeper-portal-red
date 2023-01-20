@@ -65,9 +65,9 @@
         <a href="<%= profiles_me_path %>" class="desktop-only text-white"><i class="bi bi-person-fill fs-3"></i></a>
       </span>
     </div>
-    <a class="navbar-brand text-white mx-2" href="/scan">
+    <%= link_to scan_path, class: "navbar-brand text-white mx-2" do %>
       <i class="bi bi-qr-code-scan fs-3"></i>
-    </a>
+    <% end %>
   </div>
 </nav>
 
