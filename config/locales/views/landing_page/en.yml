@@ -40,6 +40,9 @@ en:
       deletion_confirmation: "Do you really want to delete the item?"
     headlines:
       my_items: "My Items"
+      item_details: "Item Details"
+      no_description_provided: "No description provided"
+      last_seen_at: "Last seen at:"
       borrowed_items: "Borrowed Items"
     buttons:
       new: "Create item"

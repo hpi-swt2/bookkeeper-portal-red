@@ -40,6 +40,9 @@ de:
       deletion_confirmation: "Soll das Item wirklich gelöscht werden?"
     headlines:
       my_items: "Meine Items"
+      item_details: "Item Details"
+      no_description_provided: "Keine Beschreibung vorhanden"
+      last_seen_at: "Letzter bekannter Standort:"
       borrowed_items: "Ausgeliehene Items"
     buttons:
       new: "Item erstellen"

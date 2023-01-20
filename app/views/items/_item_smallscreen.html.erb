@@ -28,12 +28,12 @@
   <%# Description%>
   <p class="text-start text-wrap">
     <% if @item.description.empty? %>
-      <i>No description provided</i>
+      <i><%=I18n.t("items.headlines.no_description_provided") %></i>
     <% else %>
       <%= @item.description %>
     <% end  %>
   </p>
-  <h5>This item was last seen at:</h5>
+  <h5><%= I18n.t("items.headlines.last_seen_at") %></h5>
   <%# Infobox%>
   <% if current_user.can_borrow?(@item) %>
     <% if @item.reserved_by?(current_user) and @item.borrowable_by?(current_user) and !@src_is_qrcode %>
@@ -49,7 +49,7 @@
   <div id="item-location-small" style="height: 240px;"></div>
   <%# Attributes %>
   <table class="table">
-    <h2 class="mx-3">Item details</h1>
+    <h2 class="mx-3"><%= I18n.t("items.headlines.item_details") %></h2>
     <tbody>
     <% @item.attributes.select{ |v| !v.in?(['description', 'name']) }.each do |attr_name, attr_value| %>
       <ul class="list-group list-group-horizontal list-group-flush border-top border-1 mx-3">
