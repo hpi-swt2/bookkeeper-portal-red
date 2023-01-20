@@ -18,8 +18,31 @@ class User < ApplicationRecord
   has_many :lendings, dependent: :destroy
   has_many :reservations, dependent: :destroy
   has_many :notifications, dependent: :destroy
+
+  def can_view?(item)
+    return true if can_manage?(item) || can_borrow?(item)
+
+    item_groups = item.viewer_groups
+
+    groups.each do |user_group|
+      return true if item_groups.include? user_group
+    end
+    false
+  end
+
   def can_borrow?(item)
+    return true if can_manage?(item)
+
     item_groups = item.borrower_groups
+
+    groups.each do |user_group|
+      return true if item_groups.include? user_group
+    end
+    false
+  end
+
+  def can_manage?(item)
+    item_groups = item.manager_groups
 
     groups.each do |user_group|
       return true if item_groups.include? user_group
@@ -43,15 +66,6 @@ class User < ApplicationRecord
     true
   end
 
-  def can_manage?(item)
-    item_groups = item.manager_groups
-
-    groups.each do |user_group|
-      return true if item_groups.include? user_group
-    end
-    false
-  end
-
   def can_return_as_owner?(item)
     !item.borrowed_by?(self) && item.borrowed? && can_manage?(item)
   end
@@ -71,6 +85,15 @@ class User < ApplicationRecord
     p_group
   end
 
+  def add_to_everyone_group
+    e_group = Group.where(tag: "everyone_group").first
+    # for first user
+    e_group = Group.create(name: "everyone", tag: "everyone_group") if e_group.nil?
+    e_group_membership = Membership.create(group_id: e_group.id, user_id: id, role: :member)
+    memberships.push(e_group_membership)
+    save
+  end
+
   # Handles user creation based on data returned from OIDC login process. If
   # the user already exists, returns the user.
   def self.from_omniauth(auth)
@@ -81,6 +104,7 @@ class User < ApplicationRecord
       user.full_name = auth.info.name
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
+      user.add_to_everyone_group
       user.create_personal_group
     end
   end

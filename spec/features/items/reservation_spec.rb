@@ -11,6 +11,7 @@ describe "reservation process", type: :feature do
       group = FactoryBot.create(:group)
       FactoryBot.create(:membership, user: user, group: group)
       FactoryBot.create(:permission, item: item, group: group, permission_type: :can_borrow)
+      FactoryBot.create(:permission, item: item, group: group, permission_type: :can_view)
     end
 
     it "displays a reservation button if the item is not borrowed nor reserved" do

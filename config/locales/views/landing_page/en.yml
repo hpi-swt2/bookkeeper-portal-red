@@ -1,18 +1,25 @@
 en:
   hello: "Hello world 2"
   navbar:
-    assets: "My Assets"
-    borrowed_assets: "Borrowed Assets"
+    assets: "My Items"
+    borrowed_assets: "Borrowed Items"
     groups: "My Groups"
-    categories: "Categories"
     notifications:
       headline: "Notifications"
       emptyInbox: "You don't have any notifications yet. 🕵️️"
       showMore: "Show more"
       showLess: "Show less"
     profile: "My Profile"
+    home: "Home"
     search: "Search"
   scan_qrcode: "Scan a QR-Code"
+  filter:
+    no_filter: "Category: all"
+  sort:
+    no_sort: "Sort: none"
+    newly_added: "newly added"
+    alphabetically: "name A-Z"
+  export_csv: "Export CSV"
   items:
     messages:
       successfully_created: "Item was successfully created."
@@ -23,10 +30,13 @@ en:
       successfully_returned-by-owner: "Item was successfully returned by owner"
       successfully_reserved: "Item was successfully reserved"
       unsuccessfully_reserved: "Item reservation failed"
+      joining_waitlist_succeeded: "You joined the waitlist for this item."
+      leaving_waitlist_succeeded: "You have left the waitlist for this item."
       lending_error: "Lending error"
       not_allowed_to_destroy: "You are not allowed to delete this item."
       not_allowed_to_download: "You are not allowd to download the QR-Code of this item."
       not_allowed_to_edit: "You are not allowed to edit this item."
+      not_allowed_to_access: "You are not allowed to access this item."
       deletion_confirmation: "Do you really want to delete the item?"
     headlines:
       my_items: "My Items"
@@ -42,6 +52,8 @@ en:
       borrow: "Borrow"
       return: "Return"
       owner-return: "Return as owner"
+      join_waitlist: "Join Waitlist (%{users_waiting} waiting)"
+      leave_waitlist: "Leave Waitlist (%{users_waiting} before you)"
       download_qrcode: "Download QR-Code"
     status_badge:
       available: "Available"
@@ -62,6 +74,14 @@ en:
     form:
       edit: "Edit:"
       new: "New:"
+      permissions:
+        title: "Permissions"
+        duplicate_entries: "Only one permission per group is allowed!"
+        add: "Add"
+        remove: "Remove"
+        can_borrow: "can borrow"
+        can_manage: "can manage"
+        can_view: "can view"
       all:
         name: "Name"
         description: "Description"

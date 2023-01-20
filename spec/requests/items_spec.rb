@@ -27,12 +27,15 @@ RSpec.describe "/items", type: :request do
 
   before do
     user = FactoryBot.create(:user, password: "password")
+    @item = FactoryBot.create(:item)
+    @group = FactoryBot.create(:group)
+    FactoryBot.create(:membership, user: user, group: @group)
+    FactoryBot.create(:permission, group: @group, item: @item, permission_type: :can_view)
     sign_in user
   end
 
   describe "GET /index" do
     it "renders a successful response" do
-      Item.create! valid_attributes
       get items_url
       expect(response).to be_successful
     end
@@ -40,8 +43,7 @@ RSpec.describe "/items", type: :request do
 
   describe "GET /show" do
     it "renders a successful response" do
-      item = Item.create! valid_attributes
-      get item_url(item)
+      get item_url(@item)
       expect(response).to be_successful
     end
   end
@@ -55,14 +57,8 @@ RSpec.describe "/items", type: :request do
 
   describe "GET /edit" do
     it "renders a successful response" do
-      item = Item.create! valid_attributes
-      user = FactoryBot.create(:user, password: "password")
-      sign_in user
-      group = FactoryBot.create(:group)
-      membership = Membership.new(role: :admin, user_id: user.id, group: group)
-      user.memberships.push(membership)
-      item.manager_groups.push(group)
-      get edit_item_url(item)
+      FactoryBot.create(:permission, group: @group, item: @item, permission_type: :can_manage)
+      get edit_item_url(@item)
       expect(response).to be_successful
     end
   end
