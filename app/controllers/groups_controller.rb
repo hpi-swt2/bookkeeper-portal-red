@@ -67,8 +67,7 @@ class GroupsController < ApplicationController
     user = User.find(params[:user])
     respond_to do |format|
       if user.memberships.destroy_by(group: @group)
-        format.html { redirect_to edit_group_path(@group), notice: t(:group_update) }
-        format.json { head :no_content }
+        respond_with_notice(format, redirect: edit_group_path(@group), notice: t(:group_user_removed))
       else
         unprocessable_response(format, redirect: :edit, entity: @group)
       end

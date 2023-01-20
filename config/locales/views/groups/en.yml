@@ -33,3 +33,4 @@ en:
 
   group_user_not_found: "This user could not be found"
   group_user_added: "User was successfully added"
+  group_user_removed: "User was successfully removed"
