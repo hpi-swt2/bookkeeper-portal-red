@@ -47,6 +47,8 @@ en:
       show: "Show item"
       edit: "Edit item"
       delete: "Delete item"
+      freeze: "Freeze item"
+      unfreeze: "Unfreeze item"
       back: "Back to items"
       reserve: "Reserve"
       borrow: "Borrow"

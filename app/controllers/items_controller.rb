@@ -228,6 +228,10 @@ class ItemsController < ApplicationController
     end
   end
 
+  # PATCH
+  def toggle_freeze
+  end
+
   # PATCH/PUT /items/1 or /items/1.json
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def update
