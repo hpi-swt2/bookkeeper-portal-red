@@ -6,8 +6,8 @@ task overdue_reminder: :environment do
     item = Item.find(lending.item_id)
     user = User.find(lending.user_id)
 
-    message1 = "Das Item #{item.name} war gestern fällig. Bitte geben Sie es unverzüglich dem Besitzer zurück."
-    message2 = "The item #{item.name} was due yesterday. Please return it to the owner immediately."
+    message1 = "Das Item '#{item.name}' war gestern fällig. Bitte geben Sie es unverzüglich dem Besitzer zurück."
+    message2 = "The item '#{item.name}' was due yesterday. Please return it to the owner immediately."
     NotificationMailer.send_reminder(user, message1, message2: message2).deliver_now
   end
 end
