@@ -12,7 +12,7 @@
             <div class="imagecard-attributes">
               <%# TODO: i18n %>
               <table class="table">
-                <h2 class="col-sm-10">Item details</h1>
+                <h2 class="mx-3">Item details</h1>
                 <tbody>
                   <%# Don't want to show the description or name here, we display these separately further down %>
                   <%# If there are other fields you wish to hide from the attribute table, you can add them to the array in the line below %>
@@ -62,7 +62,7 @@
               </span>
               <hr class="border border-primary border-2 opacity-75">
             <% end %>
-
+            <hr class="border border-primary border-2 opacity-75">
             <%# Description%>
             <p class="text-start text-wrap">
               <% if @item.description.empty? %>
@@ -71,6 +71,7 @@
                 <%= @item.description %>
               <% end  %>
             </p>
+            <h5>This item was last seen at:</h5>
             <%# Infobox%>
             <% if current_user.can_borrow?(@item) %>
               <% if @item.reserved_by?(current_user) and @item.borrowable_by?(current_user) and !@src_is_qrcode %>

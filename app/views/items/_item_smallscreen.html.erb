@@ -26,7 +26,14 @@
   <% end %>
   <hr class="border border-primary border-2 opacity-75">
   <%# Description%>
-  <p class="text-start text-break"><%= @item.description %></p>
+  <p class="text-start text-wrap">
+    <% if @item.description.empty? %>
+      <i>No description provided</i>
+    <% else %>
+      <%= @item.description %>
+    <% end  %>
+  </p>
+  <h5>This item was last seen at:</h5>
   <%# Infobox%>
   <% if current_user.can_borrow?(@item) %>
     <% if @item.reserved_by?(current_user) and @item.borrowable_by?(current_user) and !@src_is_qrcode %>
@@ -42,8 +49,9 @@
   <div id="item-location-small" style="height: 240px;"></div>
   <%# Attributes %>
   <table class="table">
+    <h2 class="mx-3">Item details</h1>
     <tbody>
-    <% @item.attributes.each do |attr_name, attr_value| %>
+    <% @item.attributes.select{ |v| !v.in?(['description', 'name']) }.each do |attr_name, attr_value| %>
       <ul class="list-group list-group-horizontal list-group-flush border-top border-1 mx-3">
         <% if @item.common_attributes.include? attr_name %>
           <li class=" list-group-item flex-fill align-content-between py-1 text-break" style="border: none;"><%= I18n.t("items.form." + "all" + "." + attr_name.to_s)%></li>
