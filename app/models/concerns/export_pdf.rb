@@ -1,10 +1,10 @@
 module ExportPdf
   extend ActiveSupport::Concern
 
-  def to_pdf
+  def to_pdf(host)
     qr_code = RQRCode::QRCode.new(File.join(
                                     Rails.application.routes.url_helpers.item_url(self,
-                                                                                  host: "localhost:3000"),
+                                                                                  host: host),
                                     "/?src=qrcode"
                                   ))
     item_name = name

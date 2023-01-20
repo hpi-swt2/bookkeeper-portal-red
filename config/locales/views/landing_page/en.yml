@@ -13,6 +13,12 @@ en:
     home: "Home"
     search: "Search"
   scan_qrcode: "Scan a QR-Code"
+  filter:
+    no_filter: "Category: all"
+  sort:
+    no_sort: "Sort: none"
+    newly_added: "newly added"
+    alphabetically: "name A-Z"
   export_csv: "Export CSV"
   items:
     messages:
@@ -30,6 +36,7 @@ en:
       not_allowed_to_destroy: "You are not allowed to delete this item."
       not_allowed_to_download: "You are not allowd to download the QR-Code of this item."
       not_allowed_to_edit: "You are not allowed to edit this item."
+      not_allowed_to_access: "You are not allowed to access this item."
       deletion_confirmation: "Do you really want to delete the item?"
     headlines:
       my_items: "My Items"
@@ -67,6 +74,14 @@ en:
     form:
       edit: "Edit:"
       new: "New:"
+      permissions:
+        title: "Permissions"
+        duplicate_entries: "Only one permission per group is allowed!"
+        add: "Add"
+        remove: "Remove"
+        can_borrow: "can borrow"
+        can_manage: "can manage"
+        can_view: "can view"
       all:
         name: "Name"
         description: "Description"
