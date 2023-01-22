@@ -30,4 +30,8 @@ class Group < ApplicationRecord
       WHERE id IN (SELECT group_id FROM permissions WHERE item_id = :item_id AND permission_type = :permission_type)",
                  { item_id: item_id, permission_type: "2" }]
   end
+
+  def user_count
+    users.length
+  end
 end
