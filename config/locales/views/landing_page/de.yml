@@ -125,5 +125,7 @@ de:
         body: "Sie gehören nicht zu einer Gruppe, die diesen Artikel ausleihen darf."
   profile:
     description_header: "Beschreibung"
+    phone_number: "Telefonnummer"
+    phone_number_warning: "Die Telefonnummer darf nur aus Zahlen, + und - bestehen"
   analytics:
     headline: "Meine Statistiken"

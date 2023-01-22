@@ -125,5 +125,7 @@ en:
         body: "You are not part of a group that is allowed to borrow this item."
   profile:
     description_header: "Description"
+    phone_number: "Phone number"
+    phone_number_warning: "Phone number only allows numbers, + and -"
   analytics:
     headline: "My Analytics"
