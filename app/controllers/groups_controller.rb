@@ -9,6 +9,14 @@ class GroupsController < ApplicationController
   def index
   end
 
+  def all
+    personal_groups = Group.where(tag: :personal_group)
+
+    respond_to do |format|
+      format.json { render json: Group.all - personal_groups }
+    end
+  end
+
   # GET /groups/1/edit
   def edit
   end

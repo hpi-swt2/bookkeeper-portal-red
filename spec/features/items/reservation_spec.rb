@@ -11,6 +11,7 @@ describe "reservation process", type: :feature do
       group = FactoryBot.create(:group)
       FactoryBot.create(:membership, user: user, group: group)
       FactoryBot.create(:permission, item: item, group: group, permission_type: :can_borrow)
+      FactoryBot.create(:permission, item: item, group: group, permission_type: :can_view)
     end
 
     it "displays a reservation button if the item is not borrowed nor reserved" do
@@ -39,7 +40,7 @@ describe "reservation process", type: :feature do
       expect(page).to have_button I18n.t('items.buttons.borrow')
       expect(page).to have_text I18n.t('items.status_badge.reserved_by_me')
 
-      click_on I18n.t('items.buttons.borrow'), match: :first
+      click_button I18n.t('items.buttons.borrow'), match: :first
       expect(item.reserved_by?(user)).to be false
       expect(item.borrowed_by?(user)).to be true
 

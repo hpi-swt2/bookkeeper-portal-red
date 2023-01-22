@@ -98,7 +98,6 @@ RSpec.describe Item, type: :model do
       it "does not allow reservation or borrowing by user2 if user has a lending" do
         FactoryBot.create(:lending, item_id: item.id, user_id: user.id, started_at: Time.zone.now, completed_at: nil,
                                     due_at: 2.days.from_now)
-
         expect(item.borrowable_by?(user2)).to be false
         expect(item.reservable_by?(user2)).to be false
       end
@@ -110,7 +109,56 @@ RSpec.describe Item, type: :model do
         expect(item.borrowable_by?(user2)).to be false
         expect(item.reservable_by?(user2)).to be false
       end
+    end
+  end
 
+  describe "Owner return:" do
+    let(:user) { FactoryBot.create(:user) }
+    let(:user2) { FactoryBot.create(:user) }
+    let(:user3) { FactoryBot.create(:user) }
+
+    before do
+      manage_group = FactoryBot.create(:group)
+      borrow_group = FactoryBot.create(:group)
+      FactoryBot.create(:membership, user: user, group: borrow_group)
+      FactoryBot.create(:membership, user: user2, group: manage_group)
+      FactoryBot.create(:membership, user: user2, group: borrow_group)
+      FactoryBot.create(:permission, item: item, group: borrow_group, permission_type: :can_borrow)
+      FactoryBot.create(:permission, item: item, group: manage_group, permission_type: :can_manage)
+      FactoryBot.create(:permission, item: item, group: borrow_group, permission_type: :can_view)
+      FactoryBot.create(:permission, item: item, group: manage_group, permission_type: :can_view)
+    end
+
+    it "does not allow owner-return if user has no management rights" do
+      expect(user.can_return_as_owner?(item)).to be false
+      FactoryBot.create(:lending, item_id: item.id, user_id: user2.id, started_at: Time.zone.now, completed_at: nil,
+                                  due_at: 2.days.from_now)
+      expect(user.can_return_as_owner?(item)).to be false
+    end
+
+    it "does not allow owner-return if item is borrowed by owner himself" do
+      FactoryBot.create(:lending, item_id: item.id, user_id: user2.id, started_at: Time.zone.now, completed_at: nil,
+                                  due_at: 2.days.from_now)
+      expect(user2.can_return_as_owner?(item)).to be false
+    end
+
+    it "does not allow owner-return if user has management rights but item is not borrowed" do
+      expect(user2.can_return_as_owner?(item)).to be false
+    end
+
+    it "does allow owner-return if user has management rights and item is borrowed" do
+      FactoryBot.create(:lending, item_id: item.id, user_id: user.id, started_at: Time.zone.now, completed_at: nil,
+                                  due_at: 2.days.from_now)
+      expect(user2.can_return_as_owner?(item)).to be true
+    end
+
+    it "does not allow item acsess for user with no acsess rights" do
+      expect(user3.can_view?(item)).to be false
+    end
+
+    it "does allow item acsess for user with acsess rights" do
+      expect(user.can_view?(item)).to be true
+      expect(user2.can_view?(item)).to be true
     end
   end
 

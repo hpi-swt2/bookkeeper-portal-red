@@ -1,6 +1,6 @@
 <h1>
   <%= render GroupNameComponent.new(group: @group) %>
-  <button type="button" class="btn btn-sm btn-primary text-light bi bi-pencil-fill" data-bs-toggle="modal" data-bs-target="#editGroupModal">
+  <button type="button" class="btn btn-sm btn-primary bi bi-pencil-fill" data-bs-toggle="modal" data-bs-target="#editGroupModal">
   </button>
 </h1>
 
@@ -25,13 +25,15 @@
       <td><%= user.full_name %></td>
       <td><%= user.email %></td>
       <% if not user.admin_in?(@group) %>
-        <td>
-          <a href="#" class="btn btn-sm btn-warning text-light"><i class="bi bi-chat-fill"></i></a>
-          <% if @user.admin_in?(@group) %>
-            <%= button_to group_remove_user_path(@group), method: :patch, params: {group: @group, user: user}, class: "btn btn-sm btn-primary", form: {class: "d-inline"} do %>
-              <i class="bi bi-person-dash-fill"></i>
-            <% end %>
+      <td>
+        <%= mail_to user.email, class: "btn btn-sm btn-secondary" do %>
+          <i class="bi bi-chat-fill"></i>
+        <% end %>
+        <% if @user.admin_in?(@group) %>
+          <%= button_to group_remove_user_path(@group), method: :patch, params: {group: @group, user: user}, class: "btn btn-sm btn-primary", form: {class: "d-inline"} do %>
+            <i class="bi bi-person-dash-fill"></i>
           <% end %>
+        <% end %>
         </td>
       <% end %>
     </tr>

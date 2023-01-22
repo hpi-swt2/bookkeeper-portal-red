@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_08_133416) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_18_130502) do
   create_table "groups", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -116,6 +116,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_08_133416) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "waiting_positions", force: :cascade do |t|
+    t.integer "item_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_waiting_positions_on_item_id"
+    t.index ["user_id"], name: "index_waiting_positions_on_user_id"
+  end
+
   add_foreign_key "lendings", "items"
   add_foreign_key "lendings", "users"
   add_foreign_key "memberships", "groups"
@@ -125,4 +134,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_08_133416) do
   add_foreign_key "permissions", "items"
   add_foreign_key "reservations", "items"
   add_foreign_key "reservations", "users"
+  add_foreign_key "waiting_positions", "items"
+  add_foreign_key "waiting_positions", "users"
 end
