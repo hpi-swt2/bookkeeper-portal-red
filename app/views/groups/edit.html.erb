@@ -39,16 +39,14 @@
   </tbody>
 </table>
 
-<% if @user.admin_in?(@group) %> 
-  <div class="d-flex justify-content-center">
-    <button type="button" class="btn btn-secondary mx-1" data-bs-toggle="modal" data-bs-target="#addMemberGroupModal">
-      <%= t(:group_add_member) %>
-    </button>
-    <%= render "modal-add-member", group: @group %>
+<div class="d-flex justify-content-center">
+  <button type="button" class="btn btn-secondary mx-1" data-bs-toggle="modal" data-bs-target="#addMemberGroupModal">
+    <%= t(:group_add_member) %>
+  </button>
+  <%= render "modal-add-member", group: @group %>
 
-    <button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#deleteGroupModal">
-      <%= t(:delete_group) %>
-    </button>
-    <%= render "modal-delete", group: @group %>
-  </div>
-<% end %>
+  <button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#deleteGroupModal">
+    <%= t(:delete_group) %>
+  </button>
+  <%= render "modal-delete", group: @group %>
+</div>
