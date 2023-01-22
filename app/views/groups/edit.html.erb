@@ -29,12 +29,10 @@
         <%= mail_to user.email, class: "btn btn-sm btn-secondary" do %>
           <i class="bi bi-chat-fill"></i>
         <% end %>
-        <% if @user.admin_in?(@group) %>
-          <%= button_to group_remove_user_path(@group), method: :patch, params: {group: @group, user: user}, class: "btn btn-sm btn-primary", form: {class: "d-inline"} do %>
-            <i class="bi bi-person-dash-fill"></i>
-          <% end %>
+        <%= button_to group_remove_user_path(@group), method: :patch, params: {group: @group, user: user}, class: "btn btn-sm btn-primary", form: {class: "d-inline"} do %>
+          <i class="bi bi-person-dash-fill"></i>
         <% end %>
-        </td>
+      </td>
       <% end %>
     </tr>
     <% end %>
