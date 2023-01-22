@@ -34,4 +34,11 @@ class Group < ApplicationRecord
   def user_count
     users.length
   end
+
+  def as_json(options)
+    super((options).merge({
+      :methods => [:user_count]
+    }))
+  end
+
 end
