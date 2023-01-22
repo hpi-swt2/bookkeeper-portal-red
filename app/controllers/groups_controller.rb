@@ -2,8 +2,7 @@ class GroupsController < ApplicationController
   before_action :assure_signed_in
   before_action :set_user_group
   before_action :set_group, only: %i[ edit update destroy ]
-  before_action :set_group_from_id, only: %i[ remove_user add_user ]
-  before_action :assure_admin, only: %i[ edit update destroy remove_user add_user ]
+  before_action :assure_admin, only: %i[ edit update destroy ]
 
   # GET /groups or /groups.json
   def index
@@ -70,32 +69,6 @@ class GroupsController < ApplicationController
     end
   end
 
-  # PATCH /groups/1/remove_user or /groups/1/remove_user.json
-  def remove_user
-    user = User.find(params[:user])
-    respond_to do |format|
-      if user.memberships.destroy_by(group: @group)
-        respond_with_notice(format, redirect: edit_group_path(@group), notice: t(:group_user_removed))
-      else
-        unprocessable_response(format, redirect: :edit, entity: @group)
-      end
-    end
-  end
-
-  # PATCH /groups/1/add_user or /groups/1/add_user.json
-  def add_user
-    respond_to do |format|
-      user = User.where(email: params[:user][:email]).first
-      if user.blank?
-        respond_with_notice(format, redirect: edit_group_url(@group), notice: t(:group_user_not_found))
-      elsif Membership.where(user: user, group: @group, role: :member).first_or_create
-        respond_with_notice(format, redirect: edit_group_url(@group), notice: t(:group_user_added))
-      else
-        unprocessable_response(format, redirect: :edit, entity: @group)
-      end
-    end
-  end
-
   private
 
   def assure_signed_in
@@ -123,10 +96,6 @@ class GroupsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_group
     @group = Group.find(params[:id])
-  end
-
-  def set_group_from_id
-    @group = Group.find(params[:group_id])
   end
 
   def unprocessable_response(format, redirect:, entity:)
