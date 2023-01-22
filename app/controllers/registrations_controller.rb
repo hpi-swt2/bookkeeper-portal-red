@@ -1,7 +1,12 @@
 # https://github.com/heartcombo/devise/wiki/How-To:-Allow-users-to-edit-their-account-without-providing-a-password
 class RegistrationsController < Devise::RegistrationsController
   protected
-  before_action :validate_telephone_number, only: [:update]
+
+  # Disable the Rails/LexicallyScopedActionFilter cop for this method
+  # because it is a Devise method that is called by the framework
+  # rubocop:disable Rails/LexicallyScopedActionFilter
+  before_action :validate_telephone_number, only: :update
+  # rubocop:enable Rails/LexicallyScopedActionFilter
 
   # Allow users to edit their own description without entering their password
   # This is required because OIDC does not expose a password to the user
@@ -19,12 +24,11 @@ class RegistrationsController < Devise::RegistrationsController
     params.require(:user).permit(:telephone_number, :description)
   end
 
-
   # Validate the telephone number before updating the user
   def validate_telephone_number
-    if params[:user][:telephone_number].present? && !params[:user][:telephone_number].match(/\A[\+\-\d]+\z/)
-      flash[:error] = I18n.t("profile.phone_number_warning")
-      redirect_to edit_user_registration_path
-    end
+    return unless params[:user][:telephone_number].present? && !params[:user][:telephone_number].match(/\A[+\-\d]+\z/)
+
+    flash[:error] = I18n.t("profile.phone_number_warning")
+    redirect_to edit_user_registration_path
   end
 end
