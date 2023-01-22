@@ -26,7 +26,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   # Validate the telephone number before updating the user
   def validate_telephone_number
-    return unless params[:user][:telephone_number].present? && !params[:user][:telephone_number].match(/\A[\+\-\d\s]+\z/)
+    return unless params[:user][:telephone_number].present? && !params[:user][:telephone_number].match(/\A[+\-\d\s]+\z/)
 
     flash[:error] = I18n.t("profile.phone_number_warning")
     redirect_to edit_user_registration_path
