@@ -23,6 +23,7 @@ en:
 
   member_name: "Name"
   member_email: "E-mail"
+  member_email_placeholder: "example.user@hpi.de"
 
   login_first: "You have to log in first"
   only_admins: "Only admins are allowed to edit this group"
@@ -34,3 +35,4 @@ en:
   group_user_not_found: "This user could not be found"
   group_user_added: "User was successfully added"
   group_user_removed: "User was successfully removed"
+  

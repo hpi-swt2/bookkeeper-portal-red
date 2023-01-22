@@ -9,7 +9,7 @@
       <%= form_with(model: User.new, url: group_add_user_path(@group), method: :patch, local: true) do |form| %>
         <div>
           <%= form.label :email, t(:group_add_member_prompt), class: "form-label" %>
-          <%= form.email_field :email, placeholder: "example.user@hpi.de", class: "form-control" %>
+          <%= form.email_field :email, placeholder: t(:member_email_placeholder), class: "form-control" %>
           
           <div class="modal-footer border-0 justify-content-evenly">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t(:cancel) %></button>

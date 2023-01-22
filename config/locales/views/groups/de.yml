@@ -23,6 +23,7 @@ de:
 
   member_name: "Name"
   member_email: "E-Mail"
+  member_email_placeholder: "beispiel.benutzer@hpi.de"
 
   login_first: "Du musst dich erst anmelden"
   only_admins: "Nur Administratoren dürfen diese Gruppe bearbeiten"
