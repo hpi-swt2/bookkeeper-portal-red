@@ -12,7 +12,7 @@ class GroupsController < ApplicationController
     everyone_group = Group.where(tag: :everyone_group)
     generic_groups = Group.where(tag: nil)
 
-    returned_groups = [everyone_group, *generic_groups]
+    returned_groups = everyone_group + generic_groups
 
     render json: returned_groups
   end
