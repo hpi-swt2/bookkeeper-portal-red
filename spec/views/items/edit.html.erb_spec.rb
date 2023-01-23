@@ -32,7 +32,7 @@ RSpec.describe "items/edit", type: :view do
     assign(:item, item)
     render
 
-    expect(response).to include_text('(1 Mitglied)')
+    expect(response).to have_text('(1 Mitglied)')
   end
 
   [:book, :movie, :game, :other].each do |item_type|
