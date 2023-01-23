@@ -36,9 +36,8 @@ class Group < ApplicationRecord
   end
 
   def as_json(options)
-    super((options).merge({
-      :methods => [:user_count]
-    }))
+    super(options.merge({
+                          methods: [:user_count]
+                        }))
   end
-
 end
