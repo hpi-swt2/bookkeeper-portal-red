@@ -7,6 +7,9 @@
     <div class="mx-auto btn btn-primary">
         <%= link_to t('items.headlines.borrowed_items'), analytics_history_borrowed_by_me_path, class: "text-decoration-none text-white" %>
     </div>
+    <br><br>
+    <p><%= t('analytics.history.desc_borrowed_by_me') %></p>
+    <hr>
 <% else %>
     <div class="mx-auto btn btn-primary">
         <%= link_to t('items.headlines.my_items'), analytics_history_borrowed_from_me_path, class: "text-decoration-none text-white"%>
@@ -14,6 +17,9 @@
     <div class="mx-auto btn btn-dark">
         <%= link_to t('items.headlines.borrowed_items'), analytics_history_borrowed_by_me_path, class: "text-decoration-none text-white" %>
     </div>
+    <br><br>
+    <p><%= t('analytics.history.desc_borrowed_by_other') %></p>
+    <hr>
 <% end %>
 
 <%= render "layouts/item_history_table" %>

@@ -130,3 +130,5 @@ en:
     history:
       headline: "History"
       not_returned: "not returned yet"
+      desc_borrowed_by_other: "Items other users have borrowed from you"
+      desc_borrowed_by_me: "Items you've borrowed from other users"
