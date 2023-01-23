@@ -38,6 +38,7 @@ de:
       not_allowed_to_edit: "Dir ist nicht erlaubt das Item zu bearbeiten."
       not_allowed_to_access: "Dir ist nicht erlaubt auf das Item zu zugreifen."
       deletion_confirmation: "Soll das Item wirklich gelöscht werden?"
+      range_error: "muss eine gültige Zahl oder ein Zahlenbereich sein, z. B. 69-420"
     headlines:
       my_items: "Meine Items"
       item_details: "Item Details"
@@ -75,8 +76,8 @@ de:
       new_movie: "Neuer Film"
       new_game: "Neues Spiel"
     form:
-      edit: "Bearbeite:"
-      new: "Neues:"
+      edit: "Bearbeiten"
+      new: "Neues"
       permissions:
         title: "Berechtigungen"
         duplicate_entries: "Pro Gruppe darf nur ein Recht zugewiesen werden!"
