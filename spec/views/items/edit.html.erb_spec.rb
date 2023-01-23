@@ -31,7 +31,7 @@ RSpec.describe "items/edit", type: :view do
     item = FactoryBot.create(:other)
     assign(:item, item)
     render
-    
+
     example_member_entry = css_select("#permission_select_0_group_id option:first-of-type")
     assert_includes example_member_entry.text, 'Mitglied'
   end
