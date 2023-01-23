@@ -140,4 +140,23 @@ describe "waitlist", type: :feature do
       expect(item.waitlist_has?(user)).to be true
     end
   end
+
+  context "when user has no borrowing rights" do
+    before do
+      group = FactoryBot.create(:group)
+      FactoryBot.create(:membership, user: user, group: group)
+      FactoryBot.create(:permission, item: item, group: group, permission_type: :can_view)
+    end
+
+    it "doesn't allow him to join the item waitlist if the item is currently reserved by another user" do
+      FactoryBot.create(:reservation, item_id: item.id, user_id: user2.id, starts_at: Time.zone.now,
+                                      ends_at: 2.days.from_now)
+
+      sign_in user
+
+      visit item_path(item)
+      expect(page).not_to have_button I18n.t('items.buttons.join_waitlist', users_waiting: 0)
+      expect(item.allows_joining_waitlist?(user)).to be false
+    end
+  end
 end
