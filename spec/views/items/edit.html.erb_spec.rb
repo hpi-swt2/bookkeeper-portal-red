@@ -32,8 +32,7 @@ RSpec.describe "items/edit", type: :view do
     assign(:item, item)
     render
 
-    example_member_entry = css_select("#permission_select_0_group_id option:first-of-type")
-    assert_includes example_member_entry.text, 'Mitglied'
+    expect(response).to include_text('(1 Mitglied)')
   end
 
   [:book, :movie, :game, :other].each do |item_type|
