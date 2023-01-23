@@ -110,7 +110,7 @@ class Item < ApplicationRecord
   end
 
   def allows_joining_waitlist?(user)
-    (borrowed? || reserved?) and !reserved_by?(user) and !borrowed_by?(user) and !waitlist_has?(user)
+    (borrowed? || reserved?) and !reserved_by?(user) and !borrowed_by?(user) and !waitlist_has?(user) and user.can_borrow?(self)
   end
 
   def waitlist_has?(user)
