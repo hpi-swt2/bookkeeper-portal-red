@@ -76,8 +76,7 @@
         <%= form.button :submit, name: "item_type", value: "movie", class: "btn btn-primary", id: "item-submit-button" %>
       <% elsif @item.game? %>
         <%= form.button :submit, name: "item_type", value: "game", class: "btn btn-primary", id: "item-submit-button" %>
-      <% else
-           @item.other? %>
+      <% else @item.other? %>
         <%= form.button :submit, name: "item_type", value: "other", class: "btn btn-primary", id: "item-submit-button" %>
       <% end %>
     </div>
