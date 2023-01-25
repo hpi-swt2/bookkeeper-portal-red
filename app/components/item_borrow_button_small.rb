@@ -1,4 +1,4 @@
-class ItemBorrowButton < ViewComponent::Base
+class ItemBorrowButtonSmall < ViewComponent::Base
   def initialize(text:, action:, bootstrap_classes:)
     super()
     @text = text

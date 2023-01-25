@@ -10,9 +10,9 @@
 <%= stylesheet_link_tag "item-show.css" %>
 <div id="<%= dom_id @item %>">
   <script>
-    function getLocation() {
+    function getLocation(lat, lng) {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(saveUserPositionInHiddenForm, (error) => {
+        navigator.geolocation.getCurrentPosition((position) => {saveUserPositionInHiddenForm(position, lat, lng)}, (error) => {
           console.log(error);
         });
       } else {
@@ -20,9 +20,9 @@
       }
     }
 
-    function saveUserPositionInHiddenForm(position) {
-      document.getElementById("lat").value = position.coords.latitude;
-      document.getElementById("lng").value = position.coords.longitude;
+    function saveUserPositionInHiddenForm(position, lat, lng) {
+      document.getElementById(lat).value = position.coords.latitude;
+      document.getElementById(lng).value = position.coords.longitude;
     }
   </script>
   <%= render "item_largescreen" %>

@@ -123,9 +123,7 @@ class ItemsController < ApplicationController
   # PATCH
   def borrow
     @user = current_user
-    @item.lat = params[:lat]
-    @item.lng = params[:lng]
-    @item.save
+    put_item_location(params)
     if @item.borrowable_by?(@user)
       create_lending
       msg = I18n.t("items.messages.successfully_borrowed")
@@ -149,9 +147,7 @@ class ItemsController < ApplicationController
   # PATCH
   def give_back
     @user = current_user
-    @item.lat = params[:lat]
-    @item.lng = params[:lng]
-    @item.save
+    put_item_location(params)
 
     if @item.borrowed_by?(@user)
       @lending = Lending.where(item_id: @item.id, user_id: @user.id, completed_at: nil).first
@@ -175,6 +171,17 @@ class ItemsController < ApplicationController
         format.json { render json: @lending.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def put_item_location(params)
+    if params[:lat_s].present? && params[:lng_s].present?
+      @item.lat = params[:lat_s]
+      @item.lng = params[:lng_s]
+    else
+      @item.lat = params[:lat_l]
+      @item.lng = params[:lng_l]
+    end
+    @item.save
   end
 
   # PATCH
