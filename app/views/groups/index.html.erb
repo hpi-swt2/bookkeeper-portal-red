@@ -5,7 +5,7 @@
 </div>
 <%= render "modal-create" %>
 
-<% @groups.select{ |g| !g.personal_group? }.each do |group| %>
+<% @groups.select{ |g| !g.personal_group? and !g.everyone_group?s}.each do |group| %>
 <div class="container text-center mt-5 p-3">
   <div class="h3">
     <%= render GroupNameComponent.new(group: group) %>
