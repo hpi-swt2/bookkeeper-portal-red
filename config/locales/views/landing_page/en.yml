@@ -38,8 +38,12 @@ en:
       not_allowed_to_edit: "You are not allowed to edit this item."
       not_allowed_to_access: "You are not allowed to access this item."
       deletion_confirmation: "Do you really want to delete the item?"
+      range_error: "must be a valid number or number range, e.g. 69-420"
     headlines:
       my_items: "My Items"
+      item_details: "Item Details"
+      no_description_provided: "No description provided"
+      last_seen_at: "Last seen at:"
       borrowed_items: "Borrowed Items"
     buttons:
       new: "Create item"
@@ -72,8 +76,8 @@ en:
       new_movie: "New Movie"
       new_game: "New Game"
     form:
-      edit: "Edit:"
-      new: "New:"
+      edit: "Edit"
+      new: "New"
       permissions:
         title: "Permissions"
         duplicate_entries: "Only one permission per group is allowed!"
@@ -125,5 +129,7 @@ en:
         body: "You are not part of a group that is allowed to borrow this item."
   profile:
     description_header: "Description"
+    phone_number: "Phone number"
+    phone_number_warning: "Phone number only allows numbers, + and -"
   analytics:
     headline: "My Analytics"

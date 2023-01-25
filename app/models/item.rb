@@ -9,6 +9,13 @@ class Item < ApplicationRecord
 
   validates :number_of_pages, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
+  # matches a digit from 1-9 followed by optional digit from 0-9 and an optional second number with a hyphon in between
+  range_regex = /\A[1-9]([0-9]+)?(-[1-9]([0-9]+)?)?\z/
+  validates :number_of_players, allow_blank: true,
+                                format: { with: range_regex, message: I18n.t("items.messages.range_error") }
+  validates :playing_time, allow_blank: true,
+                           format: { with: range_regex, message: I18n.t("items.messages.range_error") }
+
   enum :status, inactive: 0, active: 1
   enum :item_type, other: 0, book: 1, movie: 2, game: 3
 
@@ -110,7 +117,9 @@ class Item < ApplicationRecord
   end
 
   def allows_joining_waitlist?(user)
-    (borrowed? || reserved?) and !reserved_by?(user) and !borrowed_by?(user) and !waitlist_has?(user)
+    return unless borrowed? || reserved?
+
+    !reserved_by?(user) && !borrowed_by?(user) && !waitlist_has?(user) && user.can_borrow?(self)
   end
 
   def waitlist_has?(user)

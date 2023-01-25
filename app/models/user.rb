@@ -12,6 +12,7 @@ class User < ApplicationRecord
 
   attribute :full_name, :string, default: ""
   attribute :description, :string, default: ""
+  attribute :telephone_number, :string, default: ""
   before_destroy :destroy_personal_groups
   has_many :memberships, dependent: :destroy
   has_many :groups, through: :memberships

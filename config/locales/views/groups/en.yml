@@ -12,6 +12,7 @@ en:
 
   group_add_member: "Add user"
   group_add_member_prompt: "Please provide the email address of the user you'd like to add to this group."
+  group_no_items: "No items present"
 
   group_name : "Groupname"
   group_name_prompt: "Please provide a name for your group"
