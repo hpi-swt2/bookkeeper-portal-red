@@ -6,8 +6,15 @@
  
   <div class="container">
     <div class="row">
-      <%#name%>
-      <h1><%= @item.name %></h1>
+      <%# name & icon %>
+      <h1>        
+        <% case @item.item_type
+           when "book" %> <i class="bi bi-book text-muted me-1"></i>
+        <% when "game" %> <i class="bi bi-dice-5 text-muted me-1"></i>
+        <% when "movie" %> <i class="bi bi-film text-muted me-1"></i>
+        <% end %>
+        <%= @item.name %>
+      </h1>
     </div>
 
     <div class="row align-items-center">
@@ -15,7 +22,7 @@
         <%= render 'owner_component', item: @item %>
         <%= render(ItemAvailabilityBadgeComponent.new(item: @item, user: current_user)) %>
       </div>
-      
+
       <div class="col">
         <%# Settings %>
         <% if current_user.can_manage?(@item) %>
