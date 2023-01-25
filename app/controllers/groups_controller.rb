@@ -103,11 +103,6 @@ class GroupsController < ApplicationController
     format.json { render json: entity.errors, status: :unprocessable_entity }
   end
 
-  def respond_with_notice(format, redirect:, notice:)
-    format.html { redirect_to redirect, notice: notice }
-    format.json { head :no_content }
-  end
-
   # Only allow a list of trusted parameters through.
   def group_params
     params.require(:group).permit(:name)
