@@ -19,7 +19,7 @@ class MembershipsController < ApplicationController
     respond_to do |format|
       user = User.where(email: params[:user][:email]).first
       if user.blank?
-        respond_with_notice(format, redirect: edit_group_url(@group), notice: t(:group_user_not_found))
+        respond_with_alert(format, redirect: edit_group_url(@group), alert: t(:group_user_not_found))
       elsif Membership.where(user: user, group: @group, role: :member).first_or_create
         respond_with_notice(format, redirect: edit_group_url(@group), notice: t(:group_user_added))
       else
@@ -53,6 +53,11 @@ class MembershipsController < ApplicationController
 
   def respond_with_notice(format, redirect:, notice:)
     format.html { redirect_to redirect, notice: notice }
+    format.json { head :no_content }
+  end
+
+  def respond_with_alert(format, redirect:, alert:)
+    format.html { redirect_to redirect, alert: alert }
     format.json { head :no_content }
   end
 end
