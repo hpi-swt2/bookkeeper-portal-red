@@ -119,14 +119,14 @@ describe "show item page", type: :feature do
     @item.manager_groups.push(group)
 
     visit item_path(@item)
-    expect(page).to have_text(:visible, "Edit item")
-    expect(page).to have_text(:visible, "Delete item")
-    expect(page).to have_text(:visible, "Download QR-Code")
+    expect(page).to have_text(:visible, I18n.t("items.buttons.edit"))
+    expect(page).to have_text(:visible, I18n.t("items.buttons.delete"))
+    expect(page).to have_text(:visible, I18n.t("items.buttons.download_qrcode"))
   end
 
   it "not display edit, delete and download button if user has no managing rights" do
     sign_in @user
-    visit item_path(@item)
+    visit "/items?locale=de"
     expect(page).not_to have_text(:visible, I18n.t("items.buttons.edit"))
     expect(page).not_to have_text(:visible, I18n.t("items.buttons.delete"))
     expect(page).not_to have_text(:visible, I18n.t("items.buttons.download_qrcode"))
