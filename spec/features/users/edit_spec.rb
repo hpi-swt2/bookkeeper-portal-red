@@ -28,4 +28,29 @@ describe "User Edit Page", type: :feature do
     page.find("input[type='submit'][value='Update']").click
     expect(user.reload.description).to eq(new_description)
   end
+
+  it "allows editing the telephone number" do
+    sign_in user
+    visit edit_user_registration_path
+    expect(page).to have_field('user[telephone_number]', with: user.telephone_number)
+
+    new_telephone_number = "+49-1212-123456"
+    fill_in 'user[telephone_number]', with: new_telephone_number
+
+    page.find("input[type='submit'][value='Update']").click
+    expect(user.reload.telephone_number).to eq(new_telephone_number)
+  end
+
+  it "doesnt allow invalid telephone numbers" do
+    sign_in user
+    visit edit_user_registration_path
+    expect(page).to have_field('user[telephone_number]', with: user.telephone_number)
+
+    fill_in 'user[telephone_number]', with: 'invalid'
+
+    page.find("input[type='submit'][value='Update']").click
+    expect(page).to have_current_path(edit_user_registration_path)
+    expect(page).to have_css('.alert-danger')
+    expect(user.reload.telephone_number).not_to eq('invalid')
+  end
 end

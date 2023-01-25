@@ -12,19 +12,24 @@
     <% if Rails.env.development? and @user != current_user %>
       <%= link_to "Log in as this user", development_tools_switch_user_path(@user.id) %>
     <% end %>
-
     <hr>
+    <% if @user.telephone_number.present? %>
     <p class="card-text">
-    <h3 class="card-title">
-      <%= t("profile.description_header") %>
-      <% if @user == current_user %>
-        <%= link_to edit_profile_path do %>
-          <i class="bi-pencil-square" style="color: #F6A800; float: right"></i>
+      <h3 class="card-title">
+        <%= I18n.t("profile.phone_number") %>: <%= @user.telephone_number %>
+      </h3>
+    </p>
+    <% end %>
+    <p class="card-text">
+      <h3 class="card-title">
+        <%= t("profile.description_header") %>
+        <% if @user == current_user %>
+          <%= link_to edit_profile_path do %>
+            <i class="bi-pencil-square" style="color: #F6A800; float: right"></i>
+          <% end %>
         <% end %>
-      <% end %>
-      </a>
-    </h3>
-    <%= @user.description %>
+      </h3>
+      <%= @user.description %>
     </p>
   </div>
 </div>

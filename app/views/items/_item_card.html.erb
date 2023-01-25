@@ -1,18 +1,32 @@
-<div class="card" >
-    <img class="card-img-top" src="https://via.placeholder.com/400x300" alt="Card image cap">
-    <div class="card-body text-center">
-        <h5 class="card-title text-truncate"><%= item.name %></h5>
-        <ul class="list-group">
-            <% item.important_attributes.each do |attr| %>
-            <% unless item[attr.to_sym].blank? %>
-                <li class="list-group-item p-0 border-0"> <%= I18n.t("items.form." + item.item_type.to_s + "." + attr.to_s) %>: <%= item[attr.to_sym] %></li>
-            <% end %>
-            <% end %>
-        </ul>
-        <%= render 'items/owner_component', item: item %>
+<div class="card">
+    <div class="w-100 d-flex justify-content-end p-2" style="position: absolute; left: 0px; top: 0px;">
         <%= render(ItemAvailabilityBadgeComponent.new(item: item, user: current_user)) %>
-        <div class="card-body">
-            <a class="mx-auto btn btn-primary stretched-link" href=<%=item_path(item)%>><%=I18n.t("items.buttons.show")%></a>
+    </div>
+    <a class="text-black text-decoration-none" href=<%=item_path(item)%>>
+        <img class="card-img-top" src="https://via.placeholder.com/400x300" alt="Card image cap">
+    </a>
+    <div class="card-body p-0 d-flex flex-column justify-content-between">
+        <a class="text-black text-decoration-none" href=<%=item_path(item)%> style="min-height: 10em;">
+            <h5 class="card-title text-truncate text-center mx-4 my-3"><%= item.name %></h5>
+            <ul class="list-group mx-4 rounded-0">
+                <% item.important_attributes.each do |attr| %>
+                    <% unless item[attr.to_sym].blank? %>
+                        <li class="list-group-item p-0 border-top-0 border-start-0 border-end-0">
+                            <div class="row">
+                                <div class="col">
+                                    <%= I18n.t("items.form." + item.item_type.to_s + "." + attr.to_s) %>
+                                </div>
+                                <div class="col text-truncate">
+                                    <%= item[attr.to_sym] %>
+                                </div>
+                            </div>
+                        </li>
+                    <% end %>
+                <% end %>
+            </ul>
+        </a>
+        <div class="text-center mt-3 card-text">
+            <%= render 'items/owner_component', item: item %>
         </div>
     </div>
 </div>

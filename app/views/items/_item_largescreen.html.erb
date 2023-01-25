@@ -11,8 +11,11 @@
             <%# Attributes if small enough arranged as grid%>
             <div class="imagecard-attributes">
               <table class="table">
+                <h2 class="mx-3"><%= I18n.t("items.headlines.item_details") %></h2>
                 <tbody>
-                <% @item.attributes.each do |attr_name, attr_value| %>
+                  <%# Don't want to show the description or name here, we display these separately further down %>
+                  <%# If there are other fields you wish to hide from the attribute table, you can add them to the array in the line below %>
+                  <% @item.attributes.select{ |v| !v.in?(['description', 'name']) }.each do |attr_name, attr_value| %>
                     <ul class="list-group list-group-horizontal list-group-flush border-top border-1 mx-3">
                     <% if @item.common_attributes.include? attr_name %>
                       <li class=" list-group-item flex-fill align-content-between py-1 text-break" style="border: none;"><%= I18n.t("items.form." + "all" + "." + attr_name.to_s)%></li>
@@ -75,7 +78,14 @@
             
             <hr class="border border-primary border-2 opacity-75">
             <%# Description%>
-            <p class="text-start text-wrap"><%= @item.description %></p>
+            <p class="text-start text-wrap">
+              <% if @item.description.empty? %>
+                <i><%=I18n.t("items.headlines.no_description_provided") %></i>
+              <% else %>
+                <%= @item.description %>
+              <% end  %>
+            </p>
+            <h5><%= I18n.t("items.headlines.last_seen_at") %></h5>
             <%# Infobox%>
             <% if current_user.can_borrow?(@item) %>
               <% if @item.reserved_by?(current_user) and @item.borrowable_by?(current_user) and !@src_is_qrcode %>

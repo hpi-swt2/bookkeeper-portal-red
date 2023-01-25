@@ -8,8 +8,7 @@ class ItemsController < ApplicationController
 
   # GET /items or /items.json
   def index
-    @q = Item.ransack(params[:q])
-    @items = @q.result(distinct: true)
+    @items = apply_sort_and_filter(Item.all)
   end
 
   # GET /items/1 or /items/1.json
@@ -74,7 +73,8 @@ class ItemsController < ApplicationController
   # GET /items/borrowed
   # lists all items borrowed by the current user
   def borrowed_by_me
-    @items = current_user.lendings.where(completed_at: nil).map(&:item)
+    items = current_user.lendings.where(completed_at: nil).map(&:item)
+    @items = apply_sort_and_filter(items)
     render :borrowed_items
   end
 
@@ -82,21 +82,22 @@ class ItemsController < ApplicationController
   # lists all items of the current user which are currently borrowed
   def mine_borrowed
     # return items which are currently not lendable
-    @items = current_user.items.filter(&:borrowed?)
+    items = current_user.items.filter(&:borrowed?)
+    @items = apply_sort_and_filter(items)
     render :borrowed_items
   end
 
   # GET /items/my
   # lists all items of the current user
   def my_items
-    @items = current_user.items
+    items = current_user.items
+    @items = apply_sort_and_filter(items)
   end
 
   # GET /items/export_csv
   # export current items to csv
   def export_csv
-    @q = Item.ransack(params[:q])
-    @items = @q.result(distinct: true)
+    @items = apply_sort_and_filter(Item.all)
     send_data CsvExport.to_csv(@items), filename: "items.csv"
   end
 
@@ -289,6 +290,15 @@ class ItemsController < ApplicationController
 
   def set_item_from_item_id
     @item = Item.find(params[:item_id])
+  end
+
+  def apply_sort_and_filter(items)
+    # ransack only works on ActiveRecord::Relation, not on arrays.
+    # Sometimes items is a relation, sometimes an array, so we have to
+    # ensure it's converted to a relation
+    items_relation = Item.where(id: items.map(&:id))
+    @q = items_relation.ransack(params[:q])
+    @q.result(distinct: true)
   end
 
   # Only allow a list of trusted parameters through.
