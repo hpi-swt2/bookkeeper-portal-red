@@ -24,6 +24,7 @@ en:
     messages:
       successfully_created: "Item was successfully created."
       successfully_updated: "Item was successfully updated."
+      successfully_updated_status: "Item status was successfully updated."
       successfully_destroyed: "Item was successfully destroyed."
       successfully_borrowed: "Item was successfully borrowed"
       successfully_returned: "Item was successfully returned"
@@ -125,6 +126,9 @@ en:
       missing_borrowing_permissions:
         heading: "Why can't I borrow this item?"
         body: "You are not part of a group that is allowed to borrow this item."
+      inactive:
+        heading: "Why can't I borrow this item?"
+        body: "The item is currently not available."
   profile:
     description_header: "Description"
   analytics:

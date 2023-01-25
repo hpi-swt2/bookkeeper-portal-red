@@ -5,6 +5,7 @@ FactoryBot.define do
     description { "Item Description" }
     max_reservation_days { 2 }
     max_borrowing_days { 7 }
+    status { 1 }
   end
 
   factory :book, class: 'Item' do
@@ -13,6 +14,7 @@ FactoryBot.define do
     description { "A book to rule them all" }
     max_reservation_days { 2 }
     max_borrowing_days { 7 }
+    status { 1 }
 
     isbn { "1-234-567-890-123" }
     author { "Karl Marx, Friedrich Engels" }
@@ -30,6 +32,7 @@ FactoryBot.define do
     description { "Dumbledore and friends" }
     max_reservation_days { 2 }
     max_borrowing_days { 7 }
+    status { 1 }
 
     director { "Chris Columbus" }
     release_date { "2001-02-21" }
@@ -45,6 +48,7 @@ FactoryBot.define do
     description { "Classic card game" }
     max_reservation_days { 2 }
     max_borrowing_days { 7 }
+    status { 1 }
 
     author { "A Legend" }
     illustrator { "A Myth" }
@@ -61,6 +65,7 @@ FactoryBot.define do
     description { "Elon Musk's dream" }
     max_reservation_days { 2 }
     max_borrowing_days { 7 }
+    status { 1 }
 
     category { "Planet" }
   end

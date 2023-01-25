@@ -23,7 +23,8 @@ de:
   items:
     messages:
       successfully_created: "Item wurde erfolgreich erstellt."
-      successfully_updated: "Item wurde erfolgreich geupdatet."
+      successfully_updated: "Item wurde erfolgreich aktualisiert."
+      successfully_updated_status: "Item Status wurde erfolgreich aktualisiert."
       successfully_destroyed: "Item wurde erfolgreich zerstört."
       successfully_borrowed: "Item wurde erfolgreich ausgeliehen"
       successfully_returned: "Item wurde erfolgreich zurückgegeben"
@@ -125,6 +126,9 @@ de:
       missing_borrowing_permissions:
         heading: "Warum kann ich diesen Artikel nicht ausleihen?"
         body: "Sie gehören nicht zu einer Gruppe, die diesen Artikel ausleihen darf."
+      inactive:
+        heading: "Warum kann ich diesen Artikel nicht ausleihen?"
+        body: "Der Artikel ist momentan nicht verfügbar."
   profile:
     description_header: "Beschreibung"
   analytics:

@@ -21,7 +21,11 @@
     <span class="d-flex justify-content-around">
       <%= button_to I18n.t("items.buttons.edit"), edit_item_path(@item), method: :get, class: "mx-auto btn btn-primary"%>
       <%= button_to I18n.t("items.buttons.delete"), item_path(@item), method: :delete, data: { turbo_confirm: I18n.t("items.messages.deletion_confirmation")}, class: "mx-auto btn btn-primary"%>
-      <%= button_to I18n.t("items.buttons.freeze"), item_toggle_freeze_path(@item), method: :patch, class: "mx-auto btn btn-primary"%>      
+      <% if @item.active?%>
+        <%= button_to I18n.t("items.buttons.freeze"), item_toggle_status_path(@item), method: :patch, class: "mx-auto btn btn-primary"%>
+      <% else %>
+        <%= button_to I18n.t("items.buttons.unfreeze"), item_toggle_status_path(@item), method: :patch, class: "mx-auto btn btn-primary"%>
+      <% end %>      
       <%= link_to "<text>#{I18n.t("items.buttons.download_qrcode")}</text>".html_safe, download_path(@item),class: "btn btn-primary" %>
     </span>
   <% end %>
@@ -30,10 +34,11 @@
   <p class="text-start text-break"><%= @item.description %></p>
   <%# Infobox%>
   <% if current_user.can_borrow?(@item) %>
-    <% if @item.reserved_by?(current_user) and @item.borrowable_by?(current_user) and !@src_is_qrcode %>
+    <% if @item.inactive? %>
+      <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.inactive.heading"), body: I18n.t("items.infobox.inactive.body"), bootstrap_classes: "border-secondary mx-5"))%>
+    <% elsif @item.reserved_by?(current_user) and @item.borrowable_by?(current_user) and !@src_is_qrcode %>
       <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.borrow.heading"), body: I18n.t("items.infobox.borrow.body"), bootstrap_classes: "border-secondary mx-5"))%>
-    <% end %>
-    <% if @item.borrowed_by?(current_user) and !@src_is_qrcode %>
+    <% elsif @item.borrowed_by?(current_user) and !@src_is_qrcode %>
       <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.return.heading"), body: I18n.t("items.infobox.return.body"), bootstrap_classes: "border-secondary mx-5"))%>
     <% end %>
   <% else %>

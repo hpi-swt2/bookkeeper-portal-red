@@ -91,7 +91,7 @@ class Item < ApplicationRecord
   end
 
   def reservable_by?(user)
-    !borrowed? and !reserved? and user.can_borrow?(self)
+    active? and !borrowed? and !reserved? and user.can_borrow?(self)
   end
 
   def reserved_by?(user)
@@ -102,7 +102,7 @@ class Item < ApplicationRecord
 
   def borrowable_by?(user)
     not_reserved_by_others = (reserved_by?(user) or !reserved?)
-    !borrowed? and not_reserved_by_others and user.can_borrow?(self)
+    active? and !borrowed? and not_reserved_by_others and user.can_borrow?(self)
   end
 
   def borrowed_by?(user)
@@ -126,7 +126,7 @@ class Item < ApplicationRecord
   end
 
   def create_reservation_from_waitlist
-    return if reserved? || borrowed?
+    return if reserved? || borrowed? || inactive?
 
     waiting_position = WaitingPosition.where(item_id: id).order(:created_at).first
     return unless waiting_position
@@ -146,6 +146,15 @@ class Item < ApplicationRecord
     @reservation = current_reservation
     @reservation.ends_at = Time.current
     @reservation.save
+  end
+
+  def toggle_status
+    if active?
+      inactive!
+    else
+      active!
+      create_reservation_from_waitlist
+    end
   end
 
   def status_text(user)

@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   include ActionController::MimeResponds
 
   before_action :set_item, only: %i[ show edit update destroy ]
-  before_action :set_item_from_item_id, only: %i[ borrow reserve give_back join_waitlist leave_waitlist]
+  before_action :set_item_from_item_id, only: %i[ borrow reserve give_back join_waitlist leave_waitlist toggle_status]
   helper_method :button_text, :button_path
 
   # GET /items or /items.json
@@ -229,7 +229,13 @@ class ItemsController < ApplicationController
   end
 
   # PATCH
-  def toggle_freeze
+  def toggle_status
+    @item.toggle_status
+
+    respond_to do |format|
+      format.html { redirect_to @item, notice: I18n.t("items.messages.successfully_updated_status") }
+      format.json { render @item, status: :ok, location: @item }
+    end
   end
 
   # PATCH/PUT /items/1 or /items/1.json
