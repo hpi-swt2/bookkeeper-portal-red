@@ -69,7 +69,7 @@
 
   <div style="position: relative; z-index: 9999">
     <% if @item.reservable_by?(current_user) && !@src_is_qrcode %>
-      <%= render(ItemBorrowButton.new(
+      <%= render(ItemBorrowButtonSmall.new(
         text: I18n.t("items.buttons.reserve"),
         action: item_reserve_path(@item),
         bootstrap_classes: "btn btn-secondary item-action-button")
@@ -77,7 +77,7 @@
     <% end %>
   
     <% if current_user.can_return_as_owner?(@item)%>
-      <%= render(ItemBorrowButton.new(
+      <%= render(ItemBorrowButtonSmall.new(
         text: I18n.t("items.buttons.owner-return"), 
         action: item_give_back_path(@item), 
         bootstrap_classes: "mx-auto btn btn-primary")
@@ -85,7 +85,7 @@
     <% end %>
     
     <% if @item.borrowable_by?(current_user) && @src_is_qrcode %>
-      <%= render(ItemBorrowButton.new(
+      <%= render(ItemBorrowButtonSmall.new(
         text: I18n.t("items.buttons.borrow"),
         action: item_borrow_path(@item),
         bootstrap_classes: "btn btn-secondary item-action-button")
@@ -93,7 +93,7 @@
     <% end %>
 
     <% if @item.borrowed_by?(current_user) && @src_is_qrcode %>
-      <%= render(ItemBorrowButton.new(
+      <%= render(ItemBorrowButtonSmall.new(
         text: I18n.t("items.buttons.return"),
         action: item_give_back_path(@item),
         bootstrap_classes: "btn btn-secondary item-action-button")
@@ -101,7 +101,7 @@
     <% end %>
 
     <% if @item.allows_joining_waitlist?(current_user) %>
-      <%= render(ItemBorrowButton.new(
+      <%= render(ItemBorrowButtonSmall.new(
         text: I18n.t("items.buttons.join_waitlist", :users_waiting => @item.users_on_waitlist_before(current_user)), 
         action: item_join_waitlist_path(@item), 
         bootstrap_classes: "btn btn-secondary item-action-button")
@@ -109,7 +109,7 @@
     <% end %>
 
     <% if @item.waitlist_has?(current_user) %>
-      <%= render(ItemBorrowButton.new(
+      <%= render(ItemBorrowButtonSmall.new(
         text: I18n.t("items.buttons.leave_waitlist", :users_waiting => @item.users_on_waitlist_before(current_user)), 
         action: item_leave_waitlist_path(@item), 
         bootstrap_classes: "btn btn-secondary item-action-button")
