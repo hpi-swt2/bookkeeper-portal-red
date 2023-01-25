@@ -17,9 +17,9 @@
   </div>
   <div class="row gx-3 flex-nowrap overflow-auto">
     <% group.viewable_items.each do |item| %>
-      <div class="col-12 col-md-3">
-        <%= render "items/item_card", item: item %>
-      </div>
+    <div class="col-12 col-md-3">
+      <%= render "items/item_card", item: item %>
+    </div>
     <% end %>
     <% if group.viewable_items.empty? %>
     <div class="fs-6">
