@@ -38,6 +38,7 @@ en:
       not_allowed_to_edit: "You are not allowed to edit this item."
       not_allowed_to_access: "You are not allowed to access this item."
       deletion_confirmation: "Do you really want to delete the item?"
+      range_error: "must be a valid number or number range, e.g. 69-420"
     headlines:
       my_items: "My Items"
       item_details: "Item Details"
@@ -75,8 +76,8 @@ en:
       new_movie: "New Movie"
       new_game: "New Game"
     form:
-      edit: "Edit:"
-      new: "New:"
+      edit: "Edit"
+      new: "New"
       permissions:
         title: "Permissions"
         duplicate_entries: "Only one permission per group is allowed!"
