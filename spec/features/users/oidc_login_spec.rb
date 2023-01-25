@@ -33,7 +33,6 @@ describe "OpenId Connect Login", type: :feature do
       expect(page).to have_css(".alert-success")
     end
 
-
     it "displays a success message" do
       expect(page).to have_css(".alert-success")
     end
