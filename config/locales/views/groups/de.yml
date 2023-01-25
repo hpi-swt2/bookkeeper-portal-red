@@ -11,7 +11,7 @@ de:
   edit_group: "Gruppe bearbeiten"
 
   group_add_member: "Nutzer hinzufügen"
-  group_add_member_prompt: "Bitte gib die E-Mail-Adresse des Nutzers ein, den du zur Gruppe hinzufügen möchtest."
+  group_add_member_prompt: "Bitte geben Sie die E-Mail-Adresse des Nutzers ein, den Sie zur Gruppe hinzufügen möchten."
 
   group_name : "Gruppenname"
   group_name_prompt: "Bitte gib deiner Gruppe einen Namen"
