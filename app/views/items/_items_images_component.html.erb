@@ -1,3 +1,11 @@
+<%= stylesheet_link_tag "item-images.css" %>
+
+
+<% if defined?(width) && defined?(height) %>
+<% image_style="width: #{width}; height: #{height}; object-fit: cover;" %>
+  <% else %>
+    <% image_style="" %>
+<% end %>
  <% if @item.images.attached? %>
                 <% carousel_id="carouselExampleIndicators-#{@item.id}"%>
                 <div id="<%= carousel_id %>" class="carousel slide" data-bs-ride="true">
@@ -18,11 +26,15 @@
       
                     
                       <% if image.representable? %>
-                        <%= image_tag image.representation(resize_to_fill: [614, 441]), class: "card-img-top" %>
+                        <%= image_tag image, class: "img-fluid", style: image_style %>
+                    
+
+                        <% if defined?(showImageManager) && showImageManager %>
                         <div class="carousel-caption d-none d-md-block">
-                             <%= link_to 'Remove', remove_image_item_path(signed_id: image.signed_id, id: @item.id),
+                             <%= link_to I18n.t("items.buttons.destroy_image"), remove_image_item_path(signed_id: image.signed_id, id: @item.id),
                                 data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %>
                         </div>
+                        <% end %>
 
                         <% end %>
                 
@@ -41,17 +53,20 @@
           
         
               <% else %>
-                <img class="card-img-top" src="https://via.placeholder.com/400x300" alt="Card image cap">
+                                <%= image_tag "https://via.placeholder.com/400x300", class: "card-img-top",  alt: "Card image cap", style: image_style %>
+
               <% end%>
             
 
             
 
-
-              <%= form_with(url: add_image_item_url(id: @item.id)) do |form| %>
+               <% if defined?(showImageManager) && showImageManager %>
+                <%= form_with(url: add_image_item_url(id: @item.id)) do |form| %>
                     <div class="mb-2">
-                        <%= form.label "Item Photos"  %><br>
-                        <%= form.file_field :images, multiple: true, id: "addImagesInput" %>
+                        <%= form.file_field :images, multiple: true, accept: 'image/jpg, image/png, image/jpeg', id: "addImagesInput" %>
                     </div>
-                      <%= form.submit "Save" %>
-            <% end %>
+                    <div class="mt-3">
+                      <%= form.button :submit, class: "btn btn-primary" %>
+                    </div>
+                <% end %>
+                          <% end %>

@@ -16,6 +16,7 @@ de:
       successfully_updated: "Item wurde erfolgreich geupdatet."
       successfully_destroyed: "Item wurde erfolgreich zerstört."
       successfully_destroyed_image: "Bild wurde erfolgreich zerstört."
+      successfully_added_image: "Bild wurde erfolgreich hinzugefügt"
       successfully_borrowed: "Item wurde erfolgreich ausgeliehen"
       successfully_returned: "Item wurde erfolgreich zurückgegeben"
       successfully_reserved: "Item wurde erfolgreich reserviert"
@@ -29,6 +30,7 @@ de:
       my_items: "Meine Items"
       borrowed_items: "Ausgeliehene Items"
     buttons:
+      destroy_image: "Bild löschen"
       new: "Item erstellen"
       update: "Item aktualisieren"
       show: "Item anzeigen"

@@ -3,7 +3,7 @@
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4">
             <div class="card">
                 <% @item=item %>
-                <%= render 'items/items_images_component' %>
+                  <%= render 'items/items_images_component', height: "228px", width: "304px" %>
                 <div class="card-body text-center">
                     <h5 class="card-title text-truncate"><%= item.name %></h5>
                     <ul class="list-group">

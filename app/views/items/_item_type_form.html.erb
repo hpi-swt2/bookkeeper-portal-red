@@ -11,11 +11,6 @@
   <% end %>
   
   <div class="mb-2">
-    <%= form.label "Item Photo" %><br>
-    <%= form.file_field :images, multiple: true %>
-  </div>
-  
-  <div class="mb-2">
     <%= form.label :name, I18n.t("items.form.all.name"), class: "form-label" %>
     <%= form.text_field :name, class: "form-control" %>
   </div>
