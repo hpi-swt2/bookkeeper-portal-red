@@ -31,11 +31,11 @@
               <%= t(:my_groups) %>
             <% end %>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <li class="nav-item desktop-only dropdown" id="dropdown-button-group">
+            <a class="nav-link dropdown-toggle" href="" id="navbarDropdownItem" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <%= t("items.buttons.new") %>
               </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownItem">
                 <li>
                 <%= link_to I18n.t("items.type.book"), new_item_path(item_type: :book), class: "dropdown-item" %>
                 </li>
@@ -64,10 +64,10 @@
         </li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="" id="navbarDropdownLanguage" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <%= language_flag(I18n.locale) %>
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownLanguage">
             <li>
               <%= link_to "English", params.permit!.merge(locale: 'en'), class: "dropdown-item" %>
             </li>
