@@ -128,6 +128,9 @@ de:
       missing_borrowing_permissions:
         heading: "Warum kann ich diesen Artikel nicht ausleihen?"
         body: "Sie gehören nicht zu einer Gruppe, die diesen Artikel ausleihen darf."
+      overdue:
+        heading: "Warum ist dieser Artikel überfällig?"
+        body: "Die Ausleihzeit ist abgelaufen. Bitte geben Sie den Artikel schnellstmöglich zurück."
   profile:
     description_header: "Beschreibung"
     phone_number: "Telefonnummer"

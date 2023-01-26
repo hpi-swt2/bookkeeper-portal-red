@@ -70,7 +70,9 @@
               <% end  %>
             </p>
             <%# Infobox%>
-
+            <% if @item.overdue_for?(current_user) %>
+              <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.overdue.heading"), body: I18n.t("items.infobox.overdue.body"), bootstrap_classes: "border-danger mx-5"))%>
+            <% end %>
             <% if current_user.can_borrow?(@item) %>
               <% if @item.reserved_by?(current_user) and @item.borrowable_by?(current_user) and !@src_is_qrcode %>
                 <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.borrow.heading"), body: I18n.t("items.infobox.borrow.body"), bootstrap_classes: "border-secondary mx-5"))%>

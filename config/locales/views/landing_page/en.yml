@@ -128,6 +128,9 @@ en:
       missing_borrowing_permissions:
         heading: "Why can't I borrow this item?"
         body: "You are not part of a group that is allowed to borrow this item."
+      overdue:
+        heading: "Why is this item overdue?"
+        body: "The borrowing period has expired. Please return this item as soon as possible."
   profile:
     description_header: "Description"
     phone_number: "Phone number"
