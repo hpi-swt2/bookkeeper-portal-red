@@ -1,6 +1,8 @@
 <%# owner / can_manage%>
 <% owner_groups = Group.owner_groups(item.id) %>
-<p>
+<p class="mx-4 text-truncate">
     <%= I18n.t("items.card_text.owner") %>
-    <span class="text-primary"><%=owner_groups.map{|owner| owner.name}.join(", ").html_safe%></span>
+    <span class="text-primary" title="<%=owner_groups.map{|owner| owner.name}.join(',')%>">
+        <%=owner_groups.map{|owner| owner.name}.join(", ")%>
+    </span>
 </p>

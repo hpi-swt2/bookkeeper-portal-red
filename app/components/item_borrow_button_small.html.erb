@@ -1,8 +1,8 @@
 <%= form_tag @action, method: :patch do %>
-  <%= hidden_field_tag 'lat'  %>
-    <%= hidden_field_tag 'lng'  %>
+  <%= hidden_field_tag 'lat_s'  %>
+    <%= hidden_field_tag 'lng_s'  %>
     <%= button_tag @text, class: @bootstrap_classes %>
 <% end %>
 <script>
-  getLocation();
+  getLocation("lat_s", "lng_s");
 </script>
