@@ -72,7 +72,9 @@
                   <% end %>
                 </div>
               </div>
+              <div class="row">
               <%= render 'owner_component', item: @item %>
+              </div>
               <%= render(ItemAvailabilityBadgeComponent.new(item: @item, user: current_user)) %>
             </div>
             
