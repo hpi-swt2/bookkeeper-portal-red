@@ -1,7 +1,7 @@
 # Model of the current group
 class Group < ApplicationRecord
   enum tag: { verified_group: 0, personal_group: 1, everyone_group: 2 }
-  validates :name, presence: true
+  validates :name, presence: true, length: { minimum: 1, maximum: 50 }
   has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships
   has_many :permissions, dependent: :destroy
