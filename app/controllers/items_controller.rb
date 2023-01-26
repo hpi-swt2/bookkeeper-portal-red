@@ -107,6 +107,7 @@ class ItemsController < ApplicationController
     @item.item_type = params[:item_type]
     item_saved = @item.save
     create_permission
+    create_personal_group_permission
 
     respond_to do |format|
       if item_saved
@@ -272,8 +273,8 @@ class ItemsController < ApplicationController
                                   .where.not('groups.tag': "personal_group")
                                   .or(Group.joins(:permissions).where('groups.tag': nil))
                                   .select('permissions.id', Permission.attribute_names.reject do |attribute_name|
-                                                              attribute_name == 'id'
-                                                            end)
+                                    attribute_name == 'id'
+                                  end)
                                   .where('permissions.item_id': params["id"])
     respond_to do |format|
       format.json { render json: associated_permissions }
@@ -325,7 +326,7 @@ class ItemsController < ApplicationController
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def create_permission
-    @item.permissions.clear
+    @item.permissions.joins(:group).where.not('groups.tag': 'personal_group').destroy_all
     permissions = []
     params.each do |key, value|
       next unless key.start_with?("permission_")
@@ -341,11 +342,12 @@ class ItemsController < ApplicationController
     permissions.each_slice(2) do |group_id, level|
       Permission.create(item_id: @item.id, group_id: group_id, permission_type: level)
     end
+  end
 
+  def create_personal_group_permission
     personal_group = current_user.personal_group
     Permission.create(item_id: @item.id, group_id: personal_group.id, permission_type: :can_manage)
   end
-
   def create_reservation
     @reservation = Reservation.new(item_id: @item.id, user_id: @user.id, starts_at: Time.current,
                                    ends_at: Time.current + @item.max_reservation_days.days)
