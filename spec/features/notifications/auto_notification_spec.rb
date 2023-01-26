@@ -55,4 +55,9 @@ describe "Auto Notification job:", type: :feature do
     FactoryBot.create(:lending, user: user, item: item, due_at: 18.days.ago, completed_at: nil)
     expect { Rake::Task['weekly_overdue_reminder'].invoke }.not_to change(Notification, :count)
   end
+
+  it 'weekly overdue reminder should not send a message if item is due today' do
+    FactoryBot.create(:lending, user: user, item: item, due_at: Time.zone.now.to_date, completed_at: nil)
+    expect { Rake::Task['weekly_overdue_reminder'].invoke }.not_to change(Notification, :count)
+  end
 end

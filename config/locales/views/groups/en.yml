@@ -10,6 +10,7 @@ en:
   leave_group: "Leave group"
   edit_group: "Edit group"
   group_add_member: "Add user"
+  group_no_items: "No items present"
 
   group_name : "Groupname"
   group_name_prompt: "Please provide a name for your group"
