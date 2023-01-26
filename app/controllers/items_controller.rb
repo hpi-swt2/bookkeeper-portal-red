@@ -348,6 +348,7 @@ class ItemsController < ApplicationController
     personal_group = current_user.personal_group
     Permission.create(item_id: @item.id, group_id: personal_group.id, permission_type: :can_manage)
   end
+
   def create_reservation
     @reservation = Reservation.new(item_id: @item.id, user_id: @user.id, starts_at: Time.current,
                                    ends_at: Time.current + @item.max_reservation_days.days)
