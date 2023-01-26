@@ -69,8 +69,8 @@
                 <%= @item.description %>
               <% end  %>
             </p>
-            <h5><%= I18n.t("items.headlines.last_seen_at") %></h5>
             <%# Infobox%>
+
             <% if current_user.can_borrow?(@item) %>
               <% if @item.reserved_by?(current_user) and @item.borrowable_by?(current_user) and !@src_is_qrcode %>
                 <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.borrow.heading"), body: I18n.t("items.infobox.borrow.body"), bootstrap_classes: "border-secondary mx-5"))%>
@@ -82,6 +82,7 @@
               <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.missing_borrowing_permissions.heading"), body: I18n.t("items.infobox.missing_borrowing_permissions.body"), bootstrap_classes: "border-secondary mx-5"))%>
             <% end %>
             <%# Map%>
+            <h5><%= I18n.t("items.headlines.last_seen_at") %></h5>
             <div id="item-location-large" style="height: 240px;"></div>
           </div>
           <%= button_to I18n.t("items.buttons.back"), items_path, method: :get, class: "mx-auto btn btn-primary"%>
