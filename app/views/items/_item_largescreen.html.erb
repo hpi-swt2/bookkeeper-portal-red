@@ -42,7 +42,7 @@
             <div class="container">
               <div class="row">
                 <%# name%>
-                <h1 class="col-sm-7"><%= @item.name %></h1>
+                <h1 class="col-sm-9"><%= @item.name %></h1>
                 <%# available badge%>
                 <div class="col-sm-3 ms-auto">
                   <%= render(ItemAvailabilityBadgeComponent.new(item: @item, user: current_user)) %>
