@@ -1,0 +1,2 @@
+class ItemBorrowButtonSmall < ItemBorrowButton
+end
