@@ -65,6 +65,7 @@ de:
       borrowed_by_me: "Von mir ausgeliehen"
       reserved_by_me: "Von mir reserviert"
       no_access: "Kein Zugriff"
+      overdue: "Überfällig"
     card_text:
       owner: von
     type:
