@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get '/items/:id/permissions', to: 'items#permissions'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  resources :groups, except: [:show, :new] do
+  resources :groups, except: [ :new ] do
     post :leave
   end
   resources :items do
