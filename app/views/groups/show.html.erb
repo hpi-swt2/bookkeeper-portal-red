@@ -1,0 +1,12 @@
+<h1 style="overflow-wrap: break-word;" class="text-center">
+  <%= render GroupNameComponent.new(group: @group) %>
+</h1>
+
+<div class="text-end">
+    <%= mail_to @admin.email, t(:contact_group), class: "btn btn-sm btn-primary" %>
+</div>
+
+<h5 class="text-center mt-5">
+    <%= t('items.headlines.items') %>
+</h5>
+<%= render GroupItemListComponent.new(group: @group) %>

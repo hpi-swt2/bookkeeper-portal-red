@@ -40,6 +40,7 @@ de:
       deletion_confirmation: "Soll das Item wirklich gelöscht werden?"
       range_error: "muss eine gültige Zahl oder ein Zahlenbereich sein, z. B. 69-420"
     headlines:
+      items: "Items"
       my_items: "Meine Items"
       item_details: "Item Details"
       no_description_provided: "Keine Beschreibung vorhanden"

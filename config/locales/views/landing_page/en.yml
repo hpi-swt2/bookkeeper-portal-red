@@ -40,6 +40,7 @@ en:
       deletion_confirmation: "Do you really want to delete the item?"
       range_error: "must be a valid number or number range, e.g. 69-420"
     headlines:
+      items: "Items"
       my_items: "My Items"
       item_details: "Item Details"
       no_description_provided: "No description provided"

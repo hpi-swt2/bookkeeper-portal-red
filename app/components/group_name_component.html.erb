@@ -1,4 +1,6 @@
-<%= @group.name %>
-<% if @group.verified_group?%>
-  <i class="bi bi-patch-check"></i>
-<% end %>
+<%= link_to group_path(@group), class: "text-reset text-decoration-none" do%>
+  <%= @group.name %>
+  <% if @group.verified_group?%>
+    <i class="bi bi-patch-check"></i>
+  <% end %>
+<% end %> 

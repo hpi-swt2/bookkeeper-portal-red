@@ -2,6 +2,7 @@ de:
   cancel: "Abbrechen"
   save: "Speichern"
   confirmation: "Bist du dir sicher?"
+  contact_group: "Kontakt"
 
   my_groups: "Meine Gruppen"
   all_groups: "Alle Gruppen"
@@ -29,3 +30,4 @@ de:
   group_new: "Die Gruppe wurde erfolgreich erstellt"
   group_update: "Die Gruppe wurde erfolgreich aktualisiert"
   group_destroy: "Die Gruppe wurde wurde erfolgreich gelöscht"
+
