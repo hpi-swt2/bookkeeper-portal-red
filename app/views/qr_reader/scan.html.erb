@@ -10,13 +10,14 @@
 <script type="text/javascript">
 
 var qrCodeTriggered = false;
+var codeReader;
 
 function openQrCodeReader() {
     if (qrCodeTriggered || !("ZXing" in window))
         return;
     qrCodeTriggered = true;
 
-    const codeReader = new ZXing.BrowserQRCodeReader()
+    codeReader = new ZXing.BrowserQRCodeReader()
 
     codeReader.decodeFromInputVideoDevice(undefined, "video").then((result) => {
         document.location.href = result.text;
@@ -26,7 +27,12 @@ function openQrCodeReader() {
     })
 }
 
+function closeQrCodeReader() {
+    codeReader.reset();
+}
+
 document.getElementById("zxingScript").addEventListener("load", openQrCodeReader)
 document.addEventListener("turbo:load", openQrCodeReader)
+document.addEventListener("turbo:render", closeQrCodeReader)
 
 </script>
