@@ -38,7 +38,7 @@ de:
       not_allowed_to_edit: "Ihnen ist nicht erlaubt, das Item zu bearbeiten."
       not_allowed_to_access: "Ihnen ist nicht erlaubt, auf das Item zuzugreifen."
       deletion_confirmation: "Soll das Item wirklich gelöscht werden?"
-      range_error: "muss eine gültige Zahl oder ein Zahlenbereich sein, z.B. 69-420"
+      range_error: "muss eine gültige Zahl oder ein Zahlenbereich sein, z. B. 69-420"
     headlines:
       my_items: "Meine Items"
       item_details: "Item-Details"
