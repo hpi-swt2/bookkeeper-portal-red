@@ -9,7 +9,9 @@ de:
   delete_group: "Gruppe löschen"
   leave_group: "Gruppe verlassen"
   edit_group: "Gruppe bearbeiten"
+
   group_add_member: "Nutzer hinzufügen"
+  group_add_member_prompt: "Bitte geben Sie die E-Mail-Adresse des Nutzers ein, den Sie zur Gruppe hinzufügen möchten."
   group_no_items: "Keine Items vorhanden"
 
   group_name : "Gruppenname"
@@ -22,6 +24,7 @@ de:
 
   member_name: "Name"
   member_email: "E-Mail"
+  member_email_placeholder: "beispiel.benutzer@hpi.de"
 
   login_first: "Sie müssen sich erst anmelden"
   only_admins: "Nur Administratoren dürfen diese Gruppe bearbeiten"
@@ -29,3 +32,7 @@ de:
   group_new: "Die Gruppe wurde erfolgreich erstellt"
   group_update: "Die Gruppe wurde erfolgreich aktualisiert"
   group_destroy: "Die Gruppe wurde wurde erfolgreich gelöscht"
+
+  group_user_not_found: "Dieser Nutzer konnte nicht gefunden werden"
+  group_user_added: "Nutzer wurde hinzugefügt"
+  group_user_removed: "Nutzer wurde entfernt"
