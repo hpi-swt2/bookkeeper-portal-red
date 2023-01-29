@@ -3,7 +3,8 @@
 class Item < ApplicationRecord
   include ExportPdf
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { minimum: 1, maximum: 100 }
+  validates :description, allow_blank: true, length: { minimum: 1, maximum: 1500 }
   validates :max_reservation_days, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 365 }
   validates :max_borrowing_days, numericality: { greater_than_or_equal_to: 0 }
 

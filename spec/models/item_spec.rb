@@ -223,4 +223,14 @@ RSpec.describe Item, type: :model do
     expect(other.attribute?("isbn")).to be false
   end
 
+  it "name is limited in length" do
+    item = FactoryBot.build(:item, name: "a" * 101)
+    expect(item).not_to be_valid
+  end
+
+  it "description is limited in length" do
+    item = FactoryBot.build(:item, description: "a" * 1501)
+    expect(item).not_to be_valid
+  end
+
 end
