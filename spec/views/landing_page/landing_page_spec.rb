@@ -53,7 +53,8 @@ RSpec.describe "landing_page/index", type: :view do
 
   it "renders item cards that are clickable" do
     render
-    expect(rendered).to have_css("a.btn.mx-auto.btn-primary.stretched-link")
+    expect(rendered).to have_css(".card a img")
+    expect(rendered).to have_css(".card-body a")
   end
 
 end

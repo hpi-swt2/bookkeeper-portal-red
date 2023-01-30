@@ -1,4 +1,4 @@
-<h1>
+<h1 style="overflow-wrap: break-word;">
   <%= render GroupNameComponent.new(group: @group) %>
   <button type="button" class="btn btn-sm btn-primary bi bi-pencil-fill" data-bs-toggle="modal" data-bs-target="#editGroupModal">
   </button>
@@ -24,19 +24,26 @@
     <tr>
       <td><%= user.full_name %></td>
       <td><%= user.email %></td>
+      <% if not user.admin_in?(@group) %>
       <td>
         <%= mail_to user.email, class: "btn btn-sm btn-secondary" do %>
           <i class="bi bi-chat-fill"></i>
         <% end %>
-        <a href="#" class="btn btn-sm btn-primary"><i class="bi bi-person-dash-fill"></i></a>
+        <%= button_to group_remove_user_path(@group), method: :patch, params: {group: @group, user: user}, class: "btn btn-sm btn-primary", form: {class: "d-inline"} do %>
+          <i class="bi bi-person-dash-fill"></i>
+        <% end %>
       </td>
+      <% end %>
     </tr>
     <% end %>
   </tbody>
 </table>
 
 <div class="d-flex justify-content-center">
-  <%= link_to t(:group_add_member), "", class: "btn btn-secondary mx-1" %>
+  <button type="button" class="btn btn-secondary mx-1" data-bs-toggle="modal" data-bs-target="#addMemberGroupModal">
+    <%= t(:group_add_member) %>
+  </button>
+  <%= render "modal-add-member", group: @group %>
 
   <button type="button" class="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#deleteGroupModal">
     <%= t(:delete_group) %>
