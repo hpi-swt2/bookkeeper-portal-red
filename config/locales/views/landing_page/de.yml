@@ -10,6 +10,7 @@ de:
       showMore: "Nachricht ausklappen"
       showLess: "Nachricht einklappen"
     profile: "Mein Profil"
+    sign_out: "Abmelden"
     home: "Startseite"
     search: "Suchen"
   scan_qrcode: "QR-Code einscannen"
