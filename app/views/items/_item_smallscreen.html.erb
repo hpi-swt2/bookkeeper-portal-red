@@ -54,15 +54,7 @@
 
     </div>
   </div>
-   <%# Button %>
-  <% if current_user.can_manage?(@item) %>
-    <br>
-    <span class="d-flex justify-content-around">
-      <%= button_to I18n.t("items.buttons.edit"), edit_item_path(@item), method: :get, class: "mx-auto btn btn-primary"%>
-      <%= button_to I18n.t("items.buttons.delete"), item_path(@item), method: :delete, data: { turbo_confirm: I18n.t("items.messages.deletion_confirmation")}, class: "mx-auto btn btn-primary"%>
-      <%= link_to "<text>#{I18n.t("items.buttons.download_qrcode")}</text>".html_safe, download_path(@item),class: "btn btn-primary" %>
-    </span>
-  <% end %>
+
   <hr class="border border-primary border-2 opacity-75">
   <%# Description%>
   <p class="text-start text-wrap">
