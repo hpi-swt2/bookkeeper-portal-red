@@ -37,7 +37,6 @@ describe User, type: :model do
   it "personal group is destroyed when user is destroyed" do
     p_group = user.personal_group
     p_group_id = p_group.id
-    puts user
     expect(user.destroy).to_not be(false)
     expect(Group.exists?(p_group_id)).to be(false)
   end
@@ -64,6 +63,5 @@ describe User, type: :model do
     membership = Membership.where(group: user.personal_group).first
     expect(membership.destroy).to be(false)
   end
-
 
 end

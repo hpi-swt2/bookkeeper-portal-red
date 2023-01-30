@@ -24,6 +24,10 @@ RSpec.describe Group, type: :model do
     expect(group.borrowable_items.first).to eq(item3)
   end
 
+  it "can be destroyed" do
+    expect(group.destroy).to_not be(false)
+  end
+
   context "when group is a personal_group" do
     it "cannot have two users" do
       user1 = FactoryBot.create(:user)

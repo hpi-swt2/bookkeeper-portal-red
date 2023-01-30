@@ -12,9 +12,7 @@ class Membership < ApplicationRecord
   enum :role, admin: 0, member: 1
 
   def validate_destroy
-    puts "destroying membership #{!!destroyed_by_association}"
     if group.personal_group? and not destroyed_by_association
-      puts "I 3 am responsible for block"
       errors.add(:user, "user cannot leave personal group")
       throw(:abort)
     end
