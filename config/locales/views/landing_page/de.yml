@@ -76,6 +76,9 @@ de:
       new_book: "Neues Buch"
       new_movie: "Neuer Film"
       new_game: "Neues Spiel"
+    units:
+      one_day: "Tag"
+      multiple_days: "Tage"
     form:
       edit: "Bearbeiten"
       new: "Neues"
