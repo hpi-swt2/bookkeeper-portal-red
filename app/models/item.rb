@@ -151,6 +151,11 @@ class Item < ApplicationRecord
   def toggle_status
     if active?
       inactive!
+      return unless reserved?
+
+      reservation = current_reservation
+      reservation.ends_at = Time.current
+      reservation.save
     else
       active!
       create_reservation_from_waitlist
