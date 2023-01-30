@@ -10,6 +10,7 @@ en:
       showMore: "Show more"
       showLess: "Show less"
     profile: "My Profile"
+    sign_out: "Log out"
     home: "Home"
     search: "Search"
   scan_qrcode: "Scan a QR-Code"
@@ -136,3 +137,8 @@ en:
     phone_number_warning: "Phone number only allows numbers, + and -"
   analytics:
     headline: "My Analytics"
+    history:
+      headline: "History"
+      not_returned: "not returned yet"
+      desc_borrowed_by_other: "Items other users have borrowed from you"
+      desc_borrowed_by_me: "Items you've borrowed from other users"

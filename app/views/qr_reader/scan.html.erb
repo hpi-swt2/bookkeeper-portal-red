@@ -1,38 +1,69 @@
+<% content_for :head_addition do %>
+    <script type="text/javascript">
+        // https://stackoverflow.com/questions/14644558/call-javascript-function-after-script-is-loaded
+        function loadScript(url, callback) {
+            var script = document.createElement("script")
+            script.type = "text/javascript";
+            if (script.readyState) {  // only required for IE <9
+                script.onreadystatechange = function () {
+                    if (script.readyState === "loaded" || script.readyState === "complete") {
+                        script.onreadystatechange = null;
+                        callback();
+                    }
+                };
+            } else {  //Others
+                script.onload = function () {
+                    callback();
+                };
+            }
+
+            script.src = url;
+            document.getElementsByTagName("head")[0].appendChild(script);
+        }
+
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
+        var codeReaderId = getRandomInt(1000);
+        var codeReader;
+
+        function openQrCodeReader() {
+            console.log("open qr code reader with id", codeReaderId);
+            codeReader = new ZXing.BrowserQRCodeReader()
+
+            codeReader.decodeFromInputVideoDevice(undefined, "video").then((result) => {
+                document.location.href = result.text;
+            })
+                .catch((err) => {
+                    console.error(err)
+                })
+        }
+
+        function closeQrCodeReader() {
+            console.log("close qr code reader with id", codeReaderId);
+            if (codeReader) {
+                codeReader.reset();
+            }
+        }
+
+        document.addEventListener("turbo:load", function () {
+            if (window.location.href == "<%= scan_url %>") {
+                closeQrCodeReader();
+                loadScript("https://unpkg.com/@zxing/library@latest", openQrCodeReader);
+            } else {
+                closeQrCodeReader();
+            }
+        });
+
+    </script>
+<% end %>
+
 <div id="wrapper" style="text-align:center">
-    <h1><%=I18n.t("scan_qrcode")%></h1>
+    <h1>
+        <%=I18n.t("scan_qrcode")%>
+    </h1>
     <br>
     <div width="100%" height="auto">
         <video id="video"></video>
     </div>
 </div>
-
-<script id="zxingScript" type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
-<script type="text/javascript">
-
-var qrCodeTriggered = false;
-var codeReader;
-
-function openQrCodeReader() {
-    if (qrCodeTriggered || !("ZXing" in window))
-        return;
-    qrCodeTriggered = true;
-
-    codeReader = new ZXing.BrowserQRCodeReader()
-
-    codeReader.decodeFromInputVideoDevice(undefined, "video").then((result) => {
-        document.location.href = result.text;
-    })
-    .catch((err) => {
-        console.error(err)
-    })
-}
-
-function closeQrCodeReader() {
-    codeReader.reset();
-}
-
-document.getElementById("zxingScript").addEventListener("load", openQrCodeReader)
-document.addEventListener("turbo:load", openQrCodeReader)
-document.addEventListener("turbo:render", closeQrCodeReader)
-
-</script>
