@@ -10,7 +10,7 @@ en:
       showMore: "Show more"
       showLess: "Show less"
     profile: "My Profile"
-    sign_out: "Sign out"
+    sign_out: "Log out"
     home: "Home"
     search: "Search"
   scan_qrcode: "Scan a QR-Code"
