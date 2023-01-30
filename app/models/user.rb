@@ -19,6 +19,8 @@ class User < ApplicationRecord
   has_many :lendings, dependent: :destroy
   has_many :reservations, dependent: :destroy
   has_many :notifications, dependent: :destroy
+  after_create :create_personal_group, :add_to_everyone_group
+  validate :exists_personal_group?
 
   def can_view?(item)
     return true if can_manage?(item) || can_borrow?(item)
@@ -105,8 +107,6 @@ class User < ApplicationRecord
       user.full_name = auth.info.name
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
-      user.add_to_everyone_group
-      user.create_personal_group
     end
   end
 
@@ -118,7 +118,9 @@ class User < ApplicationRecord
   private
 
   def destroy_personal_groups
-    personal_groups = groups.where(groups: { tag: :personal_group })
-    personal_groups.each(&:destroy)
+    #personal_groups = groups.where(groups: { tag: :personal_group })
+    #personal_groups.each(&:destroy)
+    personal_group.destroyed_by_association = true
+    personal_group.destroy()
   end
 end

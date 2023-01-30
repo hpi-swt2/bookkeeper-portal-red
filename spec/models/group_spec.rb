@@ -25,15 +25,17 @@ RSpec.describe Group, type: :model do
   end
 
   context "when group is a personal_group" do
-    let(:personal_group) { FactoryBot.create(:group, tag: :personal_group) }
-
     it "cannot have two users" do
       user1 = FactoryBot.create(:user)
-      FactoryBot.create(:membership, user: user1, group: personal_group)
+      pgroup1 = user1.personal_group
       user2 = FactoryBot.create(:user)
       expect do
-        FactoryBot.create(:membership, user: user2, group: personal_group)
+        FactoryBot.create(:membership, user: user2, group: pgroup1)
       end.to raise_error(ActiveRecord::RecordInvalid)
+    end
+    it "cannot be destroyed" do
+      user1 = FactoryBot.create(:user)
+      expect(user1.personal_group.destroy).to be(false)
     end
   end
 
