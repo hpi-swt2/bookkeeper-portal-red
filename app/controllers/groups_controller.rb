@@ -50,13 +50,13 @@ class GroupsController < ApplicationController
   # DELETE /groups/1 or /groups/1.json
   def destroy
     respond_to do |format|
-      unless @group.personal_group?
+      if @group.personal_group?
+        unprocessable_response(format, redirect: :edit, entity: @group)
+      else
         @group.memberships.each(&:destroy)
         @group.destroy
         format.html { redirect_to groups_url, notice: t(:group_destroy) }
         format.json { head :no_content }
-      else
-        unprocessable_response(format, redirect: :edit, entity: @group)
       end
     end
   end
@@ -64,11 +64,11 @@ class GroupsController < ApplicationController
   # POST /groups/1/leave or /groups/1/leave.json
   def leave
     respond_to do |format|
-      if not @group.personal_group? && current_user.memberships.destroy_by(group_id: params[:group_id])
+      if @group.personal_group? && current_user.memberships.destroy_by(group_id: params[:group_id])
+        unprocessable_response(format, redirect: :edit, entity: @group)
+      else
         format.html { redirect_to groups_url, notice: t(:group_update) }
         format.json { head :no_content }
-      else
-        unprocessable_response(format, redirect: :edit, entity: @group)
       end
     end
   end
@@ -101,6 +101,7 @@ class GroupsController < ApplicationController
   def set_group
     @group = Group.find(params[:id])
   end
+
   def set_group_from_group_id
     @group = Group.find(params[:group_id])
   end

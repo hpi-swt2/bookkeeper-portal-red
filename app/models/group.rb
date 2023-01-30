@@ -2,8 +2,9 @@
 class Group < ApplicationRecord
   enum tag: { verified_group: 0, personal_group: 1, everyone_group: 2 }
   validates :name, presence: true
-  #has to be delete_all instead of destroy in order to avoid cyclical dependent destroy via membership (which has dependent: :destroy on its group)
-  has_many :memberships
+  # has to be delete_all instead of destroy in order to avoid cyclical dependent destroy via membership
+  # (which has dependent: :destroy on its group)
+  has_many :memberships, dependent: nil
   has_many :users, through: :memberships
   has_many :permissions, dependent: :destroy
   has_many(
@@ -34,12 +35,12 @@ class Group < ApplicationRecord
   end
 
   def validate_destroy
-    #personal group can only be destroyed if its user is destroyed first
-    if personal_group? and users.first.present?
+    # personal group can only be destroyed if its user is destroyed first
+    if personal_group? && users.first.present?
       errors.add(:group, "personal group cannot be destroyed")
       throw(:abort)
     end
-    if not personal_group? and destroyed_by_association
+    if !personal_group? && destroyed_by_association
       errors.add(:group, "shared groups cant be destroyed by association #{destroyed_by_association}")
       throw(:abort)
     end

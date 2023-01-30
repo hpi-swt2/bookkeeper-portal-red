@@ -18,9 +18,10 @@ RSpec.describe "groups/edit", type: :view do
       assert_select "input[name=?]", "group[name]"
     end
   end
+
   it "does not allow deleting or adding members to personal groups" do
     assign(:group, user.personal_group)
     render
-    expect(rendered).to_not have_text(t(:group_add_member))
+    expect(rendered).not_to have_text(t(:group_add_member))
   end
 end

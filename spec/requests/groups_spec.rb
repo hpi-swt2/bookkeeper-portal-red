@@ -120,7 +120,7 @@ RSpec.describe "/groups", type: :request do
       group.personal_group!
       expect do
         delete group_url(group)
-      end.to change(Group, :count).by(0)
+      end.not_to change(Group, :count)
     end
 
     it "redirects to the groups list" do
@@ -128,6 +128,7 @@ RSpec.describe "/groups", type: :request do
       expect(response).to redirect_to(groups_url)
     end
   end
+
   describe "POST /groups/:id/leave" do
     it "does not allow you to leave personal group" do
       puts group_leave_url(membership.user.personal_group)
