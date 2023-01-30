@@ -96,7 +96,9 @@ en:
         name: "Name"
         description: "Description"
         max_borrowing_days: "Borrowing Period"
+        max_borrowing_days_tooltip: "The borrowing period defines how long an Item can be borrowed. The borrower gets notified 3 days before this time period ends."
         max_reservation_days: "Reservation Period"
+        max_reservation_days_tooltip: "The reservation period defines how long this item can be reserved. After this time period the person gets removed from the waiting list."
       other:
         category: "Category"
       book:

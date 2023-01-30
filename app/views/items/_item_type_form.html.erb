@@ -24,11 +24,13 @@
 
     <div class="mb-2">
       <%= form.label I18n.t("items.form.all.max_borrowing_days"), class: "form-label" %>
+      <i class="ms-2 bi bi-question-circle" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= I18n.t("items.form.all.max_borrowing_days_tooltip")%>"></i>
       <%= form.number_field :max_borrowing_days, min: 0, max: 365, class: "form-control" %>
     </div>
 
     <div class="mb-2">
       <%= form.label I18n.t("items.form.all.max_reservation_days"), class: "form-label" %>
+      <i class="ms-2 bi bi-question-circle" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= I18n.t("items.form.all.max_reservation_days_tooltip")%>"></i>
       <%= form.number_field :max_reservation_days, min: 0, max: 365, class: "form-control" %>
     </div>
 
