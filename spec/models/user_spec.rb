@@ -13,6 +13,7 @@ describe User, type: :model do
 
   it "is able to access personal group" do
     p_group = user.create_personal_group
+    expect(p_group.name).to eq(user.full_name)
     expect(user.exists_personal_group?).to be(true)
     expect(user.personal_group).to eq(p_group)
   end
