@@ -53,8 +53,8 @@ FactoryBot.define do
     author { "A Legend" }
     illustrator { "A Myth" }
     publisher { "Brockhaus" }
-    number_of_players { 3 }
-    playing_time { 60 }
+    number_of_players { "3-5" }
+    playing_time { "60-90" }
     language { "english" }
   end
 
