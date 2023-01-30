@@ -17,13 +17,18 @@
                   <%# If there are other fields you wish to hide from the attribute table, you can add them to the array in the line below %>
                   <% @item.attributes.select{ |v| !v.in?(['description', 'name']) }.each do |attr_name, attr_value| %>
                     <ul class="list-group list-group-horizontal list-group-flush border-top border-1 mx-3">
-                    <% if @item.common_attributes.include? attr_name %>
-                      <li class=" list-group-item flex-fill align-content-between py-1 text-break" style="border: none;"><%= I18n.t("items.form." + "all" + "." + attr_name.to_s)%></li>
-                      <li class="list-group-item w-50 align-content-between py-1 text-break" style="border: none;"><%= @item.send(attr_name) %></li>
-                    <% else %>
-                      <li class=" list-group-item flex-fill align-content-between py-1 text-break" style="border: none;"><%= I18n.t("items.form." + @item.item_type.to_s + "." + attr_name.to_s)%></li>
-                      <li class="list-group-item w-50 align-content-between py-1 text-break" style="border: none;"><%= @item.send(attr_name) %></li>
-                    <% end %>
+                      <% if ['max_borrowing_days', 'max_reservation_days'].include? attr_name %>
+                        <li class=" list-group-item flex-fill align-content-between py-1 text-break" style="border: none;"><%= I18n.t("items.form." + "all" + "." + attr_name.to_s)%></li>
+                        <li class="list-group-item w-50 align-content-between py-1 text-break" style="border: none;">
+                          <%= @item.send(attr_name) %>
+                          <% if @item.send(attr_name) == 1 %> <%= I18n.t("items.units.one_day")%>
+                          <% else %> <%= I18n.t("items.units.multiple_days")%>
+                          <% end %>
+                        </li>
+                      <% else %>
+                        <li class=" list-group-item flex-fill align-content-between py-1 text-break" style="border: none;"><%= I18n.t("items.form." + @item.item_type.to_s + "." + attr_name.to_s)%></li>
+                        <li class="list-group-item w-50 align-content-between py-1 text-break" style="border: none;"><%= @item.send(attr_name) %></li>
+                      <% end %>
                     </ul>
                 <% end %>
                 </tbody>
