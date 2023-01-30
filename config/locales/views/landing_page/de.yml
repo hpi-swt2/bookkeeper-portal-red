@@ -134,3 +134,8 @@ de:
     phone_number_warning: "Die Telefonnummer darf nur aus Zahlen, + und - bestehen"
   analytics:
     headline: "Meine Statistiken"
+    history:
+      headline: "Historie"
+      not_returned: "bisher nicht zurückgegeben"
+      desc_borrowed_by_other: "Gegenstände, die sich andere Nutzer von dir ausgeliehen haben"
+      desc_borrowed_by_me: "Gegenstände, die du dir von anderen Nutzern ausgeliehen hast"
