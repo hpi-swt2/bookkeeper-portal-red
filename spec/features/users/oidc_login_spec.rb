@@ -19,16 +19,16 @@ describe "OpenId Connect Login", type: :feature do
       expect(page).to have_current_path(root_path)
     end
 
-    it "is able to see the login button" do
+    it "is able to see the logout button" do
       expect(page).to have_css ".logout-button"
     end
 
-    it "logs out the user when they click on 'sign out'" do
+    it "signs out the user when they click on the logout button" do
       find('.logout-button', match: :first).click
       expect(page).to have_current_path(new_user_session_path)
     end
 
-    it "displays a success message when the user logs out" do
+    it "displays a confirmation message when the user successfully logs out" do
       find('.logout-button', match: :first).click
       expect(page).to have_css(".alert-success")
     end
