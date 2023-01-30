@@ -3,6 +3,11 @@ require 'rails_helper'
 RSpec.describe Group, type: :model do
   let(:group) { FactoryBot.create(:group) }
 
+  it "name is limited in length" do
+    item = FactoryBot.build(:group, name: "a" * 51)
+    expect(item).not_to be_valid
+  end
+
   it "can have multiple items with different permissions" do
     item1 = FactoryBot.create(:item)
     item2 = FactoryBot.create(:item)

@@ -6,24 +6,48 @@
  
   <div class="container">
     <div class="row">
-      <%# name%>
-      <h1 class="col-sm-7"><%= @item.name %></h1>
-      <%# available badge%>
-      <div class="col-sm-2 ms-auto">
+      <%# name & icon %>
+      <h1 style="overflow-wrap: break-word;">        
+        <% case @item.item_type
+           when "book" %> <i class="bi bi-book text-muted me-1"></i>
+        <% when "game" %> <i class="bi bi-dice-5 text-muted me-1"></i>
+        <% when "movie" %> <i class="bi bi-film text-muted me-1"></i>
+        <% end %>
+        <%= @item.name %>
+      </h1>
+    </div>
+
+    <div class="row align-items-center">
+      <div class="col-9 col-md-10">
+        <%= render 'owner_component', item: @item %>
         <%= render(ItemAvailabilityBadgeComponent.new(item: @item, user: current_user)) %>
       </div>
+
+      <div class="col">
+        <%# Settings %>
+        <% if current_user.can_manage?(@item) %>
+          <div class="btn-group dropdown" id="dropdown-button-group">
+            <a class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="bi bi-gear"></i>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <%= link_to edit_item_path(@item), method: :get, class: "dropdown-item" do %>
+                <i class="bi bi-pencil me-2"></i><%= I18n.t("items.buttons.edit")%>
+              <% end %>
+              <%= link_to item_path(@item), method: :delete, data: { 'turbo-method': :delete, turbo_confirm: I18n.t("items.messages.deletion_confirmation")}, class: "dropdown-item" do %>
+                <i class="bi bi-trash3 me-2"></i><%= I18n.t("items.buttons.delete")%>
+              <% end %>
+              <%= link_to download_path(@item), class: "dropdown-item" do %>
+                <i class="bi bi-download me-2"></i><%= I18n.t("items.buttons.download_qrcode")%>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
     </div>
-   <%= render 'owner_component', item: @item %>
   </div>
-   <%# Button %>
-  <% if current_user.can_manage?(@item) %>
-    <br>
-    <span class="d-flex justify-content-around">
-      <%= button_to I18n.t("items.buttons.edit"), edit_item_path(@item), method: :get, class: "mx-auto btn btn-primary"%>
-      <%= button_to I18n.t("items.buttons.delete"), item_path(@item), method: :delete, data: { turbo_confirm: I18n.t("items.messages.deletion_confirmation")}, class: "mx-auto btn btn-primary"%>
-      <%= link_to "<text>#{I18n.t("items.buttons.download_qrcode")}</text>".html_safe, download_path(@item),class: "btn btn-primary" %>
-    </span>
-  <% end %>
+
   <hr class="border border-primary border-2 opacity-75">
   <%# Description%>
   <p class="text-start text-wrap">
@@ -33,7 +57,6 @@
       <%= @item.description %>
     <% end  %>
   </p>
-  <h5><%= I18n.t("items.headlines.last_seen_at") %></h5>
   <%# Infobox%>
   <% if current_user.can_borrow?(@item) %>
     <% if @item.reserved_by?(current_user) and @item.borrowable_by?(current_user) and !@src_is_qrcode %>
@@ -45,6 +68,8 @@
   <% else %>
     <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.missing_borrowing_permissions.heading"), body: I18n.t("items.infobox.missing_borrowing_permissions.body"), bootstrap_classes: "border-secondary mx-5"))%>
   <% end %>
+
+  <h5><%= I18n.t("items.headlines.last_seen_at") %></h5>
   <%# Map %>
   <div id="item-location-small" style="height: 240px;"></div>
   <%# Attributes %>
