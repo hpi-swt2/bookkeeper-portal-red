@@ -3,11 +3,19 @@
 class Item < ApplicationRecord
   include ExportPdf
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { minimum: 1, maximum: 100 }
+  validates :description, allow_blank: true, length: { minimum: 1, maximum: 1500 }
   validates :max_reservation_days, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 365 }
   validates :max_borrowing_days, numericality: { greater_than_or_equal_to: 0 }
 
   validates :number_of_pages, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
+
+  # matches a digit from 1-9 followed by optional digit from 0-9 and an optional second number with a hyphon in between
+  range_regex = /\A[1-9]([0-9]+)?(-[1-9]([0-9]+)?)?\z/
+  validates :number_of_players, allow_blank: true,
+                                format: { with: range_regex, message: I18n.t("items.messages.range_error") }
+  validates :playing_time, allow_blank: true,
+                           format: { with: range_regex, message: I18n.t("items.messages.range_error") }
 
   enum :status, inactive: 0, active: 1
   enum :item_type, other: 0, book: 1, movie: 2, game: 3

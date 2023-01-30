@@ -9,26 +9,26 @@
 
 <%= stylesheet_link_tag "item-show.css" %>
 <div id="<%= dom_id @item %>">
-<script>
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(saveUserPositionInHiddenForm, (error) => {
-      console.log(error);
-    });   
-  } else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
+  <script>
+    function getLocation(lat, lng) {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {saveUserPositionInHiddenForm(position, lat, lng)}, (error) => {
+          console.log(error);
+        });
+      } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
 
-function saveUserPositionInHiddenForm(position) {
-  document.getElementById("lat").value = position.coords.latitude;
-  document.getElementById("lng").value = position.coords.longitude;
-}
-</script>
+    function saveUserPositionInHiddenForm(position, lat, lng) {
+      document.getElementById(lat).value = position.coords.latitude;
+      document.getElementById(lng).value = position.coords.longitude;
+    }
+  </script>
   <%= render "item_largescreen" %>
   <%= render "item_smallscreen" %>
 </div>
-  
+
 
 <script>
   function loadMap(div_id) {
@@ -43,9 +43,9 @@ function saveUserPositionInHiddenForm(position) {
       setMarker = true;
       zoomLevel = 18;
     }
-  
+
     var map = L.map(div_id).setView(itemCoordinates, zoomLevel);
-  
+
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'

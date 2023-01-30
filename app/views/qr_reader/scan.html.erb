@@ -9,8 +9,17 @@
 <script id="zxingScript" type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
 <script type="text/javascript">
 
-function decodeOnce(codeReader, selectedDeviceId) {
-    codeReader.decodeFromInputVideoDevice(selectedDeviceId, "video").then((result) => {
+var qrCodeTriggered = false;
+var codeReader;
+
+function openQrCodeReader() {
+    if (qrCodeTriggered || !("ZXing" in window))
+        return;
+    qrCodeTriggered = true;
+
+    codeReader = new ZXing.BrowserQRCodeReader()
+
+    codeReader.decodeFromInputVideoDevice(undefined, "video").then((result) => {
         document.location.href = result.text;
     })
     .catch((err) => {
@@ -18,26 +27,12 @@ function decodeOnce(codeReader, selectedDeviceId) {
     })
 }
 
-var qrCodeTriggered = false;
-
-function openQrCodeReader() {
-    if (qrCodeTriggered || !("ZXing" in window))
-        return;
-    qrCodeTriggered = true;
-
-    let selectedDeviceId;
-    const codeReader = new ZXing.BrowserQRCodeReader()
-
-    codeReader.getVideoInputDevices().then((videoInputDevices) => {
-        selectedDeviceId = videoInputDevices[0].deviceId
-        decodeOnce(codeReader, selectedDeviceId);
-    })
-    .catch((err) => {
-        console.error(err)
-    })
+function closeQrCodeReader() {
+    codeReader.reset();
 }
 
 document.getElementById("zxingScript").addEventListener("load", openQrCodeReader)
 document.addEventListener("turbo:load", openQrCodeReader)
+document.addEventListener("turbo:render", closeQrCodeReader)
 
 </script>
