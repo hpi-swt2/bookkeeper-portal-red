@@ -13,7 +13,6 @@ class User < ApplicationRecord
   attribute :full_name, :string, default: ""
   attribute :description, :string, default: ""
   attribute :telephone_number, :string, default: ""
-  before_destroy :destroy_personal_groups
   has_many :memberships, dependent: :destroy
   has_many :groups, through: :memberships
   has_many :lendings, dependent: :destroy
@@ -113,14 +112,5 @@ class User < ApplicationRecord
   def admin_in?(group)
     own_groups = groups.where(memberships: { role: :admin })
     own_groups.include? group
-  end
-
-  private
-
-  def destroy_personal_groups
-    #personal_groups = groups.where(groups: { tag: :personal_group })
-    #personal_groups.each(&:destroy)
-    personal_group.destroyed_by_association = true
-    personal_group.destroy()
   end
 end
