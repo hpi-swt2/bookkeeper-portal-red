@@ -17,14 +17,14 @@ describe "freeze", type: :feature do
       sign_in user
       visit item_path(item)
       expect(item.active?).to be true
-      expect(page).to have_button(I18n.t('items.buttons.freeze'))
+      expect(page).to have_text(:visible, I18n.t("items.buttons.freeze"))
 
       # match: :first is needed because the mobile and web screen are rendered at the same time
-      click_button I18n.t('items.buttons.freeze'), match: :first
+      page.find(:xpath, "//a[@href='/items/1/toggle_status']", match: :first).click
       item.reload
 
       expect(item.inactive?).to be true
-      expect(page).to have_button(I18n.t('items.buttons.unfreeze'))
+      expect(page).to have_text(:visible, I18n.t("items.buttons.unfreeze"))
       expect(page).to have_content(I18n.t('items.status_badge.not_available'))
     end
 
@@ -34,14 +34,14 @@ describe "freeze", type: :feature do
       sign_in user
       visit item_path(item)
       expect(item.inactive?).to be true
-      expect(page).to have_button(I18n.t('items.buttons.unfreeze'))
+      expect(page).to have_text(:visible, I18n.t("items.buttons.unfreeze"))
 
       # match: :first is needed because the mobile and web screen are rendered at the same time
-      click_button I18n.t('items.buttons.unfreeze'), match: :first
+      page.find(:xpath, "//a[@href='/items/1/toggle_status']", match: :first).click
       item.reload
 
       expect(item.active?).to be true
-      expect(page).to have_button(I18n.t('items.buttons.freeze'))
+      expect(page).to have_text(:visible, I18n.t("items.buttons.freeze"))
       expect(page).to have_content(I18n.t('items.status_badge.available'))
     end
   end
