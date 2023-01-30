@@ -86,6 +86,7 @@ en:
       new: "New"
       permissions:
         title: "Permissions"
+        tooltip: "can manage: members of this group can manage, borrow and view <br/><br/>can borrow: members of this group can borrow and view <br/><br/>can view: members of this group can view"
         duplicate_entries: "Only one permission per group is allowed!"
         add: "Add"
         remove: "Remove"

@@ -86,6 +86,7 @@ de:
       new: "Neues"
       permissions:
         title: "Berechtigungen"
+        tooltip: "kann Verwalten: Mitglieder der Gruppe können das Item verwalten, ausleihen und sehen <br/><br/>kann Ausleihen: Mitglieder der Gruppe können das Item ausleihen und sehen <br/><br/>kann Ansehen: Mitglieder der Gruppe können das Item sehen"
         duplicate_entries: "Pro Gruppe darf nur ein Recht zugewiesen werden!"
         add: "Hinzufügen"
         remove: "Entfernen"
