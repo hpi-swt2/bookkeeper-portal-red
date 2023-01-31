@@ -29,7 +29,7 @@
   <%= render "item_smallscreen" %>
 
   <%# lending history of this item %>
-  <% if current_user.can_manage?(@item) %>
+  <% if current_user.can_manage?(@item) and @item.lending_history.length > 0 %>
     <div class="table-responsive">
       <table class="table table-hover">
         <thead>
