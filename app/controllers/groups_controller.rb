@@ -1,12 +1,18 @@
 class GroupsController < ApplicationController
   before_action :assure_signed_in
   before_action :set_user_group
-  before_action :set_group, only: %i[ edit update destroy ]
+  before_action :set_group, only: %i[ show edit update destroy ]
   before_action :set_group_from_group_id, only: %i[ leave ]
   before_action :assure_admin, only: %i[ edit update destroy ]
 
   # GET /groups or /groups.json
   def index
+  end
+
+  # GET /groups/1 or /groups/1.json
+  def show
+    redirect_to groups_url, alert: t(:group_not_viewable) if @group.personal_group? || @group.everyone_group?
+    @admin = @group.users.where(memberships: { role: :admin }).first
   end
 
   def all
