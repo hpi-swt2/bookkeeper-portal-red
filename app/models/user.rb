@@ -12,6 +12,7 @@ class User < ApplicationRecord
 
   attribute :full_name, :string, default: ""
   attribute :description, :string, default: ""
+  attribute :telephone_number, :string, default: ""
   before_destroy :destroy_personal_groups
   has_many :memberships, dependent: :destroy
   has_many :groups, through: :memberships
@@ -78,7 +79,7 @@ class User < ApplicationRecord
   def create_personal_group
     raise StandardError, "#{self} already has personal group" if exists_personal_group?
 
-    p_group = Group.create(name: "personal_group", tag: :personal_group)
+    p_group = Group.create(name: full_name, tag: :personal_group)
     p_group_membership = Membership.create(group_id: p_group.id, user_id: id, role: :member)
     memberships.push(p_group_membership)
     save
