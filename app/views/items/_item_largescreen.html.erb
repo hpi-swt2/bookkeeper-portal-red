@@ -66,11 +66,11 @@
                         <% end %>
                         <% if @item.active?%>
                           <%= link_to item_toggle_status_path(@item), data: { 'turbo-method': :patch}, class: "dropdown-item" do %>
-                            <i class="bi bi-pencil me-2"></i><%= I18n.t("items.buttons.freeze")%>
+                            <i class="bi bi-snow2 me-2"></i><%= I18n.t("items.buttons.freeze")%>
                           <% end %>
                         <% else %>
                           <%= link_to item_toggle_status_path(@item), data: { 'turbo-method': :patch}, class: "dropdown-item" do %>
-                            <i class="bi bi-pencil me-2"></i><%= I18n.t("items.buttons.unfreeze")%>
+                            <i class="bi bi-fire me-2"></i><%= I18n.t("items.buttons.unfreeze")%>
                           <% end %>
                         <% end %>
                         <%= link_to download_path(@item), class: "dropdown-item" do %>
