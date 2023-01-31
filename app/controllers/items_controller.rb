@@ -237,17 +237,30 @@ class ItemsController < ApplicationController
   end
 
   # PATCH
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def toggle_status
-    @item.toggle_status
+    @user = current_user
+    user_allowed_to_update_status = @user.can_manage?(@item)
+
+    if user_allowed_to_update_status
+      @item.toggle_status
+      msg = I18n.t("items.messages.successfully_updated_status")
+    else
+      msg = I18n.t("items.messages.not_allowed_to_update_status")
+    end
 
     respond_to do |format|
-      format.html { redirect_to @item, notice: I18n.t("items.messages.successfully_updated_status") }
-      format.json { render @item, status: :ok, location: @item }
+      if @item&.save
+        format.html { redirect_to @item, notice: msg }
+        format.json { render :show, status: :ok, location: @item }
+      else
+        format.html { redirect_to @item, status: :unprocessable_entity, notice: msg }
+        format.json { render json: @item.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   # PATCH/PUT /items/1 or /items/1.json
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def update
     respond_to do |format|
       @item.item_type = params[:item_type]
