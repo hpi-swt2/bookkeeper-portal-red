@@ -26,6 +26,7 @@ de:
 
   login_first: "Du musst dich erst anmelden"
   only_admins: "Nur Administratoren dürfen diese Gruppe bearbeiten"
+  group_not_viewable: "Diese Gruppe kann nicht angezeigt werden"
 
   group_new: "Die Gruppe wurde erfolgreich erstellt"
   group_update: "Die Gruppe wurde erfolgreich aktualisiert"
