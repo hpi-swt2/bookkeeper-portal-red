@@ -90,6 +90,12 @@ class Item < ApplicationRecord
     Lending.exists?(item_id: id, completed_at: nil)
   end
 
+  def overdue_for?(user)
+    return false unless borrowed_by?(user)
+
+    Lending.where(item_id: id).where(completed_at: nil).first.due_at < Time.current
+  end
+
   def current_reservation
     reservations = Reservation.where(item_id: id).where(["starts_at < :now AND :now <= ends_at",
                                                          { now: Time.current }])
@@ -176,6 +182,7 @@ class Item < ApplicationRecord
     return I18n.t("items.status_badge.no_access") unless user.can_borrow?(self)
     return I18n.t("items.status_badge.reserved_by_me") if reserved_by?(user)
     return I18n.t("items.status_badge.available") if borrowable_by?(user)
+    return I18n.t("items.status_badge.overdue") if overdue_for?(user)
     return I18n.t("items.status_badge.borrowed_by_me") if borrowed_by?(user)
 
     I18n.t("items.status_badge.not_available")

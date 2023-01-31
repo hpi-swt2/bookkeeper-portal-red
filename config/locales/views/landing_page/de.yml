@@ -69,6 +69,7 @@ de:
       borrowed_by_me: "Von mir ausgeliehen"
       reserved_by_me: "Von mir reserviert"
       no_access: "Kein Zugriff"
+      overdue: "Überfällig"
     card_text:
       owner: "von"
     type:
@@ -79,6 +80,9 @@ de:
       new_book: "Neues Buch"
       new_movie: "Neuer Film"
       new_game: "Neues Spiel"
+    units:
+      one_day: "Tag"
+      multiple_days: "Tage"
     form:
       edit: "Bearbeiten"
       new: "Neues"
@@ -134,6 +138,9 @@ de:
       inactive:
         heading: "Warum kann ich diesen Artikel nicht ausleihen?"
         body: "Der Artikel ist momentan nicht verfügbar."
+      overdue:
+        heading: "Warum ist dieser Artikel überfällig?"
+        body: "Die Ausleihzeit ist abgelaufen. Bitte geben Sie den Artikel schnellstmöglich zurück."
   profile:
     description_header: "Beschreibung"
     phone_number: "Telefonnummer"

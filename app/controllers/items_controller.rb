@@ -344,7 +344,7 @@ class ItemsController < ApplicationController
   def create_lending
     @lending = Lending.new
     @lending.started_at = Time.current
-    @lending.due_at = @lending.started_at.next_day(@max_borrowing_days)
+    @lending.due_at = @lending.started_at.next_day(@item.max_borrowing_days)
     @lending.user = @user
     @lending.item = @item
     @lending.completed_at = nil

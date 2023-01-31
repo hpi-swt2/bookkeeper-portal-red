@@ -69,6 +69,7 @@ en:
       borrowed_by_me: "Borrowed by me"
       reserved_by_me: "Reserved by me"
       no_access: "No access"
+      overdue: "Overdue"
     card_text:
       owner: from
     type:
@@ -79,6 +80,9 @@ en:
       new_book: "New Book"
       new_movie: "New Movie"
       new_game: "New Game"
+    units:
+      one_day: "day"
+      multiple_days: "days"
     form:
       edit: "Edit"
       new: "New"
@@ -134,6 +138,9 @@ en:
       inactive:
         heading: "Why can't I borrow this item?"
         body: "The item is currently not available."
+      overdue:
+        heading: "Why is this item overdue?"
+        body: "The borrowing period has expired. Please return this item as soon as possible."
   profile:
     description_header: "Description"
     phone_number: "Phone number"
