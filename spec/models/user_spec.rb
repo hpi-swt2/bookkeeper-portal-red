@@ -34,7 +34,7 @@ describe User, type: :model do
     expect { user.save! }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
-  it "personal group is destroyed when user is destroyed" do
+  it "destroys the personal group when the user is destroyed" do
     p_group = user.personal_group
     p_group_id = p_group.id
     mem_id = Membership.where(group: p_group, user: user).first.id
@@ -44,7 +44,7 @@ describe User, type: :model do
     expect(Membership.exists?(mem_id)).to be(false)
   end
 
-  it "shared groups are not destroyed when user is destroyed" do
+  it "doesn't destroy shared groups when the user is destroyed" do
     membership = FactoryBot.create(:membership)
     group_id = membership.group.id
     expect(membership.user.destroy).not_to be(false)
