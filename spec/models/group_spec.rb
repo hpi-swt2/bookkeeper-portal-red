@@ -30,7 +30,12 @@ RSpec.describe Group, type: :model do
   end
 
   it "can be destroyed" do
-    expect(group.destroy).not_to be(false)
+    membership = FactoryBot.create(:membership)
+    mem_id = membership.id
+    mem_group_id = membership.group.id
+    expect(membership.group.destroy).not_to be(false)
+    expect(Membership.exists?(mem_id)).to be(false)
+    expect(described_class.exists?(mem_group_id)).to be(false)
   end
 
   context "when group is a personal_group" do
@@ -45,6 +50,7 @@ RSpec.describe Group, type: :model do
 
     it "cannot be destroyed" do
       user1 = FactoryBot.create(:user)
+      expect(user1.personal_group.users.first.present?).to be(true)
       expect(user1.personal_group.destroy).to be(false)
     end
   end

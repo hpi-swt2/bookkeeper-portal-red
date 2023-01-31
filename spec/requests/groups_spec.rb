@@ -131,7 +131,6 @@ RSpec.describe "/groups", type: :request do
 
   describe "POST /groups/:id/leave" do
     it "does not allow you to leave personal group" do
-      puts group_leave_url(membership.user.personal_group)
       post group_leave_url(membership.user.personal_group)
       expect(response).to have_http_status(:unprocessable_entity)
     end

@@ -1,7 +1,7 @@
 # the main association between users and groups
 class Membership < ApplicationRecord
   belongs_to :user
-  belongs_to :group, dependent: :destroy
+  belongs_to :group
   validate do
     errors.add(:user, "personal group cannot have multiple users") if group.personal_group? && !group.users.empty?
   end
@@ -15,9 +15,12 @@ class Membership < ApplicationRecord
   enum :role, admin: 0, member: 1
 
   def validate_destroy
-    return unless group.personal_group? && !destroyed_by_association
-
-    errors.add(:user, "user cannot leave personal group")
-    throw(:abort)
+    if group.personal_group? && !destroyed_by_association
+      errors.add(:user, "user cannot leave personal group")
+      throw(:abort)
+    elsif group.personal_group?
+      group.destroyed_by_association = self
+      group.destroy
+    end
   end
 end

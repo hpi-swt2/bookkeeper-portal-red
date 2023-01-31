@@ -37,8 +37,19 @@ describe User, type: :model do
   it "personal group is destroyed when user is destroyed" do
     p_group = user.personal_group
     p_group_id = p_group.id
+    mem_id = Membership.where(group: p_group, user: user).first.id
+    expect(Membership.exists?(mem_id)).to be(true)
     expect(user.destroy).not_to be(false)
     expect(Group.exists?(p_group_id)).to be(false)
+    expect(Membership.exists?(mem_id)).to be(false)
+  end
+
+  it "shared groups are not destroyed when user is destroyed" do
+    membership = FactoryBot.create(:membership)
+    group_id = membership.group.id
+    expect(membership.user.destroy).not_to be(false)
+    expect(Group.exists?(group_id)).to be(true)
+    expect(Membership.exists?(membership.id)).to be(false)
   end
 
   it "can view items when having borrow permissions" do
@@ -62,6 +73,8 @@ describe User, type: :model do
   it "cannot leave its personal group" do
     membership = Membership.where(group: user.personal_group).first
     expect(membership.destroy).to be(false)
+    expect(Membership.exists?(membership.id)).to be(true)
+    expect(Group.exists?(membership.group.id)).to be(true)
   end
 
 end

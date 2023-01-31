@@ -36,14 +36,13 @@ class Group < ApplicationRecord
 
   def validate_destroy
     # personal group can only be destroyed if its user is destroyed first
-    if personal_group? && users.first.present?
+    if personal_group? && !destroyed_by_association
       errors.add(:group, "personal group cannot be destroyed")
       throw(:abort)
     end
-    if !personal_group? && destroyed_by_association
-      errors.add(:group, "shared groups cant be destroyed by association #{destroyed_by_association}")
-      throw(:abort)
+    memberships.each do |membership|
+      membership.destroyed_by_association = self
+      membership.destroy
     end
-    memberships.each(&:delete)
   end
 end
