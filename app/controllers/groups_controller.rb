@@ -26,8 +26,8 @@ class GroupsController < ApplicationController
     respond_to do |format|
       if @group.save
         Membership.create(user: current_user, group: @group, role: :admin)
-        format.html { redirect_to groups_url, notice: t(:group_new) }
-        format.json { render :show, status: :created, location: @group }
+        respond_with_notice_and_status(format, redirect: edit_group_url(@group), notice: t(:group_new),
+                                               status: :created)
       else
         unprocessable_response(format, redirect: :index, entity: @group)
       end
@@ -38,8 +38,7 @@ class GroupsController < ApplicationController
   def update
     respond_to do |format|
       if @group.update(group_params)
-        format.html { redirect_to edit_group_url(@group), notice: t(:group_update) }
-        format.json { render :show, status: :ok, location: @group }
+        respond_with_notice_and_status(format, redirect: edit_group_url(@group), notice: t(:group_update), status: :ok)
       else
         unprocessable_response(format, redirect: :edit, entity: @group)
       end
@@ -52,8 +51,7 @@ class GroupsController < ApplicationController
     @group.destroy
 
     respond_to do |format|
-      format.html { redirect_to groups_url, notice: t(:group_destroy) }
-      format.json { head :no_content }
+      respond_with_notice(format, redirect: groups_url, notice: t(:group_destroy))
     end
   end
 
@@ -61,8 +59,7 @@ class GroupsController < ApplicationController
   def leave
     respond_to do |format|
       if current_user.memberships.destroy_by(group_id: params[:group_id])
-        format.html { redirect_to groups_url, notice: t(:group_update) }
-        format.json { head :no_content }
+        respond_with_notice(format, redirect: groups_url, notice: t(:group_update))
       else
         unprocessable_response(format, redirect: :edit, entity: @group)
       end
@@ -101,6 +98,16 @@ class GroupsController < ApplicationController
   def unprocessable_response(format, redirect:, entity:)
     format.html { render redirect, status: :unprocessable_entity }
     format.json { render json: entity.errors, status: :unprocessable_entity }
+  end
+
+  def respond_with_notice(format, redirect:, notice:)
+    format.html { redirect_to redirect, notice: notice }
+    format.json { head :no_content }
+  end
+
+  def respond_with_notice_and_status(format, redirect:, notice:, status:)
+    format.html { redirect_to redirect, notice: notice }
+    format.json { render :show, status: status, location: @group }
   end
 
   # Only allow a list of trusted parameters through.
