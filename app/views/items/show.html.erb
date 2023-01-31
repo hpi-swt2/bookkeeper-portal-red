@@ -27,6 +27,34 @@
   </script>
   <%= render "item_largescreen" %>
   <%= render "item_smallscreen" %>
+
+  <%# lending history of this item %>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">User</th>
+          <th scope="col">Date borrowed</th>
+          <th scope="col">Date returned</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @item.lending_history.each do |lending| %>
+          <tr>
+            <th scope="row"><%=lending.user.full_name%></th>
+            <td><%= lending.started_at.strftime("%d-%m-%Y") %></td>
+            <td><%=
+              if (lending.completed_at)
+                lending.completed_at.strftime("%d-%m-%Y")
+              else
+                t('analytics.history.not_returned')
+              end
+            %></td>
+          </tr>
+          <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 
