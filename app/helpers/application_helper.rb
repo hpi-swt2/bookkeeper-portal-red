@@ -1,7 +1,7 @@
 module ApplicationHelper
   def language_flag(locale)
     updated_locale = if locale == :en
-                       :us
+                       :gb
                      else
                        locale
                      end
