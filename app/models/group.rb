@@ -30,4 +30,18 @@ class Group < ApplicationRecord
       WHERE id IN (SELECT group_id FROM permissions WHERE item_id = :item_id AND permission_type = :permission_type)",
                  { item_id: item_id, permission_type: "2" }]
   end
+
+  def user_count
+    users.length
+  end
+
+  def user_count_string
+    "#{user_count} #{I18n.t('group_member', count: user_count)}"
+  end
+
+  def as_json(options)
+    super(options.merge({
+                          methods: [:user_count, :user_count_string]
+                        }))
+  end
 end

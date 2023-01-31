@@ -9,11 +9,12 @@ class GroupsController < ApplicationController
   end
 
   def all
-    personal_groups = Group.where(tag: :personal_group)
+    everyone_group = Group.where(tag: :everyone_group)
+    generic_groups = Group.where(tag: nil)
 
-    respond_to do |format|
-      format.json { render json: Group.all - personal_groups }
-    end
+    returned_groups = everyone_group + generic_groups
+
+    render json: returned_groups
   end
 
   # GET /groups/1/edit

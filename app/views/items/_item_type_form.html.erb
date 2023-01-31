@@ -52,7 +52,7 @@
       <div class="row mt-2" v-for="(permission, i) in permissions">
         <div class="col">
           <select :name="`permission_${i}_group_id`" :id="`permission_select_${i}_group_id`" class="form-select" required v-model="permission.groupId">
-            <option :value="group.id" v-for="group in groups">{{group.name}}</option>
+            <option :value="group.id" v-for="group in groups">{{group.name}} ({{ group.user_count_string }})</option>
           </select>
         </div>
         <div class="col">
