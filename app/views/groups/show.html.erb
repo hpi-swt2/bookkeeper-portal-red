@@ -10,3 +10,30 @@
   <%= t('items.headlines.items') %>
 </h5>
 <%= render GroupItemListComponent.new(group: @group) %>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col"><%= t(:member_name) %></th>
+      <th scope="col"><%= t(:member_email) %></th>
+      <th scope="col" style="width: 3rem"></th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+    <% @group.users.each do |user| %>
+    <tr>
+      <td><%= user.full_name %></td>
+      <td><%= user.email %></td>
+      <% if not user.admin_in?(@group) %>
+      <td>
+        <%= mail_to user.email, class: "btn btn-sm btn-secondary" do %>
+          <i class="bi bi-chat-fill"></i>
+        <% end %>
+      </td>
+      <% else %>
+      <td>
+      </td>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
