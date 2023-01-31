@@ -20,7 +20,7 @@ describe "freeze", type: :feature do
       expect(page).to have_text(:visible, I18n.t("items.buttons.freeze"))
 
       # match: :first is needed because the mobile and web screen are rendered at the same time
-      page.find(:xpath, "//a[@href='/items/1/toggle_status']", match: :first).click
+      page.find(:xpath, "//a[contains(@href, 'toggle_status')]", match: :first).click
       item.reload
 
       expect(item.inactive?).to be true
@@ -37,7 +37,7 @@ describe "freeze", type: :feature do
       expect(page).to have_text(:visible, I18n.t("items.buttons.unfreeze"))
 
       # match: :first is needed because the mobile and web screen are rendered at the same time
-      page.find(:xpath, "//a[@href='/items/1/toggle_status']", match: :first).click
+      page.find(:xpath, "//a[contains(@href, 'toggle_status')]", match: :first).click
       item.reload
 
       expect(item.active?).to be true
