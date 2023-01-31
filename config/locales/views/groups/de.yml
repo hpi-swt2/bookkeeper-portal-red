@@ -1,7 +1,7 @@
 de:
   cancel: "Abbrechen"
   save: "Speichern"
-  confirmation: "Bist du dir sicher?"
+  confirmation: "Sind Sie sicher?"
 
   my_groups: "Meine Gruppen"
   all_groups: "Alle Gruppen"
@@ -9,11 +9,13 @@ de:
   delete_group: "Gruppe löschen"
   leave_group: "Gruppe verlassen"
   edit_group: "Gruppe bearbeiten"
+
   group_add_member: "Nutzer hinzufügen"
+  group_add_member_prompt: "Bitte geben Sie die E-Mail-Adresse des Nutzers ein, den Sie zur Gruppe hinzufügen möchten."
   group_no_items: "Keine Items vorhanden"
 
   group_name : "Gruppenname"
-  group_name_prompt: "Bitte gib deiner Gruppe einen Namen"
+  group_name_prompt: "Bitte geben Sie Ihrer Gruppe einen Namen"
 
   group_member:
     zero: "Mitglieder"
@@ -22,10 +24,15 @@ de:
 
   member_name: "Name"
   member_email: "E-Mail"
+  member_email_placeholder: "beispiel.benutzer@hpi.de"
 
-  login_first: "Du musst dich erst anmelden"
+  login_first: "Sie müssen sich erst anmelden"
   only_admins: "Nur Administratoren dürfen diese Gruppe bearbeiten"
 
   group_new: "Die Gruppe wurde erfolgreich erstellt"
   group_update: "Die Gruppe wurde erfolgreich aktualisiert"
   group_destroy: "Die Gruppe wurde wurde erfolgreich gelöscht"
+
+  group_user_not_found: "Dieser Nutzer konnte nicht gefunden werden"
+  group_user_added: "Nutzer wurde hinzugefügt"
+  group_user_removed: "Nutzer wurde entfernt"

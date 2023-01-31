@@ -1,0 +1,41 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Item ID</th>
+      <th scope="col">Item Name</th>
+      <th scope="col">Category</th>
+      <th scope="col">Date borrowed</th>
+      <th scope="col">Date returned</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @lendings.each do |lending| %>
+          <tr>
+              <th scope="row"><%= link_to lending.item.id, "/items/#{lending.item.id}" %></th>
+              <td><%= link_to lending.item.name, "/items/#{lending.item.id}" %></td>
+              <td><%= 
+                  case lending.item.item_type
+                  when "book"
+                    t('items.type.book')
+                  when "movie"
+                    t('items.type.movie')
+                  when "game"
+                    t('items.type.game')
+                  when "other"
+                    t('items.type.other')
+                  else
+                    t('items.type.other')
+                  end
+              %></td>
+              <td><%= lending.started_at.strftime("%d-%m-%Y") %></td>
+              <td><%= 
+                if (lending.completed_at) 
+                  lending.completed_at.strftime("%d-%m-%Y")
+                else
+                  t('analytics.history.not_returned')
+                end
+                %></td>
+          </tr>
+      <% end %>
+  </tbody>
+</table>
