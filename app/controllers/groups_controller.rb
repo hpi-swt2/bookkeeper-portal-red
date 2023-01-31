@@ -1,8 +1,6 @@
 class GroupsController < ApplicationController
-  before_action :assure_signed_in
-  before_action :set_user_group
-  before_action :set_group, only: %i[ edit update destroy ]
-  before_action :assure_admin, only: %i[ edit update destroy ]
+  before_action :assure_signed_in, :set_user_group
+  before_action :set_group, :assure_admin, only: %i[ edit update destroy ]
 
   # GET /groups or /groups.json
   def index
@@ -26,7 +24,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       if @group.save
         Membership.create(user: current_user, group: @group, role: :admin)
-        respond_with_notice_and_status(format, redirect: edit_group_url(@group), notice: t(:group_new),
+        respond_with_notice_and_status(format, redirect: groups_url, notice: t(:group_new),
                                                status: :created)
       else
         unprocessable_response(format, redirect: :index, entity: @group)
@@ -90,7 +88,6 @@ class GroupsController < ApplicationController
     @groups = current_user.groups
   end
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_group
     @group = Group.find(params[:id])
   end
