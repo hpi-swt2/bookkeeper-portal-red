@@ -66,6 +66,7 @@ de:
       borrowed_by_me: "Von mir ausgeliehen"
       reserved_by_me: "Von mir reserviert"
       no_access: "Kein Zugriff"
+      overdue: "Überfällig"
     card_text:
       owner: "von"
     type:
@@ -131,6 +132,9 @@ de:
       missing_borrowing_permissions:
         heading: "Warum kann dieser Artikel nicht ausgeliehen werden?"
         body: "Sie gehören nicht zu einer Gruppe, die diesen Artikel ausleihen darf."
+      overdue:
+        heading: "Warum ist dieser Artikel überfällig?"
+        body: "Die Ausleihzeit ist abgelaufen. Bitte geben Sie den Artikel schnellstmöglich zurück."
   profile:
     description_header: "Beschreibung"
     phone_number: "Telefonnummer"

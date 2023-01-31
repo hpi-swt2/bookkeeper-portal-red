@@ -66,6 +66,7 @@ en:
       borrowed_by_me: "Borrowed by me"
       reserved_by_me: "Reserved by me"
       no_access: "No access"
+      overdue: "Overdue"
     card_text:
       owner: from
     type:
@@ -131,6 +132,9 @@ en:
       missing_borrowing_permissions:
         heading: "Why can't I borrow this item?"
         body: "You are not part of a group that is allowed to borrow this item."
+      overdue:
+        heading: "Why is this item overdue?"
+        body: "The borrowing period has expired. Please return this item as soon as possible."
   profile:
     description_header: "Description"
     phone_number: "Phone number"
