@@ -10,7 +10,9 @@ en:
   delete_group: "Delete group"
   leave_group: "Leave group"
   edit_group: "Edit group"
+
   group_add_member: "Add user"
+  group_add_member_prompt: "Please provide the email address of the user you'd like to add to this group."
   group_no_items: "No items present"
 
   group_name : "Groupname"
@@ -23,6 +25,7 @@ en:
 
   member_name: "Name"
   member_email: "E-mail"
+  member_email_placeholder: "example.user@hpi.de"
 
   login_first: "You have to log in first"
   only_admins: "Only admins are allowed to edit this group"
@@ -31,3 +34,8 @@ en:
   group_new: "Group has been created successfully"
   group_update: "Group has been updated successfully"
   group_destroy: "Group has been deleted successfully"
+
+  group_user_not_found: "This user could not be found"
+  group_user_added: "User was successfully added"
+  group_user_removed: "User was successfully removed"
+  
