@@ -35,9 +35,13 @@ class Group < ApplicationRecord
     users.length
   end
 
+  def user_count_string
+    "#{user_count} #{I18n.t('group_member', count: user_count)}"
+  end
+
   def as_json(options)
     super(options.merge({
-                          methods: [:user_count]
+                          methods: [:user_count, :user_count_string]
                         }))
   end
 end
