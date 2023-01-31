@@ -27,6 +27,17 @@ class Group < ApplicationRecord
   )
   before_destroy :validate_destroy
 
+  def personal_group?
+    return true if tag == "personal_group"
+  end
+
+  def personal_group_user
+    return false unless personal_group?
+
+    # if this is a personal group, this should be the only member
+    memberships[0].user
+  end
+
   def self.owner_groups(item_id)
     find_by_sql ["SELECT *
       FROM groups
