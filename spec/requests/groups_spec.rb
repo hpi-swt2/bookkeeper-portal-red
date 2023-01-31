@@ -58,6 +58,7 @@ RSpec.describe "/groups", type: :request do
           post groups_url, params: { group: valid_attributes }
         end.to change(Group, :count).by(1)
       end
+
       # currently to all groups, because show is not available
       it "redirects to the created group" do
         post groups_url, params: { group: valid_attributes }
