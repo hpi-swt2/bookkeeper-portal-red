@@ -6,6 +6,15 @@
 
 <%= render "modal-edit", group: @group %>
 
+<div style="
+  overflow:auto;
+  word-break: break-word;
+  white-space: pre-line;
+  max-width: 45%;
+  max-height:500px;">
+  <%= @group.description %>
+</div>
+
 <p>
 <strong><%= @group.users.count %></strong>
 <%= t(:group_member, count: @group.users.count) %>:
