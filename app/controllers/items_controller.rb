@@ -57,6 +57,7 @@ class ItemsController < ApplicationController
   def remove_image
     @item = Item.find(params[:id])
     if current_user.can_manage?(@item)
+
       @image = @item.images.find { |image| image.signed_id == params[:signed_id] }
       if @image
         @image.purge
@@ -343,7 +344,8 @@ class ItemsController < ApplicationController
                                    :description, :max_borrowing_days, :max_reservation_days, images: [])
     when "game"
       params.require(:item).permit(:item_type, :name, :author, :illustrator, :publisher, :fsk, :number_of_players,
-                                   :playing_time, :language, :description, :max_borrowing_days, :max_reservation_days, images: [])
+                                   :playing_time, :language, :description, :max_borrowing_days,
+                                   :max_reservation_days, images: [])
     else
       item_type.eql?("other")
       params.require(:item).permit(:item_type, :name, :category, :description, :max_borrowing_days,

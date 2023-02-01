@@ -15,36 +15,39 @@
                 <% carousel_id="carouselExampleIndicators-#{@item.id}#{width}-#{height}"%>
                 <div id="<%= carousel_id %>" class="carousel slide" data-bs-ride="true">
                   <div class="carousel-indicators">
-                   <% @item.images.each_with_index do |image, index| %>
+                  <% indicators_index = 0%>
+                   <% @item.images.each do |image| %>
       
                     
                       <% if image.representable? && image.image? == true %>
-                          <button type="button" data-bs-target="#<%= carousel_id %>" data-bs-slide-to="<%= index %>" class="<%= 'active' if index == 0 %>" aria-current="<%= 'true' if index == 0 %>" aria-label="Slide <%= index %>"></button>
-
+                          <button type="button" data-bs-target="#<%= carousel_id %>" data-bs-slide-to="<%= indicators_index %>" class="<%= 'active' if indicators_index == 0 %>" aria-current="<%= 'true' if indicators_index == 0 %>" aria-label="Slide <%= indicators_index %>"></button>
+                            <% indicators_index += 1 %>
+ 
                         <% end %>
-                
                      <% end %>
                   </div>
                   <div class="carousel-inner">
-                   <% @item.images.each_with_index do |image, index| %>
+                    <% image_index = 0%>
+                   <% @item.images.each do |image| %>
                     <% if image.representable? && image.image? %>
 
-                    <div class="carousel-item <%= 'active' if index == 0 %>">
+                    <div class="carousel-item <%= 'active' if image_index == 0 %>">
 
                      
                     
                         <%= image_tag image, class: "img-fluid", style: image_style %>
                         <% if defined?(showImageManager) && showImageManager %>
                         <div class="carousel-caption d-none d-md-block">
-                             <%= button_to I18n.t("items.buttons.destroy_image"), remove_image_item_path(signed_id: image.signed_id, id: @item.id),
+                             <%= link_to I18n.t("items.buttons.destroy_image"), remove_image_item_path(signed_id: image.signed_id, id: @item.id),
                                 data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class: 'btn btn-primary' %>
                         </div>
+                          <% image_index += 1%>
+
                         <% end %>
 
                 
                     </div>
                       <% end %>
-
                     <% end %>
                   </div>
                   <button class="carousel-control-prev" type="button" data-bs-target="#<%= carousel_id %>" data-bs-slide="prev">
