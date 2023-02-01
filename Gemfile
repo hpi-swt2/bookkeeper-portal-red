@@ -127,3 +127,6 @@ gem "ransack", "~> 3.2"
 
 # For csv export of items
 gem "csv"
+
+# For uploading custom images
+gem 'paperclip'

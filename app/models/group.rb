@@ -3,6 +3,10 @@ class Group < ApplicationRecord
   enum tag: { verified_group: 0, personal_group: 1, everyone_group: 2 }
   validates :name, presence: true, length: { minimum: 1, maximum: 50 }
   validates :description, length: { maximum: 2000 }
+  has_attached_file :image,
+      :default_url => ":images/dummy_image.png"
+  validates_attachment :image,
+                     content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
   # has to be delete_all instead of destroy in order to avoid cyclical dependent destroy via membership
   # (which has dependent: :destroy on its group)
   has_many :memberships, dependent: nil
