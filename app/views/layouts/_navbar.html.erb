@@ -31,7 +31,27 @@
               <%= t(:my_groups) %>
             <% end %>
           </li>
+          <li class="nav-item desktop-only dropdown" id="dropdown-button-group">
+            <a class="nav-link dropdown-toggle" href="" id="navbarDropdownItem" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <%= t("items.buttons.new") %>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownItem">
+                <li>
+                <%= link_to I18n.t("items.type.book"), new_item_path(item_type: :book), class: "dropdown-item" %>
+                </li>
+                <li>
+                <%= link_to I18n.t("items.type.movie"), new_item_path(item_type: :movie), :class => "dropdown-item" %>
+                </li>
+                <li>
+                <%= link_to I18n.t("items.type.game"), new_item_path(item_type: :game), :class => "dropdown-item" %>
+                </li>
+                <li>
+                <%= link_to I18n.t("items.type.other"), new_item_path(item_type: :other), :class => "dropdown-item" %>
+                </li>
+              </ul>
+          </li>
         <% end %>
+        
 
         <li class="mobile-only nav-item">
           <a data-bs-toggle="offcanvas" data-bs-target="#notification-inbox-container"
@@ -44,10 +64,10 @@
         </li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="" id="navbarDropdownLanguage" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <%= language_flag(I18n.locale) %>
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownLanguage">
             <li>
               <%= link_to "English", params.permit!.merge(locale: 'en'), class: "dropdown-item" %>
             </li>
@@ -57,12 +77,26 @@
           </ul>
         </li>
 
+        <% if user_signed_in? %>
+          <li class="nav-item mobile-only">
+            <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link logout-button" do %>
+              <i class="bi bi-box-arrow-left"></i>
+              <%= t("navbar.sign_out") %>
+            <% end %>
+          </li>
+        <% end %>
+
       </ul>
       <%= render "items/search_form" %>
       <span>
         <a href="#" class="desktop-only text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#notification-inbox-container"
            aria-controls="notification-inbox-container" id="notification-inbox-button"><i class="bi bi-bell-fill fs-3"></i></a>
         <a href="<%= profiles_me_path %>" class="desktop-only text-white"><i class="bi bi-person-fill fs-3"></i></a>
+        <% if user_signed_in? %>
+          <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "desktop-only text-white logout-button" do %>
+            <i class="bi bi-box-arrow-left fs-3"></i>
+          <% end %>
+        <% end %>
       </span>
     </div>
     <%= link_to scan_path, class: "navbar-brand text-white mx-2" do %>

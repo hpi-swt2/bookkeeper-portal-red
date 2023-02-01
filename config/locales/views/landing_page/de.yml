@@ -6,10 +6,11 @@ de:
     groups: "Meine Gruppen"
     notifications:
       headline: "Benachrichtigungen"
-      emptyInbox: "Du hast aktuell keine Bencharichtigungen. 🕵️"
+      emptyInbox: "Sie haben aktuell keine Benachrichtigungen. 🕵️"
       showMore: "Nachricht ausklappen"
       showLess: "Nachricht einklappen"
     profile: "Mein Profil"
+    sign_out: "Abmelden"
     home: "Startseite"
     search: "Suchen"
   scan_qrcode: "QR-Code einscannen"
@@ -23,25 +24,26 @@ de:
   items:
     messages:
       successfully_created: "Item wurde erfolgreich erstellt."
-      successfully_updated: "Item wurde erfolgreich geupdatet."
+      successfully_updated: "Item wurde erfolgreich aktualisiert."
       successfully_destroyed: "Item wurde erfolgreich zerstört."
       successfully_borrowed: "Item wurde erfolgreich ausgeliehen"
       successfully_returned: "Item wurde erfolgreich zurückgegeben"
       successfully_returned-by-owner: "Item wurde erfolgreich vom Besitzer zurückgegeben"
       successfully_reserved: "Item wurde erfolgreich reserviert"
       unsuccessfully_reserved: "Item Reservierung fehlgeschlagen"
-      joining_waitlist_succeeded: "Du bist der Warteliste beigetreten."
-      leaving_waitlist_succeeded: "Du hast die Warteliste verlassen."
-      lending_error: "Ausleihsystem Fehler"
-      not_allowed_to_destroy: "Dir ist nicht erlaubt das Item zu löschen."
-      not_allowed_to_download: "Dir ist nicht erlaubt den QR-Code des Items herunterzuladen."
-      not_allowed_to_edit: "Dir ist nicht erlaubt das Item zu bearbeiten."
-      not_allowed_to_access: "Dir ist nicht erlaubt auf das Item zu zugreifen."
+      joining_waitlist_succeeded: "Sie sind der Warteliste beigetreten."
+      leaving_waitlist_succeeded: "Sie haben die Warteliste verlassen."
+      lending_error: "Ausleihsystem-Fehler"
+      not_allowed_to_destroy: "Ihnen ist nicht erlaubt, das Item zu löschen."
+      not_allowed_to_download: "Ihnen ist nicht erlaubt, den QR-Code des Items herunterzuladen."
+      not_allowed_to_edit: "Ihnen ist nicht erlaubt, das Item zu bearbeiten."
+      not_allowed_to_access: "Ihnen ist nicht erlaubt, auf das Item zuzugreifen."
       deletion_confirmation: "Soll das Item wirklich gelöscht werden?"
       range_error: "muss eine gültige Zahl oder ein Zahlenbereich sein, z. B. 69-420"
     headlines:
+      items: "Items"
       my_items: "Meine Items"
-      item_details: "Item Details"
+      item_details: "Item-Details"
       no_description_provided: "Keine Beschreibung vorhanden"
       last_seen_at: "Letzter bekannter Standort:"
       borrowed_items: "Ausgeliehene Items"
@@ -51,13 +53,13 @@ de:
       show: "Item anzeigen"
       edit: "Bearbeiten"
       delete: "Löschen"
-      back: "Zurück zur Items Übersicht"
+      back: "Zurück zur Items-Übersicht"
       borrow: "Ausleihen"
       return: "Zurückgeben"
       owner-return: "Als Besitzer zurückgeben"
       reserve: "Reservieren"
       join_waitlist: "Warteliste beitreten (%{users_waiting} warten)"
-      leave_waitlist: "Warteliste verlassen (%{users_waiting} vor Dir)"
+      leave_waitlist: "Warteliste verlassen (%{users_waiting} vor Ihnen)"
       download_qrcode: "QR-Code"
     status_badge:
       available: "Verfügbar"
@@ -65,8 +67,9 @@ de:
       borrowed_by_me: "Von mir ausgeliehen"
       reserved_by_me: "Von mir reserviert"
       no_access: "Kein Zugriff"
+      overdue: "Überfällig"
     card_text:
-      owner: von
+      owner: "von"
     type:
       book: "Buch"
       movie: "Film"
@@ -75,11 +78,15 @@ de:
       new_book: "Neues Buch"
       new_movie: "Neuer Film"
       new_game: "Neues Spiel"
+    units:
+      one_day: "Tag"
+      multiple_days: "Tage"
     form:
       edit: "Bearbeiten"
       new: "Neues"
       permissions:
         title: "Berechtigungen"
+        tooltip: "kann Verwalten: Mitglieder der Gruppe können das Item verwalten, ausleihen und sehen <br/><br/>kann Ausleihen: Mitglieder der Gruppe können das Item ausleihen und sehen <br/><br/>kann Ansehen: Mitglieder der Gruppe können das Item sehen"
         duplicate_entries: "Pro Gruppe darf nur ein Recht zugewiesen werden!"
         add: "Hinzufügen"
         remove: "Entfernen"
@@ -90,7 +97,9 @@ de:
         name: "Name"
         description: "Beschreibung"
         max_borrowing_days: "Ausleihzeit"
+        max_borrowing_days_tooltip: "Die Ausleihzeit gibt an, wie lange ein Item ausgeliehen werden kann. Der Ausleihende wird 3 Tage vor Beendigung dieses Zeitfensters informiert."
         max_reservation_days: "Reservierungszeit"
+        max_reservation_days_tooltip: "Die Reservierungszeit gibt an, wie lange jemand ein Item reservieren kann. Läuft diese Zeit ab, wird diese Person von der Warteliste entfernt."
       other:
         category: "Kategorie"
       book:
@@ -119,17 +128,25 @@ de:
         language: "Sprache"
     infobox:
       borrow:
-        heading: "Wie kann man diesen Artikel ausleihen?"
-        body: "Scannen Sie mit Ihrem mobilen Gerät den QR-Code dieses Artikels. Sie finden den Gegenstand an dem unten angegebenen Ort."
+        heading: "Wie kann dieser Artikel ausgeliehen werden?"
+        body: "Scannen Sie mit Ihrem mobilen Gerät den QR-Code dieses Artikels. Sie finden den Artikel an dem unten angegebenen Ort."
       return:
-        heading: "Wie kann ich diesen Artikel zurückgeben?"
+        heading: "Wie kann dieser Artikel zurückgegeben werden?"
         body: "Scannen Sie mit Ihrem mobilen Gerät den QR-Code dieses Artikels. Sie finden den Artikel an dem unten angegebenen Ort."
       missing_borrowing_permissions:
-        heading: "Warum kann ich diesen Artikel nicht ausleihen?"
+        heading: "Warum kann dieser Artikel nicht ausgeliehen werden?"
         body: "Sie gehören nicht zu einer Gruppe, die diesen Artikel ausleihen darf."
+      overdue:
+        heading: "Warum ist dieser Artikel überfällig?"
+        body: "Die Ausleihzeit ist abgelaufen. Bitte geben Sie den Artikel schnellstmöglich zurück."
   profile:
     description_header: "Beschreibung"
     phone_number: "Telefonnummer"
     phone_number_warning: "Die Telefonnummer darf nur aus Zahlen, + und - bestehen"
   analytics:
     headline: "Meine Statistiken"
+    history:
+      headline: "Historie"
+      not_returned: "bisher nicht zurückgegeben"
+      desc_borrowed_by_other: "Gegenstände, die sich andere Nutzer von dir ausgeliehen haben"
+      desc_borrowed_by_me: "Gegenstände, die du dir von anderen Nutzern ausgeliehen hast"

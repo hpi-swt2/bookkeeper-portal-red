@@ -29,16 +29,29 @@ RSpec.describe Group, type: :model do
     expect(group.borrowable_items.first).to eq(item3)
   end
 
-  context "when group is a personal_group" do
-    let(:personal_group) { FactoryBot.create(:group, tag: :personal_group) }
+  it "can be destroyed" do
+    membership = FactoryBot.create(:membership)
+    mem_id = membership.id
+    mem_group_id = membership.group.id
+    expect(membership.group.destroy).not_to be(false)
+    expect(Membership.exists?(mem_id)).to be(false)
+    expect(described_class.exists?(mem_group_id)).to be(false)
+  end
 
+  context "when group is a personal_group" do
     it "cannot have two users" do
       user1 = FactoryBot.create(:user)
-      FactoryBot.create(:membership, user: user1, group: personal_group)
+      pgroup1 = user1.personal_group
       user2 = FactoryBot.create(:user)
       expect do
-        FactoryBot.create(:membership, user: user2, group: personal_group)
+        FactoryBot.create(:membership, user: user2, group: pgroup1)
       end.to raise_error(ActiveRecord::RecordInvalid)
+    end
+
+    it "cannot be destroyed" do
+      user1 = FactoryBot.create(:user)
+      expect(user1.personal_group.users.first.present?).to be(true)
+      expect(user1.personal_group.destroy).to be(false)
     end
   end
 

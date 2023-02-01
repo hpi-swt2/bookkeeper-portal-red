@@ -53,6 +53,17 @@ describe "show item page", type: :feature do
     expect(page).to have_text(:visible, @item.description)
   end
 
+  it "shows correct units for max_borrowing_days and max_reservation_days" do
+    sign_in @user
+    @item.max_borrowing_days = 5
+    @item.max_reservation_days = 1
+    @item.save
+
+    visit item_path(@item)
+    expect(page).to have_text("#{I18n.t('items.form.all.max_borrowing_days')} 5 #{I18n.t('items.units.multiple_days')}")
+    expect(page).to have_text("#{I18n.t('items.form.all.max_reservation_days')} 1 #{I18n.t('items.units.one_day')}")
+  end
+
   it "displays an infotext if src=qrcode is not present and the item is reserved by the current user" do
     FactoryBot.create(:reservation, item_id: @item.id, user_id: @user.id, starts_at: Time.zone.now,
                                     ends_at: 2.days.from_now)
