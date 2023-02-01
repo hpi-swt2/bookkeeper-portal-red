@@ -146,6 +146,7 @@ en:
   analytics:
     headline: "My Analytics"
     history:
+      empty: "The history is empty"
       headline: "History"
       not_returned: "not returned yet"
       desc_borrowed_by_other: "Items other users have borrowed from you"
