@@ -7,9 +7,9 @@
         <% has_any_images_attached = @item.images.attached? && @item.images.map {| file | file.representable? && file.image?}.reduce(:|) %>
         <% if has_any_images_attached %>
             <% image = @item.images.first() %>
-            <%= image_tag image, class: "img-fluid", style:"width: 100%; aspect-ratio: 4 / 3;" %>
+            <%= image_tag image, class: "img-fluid", style:"object-fit: cover; width: 100%; height: 200px;" %>
         <% else %>
-            <%= image_tag "https://via.placeholder.com/400x300", class: "card-img-top", style:"width: 100%; aspect-ratio: 4 / 3;" %>
+            <%= image_tag "https://via.placeholder.com/400x300", class: "card-img-top", style:"object-fit: cover; width: 100%; height: 200px;" %>
         <% end %>
     </a>
     <div class="card-body p-0 d-flex flex-column justify-content-between">
