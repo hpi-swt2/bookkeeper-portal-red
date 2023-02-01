@@ -2,6 +2,15 @@
   <%= render GroupNameComponent.new(group: @group) %>
 </h1>
 
+<div style="
+  overflow:auto;
+  word-break: break-word;
+  white-space: pre-line;
+  max-width: 45%;
+  max-height:500px;">
+  <%= @group.description %>
+</div>
+
 <div class="text-end">
   <%= mail_to @admin.email, t(:contact_group), class: "btn btn-sm btn-primary" %>
 </div>
