@@ -17,19 +17,6 @@ describe "User Edit Page", type: :feature do
     expect(page).to have_current_path(edit_user_registration_path)
   end
 
-  it "displays the current email and allows updating it" do
-    sign_in user
-    visit edit_user_registration_path
-    expect(page).to have_field('user[email]', with: user.email)
-
-    new_mail = "#{user.email}_new"
-    fill_in 'user[email]', with: new_mail
-    # Need to enter current password to make changes to user
-    fill_in 'user[current_password]', with: password
-    page.find("input[type='submit'][value='Update']").click
-    expect(user.reload.email).to eq(new_mail)
-  end
-
   it "allows editing the description" do
     sign_in user
     visit edit_user_registration_path
@@ -37,9 +24,33 @@ describe "User Edit Page", type: :feature do
 
     new_description = "#{user.description}_new"
     fill_in 'user[description]', with: new_description
-    # Need to enter current password to make changes to user
-    fill_in 'user[current_password]', with: password
+
     page.find("input[type='submit'][value='Update']").click
     expect(user.reload.description).to eq(new_description)
+  end
+
+  it "allows editing the telephone number" do
+    sign_in user
+    visit edit_user_registration_path
+    expect(page).to have_field('user[telephone_number]', with: user.telephone_number)
+
+    new_telephone_number = "+49-1212-123456"
+    fill_in 'user[telephone_number]', with: new_telephone_number
+
+    page.find("input[type='submit'][value='Update']").click
+    expect(user.reload.telephone_number).to eq(new_telephone_number)
+  end
+
+  it "doesnt allow invalid telephone numbers" do
+    sign_in user
+    visit edit_user_registration_path
+    expect(page).to have_field('user[telephone_number]', with: user.telephone_number)
+
+    fill_in 'user[telephone_number]', with: 'invalid'
+
+    page.find("input[type='submit'][value='Update']").click
+    expect(page).to have_current_path(edit_user_registration_path)
+    expect(page).to have_css('.alert-danger')
+    expect(user.reload.telephone_number).not_to eq('invalid')
   end
 end

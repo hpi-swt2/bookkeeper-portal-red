@@ -1,42 +1,181 @@
 <%= form_with(model: @item) do |form| %>
-  <% if @item.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
-      <ul>
-        <% @item.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+  <div id="item_form">
+    <% if @item.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+        <ul>
+          <% @item.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+
+    <div class="mb-2">
+      <%= form.label :name, I18n.t("items.form.all.name"), class: "form-label" %>
+      <%= form.text_field :name, class: "form-control", :required => true %>
     </div>
-  <% end %>
-  
-  <div class="mb-2">
-    <%= form.label :name, I18n.t("items.form.all.name"), class: "form-label" %>
-    <%= form.text_field :name, class: "form-control" %>
-  </div>
 
-  <div class="mb-2">
-    <%= form.label :description, I18n.t("items.form.all.description"), class: "form-label" %>
-    <%= form.text_field :description, class: "form-control" %>
-  </div>
 
-  <div class="mb-2">
-    <%= form.label I18n.t("items.form.all.max_borrowing_days"), class: "form-label" %>
-    <%= form.number_field :max_borrowing_days, min: 0, max: 365, class: "form-control" %>
-  </div>
+    <div class="mb-2">
+      <%= form.label :description, I18n.t("items.form.all.description"), class: "form-label" %>
+      <%= form.text_field :description, class: "form-control" %>
+    </div>
 
-  <div class="mb-2">
-    <%= form.label I18n.t("items.form.all.max_reservation_days"), class: "form-label" %>
-    <%= form.number_field :max_reservation_days, min: 0, max: 365, class: "form-control"%>
+    <div class="mb-2">
+      <%= form.label I18n.t("items.form.all.max_borrowing_days"), class: "form-label" %>
+      <i class="ms-2 bi bi-question-circle" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= I18n.t("items.form.all.max_borrowing_days_tooltip")%>"></i>
+      <%= form.number_field :max_borrowing_days, min: 0, max: 365, class: "form-control" %>
+    </div>
+
+    <div class="mb-2">
+      <%= form.label I18n.t("items.form.all.max_reservation_days"), class: "form-label" %>
+      <i class="ms-2 bi bi-question-circle" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= I18n.t("items.form.all.max_reservation_days_tooltip")%>"></i>
+      <%= form.number_field :max_reservation_days, min: 0, max: 365, class: "form-control" %>
+    </div>
+
+
+    <% if @item.book? %>
+      <%= render "book_form", item: @item, form: form %>
+    <% elsif @item.movie? %>
+      <%= render "movie_form", item: @item, form: form %>
+    <% elsif @item.game? %>
+      <%= render "game_form", item: @item, form: form %>
+    <% else
+         @item.other? %>
+      <%= render "other_form", item: @item, form: form %>
+    <% end %>
+
+    <h3 class="mt-3 d-inline"><%= I18n.t("items.form.permissions.title") %></h3>
+    <i class="ms-2 bi bi-question-circle" data-bs-html="true" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= I18n.t("items.form.permissions.tooltip") %>"></i>
+
+    <div class="container text-center mb-5">
+      <div class="alert alert-warning" role="alert" v-if="duplicateEntries">
+        <%= I18n.t("items.form.permissions.duplicate_entries") %>
+      </div>
+      <div class="row mt-2" v-for="(permission, i) in permissions">
+        <div class="col">
+          <select :name="`permission_${i}_group_id`" :id="`permission_select_${i}_group_id`" class="form-select" required v-model="permission.groupId">
+            <option :value="group.id" v-for="group in groups">{{group.name}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <select :name="`permission_${i}_level`" :id="`permission_select_${i}_level`" class="form-select" required v-model="permission.permissionLevel">
+            <option :value="level.level" v-for="level in levels">{{level.title}}</option>
+          </select>
+        </div>
+        <div class="col-md-auto">
+          <button class="btn btn-primary" type="button" @click="remove(i)"><%= I18n.t("items.form.permissions.remove") %> </button>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <button id="add-permission-button" class="btn btn-outline-secondary btn-sm" type="button" @click="addPermission"><%= I18n.t("items.form.permissions.add") %> </button>
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <% if @item.book? %>
+        <%= form.button :submit, name: "item_type", value: "book", class: "btn btn-primary", id: "item-submit-button" %>
+      <% elsif @item.movie? %>
+        <%= form.button :submit, name: "item_type", value: "movie", class: "btn btn-primary", id: "item-submit-button" %>
+      <% elsif @item.game? %>
+        <%= form.button :submit, name: "item_type", value: "game", class: "btn btn-primary", id: "item-submit-button" %>
+      <% else @item.other? %>
+        <%= form.button :submit, name: "item_type", value: "other", class: "btn btn-primary", id: "item-submit-button" %>
+      <% end %>
+    </div>
   </div>
-  
-  <% if @item.book? %>
-    <%= render "book_form", item: @item, form: form %>
-  <% elsif @item.movie? %>
-    <%= render "movie_form", item: @item, form: form %>
-  <% elsif @item.game? %>
-    <%= render "game_form", item: @item, form: form %>
-  <% else @item.other? %>
-    <%= render "other_form", item: @item, form: form %>
-  <% end %>
 <% end %>
+
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                itemId: <%= item.id.nil? ? 'null' : item.id %>,
+                permissions: [],
+                levels: [
+                    {title: "<%= I18n.t("items.form.permissions.can_manage") %>", level: "can_manage"},
+                    {title: "<%= I18n.t("items.form.permissions.can_borrow") %>", level: "can_borrow"},
+                    {title: "<%= I18n.t("items.form.permissions.can_view") %>", level: "can_view"},
+                ],
+                groups: []
+            }
+        },
+        async created() {
+            await this.fetchGroups()
+            if (this.itemId) {
+                this.fetchExistingPermissions()
+            } else {
+                // Add default permission
+                this.addStandardPermissions()
+            }
+        },
+        methods: {
+            fetchGroups() {
+                return fetch("/groups/all.json", {method: "GET"})
+                    .then(response => response.json())
+                    .then(data => {
+                        this.groups = data
+                    })
+            },
+            fetchExistingPermissions() {
+                fetch(`/items/${this.itemId}/permissions.json`, {method: 'GET', redirect: 'follow'})
+                    .then(response => response.json())
+                    .then(data => {
+                        this.permissions = data.map(permEntry => {
+                            return {
+                                groupId: permEntry.group_id,
+                                permissionLevel: this.convertEnum(permEntry.permission_type)
+                            }
+                        });
+                    })
+            },
+            addPermission() {
+                this.permissions.push({
+                    groupId: "",
+                    permissionLevel: null,
+                })
+            },
+            getEverybodyGroupId() {
+                let everybody_group = this.groups.find(group => group.tag === "everyone_group")
+                if (everybody_group) {
+                    return everybody_group.id
+                }
+                return 0
+            },
+            addStandardPermissions() {
+                this.permissions.push({groupId: this.getEverybodyGroupId(), permissionLevel: "can_borrow"})
+            },
+            // not the best way, because we are hardcoding the enum values
+            convertEnum(enumInteger) {
+                switch (enumInteger) {
+                    case 2:
+                        return "can_manage"
+                    case 1:
+                        return "can_borrow"
+                    case 0:
+                        return "can_view"
+                    default:
+                        return "can_view"
+                }
+            },
+            remove(index) {
+                this.permissions = this.permissions
+                    .slice(0, index)
+                    .concat(this.permissions.slice(index + 1))
+            }
+        },
+        computed: {
+            duplicateEntries() {
+                return new Set(this.permissions.map(p => p.groupId)).size
+                    !== this.permissions.length;
+            }
+        },
+        watch: {
+            duplicateEntries(oldVal, newVal) {
+                document.getElementById("item-submit-button").disabled = !newVal;
+            }
+        }
+    }).mount('#item_form')
+</script>

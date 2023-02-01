@@ -1,12 +1,21 @@
 # Model of the current item/asset
+# rubocop:disable Metrics/ClassLength
 class Item < ApplicationRecord
   include ExportPdf
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { minimum: 1, maximum: 100 }
+  validates :description, allow_blank: true, length: { minimum: 1, maximum: 1500 }
   validates :max_reservation_days, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 365 }
   validates :max_borrowing_days, numericality: { greater_than_or_equal_to: 0 }
 
   validates :number_of_pages, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
+
+  # matches a digit from 1-9 followed by optional digit from 0-9 and an optional second number with a hyphon in between
+  range_regex = /\A[1-9]([0-9]+)?(-[1-9]([0-9]+)?)?\z/
+  validates :number_of_players, allow_blank: true,
+                                format: { with: range_regex, message: I18n.t("items.messages.range_error") }
+  validates :playing_time, allow_blank: true,
+                           format: { with: range_regex, message: I18n.t("items.messages.range_error") }
 
   enum :status, inactive: 0, active: 1
   enum :item_type, other: 0, book: 1, movie: 2, game: 3
@@ -48,11 +57,15 @@ class Item < ApplicationRecord
   has_many_attached :images
   # items can be of different types. This function returns which attributes
   # are relevant for this item depending on it's type
-  def attributes
+  def self.attributes(item_type)
     return COMMON_ATTRIBUTES + BOOK_ATTRIBUTES if item_type.eql? "book"
     return COMMON_ATTRIBUTES + MOVIE_ATTRIBUTES if item_type.eql? "movie"
     return COMMON_ATTRIBUTES + GAME_ATTRIBUTES if item_type.eql? "game"
     return COMMON_ATTRIBUTES + OTHER_ATTRIBUTES if item_type.eql? "other"
+  end
+
+  def attributes
+    Item.attributes(item_type)
   end
 
   def common_attributes
@@ -76,6 +89,12 @@ class Item < ApplicationRecord
 
   def borrowed?
     Lending.exists?(item_id: id, completed_at: nil)
+  end
+
+  def overdue_for?(user)
+    return false unless borrowed_by?(user)
+
+    Lending.where(item_id: id).where(completed_at: nil).first.due_at < Time.current
   end
 
   def current_reservation
@@ -105,6 +124,39 @@ class Item < ApplicationRecord
     Lending.exists?(user_id: user.id, item_id: id, completed_at: nil)
   end
 
+  def allows_joining_waitlist?(user)
+    return unless borrowed? || reserved?
+
+    !reserved_by?(user) && !borrowed_by?(user) && !waitlist_has?(user) && user.can_borrow?(self)
+  end
+
+  def waitlist_has?(user)
+    WaitingPosition.exists?(user_id: user.id, item_id: id)
+  end
+
+  def users_on_waitlist_before(user)
+    user_position = WaitingPosition.where(item_id: id, user_id: user.id).first
+
+    return WaitingPosition.where(item_id: id).count unless user_position
+
+    WaitingPosition.where(item_id: id).where(["created_at < ?", user_position.created_at]).count
+  end
+
+  def create_reservation_from_waitlist
+    return if reserved? || borrowed?
+
+    waiting_position = WaitingPosition.where(item_id: id).order(:created_at).first
+    return unless waiting_position
+
+    waiting_position.destroy
+    create_reservation(waiting_position.user)
+  end
+
+  def create_reservation(user)
+    Reservation.create(item_id: id, user_id: user.id, starts_at: Time.current,
+                       ends_at: Time.current + max_reservation_days.days)
+  end
+
   def cancel_reservation_for(user)
     return unless reserved_by?(user)
 
@@ -117,8 +169,10 @@ class Item < ApplicationRecord
     return I18n.t("items.status_badge.no_access") unless user.can_borrow?(self)
     return I18n.t("items.status_badge.reserved_by_me") if reserved_by?(user)
     return I18n.t("items.status_badge.available") if borrowable_by?(user)
+    return I18n.t("items.status_badge.overdue") if overdue_for?(user)
     return I18n.t("items.status_badge.borrowed_by_me") if borrowed_by?(user)
 
     I18n.t("items.status_badge.not_available")
   end
 end
+# rubocop:enable Metrics/ClassLength

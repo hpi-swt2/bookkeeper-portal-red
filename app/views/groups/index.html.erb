@@ -5,31 +5,19 @@
 </div>
 <%= render "modal-create" %>
 
-<% @groups.each do |group| %>
-<div class="bg-light">
-  <div class="container text-center mt-5 py-3">
-    <h3>
-      <%= render GroupNameComponent.new(group: group) %>
-      <% if @user.admin_in?(group)%>
-        <%= link_to " ", edit_group_path(group), class: "badge bg-primary bi bi-pencil-fill" %>
-      <% else %>
-        <%= link_to t(:leave_group), group_leave_path(group), data: {turbo_method: :post, turbo_confirm: "Are you sure?"}, class: "btn btn-primary" %>
-      <% end %>
-    </h3>
-    <div class="row" style="overflow-x: scroll">
-      <div class="d-flex">
-        <% [1,2,3,4,5,6,7,8,9].each do |item_num| %>
-        <div class="card col-12 col-md-3 mx-2">
-          <%= image_tag "dummy_image.png", class: "card-img-top" %>
-          <div class="card-body">
-            <h5 class="card-title">Item <%= item_num %></h5>
-              <p class="card-text">von: <span class="text-warning">Herbert Beimel</span></p>
-              <p class="card-text text-success">verfügbar</p>
-          </div>
-        </div>
-        <% end %>
-      </div>
-    </div>
+<% @groups.select{ |g| !g.personal_group? }.each do |group| %>
+<div class="container text-center mt-5 p-3">
+  <div class="h3">
+    <%= render GroupNameComponent.new(group: group) %>
+    <% if @user.admin_in?(group)%>
+      <%= link_to " ", edit_group_path(group), class: "badge bg-primary bi bi-pencil-fill over-stretched-link" %>
+    <% else %>
+      <%= link_to t(:leave_group), group_leave_path(group), data: {turbo_method: :post, turbo_confirm: t(:confirmation)}, class: "btn btn-primary over-stretched-link" %>
+    <% end %>
+  </div>
+  <div class="position-relative">
+    <%= link_to "", group_path(group), class: "stretched-link" %>
+    <%= render GroupItemListComponent.new(group: group) %>
   </div>
 </div>
 <% end %>

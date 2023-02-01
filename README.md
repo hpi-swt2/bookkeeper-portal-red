@@ -1,6 +1,7 @@
 # Bookkeeper Portal — 🟥 Edition
 
 `dev` branch: [![CI & CD](https://github.com/hpi-swt2/bookkeeper-portal-red/actions/workflows/ci_cd.yml/badge.svg?branch=dev)](https://github.com/hpi-swt2/bookkeeper-portal-red/actions/workflows/ci_cd.yml)
+, deployed app: [Heroku](https://bookkeeper-red-dev.herokuapp.com/)
 
 `main` branch: [![CI & CD](https://github.com/hpi-swt2/bookkeeper-portal-red/actions/workflows/ci_cd.yml/badge.svg?branch=main)](https://github.com/hpi-swt2/bookkeeper-portal-red/actions/workflows/ci_cd.yml)
 , deployed app: [Heroku](https://bookkeeper-red-main.herokuapp.com)

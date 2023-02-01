@@ -39,6 +39,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_11_121210) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+ActiveRecord::Schema[7.0].define(version: 2023_01_23_084800) do
   create_table "groups", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -65,8 +66,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_11_121210) do
     t.string "format"
     t.integer "fsk"
     t.string "illustrator"
-    t.integer "number_of_players"
-    t.integer "playing_time"
+    t.string "number_of_players"
+    t.string "playing_time"
     t.string "category"
     t.float "lat"
     t.float "lng"
@@ -140,12 +141,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_11_121210) do
     t.string "description", default: "", null: false
     t.string "provider", limit: 50, default: "", null: false
     t.string "uid", limit: 50, default: "", null: false
+
+    t.string "telephone_number"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+
+  create_table "waiting_positions", force: :cascade do |t|
+    t.integer "item_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_waiting_positions_on_item_id"
+    t.index ["user_id"], name: "index_waiting_positions_on_user_id"
+  end
+
   add_foreign_key "lendings", "items"
   add_foreign_key "lendings", "users"
   add_foreign_key "memberships", "groups"
@@ -155,4 +168,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_11_121210) do
   add_foreign_key "permissions", "items"
   add_foreign_key "reservations", "items"
   add_foreign_key "reservations", "users"
+  add_foreign_key "waiting_positions", "items"
+  add_foreign_key "waiting_positions", "users"
 end

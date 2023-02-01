@@ -6,6 +6,8 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= stylesheet_link_tag "notifications", "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags %> <%# load JS from importmaps %>
@@ -15,24 +17,25 @@
   <% end %>
 </head>
 
-<%= render "layouts/navbar" %>
-
-
 <body>
-<div class="bg-white" id="main-content-wrapper">
-  <div class="wrapper container">
-    <div class="mx-0 py-5 my-5">
-      <% if notice %><p class="alert alert-success"><%= notice %></p>
-      <% end %>
-      <% if alert %><p class="alert alert-danger"><%= alert %></p>
-      <% end %>
-      <%= yield %>
+  <%= render "layouts/navbar" %>
+
+  <div id="page-container" class="position-relative" style="min-height: 100vh;">
+    <div class="bg-white" style="padding-bottom: var(--footer-height);" id="main-content-wrapper">
+      <div class="wrapper container d-flex justify-content-between">
+        <div class="mx-0 py-5 my-5 w-100">
+          <% if notice %><p class="alert alert-success"><%= notice %></p>
+          <% end %>
+          <% if alert %><p class="alert alert-danger"><%= alert %></p>
+          <% end %>
+          <%= yield %>
+        </div>
+      </div>
     </div>
+
+    <%= render "layouts/footer"%>
+
   </div>
-</div>
 </body>
-
-
-<%= render "layouts/footer" %>
 
 </html>

@@ -1,47 +1,73 @@
-<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-primary">
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand text-white desktop-only py-0" href="/">
+    <%= link_to root_path, class: "navbar-brand text-white desktop-only py-0" do %>
       <%= image_tag "logo.svg", width: 40 %>
-    </a>
+    <% end %>
     <div class="collapse navbar-collapse bg-primary" id="navbarToggle">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <i class="bi bi-book-fill mobile-only"></i>
-            <%=t("navbar.assets")%>
+        <li class="mobile-only nav-item">
+          <a href="<%= home_path %>" class="nav-link"><i class="bi bi-house-fill"></i> <%= t("navbar.home") %>
           </a>
         </li>
-        <% if user_signed_in? %>
         <li class="nav-item">
-          <%= link_to groups_path, class: "nav-link" do %>
-            <i class="bi bi-collection-fill mobile-only"></i>
-            <%=t(:my_groups)%>
+          <%= link_to my_items_path, class: "nav-link" do %>
+            <i class="bi bi-book-fill mobile-only"></i>
+            <%= t("navbar.assets") %>
           <% end %>
         </li>
-        <% end %>
         <li class="nav-item">
-          <a class="nav-link" href="#">
-            <i class="bi bi-tag-fill mobile-only"></i>
-            <%=t("navbar.categories")%>
-          </a>
+          <%= link_to borrowed_by_me_items_path, class: "nav-link" do %>
+            <i class="bi bi-book-fill mobile-only"></i>
+            <%= t("navbar.borrowed_assets") %>
+          <% end %>
         </li>
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to groups_path, class: "nav-link" do %>
+              <i class="bi bi-collection-fill mobile-only"></i>
+              <%= t(:my_groups) %>
+            <% end %>
+          </li>
+          <li class="nav-item desktop-only dropdown" id="dropdown-button-group">
+            <a class="nav-link dropdown-toggle" href="" id="navbarDropdownItem" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <%= t("items.buttons.new") %>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownItem">
+                <li>
+                <%= link_to I18n.t("items.type.book"), new_item_path(item_type: :book), class: "dropdown-item" %>
+                </li>
+                <li>
+                <%= link_to I18n.t("items.type.movie"), new_item_path(item_type: :movie), :class => "dropdown-item" %>
+                </li>
+                <li>
+                <%= link_to I18n.t("items.type.game"), new_item_path(item_type: :game), :class => "dropdown-item" %>
+                </li>
+                <li>
+                <%= link_to I18n.t("items.type.other"), new_item_path(item_type: :other), :class => "dropdown-item" %>
+                </li>
+              </ul>
+          </li>
+        <% end %>
+        
 
         <li class="mobile-only nav-item">
           <a data-bs-toggle="offcanvas" data-bs-target="#notification-inbox-container"
-             aria-controls="notification-inbox-container" id="notification-inbox-button-mobile" class="nav-link"><i class="bi bi-bell-fill"></i> <%=t("navbar.notifications")%></a>
+             aria-controls="notification-inbox-container" id="notification-inbox-button-mobile" class="nav-link"><i class="bi bi-bell-fill"></i> <%= t("navbar.notifications.headline") %>
+          </a>
         </li>
         <li class="mobile-only nav-item">
-          <a href="<%= profiles_me_path %>" class="nav-link"><i class="bi bi-person-fill"></i> <%=t("navbar.profile")%></a>
+          <a href="<%= profiles_me_path %>" class="nav-link"><i class="bi bi-person-fill"></i> <%= t("navbar.profile") %>
+          </a>
         </li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <%= language_flag(I18n.locale)%>
+          <a class="nav-link dropdown-toggle" href="" id="navbarDropdownLanguage" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= language_flag(I18n.locale) %>
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownLanguage">
             <li>
               <%= link_to "English", params.permit!.merge(locale: 'en'), class: "dropdown-item" %>
             </li>
@@ -51,26 +77,42 @@
           </ul>
         </li>
 
+        <% if user_signed_in? %>
+          <li class="nav-item mobile-only">
+            <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link logout-button" do %>
+              <i class="bi bi-box-arrow-left"></i>
+              <%= t("navbar.sign_out") %>
+            <% end %>
+          </li>
+        <% end %>
+
       </ul>
       <%= render "items/search_form" %>
       <span>
         <a href="#" class="desktop-only text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#notification-inbox-container"
            aria-controls="notification-inbox-container" id="notification-inbox-button"><i class="bi bi-bell-fill fs-3"></i></a>
         <a href="<%= profiles_me_path %>" class="desktop-only text-white"><i class="bi bi-person-fill fs-3"></i></a>
+        <% if user_signed_in? %>
+          <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "desktop-only text-white logout-button" do %>
+            <i class="bi bi-box-arrow-left fs-3"></i>
+          <% end %>
+        <% end %>
       </span>
     </div>
-    <a class="navbar-brand text-white mx-2" href="/scan">
+    <%= link_to scan_path, class: "navbar-brand text-white mx-2" do %>
       <i class="bi bi-qr-code-scan fs-3"></i>
-    </a>
+    <% end %>
   </div>
 </nav>
 
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="notification-inbox-container" aria-labelledby="notification-inbox-containerLabel">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="notification-inbox-containerLabel">Notifications</h5>
+    <h5 class="offcanvas-title" id="notification-inbox-containerLabel"><%= t("navbar.notifications.headline") %></h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
-    <%= render(NotificationInboxComponent.new(current_user)) %>
+    <%= render "layouts/notification_inbox" %>
   </div>
 </div>
+
+
