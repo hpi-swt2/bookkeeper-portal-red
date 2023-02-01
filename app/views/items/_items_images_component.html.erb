@@ -10,6 +10,7 @@
   <% height= '' %>
 <% end %>
 
+ 
  <% if @item.images.attached? %>
                 <% carousel_id="carouselExampleIndicators-#{@item.id}#{width}-#{height}"%>
                 <div id="<%= carousel_id %>" class="carousel slide" data-bs-ride="true">
@@ -17,7 +18,7 @@
                    <% @item.images.each_with_index do |image, index| %>
       
                     
-                      <% if image.representable? %>
+                      <% if image.representable? && image.image? == true %>
                           <button type="button" data-bs-target="#<%= carousel_id %>" data-bs-slide-to="<%= index %>" class="<%= 'active' if index == 0 %>" aria-current="<%= 'true' if index == 0 %>" aria-label="Slide <%= index %>"></button>
 
                         <% end %>
@@ -26,12 +27,15 @@
                   </div>
                   <div class="carousel-inner">
                    <% @item.images.each_with_index do |image, index| %>
+                    <% if image.representable? && image.image? %>
+
                     <div class="carousel-item <%= 'active' if index == 0 %>">
-      
+
+                     
                     
-                      <% if image.representable? %>
                         <%= image_tag image, class: "img-fluid", style: image_style %>
-                    
+                         <%= image.image? %>
+
 
                         <% if defined?(showImageManager) && showImageManager %>
                         <div class="carousel-caption d-none d-md-block">
@@ -40,9 +44,10 @@
                         </div>
                         <% end %>
 
-                        <% end %>
                 
                     </div>
+                      <% end %>
+
                     <% end %>
                   </div>
                   <button class="carousel-control-prev" type="button" data-bs-target="#<%= carousel_id %>" data-bs-slide="prev">
