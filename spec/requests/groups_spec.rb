@@ -62,6 +62,9 @@ RSpec.describe "/groups", type: :request do
       # currently to all groups, because show is not available
       it "redirects to the created group" do
         post groups_url, params: { group: valid_attributes }
+        #test_group = Group.find {|g| g.name = valid_attributes[:name] }
+
+
         expect(response).to redirect_to(groups_url)
       end
     end

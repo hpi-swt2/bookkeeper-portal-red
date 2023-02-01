@@ -24,7 +24,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       if @group.save
         Membership.create(user: current_user, group: @group, role: :admin)
-        respond_with_notice_and_status(format, redirect: groups_url, notice: t(:group_new),
+        respond_with_notice_and_status(format, redirect: edit_group_url(@group), notice: t(:group_new),
                                                status: :created)
       else
         unprocessable_response(format, redirect: :index, entity: @group)
