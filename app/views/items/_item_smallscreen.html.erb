@@ -1,7 +1,8 @@
 <%# The main show page for small screens %>
 <div class="small-screen">
   <%# Image slider%>
-  <%= image_tag "dummy_image.png", class: "card-img-top"%>
+           <%= render 'items_images_component', showImageManager: current_user.can_manage?(@item) %>
+
   <hr class="border border-primary border-2 opacity-75"/>
  
   <div class="container">

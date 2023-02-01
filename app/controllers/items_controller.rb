@@ -54,6 +54,28 @@ class ItemsController < ApplicationController
     end
   end
 
+  def remove_image
+    @item = Item.find(params[:id])
+    if current_user.can_manage?(@item)
+
+      @image = @item.images.find { |image| image.signed_id == params[:signed_id] }
+      if @image
+        @image.purge
+        return redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_destroyed_image")
+      end
+    end
+    redirect_to item_url(@item), notice: I18n.t("items.messages.not_allowed_to_edit")
+  end
+
+  def add_image
+    @item = Item.find(params[:id])
+    if current_user.can_manage?(@item)
+      @item.images.attach(params[:images])
+      return redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_added_image")
+    end
+    redirect_to item_url(@item), notice: I18n.t("items.messages.not_allowed_to_edit")
+  end
+
   # GET /items/new
   def new
     @item = Item.new(item_type: params[:item_type])
@@ -106,6 +128,7 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params(params[:item_type]))
     @item.item_type = params[:item_type]
+
     item_saved = @item.save
     create_permission
 
@@ -315,17 +338,18 @@ class ItemsController < ApplicationController
     when "book"
       params.require(:item).permit(:item_type, :name, :isbn, :author, :release_date, :genre, :language,
                                    :number_of_pages, :publisher, :edition, :description, :max_borrowing_days,
-                                   :max_reservation_days)
+                                   :max_reservation_days, images: [])
     when "movie"
       params.require(:item).permit(:item_type, :name, :director, :release_date, :format, :genre, :language, :fsk,
-                                   :description, :max_borrowing_days, :max_reservation_days)
+                                   :description, :max_borrowing_days, :max_reservation_days, images: [])
     when "game"
       params.require(:item).permit(:item_type, :name, :author, :illustrator, :publisher, :fsk, :number_of_players,
-                                   :playing_time, :language, :description, :max_borrowing_days, :max_reservation_days)
+                                   :playing_time, :language, :description, :max_borrowing_days,
+                                   :max_reservation_days, images: [])
     else
       item_type.eql?("other")
       params.require(:item).permit(:item_type, :name, :category, :description, :max_borrowing_days,
-                                   :max_reservation_days)
+                                   :max_reservation_days, images: [])
     end
   end
 
