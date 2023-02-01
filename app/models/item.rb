@@ -175,7 +175,7 @@ class Item < ApplicationRecord
   end
 
   def lending_history
-    Lending.where(item_id: id).order(:created_at)
+    Lending.where(item_id: id).order('created_at DESC')
   end
 end
 # rubocop:enable Metrics/ClassLength
