@@ -160,3 +160,4 @@ en:
       borrower: "Borrowed by"
       date_borrowed: "Date borrowed"
       date_returned: "Date returned"
+      item_category: "Category"
