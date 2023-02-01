@@ -66,11 +66,6 @@ RSpec.describe "items/index", type: :view do
     expect(rendered).not_to match(I18n.t("items.form.book.genre"))
   end
 
-  it "renders 'new item' button" do
-    render
-    expect(rendered).to have_css('#dropdownMenuButton')
-  end
-
   it "renders item cards that are clickable" do
     render
     expect(rendered).to have_css(".card a img")

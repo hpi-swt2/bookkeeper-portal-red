@@ -86,6 +86,7 @@ en:
       new: "New"
       permissions:
         title: "Permissions"
+        tooltip: "can manage: members of this group can manage, borrow and view <br/><br/>can borrow: members of this group can borrow and view <br/><br/>can view: members of this group can view"
         duplicate_entries: "Only one permission per group is allowed!"
         add: "Add"
         remove: "Remove"
@@ -96,7 +97,9 @@ en:
         name: "Name"
         description: "Description"
         max_borrowing_days: "Borrowing Period"
+        max_borrowing_days_tooltip: "The borrowing period defines how long an Item can be borrowed. The borrower gets notified 3 days before this time period ends."
         max_reservation_days: "Reservation Period"
+        max_reservation_days_tooltip: "The reservation period defines how long this item can be reserved. After this time period the person gets removed from the waiting list."
       other:
         category: "Category"
       book:
@@ -143,7 +146,11 @@ en:
   analytics:
     headline: "My Analytics"
     history:
+      empty: "The history is empty"
       headline: "History"
       not_returned: "not returned yet"
       desc_borrowed_by_other: "Items other users have borrowed from you"
       desc_borrowed_by_me: "Items you've borrowed from other users"
+      borrower: "Borrowed by"
+      date_borrowed: "Date borrowed"
+      date_returned: "Date returned"
