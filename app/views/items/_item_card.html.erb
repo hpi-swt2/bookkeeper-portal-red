@@ -3,7 +3,8 @@
         <%= render(ItemAvailabilityBadgeComponent.new(item: item, user: current_user)) %>
     </div>
     <a class="text-black text-decoration-none" href=<%=item_path(item)%>>
-        <img class="card-img-top" src="https://via.placeholder.com/400x300" alt="Card image cap">
+       <% @item=item %>
+        <%= render 'items/items_images_component', height: "228px", width: "304px" %>
     </a>
     <div class="card-body p-0 d-flex flex-column justify-content-between">
         <a class="text-black text-decoration-none" href=<%=item_path(item)%> style="min-height: 10em;">

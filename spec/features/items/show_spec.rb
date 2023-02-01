@@ -158,6 +158,31 @@ describe "show item page", type: :feature do
     expect(page).to have_text(:visible, I18n.t("items.buttons.return"))
   end
 
+  it "renders a lending history if the user is part of a managing group" do
+    group = FactoryBot.create(:group, name: "My Group")
+    Membership.create(user: @user, group: group, role: :member) # add user to group
+    FactoryBot.create(:permission, group: group, item: @item, permission_type: :can_manage) # give group managing rights
+
+    FactoryBot.create(:lending, item: @item, user: @user, started_at: Time.zone.now, completed_at: nil) # start lending
+
+    sign_in @user
+    visit item_path(@item)
+    expect(page.find('div.table-responsive > table > tbody > tr:nth-child(1) > th')).to have_text(:visible,
+                                                                                                  @user.full_name)
+  end
+
+  it "does not render a lending history if the user is part of a group that cannot manage the item" do
+    group = FactoryBot.create(:group, name: "My Group")
+    Membership.create(user: @user, group: group, role: :member) # add user to group
+    FactoryBot.create(:permission, group: group, item: @item, permission_type: :can_borrow) # give group borrow rights
+
+    FactoryBot.create(:lending, item: @item, user: @user, started_at: Time.zone.now, completed_at: nil) # start lending
+
+    sign_in @user
+    visit item_path(@item)
+    expect(page).not_to have_css(('div.table-responsive > table > tbody > tr:nth-child(1) > th'))
+  end
+
   context "with user that only has visibilty rights" do
     before do
       group2 = FactoryBot.create(:group)
