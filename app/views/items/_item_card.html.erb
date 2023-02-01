@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="w-100 d-flex justify-content-end p-2" style="position: absolute; left: 0px; top: 0px;">
+    <div class="w-100 d-flex justify-content-end p-2" style="position: absolute; left: 0px; top: 0px; z-index: 1">
         <%= render(ItemAvailabilityBadgeComponent.new(item: item, user: current_user)) %>
     </div>
     <a class="text-black text-decoration-none" href=<%=item_path(item)%>>
