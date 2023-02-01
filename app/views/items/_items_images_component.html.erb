@@ -39,8 +39,8 @@
 
                         <% if defined?(showImageManager) && showImageManager %>
                         <div class="carousel-caption d-none d-md-block">
-                             <%= link_to I18n.t("items.buttons.destroy_image"), remove_image_item_path(signed_id: image.signed_id, id: @item.id),
-                                data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %>
+                             <%= button_to I18n.t("items.buttons.destroy_image"), remove_image_item_path(signed_id: image.signed_id, id: @item.id),
+                                data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class: 'btn btn-primary' %>
                         </div>
                         <% end %>
 
