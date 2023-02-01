@@ -26,6 +26,7 @@
                 id: Number,
                 type: String,
                 message: String,
+                message_en: String,
                 sent: String
             }
         },
@@ -63,13 +64,17 @@
                 if (this.collapsed) {
                     return this.shortMessage + (this.expandable ? "..." : "");
                 }
-                return this.notification.message;
+                return this.localeMessage;
             },
             shortMessage() {
-                return this.notification.message.slice(0, MSG_CUTOFF);
+                return this.localeMessage.slice(0, MSG_CUTOFF);
+            },
+            localeMessage() {
+                const params = new URLSearchParams(window.location.search);
+                return params.get("locale") === "de" ? this.notification.message : this.notification.message_en;
             },
             expandable() {
-                return this.shortMessage !== this.notification.message;
+                return this.shortMessage !== this.localeMessage;
             },
             type() {
                 return "Reminder";
