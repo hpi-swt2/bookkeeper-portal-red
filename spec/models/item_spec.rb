@@ -233,6 +233,12 @@ RSpec.describe Item, type: :model do
     expect(item).not_to be_valid
   end
 
+  it "has a lending history" do
+    expect(item.lending_history.count).to eq(0)
+    FactoryBot.create(:lending, item: item, user: user, started_at: Time.zone.now, completed_at: nil)
+    expect(item.lending_history.count).to eq(1)
+  end
+
   describe 'overdue_for?' do
     it 'returns true if overdue' do
       FactoryBot.create(:lending, item: item, user: user, due_at: Time.zone.now.yesterday, completed_at: nil)
