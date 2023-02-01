@@ -6,8 +6,15 @@
   <% else %>
     <% image_style="" %>
 <% end %>
+<% if !defined?(width) %>
+  <% width='' %>
+<% end %>
+<% if !defined?(height) %>
+  <% height= '' %>
+<% end %>
+
  <% if @item.images.attached? %>
-                <% carousel_id="carouselExampleIndicators-#{@item.id}"%>
+                <% carousel_id="carouselExampleIndicators-#{@item.id}#{width}-#{height}"%>
                 <div id="<%= carousel_id %>" class="carousel slide" data-bs-ride="true">
                   <div class="carousel-indicators">
                    <% @item.images.each_with_index do |image, index| %>

@@ -1,7 +1,7 @@
 <%# The main show page for small screens %>
 <div class="small-screen">
   <%# Image slider%>
-           <%= render 'items_images_component' %>
+           <%= render 'items_images_component', showImageManager: current_user.can_manage?(@item) %>
 
   <hr class="border border-primary border-2 opacity-75"/>
  
