@@ -3,8 +3,14 @@
         <%= render(ItemAvailabilityBadgeComponent.new(item: item, user: current_user)) %>
     </div>
     <a class="text-black text-decoration-none" href=<%=item_path(item)%>>
-       <% @item=item %>
-        <%= render 'items/items_images_component', height: "228px", width: "304px" %>
+        <% @item=item %>
+        <% has_any_images_attached = @item.images.attached? && @item.images.map {| file | file.representable? && file.image?}.reduce(:|) %>
+        <% if has_any_images_attached %>
+            <% image = @item.images.first() %>
+            <%= image_tag image, class: "img-fluid", style:"width: 100%; aspect-ratio: 4 / 3;" %>
+        <% else %>
+            <%= image_tag "https://via.placeholder.com/400x300", class: "card-img-top", style:"width: 100%; aspect-ratio: 4 / 3;" %>
+        <% end %>
     </a>
     <div class="card-body p-0 d-flex flex-column justify-content-between">
         <a class="text-black text-decoration-none" href=<%=item_path(item)%> style="min-height: 10em;">
