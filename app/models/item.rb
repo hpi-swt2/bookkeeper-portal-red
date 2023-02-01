@@ -173,5 +173,9 @@ class Item < ApplicationRecord
 
     I18n.t("items.status_badge.not_available")
   end
+
+  def lending_history
+    Lending.where(item_id: id).order('created_at DESC')
+  end
 end
 # rubocop:enable Metrics/ClassLength
