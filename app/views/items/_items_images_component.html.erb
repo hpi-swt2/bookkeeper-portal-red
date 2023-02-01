@@ -34,9 +34,6 @@
                      
                     
                         <%= image_tag image, class: "img-fluid", style: image_style %>
-                         <%= image.image? %>
-
-
                         <% if defined?(showImageManager) && showImageManager %>
                         <div class="carousel-caption d-none d-md-block">
                              <%= button_to I18n.t("items.buttons.destroy_image"), remove_image_item_path(signed_id: image.signed_id, id: @item.id),
