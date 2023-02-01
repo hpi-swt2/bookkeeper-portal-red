@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     post :leave
     patch :add_user, to: "memberships#add_user"
     patch :remove_user, to: "memberships#remove_user"
+    collection do
+      get '/all', to: 'groups#all'
+    end
   end
 
   resources :items do
@@ -57,7 +60,6 @@ Rails.application.routes.draw do
 
   delete "/notifications/:id", to: "notifications#destroy"
 
-  get '/groups/all', to: 'groups#all'
   get "/notifications/", to: "notifications#all"
 
 end
