@@ -10,9 +10,9 @@
 <%= stylesheet_link_tag "item-show.css" %>
 <div id="<%= dom_id @item %>">
   <script>
-    function getLocation() {
+    function getLocation(lat, lng) {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(saveUserPositionInHiddenForm, (error) => {
+        navigator.geolocation.getCurrentPosition((position) => {saveUserPositionInHiddenForm(position, lat, lng)}, (error) => {
           console.log(error);
         });
       } else {
@@ -20,13 +20,50 @@
       }
     }
 
-    function saveUserPositionInHiddenForm(position) {
-      document.getElementById("lat").value = position.coords.latitude;
-      document.getElementById("lng").value = position.coords.longitude;
+    function saveUserPositionInHiddenForm(position, lat, lng) {
+      document.getElementById(lat).value = position.coords.latitude;
+      document.getElementById(lng).value = position.coords.longitude;
     }
   </script>
   <%= render "item_largescreen" %>
   <%= render "item_smallscreen" %>
+
+  <%# lending history of this item %>
+  <% if current_user.can_manage?(@item) %>
+    <h2 class="mt-5"><%= t('analytics.history.headline') %></h2>
+    <% if @item.lending_history.length <= 0 %>
+      <div class="d-flex justify-content-center">
+        <h4><%= t('analytics.history.empty') %></h4>
+      </div>
+    <% else %>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead style="background-color: var(--bs-gray-300)">
+          <tr>
+            <th scope="col"><%= t("analytics.history.borrower")%></th>
+            <th scope="col"><%= t("analytics.history.date_borrowed")%></th>
+            <th scope="col"><%= t("analytics.history.date_returned")%></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @item.lending_history.each do |lending| %>
+            <tr>
+              <th scope="row"><%=lending.user.full_name%></th>
+              <td><%= lending.started_at.strftime("%d-%m-%Y") %></td>
+              <td><%=
+                if (lending.completed_at)
+                  lending.completed_at.strftime("%d-%m-%Y")
+                else
+                  t('analytics.history.not_returned')
+                end
+              %></td>
+            </tr>
+            <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+  <% end %>
 </div>
 
 

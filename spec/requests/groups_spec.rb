@@ -116,9 +116,23 @@ RSpec.describe "/groups", type: :request do
       end.to change(Group, :count).by(-1)
     end
 
+    it "does not destroy a personal group" do
+      group.personal_group!
+      expect do
+        delete group_url(group)
+      end.not_to change(Group, :count)
+    end
+
     it "redirects to the groups list" do
       delete group_url(group)
       expect(response).to redirect_to(groups_url)
+    end
+  end
+
+  describe "POST /groups/:id/leave" do
+    it "does not allow you to leave personal group" do
+      post group_leave_url(membership.user.personal_group)
+      expect(response).to have_http_status(:unprocessable_entity)
     end
   end
 end

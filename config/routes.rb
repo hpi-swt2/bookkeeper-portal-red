@@ -3,9 +3,12 @@ Rails.application.routes.draw do
   get '/items/:id/permissions', to: 'items#permissions'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  resources :groups, except: [:show, :new] do
+  resources :groups, except: [ :new ] do
     post :leave
+    patch :add_user, to: "memberships#add_user"
+    patch :remove_user, to: "memberships#remove_user"
   end
+
   resources :items do
     patch :reserve
     patch :borrow
@@ -18,6 +21,11 @@ Rails.application.routes.draw do
       get "/my/borrowed", to: "items#mine_borrowed", as: :mine_borrowed
       get "/borrowed", to: "items#borrowed_by_me", as: :borrowed_by_me
       get :export_csv
+    end
+    member do
+      delete 'remove_image/:signed_id', to: 'items#remove_image', as: 'remove_image'
+      post 'add_image', to: 'items#add_image', as: 'add_image'
+      delete :delete_image_attachment
     end
   end
 
@@ -41,6 +49,8 @@ Rails.application.routes.draw do
 
   # Analytics routes
   get '/analytics', to: 'analytics#show', as: :analytics
+  get '/analytics/history/me', to: 'analytics#borrowed_by_me', as: :analytics_history_borrowed_by_me
+  get '/analytics/history/other', to: 'analytics#borrowed_from_me', as: :analytics_history_borrowed_from_me
 
   # Development-only user switching code
   if Rails.env.development?

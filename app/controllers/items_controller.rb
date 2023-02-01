@@ -8,8 +8,7 @@ class ItemsController < ApplicationController
 
   # GET /items or /items.json
   def index
-    @q = Item.ransack(params[:q])
-    @items = @q.result(distinct: true)
+    @items = apply_sort_and_filter(Item.all)
   end
 
   # GET /items/1 or /items/1.json
@@ -55,6 +54,28 @@ class ItemsController < ApplicationController
     end
   end
 
+  def remove_image
+    @item = Item.find(params[:id])
+    if current_user.can_manage?(@item)
+
+      @image = @item.images.find { |image| image.signed_id == params[:signed_id] }
+      if @image
+        @image.purge
+        return redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_destroyed_image")
+      end
+    end
+    redirect_to item_url(@item), notice: I18n.t("items.messages.not_allowed_to_edit")
+  end
+
+  def add_image
+    @item = Item.find(params[:id])
+    if current_user.can_manage?(@item)
+      @item.images.attach(params[:images])
+      return redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_added_image")
+    end
+    redirect_to item_url(@item), notice: I18n.t("items.messages.not_allowed_to_edit")
+  end
+
   # GET /items/new
   def new
     @item = Item.new(item_type: params[:item_type])
@@ -74,7 +95,8 @@ class ItemsController < ApplicationController
   # GET /items/borrowed
   # lists all items borrowed by the current user
   def borrowed_by_me
-    @items = current_user.lendings.where(completed_at: nil).map(&:item)
+    items = current_user.lendings.where(completed_at: nil).map(&:item)
+    @items = apply_sort_and_filter(items)
     render :borrowed_items
   end
 
@@ -82,21 +104,22 @@ class ItemsController < ApplicationController
   # lists all items of the current user which are currently borrowed
   def mine_borrowed
     # return items which are currently not lendable
-    @items = current_user.items.filter(&:borrowed?)
+    items = current_user.items.filter(&:borrowed?)
+    @items = apply_sort_and_filter(items)
     render :borrowed_items
   end
 
   # GET /items/my
   # lists all items of the current user
   def my_items
-    @items = current_user.items
+    items = current_user.items
+    @items = apply_sort_and_filter(items)
   end
 
   # GET /items/export_csv
   # export current items to csv
   def export_csv
-    @q = Item.ransack(params[:q])
-    @items = @q.result(distinct: true)
+    @items = apply_sort_and_filter(Item.all)
     send_data CsvExport.to_csv(@items), filename: "items.csv"
   end
 
@@ -105,6 +128,7 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params(params[:item_type]))
     @item.item_type = params[:item_type]
+
     item_saved = @item.save
     create_permission
     create_personal_group_permission
@@ -123,9 +147,7 @@ class ItemsController < ApplicationController
   # PATCH
   def borrow
     @user = current_user
-    @item.lat = params[:lat]
-    @item.lng = params[:lng]
-    @item.save
+    put_item_location(params)
     if @item.borrowable_by?(@user)
       create_lending
       msg = I18n.t("items.messages.successfully_borrowed")
@@ -149,9 +171,7 @@ class ItemsController < ApplicationController
   # PATCH
   def give_back
     @user = current_user
-    @item.lat = params[:lat]
-    @item.lng = params[:lng]
-    @item.save
+    put_item_location(params)
 
     if @item.borrowed_by?(@user)
       @lending = Lending.where(item_id: @item.id, user_id: @user.id, completed_at: nil).first
@@ -175,6 +195,17 @@ class ItemsController < ApplicationController
         format.json { render json: @lending.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def put_item_location(params)
+    if params[:lat_s].present? && params[:lng_s].present?
+      @item.lat = params[:lat_s]
+      @item.lng = params[:lng_s]
+    else
+      @item.lat = params[:lat_l]
+      @item.lng = params[:lng_l]
+    end
+    @item.save
   end
 
   # PATCH
@@ -292,6 +323,15 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:item_id])
   end
 
+  def apply_sort_and_filter(items)
+    # ransack only works on ActiveRecord::Relation, not on arrays.
+    # Sometimes items is a relation, sometimes an array, so we have to
+    # ensure it's converted to a relation
+    items_relation = Item.where(id: items.map(&:id))
+    @q = items_relation.ransack(params[:q])
+    @q.result(distinct: true)
+  end
+
   # Only allow a list of trusted parameters through.
   # rubocop:disable Metrics/MethodLength
   def item_params(item_type)
@@ -299,17 +339,18 @@ class ItemsController < ApplicationController
     when "book"
       params.require(:item).permit(:item_type, :name, :isbn, :author, :release_date, :genre, :language,
                                    :number_of_pages, :publisher, :edition, :description, :max_borrowing_days,
-                                   :max_reservation_days)
+                                   :max_reservation_days, images: [])
     when "movie"
       params.require(:item).permit(:item_type, :name, :director, :release_date, :format, :genre, :language, :fsk,
-                                   :description, :max_borrowing_days, :max_reservation_days)
+                                   :description, :max_borrowing_days, :max_reservation_days, images: [])
     when "game"
       params.require(:item).permit(:item_type, :name, :author, :illustrator, :publisher, :fsk, :number_of_players,
-                                   :playing_time, :language, :description, :max_borrowing_days, :max_reservation_days)
+                                   :playing_time, :language, :description, :max_borrowing_days,
+                                   :max_reservation_days, images: [])
     else
       item_type.eql?("other")
       params.require(:item).permit(:item_type, :name, :category, :description, :max_borrowing_days,
-                                   :max_reservation_days)
+                                   :max_reservation_days, images: [])
     end
   end
 
@@ -318,7 +359,7 @@ class ItemsController < ApplicationController
   def create_lending
     @lending = Lending.new
     @lending.started_at = Time.current
-    @lending.due_at = @lending.started_at.next_day(@max_borrowing_days)
+    @lending.due_at = @lending.started_at.next_day(@item.max_borrowing_days)
     @lending.user = @user
     @lending.item = @item
     @lending.completed_at = nil

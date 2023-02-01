@@ -3,7 +3,8 @@
 class Item < ApplicationRecord
   include ExportPdf
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { minimum: 1, maximum: 100 }
+  validates :description, allow_blank: true, length: { minimum: 1, maximum: 1500 }
   validates :max_reservation_days, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 365 }
   validates :max_borrowing_days, numericality: { greater_than_or_equal_to: 0 }
 
@@ -53,6 +54,7 @@ class Item < ApplicationRecord
     source: :group
   )
 
+  has_many_attached :images
   # items can be of different types. This function returns which attributes
   # are relevant for this item depending on it's type
   def self.attributes(item_type)
@@ -87,6 +89,12 @@ class Item < ApplicationRecord
 
   def borrowed?
     Lending.exists?(item_id: id, completed_at: nil)
+  end
+
+  def overdue_for?(user)
+    return false unless borrowed_by?(user)
+
+    Lending.where(item_id: id).where(completed_at: nil).first.due_at < Time.current
   end
 
   def current_reservation
@@ -161,9 +169,14 @@ class Item < ApplicationRecord
     return I18n.t("items.status_badge.no_access") unless user.can_borrow?(self)
     return I18n.t("items.status_badge.reserved_by_me") if reserved_by?(user)
     return I18n.t("items.status_badge.available") if borrowable_by?(user)
+    return I18n.t("items.status_badge.overdue") if overdue_for?(user)
     return I18n.t("items.status_badge.borrowed_by_me") if borrowed_by?(user)
 
     I18n.t("items.status_badge.not_available")
+  end
+
+  def lending_history
+    Lending.where(item_id: id).order('created_at DESC')
   end
 end
 # rubocop:enable Metrics/ClassLength
