@@ -54,6 +54,7 @@ class Item < ApplicationRecord
     source: :group
   )
 
+  has_many_attached :images
   # items can be of different types. This function returns which attributes
   # are relevant for this item depending on it's type
   def self.attributes(item_type)
@@ -172,6 +173,10 @@ class Item < ApplicationRecord
     return I18n.t("items.status_badge.borrowed_by_me") if borrowed_by?(user)
 
     I18n.t("items.status_badge.not_available")
+  end
+
+  def lending_history
+    Lending.where(item_id: id).order('created_at DESC')
   end
 end
 # rubocop:enable Metrics/ClassLength

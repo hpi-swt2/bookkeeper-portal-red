@@ -6,7 +6,7 @@
       <div class="col-xl-6 p-3">
         <div class="card h-100">
           <%# Image slider%>
-          <%= image_tag "dummy_image.png", class: "card-img-top"%>
+         <%= render 'items_images_component', width: "640px", height: "400px", showImageManager: current_user.can_manage?(@item) %>
           <div class="card-body ">
             <%# Attributes if small enough arranged as grid%>
             <div class="imagecard-attributes">
@@ -88,6 +88,7 @@
               </div>
               <%= render(ItemAvailabilityBadgeComponent.new(item: @item, user: current_user)) %>
             </div>
+
 
             <hr class="border border-primary border-2 opacity-75">
             <%# Description%>

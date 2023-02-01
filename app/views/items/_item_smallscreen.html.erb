@@ -1,7 +1,8 @@
 <%# The main show page for small screens %>
 <div class="small-screen">
   <%# Image slider%>
-  <%= image_tag "dummy_image.png", class: "card-img-top"%>
+           <%= render 'items_images_component', showImageManager: current_user.can_manage?(@item) %>
+
   <hr class="border border-primary border-2 opacity-75"/>
  
   <div class="container">
@@ -100,8 +101,6 @@
     <% end %>
     </tbody>
   </table>
-  <div class="button-blocker">
-  </div>
 
   <div style="position: relative; z-index: 9999">
     <% if @item.reservable_by?(current_user) && !@src_is_qrcode %>
