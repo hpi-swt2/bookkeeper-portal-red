@@ -77,12 +77,26 @@
           </ul>
         </li>
 
+        <% if user_signed_in? %>
+          <li class="nav-item mobile-only">
+            <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link logout-button" do %>
+              <i class="bi bi-box-arrow-left"></i>
+              <%= t("navbar.sign_out") %>
+            <% end %>
+          </li>
+        <% end %>
+
       </ul>
       <%= render "items/search_form" %>
       <span>
         <a href="#" class="desktop-only text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#notification-inbox-container"
            aria-controls="notification-inbox-container" id="notification-inbox-button"><i class="bi bi-bell-fill fs-3"></i></a>
         <a href="<%= profiles_me_path %>" class="desktop-only text-white"><i class="bi bi-person-fill fs-3"></i></a>
+        <% if user_signed_in? %>
+          <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "desktop-only text-white logout-button" do %>
+            <i class="bi bi-box-arrow-left fs-3"></i>
+          <% end %>
+        <% end %>
       </span>
     </div>
     <%= link_to scan_path, class: "navbar-brand text-white mx-2" do %>

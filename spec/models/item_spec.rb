@@ -233,4 +233,24 @@ RSpec.describe Item, type: :model do
     expect(item).not_to be_valid
   end
 
+  describe 'overdue_for?' do
+    it 'returns true if overdue' do
+      FactoryBot.create(:lending, item: item, user: user, due_at: Time.zone.now.yesterday, completed_at: nil)
+      expect(item.overdue_for?(user)).to be true
+    end
+
+    it 'returns false if not overdue' do
+      FactoryBot.create(:lending, item: item, user: user, due_at: Time.zone.now.tomorrow, completed_at: nil)
+      expect(item.overdue_for?(user)).to be false
+    end
+
+    it 'returns false if not borrowed' do
+      expect(item.overdue_for?(user)).to be false
+    end
+
+    it 'returns false if completed' do
+      FactoryBot.create(:lending, item: item, user: user, due_at: Time.zone.now.yesterday, completed_at: Time.zone.now)
+      expect(item.overdue_for?(user)).to be false
+    end
+  end
 end

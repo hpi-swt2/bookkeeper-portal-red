@@ -10,6 +10,7 @@ en:
       showMore: "Show more"
       showLess: "Show less"
     profile: "My Profile"
+    sign_out: "Log out"
     home: "Home"
     search: "Search"
   scan_qrcode: "Scan a QR-Code"
@@ -40,6 +41,7 @@ en:
       deletion_confirmation: "Do you really want to delete the item?"
       range_error: "must be a valid number or number range, e.g. 69-420"
     headlines:
+      items: "Items"
       my_items: "My Items"
       item_details: "Item Details"
       no_description_provided: "No description provided"
@@ -65,6 +67,7 @@ en:
       borrowed_by_me: "Borrowed by me"
       reserved_by_me: "Reserved by me"
       no_access: "No access"
+      overdue: "Overdue"
     card_text:
       owner: from
     type:
@@ -75,6 +78,9 @@ en:
       new_book: "New Book"
       new_movie: "New Movie"
       new_game: "New Game"
+    units:
+      one_day: "day"
+      multiple_days: "days"
     form:
       edit: "Edit"
       new: "New"
@@ -127,9 +133,17 @@ en:
       missing_borrowing_permissions:
         heading: "Why can't I borrow this item?"
         body: "You are not part of a group that is allowed to borrow this item."
+      overdue:
+        heading: "Why is this item overdue?"
+        body: "The borrowing period has expired. Please return this item as soon as possible."
   profile:
     description_header: "Description"
     phone_number: "Phone number"
     phone_number_warning: "Phone number only allows numbers, + and -"
   analytics:
     headline: "My Analytics"
+    history:
+      headline: "History"
+      not_returned: "not returned yet"
+      desc_borrowed_by_other: "Items other users have borrowed from you"
+      desc_borrowed_by_me: "Items you've borrowed from other users"

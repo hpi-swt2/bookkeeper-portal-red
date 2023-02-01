@@ -1,6 +1,7 @@
 de:
   cancel: "Abbrechen"
   save: "Speichern"
+  contact_group: "Kontakt"
   confirmation: "Sind Sie sicher?"
 
   my_groups: "Meine Gruppen"
@@ -28,6 +29,7 @@ de:
 
   login_first: "Sie müssen sich erst anmelden"
   only_admins: "Nur Administratoren dürfen diese Gruppe bearbeiten"
+  group_not_viewable: "Diese Gruppe kann nicht angezeigt werden"
 
   group_new: "Die Gruppe wurde erfolgreich erstellt"
   group_update: "Die Gruppe wurde erfolgreich aktualisiert"

@@ -2,6 +2,7 @@ en:
   cancel: "Cancel"
   save: "Save"
   confirmation: "Are you sure?"
+  contact_group: "Contact"
 
   my_groups: "My groups"
   all_groups: "All groups"
@@ -28,6 +29,7 @@ en:
 
   login_first: "You have to log in first"
   only_admins: "Only admins are allowed to edit this group"
+  group_not_viewable: "This group cannot be shown"
 
   group_new: "Group has been created successfully"
   group_update: "Group has been updated successfully"
