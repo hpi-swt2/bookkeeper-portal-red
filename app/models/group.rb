@@ -45,6 +45,10 @@ class Group < ApplicationRecord
                  { item_id: item_id, permission_type: "2" }]
   end
 
+  def admins
+    memberships.where(role: "admin").map(&:user)
+  end
+
   def validate_destroy
     # personal group can only be destroyed if its user is destroyed first
     if personal_group? && !destroyed_by_association

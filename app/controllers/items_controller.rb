@@ -190,6 +190,7 @@ class ItemsController < ApplicationController
     item_reservable_by_user = @item.reservable_by?(@user)
     if item_reservable_by_user
       @reservation = @item.create_reservation(@user)
+      inform_owners(@item, @user)
       msg = I18n.t("items.messages.successfully_reserved")
     else
       msg = I18n.t("items.messages.unsuccessfully_reserved")
@@ -366,6 +367,22 @@ class ItemsController < ApplicationController
   def create_reservation
     @reservation = Reservation.new(item_id: @item.id, user_id: @user.id, starts_at: Time.current,
                                    ends_at: Time.current + @item.max_reservation_days.days)
+  end
+
+  def inform_owners(item, user)
+    item_url = Rails.application.routes.url_helpers.item_url(@item, host: request.host)
+    message_de = "Als Eigentümer des Artikels #{item.name} möchten wir Sie darüber informieren, dass " \
+                 "#{user.full_name} ebendiesen Artikel reserviert hat. \n" \
+                 "Sie können die Reservierung unter #{item_url} verwalten."
+    message_en = "As owner of the item #{item.name} we would like to inform you that " \
+                 "#{user.full_name} has reserved this item. \n" \
+                 "You can manage the reservation under #{item_url}."
+
+    item.manager_groups.each do |group|
+      group.admins.each do |admin|
+        NotificationMailer.send_info(admin, message_de, message_en).deliver_later
+      end
+    end
   end
 end
 
