@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get "items/:id/download", to: 'items#download', as: :download
   get '/items/:id/permissions', to: 'items#permissions'
+  get 'groups/all', to: 'groups#all'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :groups, except: [ :new ] do
@@ -55,9 +56,8 @@ Rails.application.routes.draw do
   # QR-Code Scan site
   get '/scan', to: 'qr_reader#scan'
 
+  # Notifications
   delete "/notifications/:id", to: "notifications#destroy"
-
-  get '/groups/all', to: 'groups#all'
   get "/notifications/", to: "notifications#all"
 
 end

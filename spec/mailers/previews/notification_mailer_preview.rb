@@ -8,9 +8,10 @@ class NotificationMailerPreview < ActionMailer::Preview
   def send_reminder
     user = FactoryBot.build(:user)
     user.id = 1
-    NotificationMailer.send_reminder(user, "Dies könnte deine Test Nachricht sein","This could be your test message!")
+    NotificationMailer.send_reminder(user, "Dies könnte deine Test Nachricht sein", "This could be your test message!")
   end
 
+  # rubocop:disable Metrics/MethodLength
   def inform_owners
     user = FactoryBot.build(:user)
     item = FactoryBot.build(:item)
@@ -25,4 +26,5 @@ class NotificationMailerPreview < ActionMailer::Preview
 
     NotificationMailer.send_info(user, message_de, message_en)
   end
+  # rubocop:enable Metrics/MethodLength
 end
