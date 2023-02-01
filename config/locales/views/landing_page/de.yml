@@ -158,3 +158,4 @@ de:
       borrower: "Ausgeliehen von"
       date_borrowed: "Ausgeliehen am"
       date_returned: "Zurückgegeben am"
+      item_category: "Kategorie"
