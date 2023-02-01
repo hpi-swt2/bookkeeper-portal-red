@@ -54,6 +54,7 @@ en:
       update: "Update item"
       show: "Show item"
       destroy_image: "Remove image"
+      upload_image: "Upload image"
       edit: "Edit item"
       delete: "Delete item"
       edit: "Edit"

@@ -39,7 +39,7 @@
                         <% if defined?(showImageManager) && showImageManager %>
                         <div class="carousel-caption d-none d-md-block">
                              <%= link_to I18n.t("items.buttons.destroy_image"), remove_image_item_path(signed_id: image.signed_id, id: @item.id),
-                                data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class: 'btn btn-primary' %>
+                                data: {turbo_method: :delete}, class: 'btn btn-primary' %>
                         </div>
                           <% image_index += 1%>
 
@@ -70,12 +70,16 @@
             
 
                <% if defined?(showImageManager) && showImageManager %>
+                <div class="card-body">
                 <%= form_with(url: add_image_item_url(id: @item.id)) do |form| %>
-                    <div class="mb-2">
-                        <%= form.file_field :images, multiple: true, accept: 'image/jpg, image/png, image/jpeg', id: "addImagesInput" %>
+                
+                    <div class="mb-3">
+
+                        <%= form.file_field :images, multiple: true, accept: 'image/jpg, image/png, image/jpeg', id: "addImagesInput", class: "form-control", required: true %>
                     </div>
                     <div class="mt-3">
-                      <%= form.button :submit, class: "btn btn-primary" %>
+                      <%= form.button  I18n.t('items.buttons.upload_image'), class: "btn btn-primary" %>
                     </div>
                 <% end %>
+                </div>
                           <% end %>

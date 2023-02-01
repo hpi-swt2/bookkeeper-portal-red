@@ -50,6 +50,7 @@ de:
       last_seen_at: "Letzter bekannter Standort:"
       borrowed_items: "Ausgeliehene Items"
     buttons:
+      upload_image: "Bild hochladen"
       destroy_image: "Bild löschen"
       new: "Item erstellen"
       update: "Item aktualisieren"
