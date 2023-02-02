@@ -169,6 +169,7 @@ de:
       all_items: "Alle Items"
       empty: "Die Historie ist leer"
       headline: "Historie"
+      category: "Kategorie"
       not_returned: "bisher nicht zurückgegeben"
       desc_borrowed_by_other: "Gegenstände, die sich andere Nutzer von Ihnen ausgeliehen haben."
       desc_borrowed_by_me: "Gegenstände, die Sie sich von anderen Nutzern ausgeliehen haben."
