@@ -5,7 +5,5 @@ FactoryBot.define do
     password_confirmation { 'password' }
     full_name { "Alan Turing" }
     description { "Computer pioneer" }
-
-    after :create, &:create_personal_group
   end
 end

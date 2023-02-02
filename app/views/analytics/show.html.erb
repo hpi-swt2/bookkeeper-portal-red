@@ -1,1 +1,35 @@
 <h1><%= t('analytics.headline') %></h1>
+
+<%= t('analytics.description') %>
+
+<h2 class="mt-5"><%= t('analytics.history.headline') %></h2>
+
+<% if params[:mode] == "me" || params[:mode].blank? %>
+    <p><%= t('analytics.history.desc_borrowed_by_other') %></p>
+<% else %>
+    <p><%= t('analytics.history.desc_borrowed_by_me') %></p>
+<% end %>
+
+<%= form_with url: analytics_path, method: :get do |f| %>
+  <div class="field">
+
+    <div class="btn-group d-flex role="group">
+        <%= f.radio_button :mode, "me", 
+            checked: (params[:mode] == "me" || params[:mode].blank?), 
+            class: "btn-check", autocomplete: "off",
+            onChange: "javascript: this.form.submit();" %>
+        <%= f.label :mode, t("items.headlines.my_items."), value: "me", class: "btn btn-outline-light w-100" %>
+
+        <%= f.radio_button :mode, "other", 
+            checked: (params[:mode] == "other"), 
+            class: "btn-check", autocomplete: "off", 
+            onChange: "javascript: this.form.submit();" %>
+        <%= f.label :mode, t("items.headlines.borrowed_items."), value: "other", class: "btn btn-outline-light w-100" %>
+        </div> 
+  </div>
+
+  <%= hidden_field_tag('locale', params[:locale]) %>
+
+<% end %>
+
+<%= render "analytics/item_history_table" %>

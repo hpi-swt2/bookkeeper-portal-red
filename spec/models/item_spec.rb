@@ -223,4 +223,40 @@ RSpec.describe Item, type: :model do
     expect(other.attribute?("isbn")).to be false
   end
 
+  it "name is limited in length" do
+    item = FactoryBot.build(:item, name: "a" * 101)
+    expect(item).not_to be_valid
+  end
+
+  it "description is limited in length" do
+    item = FactoryBot.build(:item, description: "a" * 1501)
+    expect(item).not_to be_valid
+  end
+
+  it "has a lending history" do
+    expect(item.lending_history.count).to eq(0)
+    FactoryBot.create(:lending, item: item, user: user, started_at: Time.zone.now, completed_at: nil)
+    expect(item.lending_history.count).to eq(1)
+  end
+
+  describe 'overdue_for?' do
+    it 'returns true if overdue' do
+      FactoryBot.create(:lending, item: item, user: user, due_at: Time.zone.now.yesterday, completed_at: nil)
+      expect(item.overdue_for?(user)).to be true
+    end
+
+    it 'returns false if not overdue' do
+      FactoryBot.create(:lending, item: item, user: user, due_at: Time.zone.now.tomorrow, completed_at: nil)
+      expect(item.overdue_for?(user)).to be false
+    end
+
+    it 'returns false if not borrowed' do
+      expect(item.overdue_for?(user)).to be false
+    end
+
+    it 'returns false if completed' do
+      FactoryBot.create(:lending, item: item, user: user, due_at: Time.zone.now.yesterday, completed_at: Time.zone.now)
+      expect(item.overdue_for?(user)).to be false
+    end
+  end
 end

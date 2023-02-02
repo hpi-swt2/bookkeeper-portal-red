@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   include ActionController::MimeResponds
 
   before_action :set_item, only: %i[ show edit update destroy ]
-  before_action :set_item_from_item_id, only: %i[ borrow reserve give_back join_waitlist leave_waitlist]
+  before_action :set_item_from_item_id, only: %i[ borrow reserve give_back join_waitlist leave_waitlist toggle_status]
   helper_method :button_text, :button_path
 
   # GET /items or /items.json
@@ -52,6 +52,28 @@ class ItemsController < ApplicationController
         format.json { head :no_content }
       end
     end
+  end
+
+  def remove_image
+    @item = Item.find(params[:id])
+    if current_user.can_manage?(@item)
+
+      @image = @item.images.find { |image| image.signed_id == params[:signed_id] }
+      if @image
+        @image.purge
+        return redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_destroyed_image")
+      end
+    end
+    redirect_to item_url(@item), notice: I18n.t("items.messages.not_allowed_to_edit")
+  end
+
+  def add_image
+    @item = Item.find(params[:id])
+    if current_user.can_manage?(@item)
+      @item.images.attach(params[:images])
+      return redirect_to item_url(@item), notice: I18n.t("items.messages.successfully_added_image")
+    end
+    redirect_to item_url(@item), notice: I18n.t("items.messages.not_allowed_to_edit")
   end
 
   # GET /items/new
@@ -106,8 +128,10 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params(params[:item_type]))
     @item.item_type = params[:item_type]
+
     item_saved = @item.save
     create_permission
+    create_personal_group_permission
 
     respond_to do |format|
       if item_saved
@@ -188,8 +212,11 @@ class ItemsController < ApplicationController
   def reserve
     @user = current_user
     item_reservable_by_user = @item.reservable_by?(@user)
+    item_url = Rails.application.routes.url_helpers.item_url(@item, host: request.host)
+
     if item_reservable_by_user
       @reservation = @item.create_reservation(@user)
+      @item.inform_owners(@user, item_url)
       msg = I18n.t("items.messages.successfully_reserved")
     else
       msg = I18n.t("items.messages.unsuccessfully_reserved")
@@ -236,8 +263,31 @@ class ItemsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /items/1 or /items/1.json
+  # PATCH
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  def toggle_status
+    @user = current_user
+    user_allowed_to_update_status = @user.can_manage?(@item)
+
+    if user_allowed_to_update_status
+      @item.toggle_status
+      msg = I18n.t("items.messages.successfully_updated_status")
+    else
+      msg = I18n.t("items.messages.not_allowed_to_update_status")
+    end
+
+    respond_to do |format|
+      if @item&.save
+        format.html { redirect_to @item, notice: msg }
+        format.json { render :show, status: :ok, location: @item }
+      else
+        format.html { redirect_to @item, status: :unprocessable_entity, notice: msg }
+        format.json { render json: @item.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /items/1 or /items/1.json
   def update
     respond_to do |format|
       @item.item_type = params[:item_type]
@@ -280,8 +330,8 @@ class ItemsController < ApplicationController
                                   .where.not('groups.tag': "personal_group")
                                   .or(Group.joins(:permissions).where('groups.tag': nil))
                                   .select('permissions.id', Permission.attribute_names.reject do |attribute_name|
-                                                              attribute_name == 'id'
-                                                            end)
+                                    attribute_name == 'id'
+                                  end)
                                   .where('permissions.item_id': params["id"])
     respond_to do |format|
       format.json { render json: associated_permissions }
@@ -315,17 +365,18 @@ class ItemsController < ApplicationController
     when "book"
       params.require(:item).permit(:item_type, :name, :isbn, :author, :release_date, :genre, :language,
                                    :number_of_pages, :publisher, :edition, :description, :max_borrowing_days,
-                                   :max_reservation_days)
+                                   :max_reservation_days, images: [])
     when "movie"
       params.require(:item).permit(:item_type, :name, :director, :release_date, :format, :genre, :language, :fsk,
-                                   :description, :max_borrowing_days, :max_reservation_days)
+                                   :description, :max_borrowing_days, :max_reservation_days, images: [])
     when "game"
       params.require(:item).permit(:item_type, :name, :author, :illustrator, :publisher, :fsk, :number_of_players,
-                                   :playing_time, :language, :description, :max_borrowing_days, :max_reservation_days)
+                                   :playing_time, :language, :description, :max_borrowing_days,
+                                   :max_reservation_days, images: [])
     else
       item_type.eql?("other")
       params.require(:item).permit(:item_type, :name, :category, :description, :max_borrowing_days,
-                                   :max_reservation_days)
+                                   :max_reservation_days, images: [])
     end
   end
 
@@ -334,7 +385,7 @@ class ItemsController < ApplicationController
   def create_lending
     @lending = Lending.new
     @lending.started_at = Time.current
-    @lending.due_at = @lending.started_at.next_day(@max_borrowing_days)
+    @lending.due_at = @lending.started_at.next_day(@item.max_borrowing_days)
     @lending.user = @user
     @lending.item = @item
     @lending.completed_at = nil
@@ -342,7 +393,7 @@ class ItemsController < ApplicationController
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def create_permission
-    @item.permissions.clear
+    @item.permissions.joins(:group).where.not('groups.tag': 'personal_group').destroy_all
     permissions = []
     params.each do |key, value|
       next unless key.start_with?("permission_")
@@ -358,7 +409,9 @@ class ItemsController < ApplicationController
     permissions.each_slice(2) do |group_id, level|
       Permission.create(item_id: @item.id, group_id: group_id, permission_type: level)
     end
+  end
 
+  def create_personal_group_permission
     personal_group = current_user.personal_group
     Permission.create(item_id: @item.id, group_id: personal_group.id, permission_type: :can_manage)
   end
@@ -368,5 +421,4 @@ class ItemsController < ApplicationController
                                    ends_at: Time.current + @item.max_reservation_days.days)
   end
 end
-
 # rubocop:enable Metrics/ClassLength, Metrics/MethodLength, Metrics/AbcSize

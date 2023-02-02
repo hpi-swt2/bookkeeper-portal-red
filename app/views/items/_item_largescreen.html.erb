@@ -6,7 +6,7 @@
       <div class="col-xl-6 p-3">
         <div class="card h-100">
           <%# Image slider%>
-          <%= image_tag "dummy_image.png", class: "card-img-top"%>
+         <%= render 'items_images_component', showImageManager: current_user.can_manage?(@item) %>
           <div class="card-body ">
             <%# Attributes if small enough arranged as grid%>
             <div class="imagecard-attributes">
@@ -17,13 +17,24 @@
                   <%# If there are other fields you wish to hide from the attribute table, you can add them to the array in the line below %>
                   <% @item.attributes.select{ |v| !v.in?(['description', 'name']) }.each do |attr_name, attr_value| %>
                     <ul class="list-group list-group-horizontal list-group-flush border-top border-1 mx-3">
-                    <% if @item.common_attributes.include? attr_name %>
-                      <li class=" list-group-item flex-fill align-content-between py-1 text-break" style="border: none;"><%= I18n.t("items.form." + "all" + "." + attr_name.to_s)%></li>
-                      <li class="list-group-item w-50 align-content-between py-1 text-break" style="border: none;"><%= @item.send(attr_name) %></li>
-                    <% else %>
-                      <li class=" list-group-item flex-fill align-content-between py-1 text-break" style="border: none;"><%= I18n.t("items.form." + @item.item_type.to_s + "." + attr_name.to_s)%></li>
-                      <li class="list-group-item w-50 align-content-between py-1 text-break" style="border: none;"><%= @item.send(attr_name) %></li>
-                    <% end %>
+                      <% if ['max_borrowing_days', 'max_reservation_days'].include? attr_name %>
+                        <li class="list-group-item flex-fill align-content-between py-1 text-break" style="border: none;"><%= I18n.t("items.form." + "all" + "." + attr_name.to_s)%>
+                          <% if attr_name == 'max_borrowing_days' %>
+                            <i class="ms-1 bi bi-question-circle" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= I18n.t("items.form.all.max_borrowing_days_tooltip")%>"></i>
+                          <% elsif attr_name == 'max_reservation_days' %>
+                            <i class="ms-1 bi bi-question-circle" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= I18n.t("items.form.all.max_reservation_days_tooltip")%>"></i>
+                          <% end %>
+                        </li>
+                        <li class="list-group-item w-50 align-content-between py-1 text-break" style="border: none;">
+                          <%= @item.send(attr_name) %>
+                          <% if @item.send(attr_name) == 1 %> <%= I18n.t("items.units.one_day")%>
+                          <% else %> <%= I18n.t("items.units.multiple_days")%>
+                          <% end %>
+                        </li>
+                      <% else %>
+                        <li class="list-group-item flex-fill align-content-between py-1 text-break" style="border: none;"><%= I18n.t("items.form." + @item.item_type.to_s + "." + attr_name.to_s)%></li>
+                        <li class="list-group-item w-50 align-content-between py-1 text-break" style="border: none;"><%= @item.send(attr_name) %></li>
+                      <% end %>
                     </ul>
                 <% end %>
                 </tbody>
@@ -41,25 +52,53 @@
           <div class="card-body">
             <div class="container">
               <div class="row">
-                <%# name%>
-                <h1 class="col-sm-7"><%= @item.name %></h1>
-                <%# available badge%>
-                <div class="col-sm-3 ms-auto">
-                  <%= render(ItemAvailabilityBadgeComponent.new(item: @item, user: current_user)) %>
+                <%# name & icon %>
+                <h1 class="col-sm-10">
+                  <% case @item.item_type
+                    when "book" %> <i class="bi bi-book text-muted me-1"></i>
+                  <% when "game" %> <i class="bi bi-dice-5 text-muted me-1"></i>
+                  <% when "movie" %> <i class="bi bi-film text-muted me-1"></i>
+                  <% end %>
+                  <%= @item.name %>
+                </h1>
+                <div class="col-sm-2">
+                  <%# Settings %>
+                  <% if current_user.can_manage?(@item) %>
+                    <div class="btn-group dropdown" id="dropdown-button-group">
+                      <a class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="bi bi-gear"></i>
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <%= link_to edit_item_path(@item), method: :get, class: "dropdown-item" do %>
+                          <i class="bi bi-pencil me-2"></i><%= I18n.t("items.buttons.edit")%>
+                        <% end %>
+                        <%= link_to item_path(@item), data: { 'turbo-method': :delete, turbo_confirm: I18n.t("items.messages.deletion_confirmation")}, class: "dropdown-item" do %>
+                          <i class="bi bi-trash3 me-2"></i><%= I18n.t("items.buttons.delete")%>
+                        <% end %>
+                        <% if @item.active?%>
+                          <%= link_to item_toggle_status_path(@item), data: { 'turbo-method': :patch}, class: "dropdown-item" do %>
+                            <i class="bi bi-snow2 me-2"></i><%= I18n.t("items.buttons.freeze")%>
+                          <% end %>
+                        <% else %>
+                          <%= link_to item_toggle_status_path(@item), data: { 'turbo-method': :patch}, class: "dropdown-item" do %>
+                            <i class="bi bi-fire me-2"></i><%= I18n.t("items.buttons.unfreeze")%>
+                          <% end %>
+                        <% end %>
+                        <%= link_to download_path(@item), class: "dropdown-item" do %>
+                          <i class="bi bi-download me-2"></i><%= I18n.t("items.buttons.download_qrcode")%>
+                        <% end %>
+                      </div>
+                    </div>
+                  <% end %>
                 </div>
               </div>
+              <div class="row">
               <%= render 'owner_component', item: @item %>
+              </div>
+              <%= render(ItemAvailabilityBadgeComponent.new(item: @item, user: current_user)) %>
             </div>
 
-            <%# Button %>
-            <% if current_user.can_manage?(@item) %>
-              <br>
-              <span class="d-flex justify-content-around">
-                <%= button_to I18n.t("items.buttons.edit"), edit_item_path(@item), method: :get, class: "mx-auto btn btn-primary"%>
-                <%= button_to I18n.t("items.buttons.delete"), item_path(@item), method: :delete, data: { turbo_confirm: I18n.t("items.messages.deletion_confirmation")}, class: "mx-auto btn btn-primary"%>
-                <%= link_to "<text>#{I18n.t("items.buttons.download_qrcode")}</text>".html_safe, download_path(@item),class: "btn btn-primary" %>
-              </span>
-            <% end %>
+
             <hr class="border border-primary border-2 opacity-75">
             <%# Description%>
             <p class="text-start text-wrap">
@@ -69,68 +108,72 @@
                 <%= @item.description %>
               <% end  %>
             </p>
-            <h5><%= I18n.t("items.headlines.last_seen_at") %></h5>
+
             <%# Infobox%>
+            <% if @item.overdue_for?(current_user) %>
+              <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.overdue.heading"), body: I18n.t("items.infobox.overdue.body"), bootstrap_classes: "border-danger mx-5"))%>
+            <% end %>
             <% if current_user.can_borrow?(@item) %>
-              <% if @item.reserved_by?(current_user) and @item.borrowable_by?(current_user) and !@src_is_qrcode %>
+              <% if @item.inactive? and !@item.borrowed_by?(current_user)%>
+                <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.inactive.heading"), body: I18n.t("items.infobox.inactive.body"), bootstrap_classes: "border-secondary mx-5"))%>
+              <% elsif @item.reserved_by?(current_user) and @item.borrowable_by?(current_user) and !@src_is_qrcode %>
                 <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.borrow.heading"), body: I18n.t("items.infobox.borrow.body"), bootstrap_classes: "border-secondary mx-5"))%>
-              <% end %>
-              <% if @item.borrowed_by?(current_user) and !@src_is_qrcode %>
+              <% elsif @item.borrowed_by?(current_user) and !@src_is_qrcode %>
                 <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.return.heading"), body: I18n.t("items.infobox.return.body"), bootstrap_classes: "border-secondary mx-5"))%>
               <% end %>
             <% else %>
               <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.missing_borrowing_permissions.heading"), body: I18n.t("items.infobox.missing_borrowing_permissions.body"), bootstrap_classes: "border-secondary mx-5"))%>
             <% end %>
             <%# Map%>
+            <h5><%= I18n.t("items.headlines.last_seen_at") %></h5>
             <div id="item-location-large" style="height: 240px;"></div>
           </div>
-          <%= button_to I18n.t("items.buttons.back"), items_path, method: :get, class: "mx-auto btn btn-primary"%>
-          <div class="d-flex justify-content-center w-100 mb-5">
+          <div class="d-flex justify-content-around w-100 mb-5">
 
             <% if @item.reservable_by?(current_user) && !@src_is_qrcode %>
               <%= render(ItemBorrowButtonBig.new(
-                text: I18n.t("items.buttons.reserve"), 
-                action: item_reserve_path(@item), 
+                text: I18n.t("items.buttons.reserve"),
+                action: item_reserve_path(@item),
                 bootstrap_classes: "mx-auto btn btn-primary")
               )%>
             <% end %>
 
             <% if @item.borrowable_by?(current_user) && @src_is_qrcode %>
               <%= render(ItemBorrowButtonBig.new(
-                text: I18n.t("items.buttons.borrow"), 
-                action: item_borrow_path(@item), 
+                text: I18n.t("items.buttons.borrow"),
+                action: item_borrow_path(@item),
                 bootstrap_classes: "mx-auto btn btn-primary")
               )%>
             <% end %>
 
             <% if current_user.can_return_as_owner?(@item)%>
               <%= render(ItemBorrowButtonBig.new(
-                text: I18n.t("items.buttons.owner-return"), 
-                action: item_give_back_path(@item), 
+                text: I18n.t("items.buttons.owner-return"),
+                action: item_give_back_path(@item),
                 bootstrap_classes: "mx-auto btn btn-primary")
               )%>
             <% end %>
 
             <% if @item.borrowed_by?(current_user) && @src_is_qrcode %>
               <%= render(ItemBorrowButtonBig.new(
-                text: I18n.t("items.buttons.return"), 
-                action: item_give_back_path(@item), 
+                text: I18n.t("items.buttons.return"),
+                action: item_give_back_path(@item),
                 bootstrap_classes: "mx-auto btn btn-primary")
               )%>
             <% end %>
 
             <% if @item.allows_joining_waitlist?(current_user) %>
               <%= render(ItemBorrowButtonBig.new(
-                text: I18n.t("items.buttons.join_waitlist", :users_waiting => @item.users_on_waitlist_before(current_user)), 
-                action: item_join_waitlist_path(@item), 
+                text: I18n.t("items.buttons.join_waitlist", :users_waiting => @item.users_on_waitlist_before(current_user)),
+                action: item_join_waitlist_path(@item),
                 bootstrap_classes: "mx-auto btn btn-primary")
               )%>
             <% end %>
 
             <% if @item.waitlist_has?(current_user) %>
               <%= render(ItemBorrowButtonBig.new(
-                text: I18n.t("items.buttons.leave_waitlist", :users_waiting => @item.users_on_waitlist_before(current_user)), 
-                action: item_leave_waitlist_path(@item), 
+                text: I18n.t("items.buttons.leave_waitlist", :users_waiting => @item.users_on_waitlist_before(current_user)),
+                action: item_leave_waitlist_path(@item),
                 bootstrap_classes: "mx-auto btn btn-primary")
               )%>
             <% end %>

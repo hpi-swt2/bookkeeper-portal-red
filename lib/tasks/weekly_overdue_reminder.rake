@@ -14,6 +14,6 @@ task weekly_overdue_reminder: :environment do
                "Bitte geben Sie es unverzüglich dem Besitzer zurück."
     message2 = "The item '#{item.name}' was due #{weeks} #{'week'.pluralize(weeks)} ago. " \
                "Please return it to the owner immediately."
-    NotificationMailer.send_reminder(user, message1, message2: message2).deliver_now
+    NotificationMailer.send_reminder(user, message1, message_en: message2).deliver_now
   end
 end

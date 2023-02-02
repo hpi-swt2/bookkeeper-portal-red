@@ -1,0 +1,59 @@
+<%= form_with id: "item-filter", url: request.path, method: :get do |f| %>
+
+<table style="table-layout: fixed;" class="table table-hover mt-2">
+  <thead style="background-color: var(--bs-gray-300)">
+    <tr scope="row">
+      <th scope="col">
+      <%= f.select :item, options_for_select([
+          [t("analytics.history.all_items"), "", {selected: true}]].concat(
+            @select_items),
+          params[:item]), {}, 
+        onChange: "javascript: this.form.submit();",
+        class: "form-select form-control dropdown-toggle" %>
+      </th>
+      <th class="align-middle" scope="col" ><%= t("analytics.history.category")%></th>
+      <th class="align-middle" scope="col" ><%= t("analytics.history.borrower")%></th>
+      <th class="align-middle" scope="col" ><%= t("analytics.history.date_borrowed")%></th>
+      <th class="align-middle" scope="col" ><%= t("analytics.history.date_returned")%></th> 
+    </tr>
+  </thead>
+  <tbody>
+    <% @lendings.each do |lending| %>
+      <tr scope="row">
+        <td class="overflow-hidden text-truncate"><%= link_to lending.item.name, item_path(lending.item.id), class: "link-primary overflow-hidden text-truncate" %></td>
+        <td><%=
+          case lending.item.item_type
+          when "book"
+            t('items.type.book')
+          when "movie"
+            t('items.type.movie')
+          when "game"
+            t('items.type.game')
+          when "other"
+            t('items.type.other')
+          else
+            t('items.type.other')
+          end
+        %></td>
+        <td scope="row"><%=link_to lending.user.full_name, profile_path(lending.user), class: "link-primary" %></td>
+        <td title="<%= l lending.started_at, :format => :long %>">
+          <%= l lending.started_at, :format => :short %>
+        </td>
+        <% if (lending.completed_at) %>
+          <td title="<%= l lending.completed_at, :format => :long %>">
+            <%= l lending.completed_at, :format => :short %>
+          </td>
+        <% else %>
+          <td>
+            <%= t('analytics.history.not_returned') %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= hidden_field_tag('locale', params[:locale]) %>
+<%= hidden_field_tag('mode', params[:mode]) %>
+
+<% end %>

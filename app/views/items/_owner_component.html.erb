@@ -1,6 +1,18 @@
 <%# owner / can_manage%>
 <% owner_groups = Group.owner_groups(item.id) %>
-<p>
+<p class="text-truncate mb-1">
     <%= I18n.t("items.card_text.owner") %>
-    <span class="text-primary"><%=owner_groups.map{|owner| owner.name}.join(", ").html_safe%></span>
+    <span class="text-primary" title="<%= owner_groups.map{|owner| owner.name}.join(', ') %>">
+        <% owner_groups.each do |owner| %>
+            <% case owner.tag
+               when "personal_group" %> 
+                <%= link_to owner.personal_group_user.full_name, profile_path(owner.personal_group_user), class: "link-primary" %>
+                <% if owner != owner_groups.last %>, <% end %>
+            <% when "everyone_group" %> 
+                <%= owner.name %><% if owner != owner_groups.last %>, <% end %>
+            <% else %> 
+                <%= link_to owner.name, group_path(owner), class: "link-primary" %><% if owner != owner_groups.last %>, <% end %>
+            <% end %>
+        <% end %>
+    </span>
 </p>

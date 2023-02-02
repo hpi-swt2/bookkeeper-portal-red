@@ -18,7 +18,7 @@ describe "Notification inbox", type: :feature do
     end
 
     it "shows a notification when one is present" do
-      NotificationMailer.send_info(user, "Test").deliver_now
+      NotificationMailer.send_info(user, "Test", "Test").deliver_now
       visit root_path
       page.find_by_id("notification-inbox-button").click
       expect(page.find_by_id('notification-inbox-container')).to have_selector('.notification-message')

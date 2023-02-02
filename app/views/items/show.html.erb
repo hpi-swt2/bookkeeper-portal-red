@@ -27,6 +27,47 @@
   </script>
   <%= render "item_largescreen" %>
   <%= render "item_smallscreen" %>
+
+  <%# lending history of this item %>
+  <% if current_user.can_manage?(@item) %>
+    <h2 class="mt-5"><%= t('analytics.history.headline') %></h2>
+    <% if @item.lending_history.length <= 0 %>
+      <div class="d-flex justify-content-center">
+        <h4><%= t('analytics.history.empty') %></h4>
+      </div>
+    <% else %>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead style="background-color: var(--bs-gray-300)">
+          <tr>
+            <th scope="col"><%= t("analytics.history.borrower")%></th>
+            <th scope="col"><%= t("analytics.history.date_borrowed")%></th>
+            <th scope="col"><%= t("analytics.history.date_returned")%></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @item.lending_history.each do |lending| %>
+            <tr>
+              <th scope="row"><%=link_to lending.user.full_name, profile_path(lending.user)%></th>
+              <td title="<%= l lending.started_at, :format => :long %>">
+                <%= l lending.started_at, :format => :short %>
+              </td>
+              <% if (lending.completed_at) %>
+                <td title="<%= l lending.completed_at, :format => :long %>">
+                  <%= l lending.completed_at, :format => :short %>
+                </td>
+              <% else %>
+                <td>
+                  <%= t('analytics.history.not_returned') %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+  <% end %>
 </div>
 
 

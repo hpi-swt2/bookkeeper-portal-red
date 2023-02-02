@@ -1,9 +1,17 @@
+<% image_style="object-fit: cover; width: 100%; aspect-ratio: 4 / 3;" %>
 <div class="card">
-    <div class="w-100 d-flex justify-content-end p-2" style="position: absolute; left: 0px; top: 0px;">
+    <div class="w-100 d-flex justify-content-end p-2" style="position: absolute; left: 0px; top: 0px; z-index: 1">
         <%= render(ItemAvailabilityBadgeComponent.new(item: item, user: current_user)) %>
     </div>
     <a class="text-black text-decoration-none" href=<%=item_path(item)%>>
-        <img class="card-img-top" src="https://via.placeholder.com/400x300" alt="Card image cap">
+        <% @item=item %>
+        <% has_any_images_attached = @item.images.attached? && @item.images.map {| file | file.representable? && file.image?}.reduce(:|) %>
+        <% if has_any_images_attached %>
+            <% image = @item.images.first() %>
+            <%= image_tag image, class: "img-fluid card-img-top", style: image_style %>
+        <% else %>
+            <%= image_tag "https://via.placeholder.com/400x300", class: "card-img-top card-img-top", style: image_style %>
+        <% end %>
     </a>
     <div class="card-body p-0 d-flex flex-column justify-content-between">
         <a class="text-black text-decoration-none" href=<%=item_path(item)%> style="min-height: 10em;">
@@ -25,7 +33,7 @@
                 <% end %>
             </ul>
         </a>
-        <div class="text-center mt-3 card-text">
+        <div class="text-center mt-3 card-text mx-4">
             <%= render 'items/owner_component', item: item %>
         </div>
     </div>

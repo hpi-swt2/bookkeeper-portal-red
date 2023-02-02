@@ -3,7 +3,8 @@
 class Item < ApplicationRecord
   include ExportPdf
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { minimum: 1, maximum: 100 }
+  validates :description, allow_blank: true, length: { minimum: 1, maximum: 1500 }
   validates :max_reservation_days, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 365 }
   validates :max_borrowing_days, numericality: { greater_than_or_equal_to: 0 }
 
@@ -53,6 +54,7 @@ class Item < ApplicationRecord
     source: :group
   )
 
+  has_many_attached :images
   # items can be of different types. This function returns which attributes
   # are relevant for this item depending on it's type
   def self.attributes(item_type)
@@ -89,6 +91,12 @@ class Item < ApplicationRecord
     Lending.exists?(item_id: id, completed_at: nil)
   end
 
+  def overdue_for?(user)
+    return false unless borrowed_by?(user)
+
+    Lending.where(item_id: id).where(completed_at: nil).first.due_at < Time.current
+  end
+
   def current_reservation
     reservations = Reservation.where(item_id: id).where(["starts_at < :now AND :now <= ends_at",
                                                          { now: Time.current }])
@@ -98,7 +106,7 @@ class Item < ApplicationRecord
   end
 
   def reservable_by?(user)
-    !borrowed? and !reserved? and user.can_borrow?(self)
+    active? and !borrowed? and !reserved? and user.can_borrow?(self)
   end
 
   def reserved_by?(user)
@@ -109,7 +117,7 @@ class Item < ApplicationRecord
 
   def borrowable_by?(user)
     not_reserved_by_others = (reserved_by?(user) or !reserved?)
-    !borrowed? and not_reserved_by_others and user.can_borrow?(self)
+    active? and !borrowed? and not_reserved_by_others and user.can_borrow?(self)
   end
 
   def borrowed_by?(user)
@@ -135,7 +143,7 @@ class Item < ApplicationRecord
   end
 
   def create_reservation_from_waitlist
-    return if reserved? || borrowed?
+    return if reserved? || borrowed? || inactive?
 
     waiting_position = WaitingPosition.where(item_id: id).order(:created_at).first
     return unless waiting_position
@@ -157,13 +165,54 @@ class Item < ApplicationRecord
     @reservation.save
   end
 
+  def toggle_status
+    if active?
+      inactive!
+      return unless reserved?
+
+      reservation = current_reservation
+      reservation.ends_at = Time.current
+      reservation.save
+    else
+      active!
+      create_reservation_from_waitlist
+    end
+  end
+
   def status_text(user)
     return I18n.t("items.status_badge.no_access") unless user.can_borrow?(self)
     return I18n.t("items.status_badge.reserved_by_me") if reserved_by?(user)
     return I18n.t("items.status_badge.available") if borrowable_by?(user)
+    return I18n.t("items.status_badge.overdue") if overdue_for?(user)
     return I18n.t("items.status_badge.borrowed_by_me") if borrowed_by?(user)
 
     I18n.t("items.status_badge.not_available")
   end
+
+  def lending_history
+    Lending.where(item_id: id).order('created_at DESC')
+  end
+
+  # rubocop:disable Metrics/MethodLength
+  def inform_owners(user, link)
+    message_de = "Als Eigentümer des Artikels #{name} möchten wir Sie darüber informieren, dass " \
+                 "#{user.full_name} ebendiesen Artikel reserviert hat. \n" \
+                 "Sie können die Reservierung unter #{link} verwalten."
+    message_en = "As owner of the item #{name} we would like to inform you that " \
+                 "#{user.full_name} has reserved this item. \n" \
+                 "You can manage the reservation under #{link}."
+
+    manager_groups.each do |group|
+      # For some reason, one is not the admin of ones own personal group
+      if group.tag == "personal_group"
+        NotificationMailer.send_info(user, message_de, message_en).deliver_later
+        next
+      end
+      group.admins.each do |admin|
+        NotificationMailer.send_info(admin, message_de, message_en).deliver_later
+      end
+    end
+  end
+  # rubocop:enable Metrics/MethodLength
 end
 # rubocop:enable Metrics/ClassLength

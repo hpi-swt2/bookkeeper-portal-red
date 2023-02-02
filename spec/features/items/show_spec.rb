@@ -53,6 +53,17 @@ describe "show item page", type: :feature do
     expect(page).to have_text(:visible, @item.description)
   end
 
+  it "shows correct units for max_borrowing_days and max_reservation_days" do
+    sign_in @user
+    @item.max_borrowing_days = 5
+    @item.max_reservation_days = 1
+    @item.save
+
+    visit item_path(@item)
+    expect(page).to have_text("#{I18n.t('items.form.all.max_borrowing_days')} 5 #{I18n.t('items.units.multiple_days')}")
+    expect(page).to have_text("#{I18n.t('items.form.all.max_reservation_days')} 1 #{I18n.t('items.units.one_day')}")
+  end
+
   it "displays an infotext if src=qrcode is not present and the item is reserved by the current user" do
     FactoryBot.create(:reservation, item_id: @item.id, user_id: @user.id, starts_at: Time.zone.now,
                                     ends_at: 2.days.from_now)
@@ -119,14 +130,14 @@ describe "show item page", type: :feature do
     @item.manager_groups.push(group)
 
     visit item_path(@item)
-    expect(page).to have_text(:visible, "Edit item")
-    expect(page).to have_text(:visible, "Delete item")
-    expect(page).to have_text(:visible, "Download QR-Code")
+    expect(page).to have_text(:visible, I18n.t("items.buttons.edit"))
+    expect(page).to have_text(:visible, I18n.t("items.buttons.delete"))
+    expect(page).to have_text(:visible, I18n.t("items.buttons.download_qrcode"))
   end
 
   it "not display edit, delete and download button if user has no managing rights" do
     sign_in @user
-    visit item_path(@item)
+    visit "#{item_path(@item)}?locale=de"
     expect(page).not_to have_text(:visible, I18n.t("items.buttons.edit"))
     expect(page).not_to have_text(:visible, I18n.t("items.buttons.delete"))
     expect(page).not_to have_text(:visible, I18n.t("items.buttons.download_qrcode"))
@@ -145,6 +156,31 @@ describe "show item page", type: :feature do
     visit "#{item_path(@item)}?src=qrcode"
     expect(page).not_to have_text(:visible, I18n.t("items.buttons.owner-return"))
     expect(page).to have_text(:visible, I18n.t("items.buttons.return"))
+  end
+
+  it "renders a lending history if the user is part of a managing group" do
+    group = FactoryBot.create(:group, name: "My Group")
+    Membership.create(user: @user, group: group, role: :member) # add user to group
+    FactoryBot.create(:permission, group: group, item: @item, permission_type: :can_manage) # give group managing rights
+
+    FactoryBot.create(:lending, item: @item, user: @user, started_at: Time.zone.now, completed_at: nil) # start lending
+
+    sign_in @user
+    visit item_path(@item)
+    expect(page.find('div.table-responsive > table > tbody > tr:nth-child(1) > th')).to have_text(:visible,
+                                                                                                  @user.full_name)
+  end
+
+  it "does not render a lending history if the user is part of a group that cannot manage the item" do
+    group = FactoryBot.create(:group, name: "My Group")
+    Membership.create(user: @user, group: group, role: :member) # add user to group
+    FactoryBot.create(:permission, group: group, item: @item, permission_type: :can_borrow) # give group borrow rights
+
+    FactoryBot.create(:lending, item: @item, user: @user, started_at: Time.zone.now, completed_at: nil) # start lending
+
+    sign_in @user
+    visit item_path(@item)
+    expect(page).not_to have_css(('div.table-responsive > table > tbody > tr:nth-child(1) > th'))
   end
 
   context "with user that only has visibilty rights" do

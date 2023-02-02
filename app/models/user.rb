@@ -13,12 +13,13 @@ class User < ApplicationRecord
   attribute :full_name, :string, default: ""
   attribute :description, :string, default: ""
   attribute :telephone_number, :string, default: ""
-  before_destroy :destroy_personal_groups
   has_many :memberships, dependent: :destroy
   has_many :groups, through: :memberships
   has_many :lendings, dependent: :destroy
   has_many :reservations, dependent: :destroy
   has_many :notifications, dependent: :destroy
+  after_create :create_personal_group, :add_to_everyone_group
+  validate :exists_personal_group?
 
   def can_view?(item)
     return true if can_manage?(item) || can_borrow?(item)
@@ -79,7 +80,7 @@ class User < ApplicationRecord
   def create_personal_group
     raise StandardError, "#{self} already has personal group" if exists_personal_group?
 
-    p_group = Group.create(name: "personal_group", tag: :personal_group)
+    p_group = Group.create(name: full_name, tag: :personal_group)
     p_group_membership = Membership.create(group_id: p_group.id, user_id: id, role: :member)
     memberships.push(p_group_membership)
     save
@@ -105,20 +106,11 @@ class User < ApplicationRecord
       user.full_name = auth.info.name
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
-      user.add_to_everyone_group
-      user.create_personal_group
     end
   end
 
   def admin_in?(group)
     own_groups = groups.where(memberships: { role: :admin })
     own_groups.include? group
-  end
-
-  private
-
-  def destroy_personal_groups
-    personal_groups = groups.where(groups: { tag: :personal_group })
-    personal_groups.each(&:destroy)
   end
 end

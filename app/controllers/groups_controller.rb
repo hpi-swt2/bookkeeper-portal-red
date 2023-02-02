@@ -1,11 +1,18 @@
 class GroupsController < ApplicationController
   before_action :assure_signed_in
   before_action :set_user_group
-  before_action :set_group, only: %i[ edit update destroy ]
+  before_action :set_group, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_group_from_group_id, only: %i[ leave ]
   before_action :assure_admin, only: %i[ edit update destroy ]
 
   # GET /groups or /groups.json
   def index
+  end
+
+  # GET /groups/1 or /groups/1.json
+  def show
+    redirect_to groups_url, alert: t(:group_not_viewable) if @group.personal_group? || @group.everyone_group?
+    @admin = @group.users.where(memberships: { role: :admin }).first
   end
 
   def all
@@ -48,23 +55,26 @@ class GroupsController < ApplicationController
 
   # DELETE /groups/1 or /groups/1.json
   def destroy
-    @group.memberships.each(&:destroy)
-    @group.destroy
-
     respond_to do |format|
-      format.html { redirect_to groups_url, notice: t(:group_destroy) }
-      format.json { head :no_content }
+      if @group.personal_group?
+        unprocessable_response(format, redirect: :edit, entity: @group)
+      else
+        @group.memberships.each(&:destroy)
+        @group.destroy
+        format.html { redirect_to groups_url, notice: t(:group_destroy) }
+        format.json { head :no_content }
+      end
     end
   end
 
   # POST /groups/1/leave or /groups/1/leave.json
   def leave
     respond_to do |format|
-      if current_user.memberships.destroy_by(group_id: params[:group_id])
+      if @group.personal_group? && current_user.memberships.destroy_by(group_id: params[:group_id])
+        unprocessable_response(format, redirect: :edit, entity: @group)
+      else
         format.html { redirect_to groups_url, notice: t(:group_update) }
         format.json { head :no_content }
-      else
-        unprocessable_response(format, redirect: :edit, entity: @group)
       end
     end
   end
@@ -96,6 +106,10 @@ class GroupsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_group
     @group = Group.find(params[:id])
+  end
+
+  def set_group_from_group_id
+    @group = Group.find(params[:group_id])
   end
 
   def unprocessable_response(format, redirect:, entity:)

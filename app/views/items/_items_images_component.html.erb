@@ -1,0 +1,55 @@
+<% image_style="object-fit: cover; width: 100%; aspect-ratio: 4 / 3;" %>
+<% has_any_images_attached = @item.images.attached? && @item.images.map {| file | file.representable? && file.image?}.reduce(:|) %>
+<% if has_any_images_attached %>
+  <% carousel_id="carouselExampleIndicators-#{@item.id}"%>
+  <div id="<%= carousel_id %>" class="carousel slide" data-bs-ride="true">
+    <div class="carousel-indicators">
+      <% indicators_index = 0%>
+      <% @item.images.each do |image| %>
+        <% if image.representable? && image.image? == true %>
+          <button type="button" data-bs-target="#<%= carousel_id %>" data-bs-slide-to="<%= indicators_index %>" class="<%= 'active' if indicators_index == 0 %>" aria-current="<%= 'true' if indicators_index == 0 %>" aria-label="Slide <%= indicators_index %>"></button>
+          <% indicators_index += 1 %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="carousel-inner">
+      <% image_index = 0%>
+      <% @item.images.each do |image| %>
+        <% if image.representable? && image.image? %>
+          <div class="carousel-item <%= 'active' if image_index == 0 %>">
+            <%= image_tag image, class: "img-fluid card-img-top", style: image_style %>
+            <% if defined?(showImageManager) && showImageManager %>
+              <div class="carousel-caption d-none d-md-block">
+                <%= link_to I18n.t("items.buttons.destroy_image"), remove_image_item_path(signed_id: image.signed_id, id: @item.id),
+                                data: {turbo_method: :delete}, class: 'btn btn-primary' %>
+              </div>
+              <% image_index += 1%>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#<%= carousel_id %>" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#<%= carousel_id %>" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+<% else %>
+  <%= image_tag "https://via.placeholder.com/400x300", class: "card-img-top",  alt: "Card image cap", style: image_style %>
+<% end%>
+<% if defined?(showImageManager) && showImageManager %>
+  <div class="card-body">
+    <%= form_with(url: add_image_item_url(id: @item.id)) do |form| %>
+      <div class="mb-3">
+        <%= form.file_field :images, multiple: true, accept: 'image/jpg, image/png, image/jpeg', id: "addImagesInput", class: "form-control", required: true %>
+      </div>
+      <div class="mt-3">
+        <%= form.button  I18n.t('items.buttons.upload_image'), class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
