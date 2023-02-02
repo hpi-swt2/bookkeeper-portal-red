@@ -1,8 +1,4 @@
-<% if defined?(width) && defined?(height) %>
-  <% image_style="object-fit: cover; width: 100%; height: 300px;" %>
-<% else %>
-  <% image_style="" %>
-<% end %>
+<% image_style="object-fit: cover; width: 100%; aspect-ratio: 4 / 3;" %>
 <% if !defined?(width) %>
   <% width='' %>
 <% end %>
@@ -27,7 +23,7 @@
       <% @item.images.each do |image| %>
         <% if image.representable? && image.image? %>
           <div class="carousel-item <%= 'active' if image_index == 0 %>">
-            <%= image_tag image, class: "img-fluid", style: image_style %>
+            <%= image_tag image, class: "img-fluid card-img-top", style: image_style %>
             <% if defined?(showImageManager) && showImageManager %>
               <div class="carousel-caption d-none d-md-block">
                 <%= link_to I18n.t("items.buttons.destroy_image"), remove_image_item_path(signed_id: image.signed_id, id: @item.id),
