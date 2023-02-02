@@ -164,12 +164,14 @@ de:
       back: "Zurück"
   analytics:
     headline: "Meine Statistiken"
+    description: "Ihre Aktivität und Statistiken."
     history:
+      all_items: "Alle Items"
       empty: "Die Historie ist leer"
       headline: "Historie"
       not_returned: "bisher nicht zurückgegeben"
-      desc_borrowed_by_other: "Gegenstände, die sich andere Nutzer von dir ausgeliehen haben"
-      desc_borrowed_by_me: "Gegenstände, die du dir von anderen Nutzern ausgeliehen hast"
+      desc_borrowed_by_other: "Gegenstände, die sich andere Nutzer von Ihnen ausgeliehen haben."
+      desc_borrowed_by_me: "Gegenstände, die Sie sich von anderen Nutzern ausgeliehen haben."
       borrower: "Ausgeliehen von"
       date_borrowed: "Ausgeliehen am"
       date_returned: "Zurückgegeben am"
