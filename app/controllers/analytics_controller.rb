@@ -1,12 +1,14 @@
 class AnalyticsController < ApplicationController
   def show
-    @lendings = if params[:mode].blank? || params[:mode] == "me"
-                  current_user.lendings.order('created_at DESC')
-                elsif params[:mode] == "other"
-                  Lending.where(item: current_user.items).order('created_at DESC')
-                else
-                  []
-                end
+    if params[:mode].blank? || params[:mode] == "me"
+      @lendings = current_user.lendings.order('created_at DESC')
+      @select_items = @lendings.map { |lending| lending.item.name }
+    elsif params[:mode] == "other"
+      @lendings = Lending.where(item: current_user.items).order('created_at DESC')
+      @select_items = @lendings.map { |lending| lending.item.name }
+    else
+      []
+    end
     @lendings = apply_filter(@lendings)
   end
 
