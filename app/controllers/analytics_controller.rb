@@ -2,11 +2,11 @@ class AnalyticsController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   def show
     if params[:mode].blank? || params[:mode] == "me"
-      @lendings = current_user.lendings.order('created_at DESC')
-      @select_items = @lendings.map { |lending| lending.item.name }
-    elsif params[:mode] == "other"
       @lendings = Lending.where(item: current_user.items).order('created_at DESC')
-      @select_items = @lendings.map { |lending| lending.item.name }
+      @select_items = @lendings.map { |lending| lending.item.name }.uniq
+    elsif params[:mode] == "other"
+      @lendings = current_user.lendings.order('created_at DESC')
+      @select_items = @lendings.map { |lending| lending.item.name }.uniq
     else
       []
     end

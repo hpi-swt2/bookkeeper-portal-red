@@ -38,7 +38,7 @@ RSpec.describe "borrowed items", type: :feature do
 
   it "shows the history of items that i've borrowed" do
     sign_in user1
-    visit "#{analytics_path}?mode=me"
+    visit "#{analytics_path}?mode=other"
 
     table = page.find('tbody')
 
@@ -50,7 +50,7 @@ RSpec.describe "borrowed items", type: :feature do
 
   it "shows the history of items that i've lent" do
     sign_in user1
-    visit "#{analytics_path}?mode=other"
+    visit "#{analytics_path}?mode=me"
 
     table = page.find('tbody')
 
