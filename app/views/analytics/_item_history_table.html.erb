@@ -1,26 +1,26 @@
 <%= form_with id: "item-filter", url: request.path, method: :get do |f| %>
 
-<table class="table table-hover mt-2">
+<table style="table-layout: fixed;" class="table table-hover mt-2">
   <thead style="background-color: var(--bs-gray-300)">
-    <tr>
+    <tr scope="row">
       <th scope="col">
       <%= f.select :item, options_for_select([
           [t("analytics.history.all_items"), "", {selected: true}]].concat(
-            Item.all.map{|item| item.name}),
+            @select_items),
           params[:item]), {}, 
         onChange: "javascript: this.form.submit();",
-        class: "form-select bg-muted form-control dropdown-toggle" %>
+        class: "form-select form-control dropdown-toggle" %>
       </th>
-      <th class="align-middle" scope="col"><%= t("analytics.history.category")%></th>
-      <th class="align-middle" scope="col"><%= t("analytics.history.borrower")%></th>
-      <th class="align-middle" scope="col"><%= t("analytics.history.date_borrowed")%></th>
-      <th class="align-middle" scope="col"><%= t("analytics.history.date_returned")%></th> 
+      <th class="align-middle" scope="col" ><%= t("analytics.history.category")%></th>
+      <th class="align-middle" scope="col" ><%= t("analytics.history.borrower")%></th>
+      <th class="align-middle" scope="col" ><%= t("analytics.history.date_borrowed")%></th>
+      <th class="align-middle" scope="col" ><%= t("analytics.history.date_returned")%></th> 
     </tr>
   </thead>
   <tbody>
     <% @lendings.each do |lending| %>
-      <tr>
-        <td><%= link_to lending.item.name, item_path(lending.item.id), class: "link-primary" %></td>
+      <tr scope="row">
+        <td class="overflow-hidden text-truncate"><%= link_to lending.item.name, item_path(lending.item.id), class: "link-primary overflow-hidden text-truncate" %></td>
         <td><%=
           case lending.item.item_type
           when "book"
