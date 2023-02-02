@@ -1,9 +1,9 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">Item ID</th>
-      <th scope="col">Item Name</th>
+      <th scope="col">Item</th>
       <th scope="col"><%= t("analytics.history.item_category") %></th>
+      <th scope="col"><%= t("analytics.history.borrower") %></th>
       <th scope="col"><%= t("analytics.history.date_borrowed")%></th>
       <th scope="col"><%= t("analytics.history.date_returned")%></th>
     </tr>
@@ -11,8 +11,7 @@
   <tbody>
     <% @lendings.each do |lending| %>
       <tr>
-        <th scope="row"><%= link_to lending.item.id, item_path(lending.item.id) %></th>
-        <td><%= link_to lending.item.name, item_path(lending.item.id) %></td>
+        <td scope="row"><%= link_to lending.item.name, item_path(lending.item.id) %></td>
         <td><%=
           case lending.item.item_type
           when "book"
@@ -27,14 +26,19 @@
             t('items.type.other')
           end
         %></td>
-        <td><%= lending.started_at.strftime("%d-%m-%Y") %></td>
-        <td><%=
-          if (lending.completed_at)
-            lending.completed_at.strftime("%d-%m-%Y")
-          else
-            t('analytics.history.not_returned')
-          end
-        %></td>
+        <td scope="row"><%=link_to lending.user.full_name, profile_path(lending.user)%></td>
+        <td title="<%= l lending.started_at, :format => :long %>">
+          <%= l lending.started_at, :format => :short %>
+        </td>
+        <% if (lending.completed_at) %>
+          <td title="<%= l lending.completed_at, :format => :long %>">
+            <%= l lending.completed_at, :format => :short %>
+          </td>
+        <% else %>
+          <td>
+            <%= t('analytics.history.not_returned') %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

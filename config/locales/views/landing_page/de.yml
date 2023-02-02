@@ -1,5 +1,9 @@
 de:
   hello: "Hallo Welt 2"
+  time:
+    formats:
+      short: "%d.%m.%Y"
+      long: "%d. %b %Y, %H:%M:%S Uhr"
   navbar:
     assets: "Meine Items"
     borrowed_assets: "Geliehene Items"
