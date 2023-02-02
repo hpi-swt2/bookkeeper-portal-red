@@ -18,13 +18,13 @@
             checked: (params[:mode] == "me" || params[:mode].blank?), 
             class: "btn-check", autocomplete: "off",
             onChange: "javascript: this.form.submit();" %>
-        <%= f.label :mode, "My Items", value: "me", class: "btn btn-outline-light w-100" %>
+        <%= f.label :mode, t("items.headlines.my_items."), value: "me", class: "btn btn-outline-light w-100" %>
 
         <%= f.radio_button :mode, "other", 
             checked: (params[:mode] == "other"), 
             class: "btn-check", autocomplete: "off", 
             onChange: "javascript: this.form.submit();" %>
-        <%= f.label :mode, "Borrowed by me", value: "other", class: "btn btn-outline-light w-100" %>
+        <%= f.label :mode, t("items.headlines.borrowed_items."), value: "other", class: "btn btn-outline-light w-100" %>
         </div> 
   </div>
 
