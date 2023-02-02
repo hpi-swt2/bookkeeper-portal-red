@@ -10,7 +10,7 @@
             <% image = @item.images.first() %>
             <%= image_tag image, class: "img-fluid card-img-top", style: image_style %>
         <% else %>
-            <%= image_tag "https://via.placeholder.com/400x300", class: "card-img-top card-img-top", style: image_style %>
+            <%= image_tag Rails.configuration.x.placeholder_images[@item.item_type], class: "card-img-top card-img-top", style: image_style %>
         <% end %>
     </a>
     <div class="card-body p-0 d-flex flex-column justify-content-between">

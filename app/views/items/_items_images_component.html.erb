@@ -39,7 +39,7 @@
     </button>
   </div>
 <% else %>
-  <%= image_tag "https://via.placeholder.com/400x300", class: "card-img-top",  alt: "Card image cap", style: image_style %>
+  <%= image_tag Rails.configuration.x.placeholder_images[@item.item_type], class: "card-img-top",  alt: "Card image cap", style: image_style %>
 <% end%>
 <% if defined?(showImageManager) && showImageManager %>
   <div class="card-body">
