@@ -128,7 +128,7 @@
             <h5><%= I18n.t("items.headlines.last_seen_at") %></h5>
             <div id="item-location-large" style="height: 240px;"></div>
           </div>
-          <div class="d-flex justify-content-center w-100 mb-5">
+          <div class="d-flex justify-content-around w-100 mb-5">
 
             <% if @item.reservable_by?(current_user) && !@src_is_qrcode %>
               <%= render(ItemBorrowButtonBig.new(
