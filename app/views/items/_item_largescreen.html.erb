@@ -75,6 +75,15 @@
                         <%= link_to item_path(@item), data: { 'turbo-method': :delete, turbo_confirm: I18n.t("items.messages.deletion_confirmation")}, class: "dropdown-item" do %>
                           <i class="bi bi-trash3 me-2"></i><%= I18n.t("items.buttons.delete")%>
                         <% end %>
+                        <% if @item.active?%>
+                          <%= link_to item_toggle_status_path(@item), data: { 'turbo-method': :patch}, class: "dropdown-item" do %>
+                            <i class="bi bi-snow2 me-2"></i><%= I18n.t("items.buttons.freeze")%>
+                          <% end %>
+                        <% else %>
+                          <%= link_to item_toggle_status_path(@item), data: { 'turbo-method': :patch}, class: "dropdown-item" do %>
+                            <i class="bi bi-fire me-2"></i><%= I18n.t("items.buttons.unfreeze")%>
+                          <% end %>
+                        <% end %>
                         <%= link_to download_path(@item), class: "dropdown-item" do %>
                           <i class="bi bi-download me-2"></i><%= I18n.t("items.buttons.download_qrcode")%>
                         <% end %>
@@ -105,10 +114,11 @@
               <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.overdue.heading"), body: I18n.t("items.infobox.overdue.body"), bootstrap_classes: "border-danger mx-5"))%>
             <% end %>
             <% if current_user.can_borrow?(@item) %>
-              <% if @item.reserved_by?(current_user) and @item.borrowable_by?(current_user) and !@src_is_qrcode %>
+              <% if @item.inactive? and !@item.borrowed_by?(current_user)%>
+                <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.inactive.heading"), body: I18n.t("items.infobox.inactive.body"), bootstrap_classes: "border-secondary mx-5"))%>
+              <% elsif @item.reserved_by?(current_user) and @item.borrowable_by?(current_user) and !@src_is_qrcode %>
                 <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.borrow.heading"), body: I18n.t("items.infobox.borrow.body"), bootstrap_classes: "border-secondary mx-5"))%>
-              <% end %>
-              <% if @item.borrowed_by?(current_user) and !@src_is_qrcode %>
+              <% elsif @item.borrowed_by?(current_user) and !@src_is_qrcode %>
                 <%= render(InfoboxComponent.new(heading: I18n.t("items.infobox.return.heading"), body: I18n.t("items.infobox.return.body"), bootstrap_classes: "border-secondary mx-5"))%>
               <% end %>
             <% else %>

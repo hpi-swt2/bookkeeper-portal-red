@@ -25,6 +25,7 @@ de:
     messages:
       successfully_created: "Item wurde erfolgreich erstellt."
       successfully_updated: "Item wurde erfolgreich aktualisiert."
+      successfully_updated_status: "Item Status wurde erfolgreich aktualisiert."
       successfully_destroyed: "Item wurde erfolgreich zerstört."
       successfully_destroyed_image: "Bild wurde erfolgreich zerstört."
       successfully_added_image: "Bild wurde erfolgreich hinzugefügt"
@@ -40,6 +41,7 @@ de:
       not_allowed_to_download: "Ihnen ist nicht erlaubt, den QR-Code des Items herunterzuladen."
       not_allowed_to_edit: "Ihnen ist nicht erlaubt, das Item zu bearbeiten."
       not_allowed_to_access: "Ihnen ist nicht erlaubt, auf das Item zuzugreifen."
+      not_allowed_to_update_status: "Ihnen ist nicht erlaubt, das Item einzufrieren/freizugeben."
       deletion_confirmation: "Soll das Item wirklich gelöscht werden?"
       range_error: "muss eine gültige Zahl oder ein Zahlenbereich sein, z. B. 69-420"
     headlines:
@@ -57,11 +59,13 @@ de:
       show: "Item anzeigen"
       edit: "Bearbeiten"
       delete: "Löschen"
+      freeze: "Einfrieren"
+      unfreeze: "Freigeben"
       back: "Zurück zur Items-Übersicht"
+      reserve: "Reservieren"
       borrow: "Ausleihen"
       return: "Zurückgeben"
       owner-return: "Als Besitzer zurückgeben"
-      reserve: "Reservieren"
       join_waitlist: "Warteliste beitreten (%{users_waiting} warten)"
       leave_waitlist: "Warteliste verlassen (%{users_waiting} vor Ihnen)"
       download_qrcode: "QR-Code"
@@ -140,6 +144,9 @@ de:
       missing_borrowing_permissions:
         heading: "Warum kann dieser Artikel nicht ausgeliehen werden?"
         body: "Sie gehören nicht zu einer Gruppe, die diesen Artikel ausleihen darf."
+      inactive:
+        heading: "Warum kann ich diesen Artikel nicht ausleihen?"
+        body: "Der Artikel ist momentan nicht verfügbar."
       overdue:
         heading: "Warum ist dieser Artikel überfällig?"
         body: "Die Ausleihzeit ist abgelaufen. Bitte geben Sie den Artikel schnellstmöglich zurück."

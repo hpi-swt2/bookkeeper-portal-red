@@ -25,6 +25,7 @@ en:
     messages:
       successfully_created: "Item was successfully created."
       successfully_updated: "Item was successfully updated."
+      successfully_updated_status: "Item status was successfully updated."
       successfully_destroyed: "Item was successfully destroyed."
       successfully_destroyed_image: "Image was successfully destroyed."
       successfully_added_image: "Image was successfully added"
@@ -40,6 +41,7 @@ en:
       not_allowed_to_download: "You are not allowd to download the QR-Code of this item."
       not_allowed_to_edit: "You are not allowed to edit this item."
       not_allowed_to_access: "You are not allowed to access this item."
+      not_allowed_to_update_status: "You are not allowed to freeze/unfreeze this item."
       deletion_confirmation: "Do you really want to delete the item?"
       range_error: "must be a valid number or number range, e.g. 69-420"
     headlines:
@@ -59,6 +61,8 @@ en:
       delete: "Delete item"
       edit: "Edit"
       delete: "Delete"
+      freeze: "Freeze"
+      unfreeze: "Unfreeze"
       back: "Back to items"
       reserve: "Reserve"
       borrow: "Borrow"
@@ -142,6 +146,9 @@ en:
       missing_borrowing_permissions:
         heading: "Why can't I borrow this item?"
         body: "You are not part of a group that is allowed to borrow this item."
+      inactive:
+        heading: "Why can't I borrow this item?"
+        body: "The item is currently not available."
       overdue:
         heading: "Why is this item overdue?"
         body: "The borrowing period has expired. Please return this item as soon as possible."

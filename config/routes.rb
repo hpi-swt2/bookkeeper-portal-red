@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     patch :update_lending
     patch :join_waitlist
     patch :leave_waitlist
+    patch :toggle_status
     collection do
       get "/my", to: "items#my_items", as: :my
       get "/my/borrowed", to: "items#mine_borrowed", as: :mine_borrowed

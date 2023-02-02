@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   include ActionController::MimeResponds
 
   before_action :set_item, only: %i[ show edit update destroy ]
-  before_action :set_item_from_item_id, only: %i[ borrow reserve give_back join_waitlist leave_waitlist]
+  before_action :set_item_from_item_id, only: %i[ borrow reserve give_back join_waitlist leave_waitlist toggle_status]
   helper_method :button_text, :button_path
 
   # GET /items or /items.json
@@ -260,8 +260,31 @@ class ItemsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /items/1 or /items/1.json
+  # PATCH
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  def toggle_status
+    @user = current_user
+    user_allowed_to_update_status = @user.can_manage?(@item)
+
+    if user_allowed_to_update_status
+      @item.toggle_status
+      msg = I18n.t("items.messages.successfully_updated_status")
+    else
+      msg = I18n.t("items.messages.not_allowed_to_update_status")
+    end
+
+    respond_to do |format|
+      if @item&.save
+        format.html { redirect_to @item, notice: msg }
+        format.json { render :show, status: :ok, location: @item }
+      else
+        format.html { redirect_to @item, status: :unprocessable_entity, notice: msg }
+        format.json { render json: @item.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /items/1 or /items/1.json
   def update
     respond_to do |format|
       @item.item_type = params[:item_type]
