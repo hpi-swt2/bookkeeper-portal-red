@@ -1,7 +1,7 @@
 <% image_style="object-fit: cover; width: 100%; aspect-ratio: 4 / 3;" %>
 <% has_any_images_attached = @item.images.attached? && @item.images.map {| file | file.representable? && file.image?}.reduce(:|) %>
 <% if has_any_images_attached %>
-  <% carousel_id="carouselExampleIndicators-#{@item.id}#{width}-#{height}"%>
+  <% carousel_id="carouselExampleIndicators-#{@item.id}"%>
   <div id="<%= carousel_id %>" class="carousel slide" data-bs-ride="true">
     <div class="carousel-indicators">
       <% indicators_index = 0%>

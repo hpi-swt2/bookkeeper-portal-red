@@ -1,6 +1,7 @@
 class AnalyticsController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   def show
+
     if params[:mode].blank? || params[:mode] == "me"
       @lendings = current_user.lendings.order('created_at DESC')
       @select_items = @lendings.map { |lending| lending.item.name }
@@ -10,6 +11,7 @@ class AnalyticsController < ApplicationController
     else
       []
     end
+
     @lendings = apply_filter(@lendings)
   end
   # rubocop:enable Metrics/AbcSize
