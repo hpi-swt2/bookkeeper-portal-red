@@ -158,6 +158,10 @@ en:
     description_header: "Description"
     phone_number: "Phone number"
     phone_number_warning: "Phone number only allows numbers, + and -"
+    form:
+      edit: "Edit profile"
+      update: "Update profile"
+      back: "Back"
   analytics:
     headline: "My Analytics"
     history:

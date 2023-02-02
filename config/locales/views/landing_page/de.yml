@@ -158,6 +158,10 @@ de:
     description_header: "Beschreibung"
     phone_number: "Telefonnummer"
     phone_number_warning: "Die Telefonnummer darf nur aus Zahlen, + und - bestehen"
+    form:
+      edit: "Profil bearbeiten"
+      update: "Profil aktualisieren"
+      back: "Zurück"
   analytics:
     headline: "Meine Statistiken"
     history:
