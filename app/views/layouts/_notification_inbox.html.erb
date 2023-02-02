@@ -1,9 +1,9 @@
 <div id="notification-centre"></div>
 
 <script lang="js">
-    const MSG_CUTOFF = 100;
+    MSG_CUTOFF = 100;
 
-    const Notification = {
+    Notification = {
         template: `
         <div class="card notification-message">
           <div class="card-body">
@@ -67,7 +67,7 @@
                 return this.localeMessage;
             },
             shortMessage() {
-                return this.localeMessage.slice(0, MSG_CUTOFF);
+                return this.localeMessage?.slice(0, MSG_CUTOFF);
             },
             localeMessage() {
                 const params = new URLSearchParams(window.location.search);

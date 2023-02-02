@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
   get "items/:id/download", to: 'items#download', as: :download
   get '/items/:id/permissions', to: 'items#permissions'
-  get 'groups/all', to: 'groups#all'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :groups, except: [ :new ] do
     post :leave
     patch :add_user, to: "memberships#add_user"
     patch :remove_user, to: "memberships#remove_user"
+    collection do
+      get '/all', to: 'groups#all'
+    end
   end
 
   resources :items do
@@ -17,11 +19,17 @@ Rails.application.routes.draw do
     patch :update_lending
     patch :join_waitlist
     patch :leave_waitlist
+    patch :toggle_status
     collection do
       get "/my", to: "items#my_items", as: :my
       get "/my/borrowed", to: "items#mine_borrowed", as: :mine_borrowed
       get "/borrowed", to: "items#borrowed_by_me", as: :borrowed_by_me
       get :export_csv
+    end
+    member do
+      delete 'remove_image/:signed_id', to: 'items#remove_image', as: 'remove_image'
+      post 'add_image', to: 'items#add_image', as: 'add_image'
+      delete :delete_image_attachment
     end
   end
 
@@ -58,6 +66,7 @@ Rails.application.routes.draw do
 
   # Notifications
   delete "/notifications/:id", to: "notifications#destroy"
+
   get "/notifications/", to: "notifications#all"
 
 end
