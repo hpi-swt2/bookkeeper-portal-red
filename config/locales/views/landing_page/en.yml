@@ -1,5 +1,9 @@
 en:
   hello: "Hello world 2"
+  time:
+    formats:
+      short: "%d %b %Y"
+      long: "%B %d, %Y %H:%M:%S"
   navbar:
     assets: "My Items"
     borrowed_assets: "Borrowed Items"
@@ -57,8 +61,6 @@ en:
       show: "Show item"
       destroy_image: "Remove image"
       upload_image: "Upload image"
-      edit: "Edit item"
-      delete: "Delete item"
       edit: "Edit"
       delete: "Delete"
       freeze: "Freeze"
@@ -156,6 +158,10 @@ en:
     description_header: "Description"
     phone_number: "Phone number"
     phone_number_warning: "Phone number only allows numbers, + and -"
+    form:
+      edit: "Edit profile"
+      update: "Update profile"
+      back: "Back"
   analytics:
     headline: "My Analytics"
     history:

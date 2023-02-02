@@ -9,7 +9,7 @@ class AnalyticsController < ApplicationController
   end
 
   def borrowed_from_me
-    @lendings = Lending.where(item: current_user.items)
+    @lendings = Lending.where(item: current_user.items).order('created_at DESC')
     @mode = "borrowed_from_me"
     render :history
   end
