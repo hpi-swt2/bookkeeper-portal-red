@@ -38,35 +38,25 @@ RSpec.describe "borrowed items", type: :feature do
 
   it "shows the history of items that i've borrowed" do
     sign_in user1
-    visit analytics_history_borrowed_by_me_path
+    visit "#{analytics_path}?mode=me"
 
-    expect(page).not_to have_text "Item 1"
-    expect(page).not_to have_text "Item 2"
-    expect(page).to have_text "Item 3"
-    expect(page).to have_text "Item 4"
+    table = page.find('tbody')
+
+    expect(table).not_to have_text "Item 1"
+    expect(table).not_to have_text "Item 2"
+    expect(table).to have_text "Item 3"
+    expect(table).to have_text "Item 4"
   end
 
   it "shows the history of items that i've lent" do
     sign_in user1
-    visit analytics_history_borrowed_from_me_path
+    visit "#{analytics_path}?mode=other"
 
-    expect(page).not_to have_text "Item 1"
-    expect(page).to have_text "Item 2"
-    expect(page).not_to have_text "Item 3"
-    expect(page).not_to have_text "Item 4"
-  end
+    table = page.find('tbody')
 
-  it "shows a link to the history of items that i've borrowed" do
-    sign_in user1
-    visit analytics_history_borrowed_by_me_path
-
-    expect(page).to have_link(href: analytics_history_borrowed_by_me_path)
-  end
-
-  it "shows a link to the history of items that i've lent" do
-    sign_in user1
-    visit analytics_history_borrowed_from_me_path
-
-    expect(page).to have_link(href: analytics_history_borrowed_from_me_path)
+    expect(table).not_to have_text "Item 1"
+    expect(table).to have_text "Item 2"
+    expect(table).not_to have_text "Item 3"
+    expect(table).not_to have_text "Item 4"
   end
 end
