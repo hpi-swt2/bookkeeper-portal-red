@@ -1,26 +1,26 @@
 <%= form_with id: "item-filter", url: request.path, method: :get do |f| %>
 
-<table class="table table-hover">
-  <thead>
+<table class="table table-hover mt-2">
+  <thead style="background-color: var(--bs-gray-300)">
     <tr>
       <th scope="col">
       <%= f.select :item, options_for_select([
-          ["All Items", "", {selected: true}]].concat(
+          [t("analytics.history.all_items"), "", {selected: true}]].concat(
             Item.all.map{|item| item.name}),
           params[:item]), {}, 
         onChange: "javascript: this.form.submit();",
-        class: "form-select form-control dropdown-toggle" %>
+        class: "form-select bg-muted form-control dropdown-toggle" %>
       </th>
       <th class="align-middle" scope="col"><%= t("analytics.history.category")%></th>
-      <th class="align-middle" scope="col"><%= t("analytics.history.date_borrowed")%></th>
-      <th class="align-middle" scope="col"><%= t("analytics.history.date_returned")%></th>
       <th class="align-middle" scope="col"><%= t("analytics.history.borrowed_by")%></th>
+      <th class="align-middle" scope="col"><%= t("analytics.history.date_borrowed")%></th>
+      <th class="align-middle" scope="col"><%= t("analytics.history.date_returned")%></th> 
     </tr>
   </thead>
   <tbody>
     <% @lendings.each do |lending| %>
       <tr>
-        <td><%= link_to lending.item.name, item_path(lending.item.id) %></td>
+        <td><%= link_to lending.item.name, item_path(lending.item.id), class: "link-primary" %></td>
         <td><%=
           case lending.item.item_type
           when "book"
@@ -35,15 +35,19 @@
             t('items.type.other')
           end
         %></td>
-        <td><%= lending.started_at.strftime("%d-%m-%Y") %></td>
-        <td><%=
-          if (lending.completed_at)
-            lending.completed_at.strftime("%d-%m-%Y")
-          else
-            t('analytics.history.not_returned')
-          end
-        %></td>
-        <td><%= link_to lending.user.full_name, profile_path(lending.user) %></td>
+        <td scope="row"><%=link_to lending.user.full_name, profile_path(lending.user), class: "link-primary" %></td>
+        <td title="<%= l lending.started_at, :format => :long %>">
+          <%= l lending.started_at, :format => :short %>
+        </td>
+        <% if (lending.completed_at) %>
+          <td title="<%= l lending.completed_at, :format => :long %>">
+            <%= l lending.completed_at, :format => :short %>
+          </td>
+        <% else %>
+          <td>
+            <%= t('analytics.history.not_returned') %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
