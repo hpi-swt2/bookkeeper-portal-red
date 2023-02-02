@@ -53,8 +53,6 @@ Rails.application.routes.draw do
 
   # Analytics routes
   get '/analytics', to: 'analytics#show', as: :analytics
-  get '/analytics/history/me', to: 'analytics#borrowed_by_me', as: :analytics_history_borrowed_by_me
-  get '/analytics/history/other', to: 'analytics#borrowed_from_me', as: :analytics_history_borrowed_from_me
 
   # Development-only user switching code
   if Rails.env.development?
