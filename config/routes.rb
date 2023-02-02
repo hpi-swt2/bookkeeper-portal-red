@@ -64,6 +64,7 @@ Rails.application.routes.draw do
   # QR-Code Scan site
   get '/scan', to: 'qr_reader#scan'
 
+  # Notifications
   delete "/notifications/:id", to: "notifications#destroy"
 
   get "/notifications/", to: "notifications#all"

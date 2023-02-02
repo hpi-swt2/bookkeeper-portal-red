@@ -212,8 +212,11 @@ class ItemsController < ApplicationController
   def reserve
     @user = current_user
     item_reservable_by_user = @item.reservable_by?(@user)
+    item_url = Rails.application.routes.url_helpers.item_url(@item, host: request.host)
+
     if item_reservable_by_user
       @reservation = @item.create_reservation(@user)
+      @item.inform_owners(@user, item_url)
       msg = I18n.t("items.messages.successfully_reserved")
     else
       msg = I18n.t("items.messages.unsuccessfully_reserved")
@@ -418,5 +421,4 @@ class ItemsController < ApplicationController
                                    ends_at: Time.current + @item.max_reservation_days.days)
   end
 end
-
 # rubocop:enable Metrics/ClassLength, Metrics/MethodLength, Metrics/AbcSize
