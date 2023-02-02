@@ -177,5 +177,27 @@ class Item < ApplicationRecord
   def lending_history
     Lending.where(item_id: id).order('created_at DESC')
   end
+
+  # rubocop:disable Metrics/MethodLength
+  def inform_owners(user, link)
+    message_de = "Als Eigentümer des Artikels #{name} möchten wir Sie darüber informieren, dass " \
+                 "#{user.full_name} ebendiesen Artikel reserviert hat. \n" \
+                 "Sie können die Reservierung unter #{link} verwalten."
+    message_en = "As owner of the item #{name} we would like to inform you that " \
+                 "#{user.full_name} has reserved this item. \n" \
+                 "You can manage the reservation under #{link}."
+
+    manager_groups.each do |group|
+      # For some reason, one is not the admin of ones own personal group
+      if group.tag == "personal_group"
+        NotificationMailer.send_info(user, message_de, message_en).deliver_later
+        next
+      end
+      group.admins.each do |admin|
+        NotificationMailer.send_info(admin, message_de, message_en).deliver_later
+      end
+    end
+  end
+  # rubocop:enable Metrics/MethodLength
 end
 # rubocop:enable Metrics/ClassLength
