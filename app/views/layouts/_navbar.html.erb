@@ -31,7 +31,27 @@
               <%= t(:my_groups) %>
             <% end %>
           </li>
+          <li class="nav-item desktop-only dropdown" id="dropdown-button-group">
+            <a class="nav-link dropdown-toggle" href="" id="navbarDropdownItem" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <%= t("items.buttons.new") %>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownItem">
+                <li>
+                <%= link_to I18n.t("items.type.book"), new_item_path(item_type: :book), class: "dropdown-item" %>
+                </li>
+                <li>
+                <%= link_to I18n.t("items.type.movie"), new_item_path(item_type: :movie), :class => "dropdown-item" %>
+                </li>
+                <li>
+                <%= link_to I18n.t("items.type.game"), new_item_path(item_type: :game), :class => "dropdown-item" %>
+                </li>
+                <li>
+                <%= link_to I18n.t("items.type.other"), new_item_path(item_type: :other), :class => "dropdown-item" %>
+                </li>
+              </ul>
+          </li>
         <% end %>
+        
 
         <li class="mobile-only nav-item">
           <a data-bs-toggle="offcanvas" data-bs-target="#notification-inbox-container"
@@ -44,10 +64,10 @@
         </li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="" id="navbarDropdownLanguage" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <%= language_flag(I18n.locale) %>
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownLanguage">
             <li>
               <%= link_to "English", params.permit!.merge(locale: 'en'), class: "dropdown-item" %>
             </li>

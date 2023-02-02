@@ -6,7 +6,7 @@
       <div class="col-xl-6 p-3">
         <div class="card h-100">
           <%# Image slider%>
-          <%= image_tag "dummy_image.png", class: "card-img-top"%>
+         <%= render 'items_images_component', width: "640px", height: "400px", showImageManager: current_user.can_manage?(@item) %>
           <div class="card-body ">
             <%# Attributes if small enough arranged as grid%>
             <div class="imagecard-attributes">
@@ -18,7 +18,13 @@
                   <% @item.attributes.select{ |v| !v.in?(['description', 'name']) }.each do |attr_name, attr_value| %>
                     <ul class="list-group list-group-horizontal list-group-flush border-top border-1 mx-3">
                       <% if ['max_borrowing_days', 'max_reservation_days'].include? attr_name %>
-                        <li class="list-group-item flex-fill align-content-between py-1 text-break" style="border: none;"><%= I18n.t("items.form." + "all" + "." + attr_name.to_s)%></li>
+                        <li class="list-group-item flex-fill align-content-between py-1 text-break" style="border: none;"><%= I18n.t("items.form." + "all" + "." + attr_name.to_s)%>
+                          <% if attr_name == 'max_borrowing_days' %>
+                            <i class="ms-1 bi bi-question-circle" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= I18n.t("items.form.all.max_borrowing_days_tooltip")%>"></i>
+                          <% elsif attr_name == 'max_reservation_days' %>
+                            <i class="ms-1 bi bi-question-circle" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="<%= I18n.t("items.form.all.max_reservation_days_tooltip")%>"></i>
+                          <% end %>
+                        </li>
                         <li class="list-group-item w-50 align-content-between py-1 text-break" style="border: none;">
                           <%= @item.send(attr_name) %>
                           <% if @item.send(attr_name) == 1 %> <%= I18n.t("items.units.one_day")%>
@@ -92,7 +98,8 @@
               <%= render(ItemAvailabilityBadgeComponent.new(item: @item, user: current_user)) %>
             </div>
 
-            <hr class="border border-primary border-2 opacity-75">            
+
+            <hr class="border border-primary border-2 opacity-75">
             <%# Description%>
             <p class="text-start text-wrap">
               <% if @item.description.empty? %>

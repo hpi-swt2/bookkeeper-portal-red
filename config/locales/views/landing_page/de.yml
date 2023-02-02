@@ -27,6 +27,8 @@ de:
       successfully_updated: "Item wurde erfolgreich aktualisiert."
       successfully_updated_status: "Item Status wurde erfolgreich aktualisiert."
       successfully_destroyed: "Item wurde erfolgreich zerstört."
+      successfully_destroyed_image: "Bild wurde erfolgreich zerstört."
+      successfully_added_image: "Bild wurde erfolgreich hinzugefügt"
       successfully_borrowed: "Item wurde erfolgreich ausgeliehen"
       successfully_returned: "Item wurde erfolgreich zurückgegeben"
       successfully_returned-by-owner: "Item wurde erfolgreich vom Besitzer zurückgegeben"
@@ -43,12 +45,15 @@ de:
       deletion_confirmation: "Soll das Item wirklich gelöscht werden?"
       range_error: "muss eine gültige Zahl oder ein Zahlenbereich sein, z. B. 69-420"
     headlines:
+      items: "Items"
       my_items: "Meine Items"
       item_details: "Item-Details"
       no_description_provided: "Keine Beschreibung vorhanden"
       last_seen_at: "Letzter bekannter Standort:"
       borrowed_items: "Ausgeliehene Items"
     buttons:
+      upload_image: "Bild hochladen"
+      destroy_image: "Bild löschen"
       new: "Item erstellen"
       update: "Item aktualisieren"
       show: "Item anzeigen"
@@ -89,6 +94,7 @@ de:
       new: "Neues"
       permissions:
         title: "Berechtigungen"
+        tooltip: "kann Verwalten: Mitglieder der Gruppe können das Item verwalten, ausleihen und sehen <br/><br/>kann Ausleihen: Mitglieder der Gruppe können das Item ausleihen und sehen <br/><br/>kann Ansehen: Mitglieder der Gruppe können das Item sehen"
         duplicate_entries: "Pro Gruppe darf nur ein Recht zugewiesen werden!"
         add: "Hinzufügen"
         remove: "Entfernen"
@@ -99,7 +105,9 @@ de:
         name: "Name"
         description: "Beschreibung"
         max_borrowing_days: "Ausleihzeit"
+        max_borrowing_days_tooltip: "Die Ausleihzeit gibt an, wie lange ein Item ausgeliehen werden kann. Der Ausleihende wird 3 Tage vor Beendigung dieses Zeitfensters informiert."
         max_reservation_days: "Reservierungszeit"
+        max_reservation_days_tooltip: "Die Reservierungszeit gibt an, wie lange jemand ein Item reservieren kann. Läuft diese Zeit ab, wird diese Person von der Warteliste entfernt."
       other:
         category: "Kategorie"
       book:
@@ -149,7 +157,12 @@ de:
   analytics:
     headline: "Meine Statistiken"
     history:
+      empty: "Die Historie ist leer"
       headline: "Historie"
       not_returned: "bisher nicht zurückgegeben"
       desc_borrowed_by_other: "Gegenstände, die sich andere Nutzer von dir ausgeliehen haben"
       desc_borrowed_by_me: "Gegenstände, die du dir von anderen Nutzern ausgeliehen hast"
+      borrower: "Ausgeliehen von"
+      date_borrowed: "Ausgeliehen am"
+      date_returned: "Zurückgegeben am"
+      item_category: "Kategorie"
