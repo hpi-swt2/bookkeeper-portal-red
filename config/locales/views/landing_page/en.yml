@@ -169,6 +169,7 @@ en:
       all_items: "All Items"
       empty: "The history is empty"
       headline: "History"
+      category: "Category"
       not_returned: "not returned yet"
       desc_borrowed_by_other: "Items other users have borrowed from you."
       desc_borrowed_by_me: "Items you've borrowed from other users."
