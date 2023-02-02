@@ -164,12 +164,14 @@ en:
       back: "Back"
   analytics:
     headline: "My Analytics"
+    description: "Your activity and statistics."
     history:
+      all_items: "All Items"
       empty: "The history is empty"
       headline: "History"
       not_returned: "not returned yet"
-      desc_borrowed_by_other: "Items other users have borrowed from you"
-      desc_borrowed_by_me: "Items you've borrowed from other users"
+      desc_borrowed_by_other: "Items other users have borrowed from you."
+      desc_borrowed_by_me: "Items you've borrowed from other users."
       borrower: "Borrowed by"
       date_borrowed: "Date borrowed"
       date_returned: "Date returned"
