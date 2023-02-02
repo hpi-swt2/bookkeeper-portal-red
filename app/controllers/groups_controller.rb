@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
   before_action :assure_signed_in
   before_action :set_user_group
-  before_action :set_group, only: %i[ show edit update destroy ]
+  before_action :set_group, only: [ :show, :edit, :update, :destroy ]
   before_action :set_group_from_group_id, only: %i[ leave ]
   before_action :assure_admin, only: %i[ edit update destroy ]
 

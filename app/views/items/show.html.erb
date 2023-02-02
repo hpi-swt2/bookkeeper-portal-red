@@ -48,17 +48,21 @@
         <tbody>
           <% @item.lending_history.each do |lending| %>
             <tr>
-              <th scope="row"><%=lending.user.full_name%></th>
-              <td><%= lending.started_at.strftime("%d-%m-%Y") %></td>
-              <td><%=
-                if (lending.completed_at)
-                  lending.completed_at.strftime("%d-%m-%Y")
-                else
-                  t('analytics.history.not_returned')
-                end
-              %></td>
+              <th scope="row"><%=link_to lending.user.full_name, profile_path(lending.user)%></th>
+              <td title="<%= l lending.started_at, :format => :long %>">
+                <%= l lending.started_at, :format => :short %>
+              </td>
+              <% if (lending.completed_at) %>
+                <td title="<%= l lending.completed_at, :format => :long %>">
+                  <%= l lending.completed_at, :format => :short %>
+                </td>
+              <% else %>
+                <td>
+                  <%= t('analytics.history.not_returned') %>
+                </td>
+              <% end %>
             </tr>
-            <% end %>
+          <% end %>
         </tbody>
       </table>
     </div>

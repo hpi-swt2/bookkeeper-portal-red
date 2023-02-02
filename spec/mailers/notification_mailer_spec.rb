@@ -20,8 +20,9 @@ RSpec.describe NotificationMailer, type: :mailer do
     user.id = 1
     user.save
 
-    expect { described_class.send_info(user, "Test").deliver_now }.to change(Notification, :count).by(1)
+    expect { described_class.send_info(user, "Test", "Test_en").deliver_now }.to change(Notification, :count).by(1)
     expect(Notification.last.message).to eq("Test")
+    expect(Notification.last.message_en).to eq("Test_en")
     expect(Notification.last.user_id).to eq(1)
     expect(Notification.last.notification_type).to eq("info")
     expect(Notification.last.display).to be(true)

@@ -1,13 +1,11 @@
 <h3>Hallo <%= @user.full_name %>,</h3>
-<p><%= @message %></p>
+<p><%= @message_de %></p>
 <p>Danke,<br/>
   Ihr automatisches E-Mail System.</p>
 <p>Bookkeeper Red</p>
-<% if @message2.length > 0 %>
   ----------------------------------
-  <h3>Hi <%= @user.full_name %>,</h3>
-  <p><%= @message2 %></p>
-  <p>Thanks,<br/>
-    Your automatic email system.</p>
-  <p>Bookkeeper Red</p>
-<% end %>
+<h3>Hi <%= @user.full_name %>,</h3>
+<p><%= @message_en %></p>
+<p>Thanks,<br/>
+  Your automatic email system.</p>
+<p>Bookkeeper Red</p>

@@ -25,7 +25,7 @@ describe "User Edit Page", type: :feature do
     new_description = "#{user.description}_new"
     fill_in 'user[description]', with: new_description
 
-    page.find("input[type='submit'][value='Update']").click
+    page.find("input[type='submit'][value='#{I18n.t('profile.form.update')}']").click
     expect(user.reload.description).to eq(new_description)
   end
 
@@ -37,7 +37,7 @@ describe "User Edit Page", type: :feature do
     new_telephone_number = "+49-1212-123456"
     fill_in 'user[telephone_number]', with: new_telephone_number
 
-    page.find("input[type='submit'][value='Update']").click
+    page.find("input[type='submit'][value='#{I18n.t('profile.form.update')}']").click
     expect(user.reload.telephone_number).to eq(new_telephone_number)
   end
 
@@ -48,7 +48,7 @@ describe "User Edit Page", type: :feature do
 
     fill_in 'user[telephone_number]', with: 'invalid'
 
-    page.find("input[type='submit'][value='Update']").click
+    page.find("input[type='submit'][value='#{I18n.t('profile.form.update')}']").click
     expect(page).to have_current_path(edit_user_registration_path)
     expect(page).to have_css('.alert-danger')
     expect(user.reload.telephone_number).not_to eq('invalid')
