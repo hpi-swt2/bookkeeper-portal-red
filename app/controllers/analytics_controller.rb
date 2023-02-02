@@ -1,4 +1,5 @@
 class AnalyticsController < ApplicationController
+  # rubocop:disable Metrics/AbcSize
   def show
     if params[:mode].blank? || params[:mode] == "me"
       @lendings = current_user.lendings.order('created_at DESC')
@@ -11,6 +12,7 @@ class AnalyticsController < ApplicationController
     end
     @lendings = apply_filter(@lendings)
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 
