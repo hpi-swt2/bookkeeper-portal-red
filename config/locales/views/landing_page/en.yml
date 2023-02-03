@@ -162,6 +162,8 @@ en:
       edit: "Edit profile"
       update: "Update profile"
       back: "Back"
+    messages:
+      not_allowed_to_edit: "Ihnen ist nicht erlaubt, das Item zu bearbeiten."
   analytics:
     headline: "My Analytics"
     description: "Your activity and statistics."

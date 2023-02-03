@@ -4,7 +4,14 @@
     <div class="col-md-3">
           <div class="card-body">
         <% if @user.avatar.attached? %>
-         <%= image_tag @user.avatar, class: "img-thumbnail rounded-circle", style: "object-fit: cover; width: 100%; aspect-ratio: 1 / 1;" %>
+          <%= image_tag @user.avatar, class: "img-thumbnail rounded-circle", style: "object-fit: cover; width: 100%; aspect-ratio: 1 / 1;" %>
+          <% if @user == current_user %>
+            <div class="p-3 text-center">
+          
+              <%= link_to I18n.t("items.buttons.destroy_image"), remove_avatar_profile_path(signed_id: @user.avatar, id: @user.id),
+                    data: {turbo_method: :delete}, class: 'btn btn-primary' %>
+                </div>
+          <% end %>
          <% end %>
     </div>
     </div>
