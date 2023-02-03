@@ -7,6 +7,6 @@ task return_reminder: :environment do
 
     message1 = "Das Item '#{item.name}' ist morgen fällig. Bitte geben Sie es dem Besitzer zurück."
     message2 = "The item '#{item.name}' is due tomorrow. Please return it to the owner."
-    NotificationMailer.send_reminder(user, message1, message_en: message2).deliver_now
+    NotificationMailer.send_reminder(user, message1, message2).deliver_now
   end
 end
