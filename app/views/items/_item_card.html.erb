@@ -6,8 +6,9 @@
     <a class="text-black text-decoration-none" href=<%=item_path(item)%>>
         <% @item=item %>
         <% has_any_images_attached = @item.images.attached? && @item.images.map {| file | file.representable? && file.image?}.reduce(:|) %>
+        <% item_images = @item.images.select {|file| file.representable? && file.image? }%>
         <% if has_any_images_attached %>
-            <% image = @item.images.first() %>
+            <% image = item_images.first() %>
             <%= image_tag image, class: "img-fluid card-img-top", style: image_style %>
         <% else %>
             <%= image_tag "https://via.placeholder.com/400x300", class: "card-img-top card-img-top", style: image_style %>
