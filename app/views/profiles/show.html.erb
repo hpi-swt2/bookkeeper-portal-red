@@ -1,6 +1,17 @@
-<div class="card">
-  <div class="card-body">
-    <h2 class="card-title">
+
+<div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-md-3">
+          <div class="card-body">
+        <% if @user.avatar.attached? %>
+         <%= image_tag @user.avatar, class: "img-thumbnail rounded-circle", style: "object-fit: cover; width: 100%; aspect-ratio: 1 / 1;" %>
+         <% end %>
+    </div>
+    </div>
+    <div class="col-md-9">
+      <div class="card-body">
+       <h2 class="card-title">
+    
       <%= @user.full_name %>
       <% if @user == current_user %>
         <%= link_to analytics_path do %>
@@ -8,8 +19,8 @@
         <% end %>
       <% end %>
       </h2>
-    <%= mail_to @user.email, class: "card-subtitle mb-2 text-muted" %>
-    <% if Rails.env.development? and @user != current_user %>
+       <%= mail_to @user.email, class: "card-subtitle mb-2 text-muted" %>
+        <% if Rails.env.development? and @user != current_user %>
       <%= link_to "Log in as this user", development_tools_switch_user_path(@user.id) %>
     <% end %>
     <hr>
@@ -31,5 +42,8 @@
       </h3>
       <%= @user.description %>
     </p>
+
+       </div>
+    </div>
   </div>
 </div>

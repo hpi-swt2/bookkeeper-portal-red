@@ -17,6 +17,9 @@
     <%= f.text_field :telephone_number, placeholder: "+49123456", class: "form-control" %>
     <%= f.label :telephone_number, I18n.t("profile.phone_number") %>
   </div>
+  <div class="mb-3">
+      <%= f.file_field :avatar, accept: 'image/jpg, image/png, image/jpeg', class: "form-control" %>
+  </div>
   <div class="actions mb-3">
     <%= f.submit t('profile.form.update'), class: "btn btn-primary" %>
   </div>
