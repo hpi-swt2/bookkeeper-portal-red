@@ -11,7 +11,7 @@ class RegistrationsController < Devise::RegistrationsController
   # Allow users to edit their own description without entering their password
   # This is required because OIDC does not expose a password to the user
   def update_resource(resource, params)
-    resource.update_without_password(params.permit(:telephone_number, :description))
+    resource.update_without_password(params.permit(:telephone_number, :description, :avatar))
   end
 
   # Forward user to their own profile page after changing their description
@@ -21,7 +21,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   # Strong parameters for updating the user
   def account_update_params
-    params.require(:user).permit(:telephone_number, :description)
+    params.require(:user).permit(:telephone_number, :description, :avatar)
   end
 
   # Validate the telephone number before updating the user

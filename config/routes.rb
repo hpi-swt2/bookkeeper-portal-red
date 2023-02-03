@@ -51,6 +51,12 @@ Rails.application.routes.draw do
   get "/profiles/:id", to: "profiles#show", as: :profile
   get "/profiles/me/edit", to: "profiles#edit_me", as: :edit_profile
 
+  resources :profiles do
+    member do
+      delete 'remove_avatar/:signed_id', to: 'profiles#remove_avatar', as: 'remove_avatar'
+    end
+  end
+
   # Analytics routes
   get '/analytics', to: 'analytics#show', as: :analytics
 

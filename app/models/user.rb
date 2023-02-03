@@ -21,6 +21,8 @@ class User < ApplicationRecord
   after_create :create_personal_group, :add_to_everyone_group
   validate :exists_personal_group?
 
+  has_one_attached :avatar
+
   def can_view?(item)
     return true if can_manage?(item) || can_borrow?(item)
 
