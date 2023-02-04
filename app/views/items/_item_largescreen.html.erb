@@ -6,7 +6,7 @@
       <div class="col-xl-6 p-3">
         <div class="card h-100">
           <%# Image slider%>
-         <%= render 'items_images_component', showImageManager: current_user.can_manage?(@item) %>
+         <%= render 'items_images_component', showImageManager: current_user.can_manage?(@item), screen: "large" %>
           <div class="card-body ">
             <%# Attributes if small enough arranged as grid%>
             <div class="imagecard-attributes">
