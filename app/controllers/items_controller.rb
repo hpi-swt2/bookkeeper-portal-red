@@ -393,7 +393,8 @@ class ItemsController < ApplicationController
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def create_permission
-    @item.permissions.joins(:group).where.not('groups.tag': 'personal_group').destroy_all
+    @item.permissions.joins(:group).where('groups.tag': [nil, "everyone_group"]).destroy_all
+
     permissions = []
     params.each do |key, value|
       next unless key.start_with?("permission_")
